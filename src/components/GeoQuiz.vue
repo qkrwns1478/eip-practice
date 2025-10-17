@@ -6,18 +6,52 @@
         <span class="correct">정답: {{ correctCount }}</span>
         <span class="wrong">오답: {{ wrongCount }}</span>
         <span class="total">총 문제: {{ totalCount }}</span>
+        <span class="bookmarks">북마크: {{ bookmarkedQuestions.length }}</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" :style="{ width: progressPercentage + '%' }"></div>
+        <span class="progress-text">{{ solvedQuestions.length }} / {{ totalAvailableQuestions }} 문제 풀이</span>
       </div>
     </div>
 
-    <div v-if="currentQuestion" class="quiz-content">
-      <div class="question-section">
-        <h3>문제 {{ currentQuestionIndex + 1 }}</h3>
+    <!-- 상단 메뉴 -->
+    <div class="menu-bar">
+      <button @click="showMode = 'quiz'" :class="{ active: showMode === 'quiz' }">
+        📝 퀴즈
+      </button>
+      <button @click="showMode = 'bookmarks'" :class="{ active: showMode === 'bookmarks' }">
+        ⭐ 북마크 ({{ bookmarkedQuestions.length }})
+      </button>
+      <button @click="showMode = 'wrong'" :class="{ active: showMode === 'wrong' }">
+        ❌ 틀린 문제 ({{ wrongQuestions.length }})
+      </button>
+      <button @click="showMode = 'stats'" :class="{ active: showMode === 'stats' }">
+        📊 통계
+      </button>
+      <button @click="resetProgress" class="reset-btn">
+        🔄 초기화
+      </button>
+    </div>
 
+    <!-- 퀴즈 모드 -->
+    <div v-if="showMode === 'quiz' && currentQuestion" class="quiz-content">
+      <div class="question-section">
+        <div class="question-header">
+          <h3>문제 {{ currentQuestionIndex + 1 }}</h3>
+          <button 
+            @click="toggleBookmark" 
+            class="bookmark-btn"
+            :class="{ bookmarked: isCurrentQuestionBookmarked }"
+          >
+            {{ isCurrentQuestionBookmarked ? '⭐' : '☆' }}
+          </button>
+        </div>
+        
         <!-- 단일 항목 문제 -->
         <div v-if="!currentQuestion.isMultiple" class="single-question">
           <p class="description">{{ currentQuestion.desc }}</p>
           <div class="answer-input">
-            <input
+            <input 
               v-model="userAnswer"
               @keyup.enter="checkAnswer"
               placeholder="답을 입력하세요"
@@ -32,24 +66,29 @@
         <div v-else class="multiple-question">
           <p class="main-keyword">{{ currentQuestion.mainKeyword }}</p>
           <div class="sub-items">
-            <div
-              v-for="(item, index) in currentQuestion.subItems"
+            <div 
+              v-for="(item, index) in currentQuestion.subItems" 
               :key="index"
               class="sub-item"
-              :class="{
-                correct: item.answered && item.isCorrect,
-                wrong: item.answered && !item.isCorrect,
+              :class="{ 
+                'correct': item.answered && item.isCorrect,
+                'wrong': item.answered && !item.isCorrect 
               }"
             >
               <p class="sub-description">{{ index + 1 }}. {{ item.desc }}</p>
               <div class="answer-input">
-                <input
+                <input 
                   v-model="item.userAnswer"
                   @keyup.enter="checkSubAnswer(index)"
                   placeholder="답을 입력하세요"
                   :disabled="item.answered"
                 />
-                <button @click="checkSubAnswer(index)" :disabled="item.answered">확인</button>
+                <button 
+                  @click="checkSubAnswer(index)" 
+                  :disabled="item.answered"
+                >
+                  확인
+                </button>
               </div>
               <div v-if="item.answered" class="result">
                 <span v-if="item.isCorrect" class="correct-mark">✓ 정답!</span>
@@ -75,8 +114,113 @@
       </div>
     </div>
 
-    <div v-else class="no-question">
+    <!-- 북마크 모드 -->
+    <div v-else-if="showMode === 'bookmarks'" class="bookmarks-content">
+      <h3>북마크한 문제</h3>
+      <div v-if="bookmarkedQuestions.length === 0" class="empty-state">
+        <p>북마크한 문제가 없습니다.</p>
+      </div>
+      <div v-else class="bookmark-list">
+        <div 
+          v-for="id in bookmarkedQuestions" 
+          :key="id"
+          class="bookmark-item"
+          @click="startBookmarkedQuestion(id)"
+        >
+          <div class="bookmark-info">
+            <h4>{{ getQuestionById(id)?.keyword || '문제' }}</h4>
+            <p>{{ getQuestionById(id)?.desc || '설명 없음' }}</p>
+          </div>
+          <button 
+            @click.stop="removeBookmark(id)"
+            class="remove-bookmark-btn"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 틀린 문제 모드 -->
+    <div v-else-if="showMode === 'wrong'" class="wrong-content">
+      <h3>틀린 문제 복습</h3>
+      <div v-if="wrongQuestions.length === 0" class="empty-state">
+        <p>틀린 문제가 없습니다. 완벽해요! 🎉</p>
+      </div>
+      <div v-else class="wrong-list">
+        <div 
+          v-for="id in wrongQuestions" 
+          :key="id"
+          class="wrong-item"
+          @click="startWrongQuestion(id)"
+        >
+          <div class="wrong-info">
+            <h4>{{ getQuestionById(id)?.keyword || '문제' }}</h4>
+            <p>{{ getQuestionById(id)?.desc || '설명 없음' }}</p>
+          </div>
+          <span class="retry-badge">재도전</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 통계 모드 -->
+    <div v-else-if="showMode === 'stats'" class="stats-content">
+      <h3>학습 통계</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h4>전체 진행률</h4>
+          <div class="stat-value">{{ progressPercentage.toFixed(1) }}%</div>
+          <p>{{ solvedQuestions.length }} / {{ totalAvailableQuestions }} 문제</p>
+        </div>
+        <div class="stat-card">
+          <h4>정답률</h4>
+          <div class="stat-value">{{ accuracyRate.toFixed(1) }}%</div>
+          <p>{{ correctCount }} / {{ totalCount }} 정답</p>
+        </div>
+        <div class="stat-card">
+          <h4>북마크</h4>
+          <div class="stat-value">{{ bookmarkedQuestions.length }}</div>
+          <p>중요한 문제</p>
+        </div>
+        <div class="stat-card">
+          <h4>틀린 문제</h4>
+          <div class="stat-value">{{ wrongQuestions.length }}</div>
+          <p>복습 필요</p>
+        </div>
+      </div>
+      <div class="last-session">
+        <h4>마지막 학습</h4>
+        <p>{{ lastSessionDate }}</p>
+      </div>
+    </div>
+
+    <!-- 시작 화면 -->
+    <div v-else-if="!currentQuestion && showMode === 'quiz'" class="no-question">
       <button @click="startQuiz" class="start-button">퀴즈 시작</button>
+    </div>
+
+    <!-- 확인 모달 -->
+    <div v-if="showConfirmModal" class="modal-overlay" @click="closeConfirmModal">
+      <div class="modal-content" @click.stop>
+        <h3>{{ confirmModal.title }}</h3>
+        <p>{{ confirmModal.message }}</p>
+        <div class="modal-actions">
+          <button @click="confirmModal.onConfirm" class="confirm-btn">확인</button>
+          <button @click="closeConfirmModal" class="cancel-btn">취소</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 알림 모달 -->
+    <div v-if="showAlertModal" class="modal-overlay" @click="closeAlertModal">
+      <div class="modal-content alert-modal" @click.stop>
+        <div class="modal-icon">{{ alertModal.icon }}</div>
+        <h3>{{ alertModal.title }}</h3>
+        <p>{{ alertModal.message }}</p>
+        <div class="modal-actions">
+          <button @click="closeAlertModal" class="confirm-btn">확인</button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -98,150 +242,337 @@ export default {
       wrongCount: 0,
       totalCount: 0,
       usedQuestions: [],
+      bookmarkedQuestions: [],
+      solvedQuestions: [],
+      wrongQuestions: [],
+      showMode: "quiz",
+      
+      // 모달 관련
+      showConfirmModal: false,
+      confirmModal: {
+        title: "",
+        message: "",
+        onConfirm: null
+      },
+      showAlertModal: false,
+      alertModal: {
+        icon: "",
+        title: "",
+        message: ""
+      }
     };
   },
+  computed: {
+    totalAvailableQuestions() {
+      return this.geoData.filter(item => item.id).length;
+    },
+    progressPercentage() {
+      if (this.totalAvailableQuestions === 0) return 0;
+      return (this.solvedQuestions.length / this.totalAvailableQuestions) * 100;
+    },
+    accuracyRate() {
+      if (this.totalCount === 0) return 0;
+      return (this.correctCount / this.totalCount) * 100;
+    },
+    isCurrentQuestionBookmarked() {
+      return this.currentQuestion && this.bookmarkedQuestions.includes(this.currentQuestion.id);
+    },
+    lastSessionDate() {
+      const saved = localStorage.getItem('geoQuiz_lastSession');
+      if (!saved) return '아직 학습 기록이 없습니다';
+      const date = new Date(saved);
+      return date.toLocaleString('ko-KR');
+    }
+  },
   mounted() {
+    this.loadProgress();
     this.startQuiz();
   },
   methods: {
+    // 모달 관련 메서드
+    showConfirm(title, message, onConfirm) {
+      this.confirmModal = { title, message, onConfirm };
+      this.showConfirmModal = true;
+    },
+    
+    closeConfirmModal() {
+      this.showConfirmModal = false;
+    },
+    
+    showAlert(icon, title, message) {
+      this.alertModal = { icon, title, message };
+      this.showAlertModal = true;
+    },
+    
+    closeAlertModal() {
+      this.showAlertModal = false;
+    },
+    
     startQuiz() {
+      this.showMode = 'quiz';
       this.generateQuestion();
     },
-
+    
     generateQuestion() {
-      // 아직 사용하지 않은 문제 찾기
-      const availableQuestions = this.geoData.filter((item) => {
+      const availableQuestions = this.geoData.filter(item => {
         return item.id && !this.usedQuestions.includes(item.id);
       });
-
+      
       if (availableQuestions.length === 0) {
-        alert("모든 문제를 풀었습니다!");
+        this.showAlert('🎉', '완료!', '모든 문제를 풀었습니다!');
         this.usedQuestions = [];
+        this.saveProgress();
         return;
       }
-
-      // 랜덤으로 문제 선택
+      
       const randomIndex = Math.floor(Math.random() * availableQuestions.length);
       const selectedItem = availableQuestions[randomIndex];
+      
+      this.setupQuestion(selectedItem);
+    },
 
-      // 해당 id의 하위 항목들 찾기
-      const subItems = this.geoData.filter((item) => item.parentId === selectedItem.id);
-
+    setupQuestion(selectedItem) {
+      const subItems = this.geoData.filter(item => item.parentId === selectedItem.id);
+      
       if (subItems.length > 0) {
-        // 다중 항목 문제
         this.currentQuestion = {
           id: selectedItem.id,
           mainKeyword: selectedItem.keyword,
           isMultiple: true,
-          subItems: subItems.map((item) => ({
+          subItems: subItems.map(item => ({
             keyword: item.keyword,
             desc: item.desc,
             alt: item.alt || null,
-            userAnswer: "",
+            userAnswer: '',
             answered: false,
-            isCorrect: false,
+            isCorrect: false
           })),
-          correctSubCount: 0,
+          correctSubCount: 0
         };
       } else if (selectedItem.desc) {
-        // 단일 항목 문제
         this.currentQuestion = {
           id: selectedItem.id,
           keyword: selectedItem.keyword,
           desc: selectedItem.desc,
           alt: selectedItem.alt || null,
-          isMultiple: false,
+          isMultiple: false
         };
       } else {
-        // desc가 없는 경우 다시 선택
         this.generateQuestion();
         return;
       }
-
+      
       this.usedQuestions.push(selectedItem.id);
-      this.userAnswer = "";
+      this.userAnswer = '';
       this.answered = false;
       this.isCorrect = false;
-
+      
       this.$nextTick(() => {
         if (this.$refs.answerInput) {
           this.$refs.answerInput.focus();
         }
       });
     },
-
+    
     checkAnswer() {
       if (this.answered) return;
-
+      
       const normalizedAnswer = this.normalizeString(this.userAnswer);
       const normalizedKeyword = this.normalizeString(this.currentQuestion.keyword);
-      const normalizedAlt = this.currentQuestion.alt ? this.normalizeString(this.currentQuestion.alt) : null;
-
-      this.isCorrect =
-        normalizedAnswer === normalizedKeyword || (normalizedAlt && normalizedAnswer === normalizedAlt);
-
+      const normalizedAlt = this.currentQuestion.alt 
+        ? this.normalizeString(this.currentQuestion.alt) 
+        : null;
+      
+      this.isCorrect = normalizedAnswer === normalizedKeyword || 
+                      (normalizedAlt && normalizedAnswer === normalizedAlt);
+      
       this.answered = true;
       this.totalCount++;
-
+      
       if (this.isCorrect) {
         this.correctCount++;
       } else {
         this.wrongCount++;
+        if (!this.wrongQuestions.includes(this.currentQuestion.id)) {
+          this.wrongQuestions.push(this.currentQuestion.id);
+        }
       }
-    },
 
+      if (!this.solvedQuestions.includes(this.currentQuestion.id)) {
+        this.solvedQuestions.push(this.currentQuestion.id);
+      }
+
+      this.saveProgress();
+    },
+    
     checkSubAnswer(index) {
       const item = this.currentQuestion.subItems[index];
       if (item.answered) return;
-
+      
       const normalizedAnswer = this.normalizeString(item.userAnswer);
       const normalizedKeyword = this.normalizeString(item.keyword);
-      const normalizedAlt = item.alt ? this.normalizeString(item.alt) : null;
-
-      item.isCorrect =
-        normalizedAnswer === normalizedKeyword || (normalizedAlt && normalizedAnswer === normalizedAlt);
-
+      const normalizedAlt = item.alt 
+        ? this.normalizeString(item.alt) 
+        : null;
+      
+      item.isCorrect = normalizedAnswer === normalizedKeyword || 
+                      (normalizedAlt && normalizedAnswer === normalizedAlt);
+      
       item.answered = true;
-
+      
       if (item.isCorrect) {
         this.currentQuestion.correctSubCount++;
         this.correctCount++;
       } else {
         this.wrongCount++;
+        if (!this.wrongQuestions.includes(this.currentQuestion.id)) {
+          this.wrongQuestions.push(this.currentQuestion.id);
+        }
       }
-
+      
       this.totalCount++;
-
-      // 모든 하위 항목이 답변되었는지 확인
-      const allAnswered = this.currentQuestion.subItems.every((item) => item.answered);
+      
+      const allAnswered = this.currentQuestion.subItems.every(item => item.answered);
       if (allAnswered) {
         this.answered = true;
+        
+        if (!this.solvedQuestions.includes(this.currentQuestion.id)) {
+          this.solvedQuestions.push(this.currentQuestion.id);
+        }
+
+        this.saveProgress();
       }
     },
-
+    
     normalizeString(str) {
-      if (!str) return "";
+      if (!str) return '';
       return str
         .toLowerCase()
-        .replace(/\s+/g, "")
-        .replace(/[()[\]{}]/g, "")
+        .replace(/\s+/g, '')
+        .replace(/[()[\]{}]/g, '')
         .trim();
     },
-
+    
     nextQuestion() {
       this.currentQuestionIndex++;
       this.generateQuestion();
     },
-  },
+
+    toggleBookmark() {
+      if (!this.currentQuestion) return;
+      
+      const id = this.currentQuestion.id;
+      const index = this.bookmarkedQuestions.indexOf(id);
+      
+      if (index > -1) {
+        this.bookmarkedQuestions.splice(index, 1);
+      } else {
+        this.bookmarkedQuestions.push(id);
+      }
+      
+      this.saveProgress();
+    },
+
+    removeBookmark(id) {
+      const index = this.bookmarkedQuestions.indexOf(id);
+      if (index > -1) {
+        this.bookmarkedQuestions.splice(index, 1);
+        this.saveProgress();
+      }
+    },
+
+    getQuestionById(id) {
+      return this.geoData.find(item => item.id === id);
+    },
+
+    startBookmarkedQuestion(id) {
+      const question = this.getQuestionById(id);
+      if (question) {
+        this.showMode = 'quiz';
+        this.setupQuestion(question);
+      }
+    },
+
+    startWrongQuestion(id) {
+      const question = this.getQuestionById(id);
+      if (question) {
+        this.showMode = 'quiz';
+        this.setupQuestion(question);
+      }
+    },
+
+    saveProgress() {
+      const progress = {
+        correctCount: this.correctCount,
+        wrongCount: this.wrongCount,
+        totalCount: this.totalCount,
+        bookmarkedQuestions: this.bookmarkedQuestions,
+        solvedQuestions: this.solvedQuestions,
+        wrongQuestions: this.wrongQuestions,
+        lastSession: new Date().toISOString()
+      };
+      
+      localStorage.setItem('geoQuiz_progress', JSON.stringify(progress));
+      localStorage.setItem('geoQuiz_lastSession', progress.lastSession);
+    },
+
+    loadProgress() {
+      const saved = localStorage.getItem('geoQuiz_progress');
+      if (saved) {
+        try {
+          const progress = JSON.parse(saved);
+          this.correctCount = progress.correctCount || 0;
+          this.wrongCount = progress.wrongCount || 0;
+          this.totalCount = progress.totalCount || 0;
+          this.bookmarkedQuestions = progress.bookmarkedQuestions || [];
+          this.solvedQuestions = progress.solvedQuestions || [];
+          this.wrongQuestions = progress.wrongQuestions || [];
+        } catch (e) {
+          console.error('Failed to load progress:', e);
+        }
+      }
+    },
+
+    resetProgress() {
+      this.showConfirm(
+        '진행 상황 초기화',
+        '모든 진행 상황을 초기화하시겠습니까?',
+        () => {
+          localStorage.removeItem('geoQuiz_progress');
+          localStorage.removeItem('geoQuiz_lastSession');
+          
+          this.correctCount = 0;
+          this.wrongCount = 0;
+          this.totalCount = 0;
+          this.bookmarkedQuestions = [];
+          this.solvedQuestions = [];
+          this.wrongQuestions = [];
+          this.usedQuestions = [];
+          this.currentQuestionIndex = 0;
+          this.currentQuestion = null;
+          this.answered = false;
+          this.isCorrect = false;
+          this.userAnswer = '';
+          
+          this.closeConfirmModal();
+          this.showAlert('✅', '완료', '진행 상황이 초기화되었습니다.');
+          
+          this.showMode = 'quiz';
+          this.generateQuestion();
+        }
+      );
+    }
+  }
 };
 </script>
 
 <style scoped>
 .quiz-container {
-  max-width: 800px;
+  width: 960px;
   margin: 0 auto;
   padding: 20px;
-  font-family: "Noto Sans KR", sans-serif;
+  font-family: 'Noto Sans KR', sans-serif;
+  min-height: 100vh;
 }
 
 .quiz-header {
@@ -249,7 +580,7 @@ export default {
   color: white;
   padding: 30px;
   border-radius: 15px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
@@ -261,9 +592,12 @@ export default {
 
 .score-board {
   display: flex;
-  gap: 20px;
-  font-size: 16px;
+  gap: 15px;
+  font-size: 15px;
   font-weight: 500;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  min-height: 40px;
 }
 
 .score-board span {
@@ -273,17 +607,122 @@ export default {
   backdrop-filter: blur(10px);
 }
 
-.quiz-content {
+.progress-bar {
+  position: relative;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+  transition: width 0.5s ease;
+}
+
+.progress-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.menu-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  min-height: 48px;
+}
+
+.menu-bar button {
+  padding: 12px 20px;
+  border: 2px solid #667eea;
+  background: white;
+  color: #667eea;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.menu-bar button.active {
+  background: #667eea;
+  color: white;
+}
+
+.menu-bar button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.menu-bar .reset-btn {
+  margin-left: auto;
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+.menu-bar .reset-btn.active,
+.menu-bar .reset-btn:hover {
+  background: #dc3545;
+  color: white;
+}
+
+/* 컨텐츠 영역 고정 높이 */
+.quiz-content,
+.bookmarks-content,
+.wrong-content,
+.stats-content {
   background: white;
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  min-height: 600px;
+  max-height: 800px;
+  overflow-y: auto;
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  height: 40px;
 }
 
 .question-section h3 {
   color: #667eea;
-  margin-bottom: 20px;
   font-size: 22px;
+  margin: 0;
+}
+
+.bookmark-btn {
+  font-size: 28px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookmark-btn:hover {
+  transform: scale(1.2);
+}
+
+.bookmark-btn.bookmarked {
+  animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
 }
 
 .description {
@@ -295,6 +734,7 @@ export default {
   border-radius: 10px;
   border-left: 4px solid #667eea;
   margin-bottom: 20px;
+  min-height: 100px;
 }
 
 .main-keyword {
@@ -305,6 +745,9 @@ export default {
   padding: 15px;
   background: #f0f3ff;
   border-radius: 10px;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
 }
 
 .sub-items {
@@ -319,6 +762,7 @@ export default {
   border-radius: 10px;
   border: 2px solid transparent;
   transition: all 0.3s ease;
+  min-height: 140px;
 }
 
 .sub-item.correct {
@@ -336,12 +780,14 @@ export default {
   line-height: 1.6;
   color: #333;
   margin-bottom: 15px;
+  min-height: 48px;
 }
 
 .answer-input {
   display: flex;
   gap: 10px;
   margin-top: 15px;
+  height: 48px;
 }
 
 .answer-input input {
@@ -373,6 +819,7 @@ export default {
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
+  min-width: 80px;
 }
 
 .answer-input button:hover:not(:disabled) {
@@ -391,6 +838,7 @@ export default {
   margin-top: 10px;
   font-weight: 600;
   font-size: 14px;
+  min-height: 24px;
 }
 
 .correct-mark {
@@ -405,6 +853,7 @@ export default {
   margin-top: 30px;
   padding-top: 30px;
   border-top: 2px solid #e9ecef;
+  min-height: 120px;
 }
 
 .correct-result {
@@ -440,6 +889,8 @@ export default {
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+  min-width: 150px;
+  height: 52px;
 }
 
 .next-button:hover,
@@ -451,28 +902,385 @@ export default {
 .no-question {
   text-align: center;
   padding: 60px 20px;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 북마크/틀린문제 목록 */
+.bookmarks-content h3,
+.wrong-content h3,
+.stats-content h3 {
+  color: #667eea;
+  margin-bottom: 20px;
+  height: 32px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bookmark-list,
+.wrong-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: 700px;
+  overflow-y: auto;
+}
+
+.bookmark-item,
+.wrong-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  border: 2px solid #e9ecef;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-height: 100px;
+}
+
+.bookmark-item:hover,
+.wrong-item:hover {
+  border-color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+}
+
+.bookmark-info,
+.wrong-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.bookmark-info h4,
+.wrong-info h4 {
+  margin: 0 0 10px 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.bookmark-info p,
+.wrong-info p {
+  margin: 0;
+  color: #666;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.remove-bookmark-btn {
+  padding: 8px 12px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  min-width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.remove-bookmark-btn:hover {
+  background: #c82333;
+  transform: scale(1.1);
+}
+
+.retry-badge {
+  padding: 8px 16px;
+  background: #ffc107;
+  color: #333;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+/* 통계 */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  padding: 25px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.stat-card h4 {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  opacity: 0.9;
+}
+
+.stat-value {
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.stat-card p {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.last-session {
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 10px;
+  text-align: center;
+  min-height: 80px;
+}
+
+.last-session h4 {
+  margin: 0 0 10px 0;
+  color: #667eea;
+}
+
+.last-session p {
+  margin: 0;
+  color: #666;
+}
+
+/* 모달 스타일 */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  max-width: 450px;
+  width: 90%;
+  animation: slideUp 0.3s ease;
+  min-height: 200px;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-content h3 {
+  margin: 0 0 15px 0;
+  color: #667eea;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.modal-content p {
+  margin: 0 0 25px 0;
+  color: #666;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  min-height: 48px;
+}
+
+.modal-actions button {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 100px;
+}
+
+.confirm-btn {
+  background: #667eea;
+  color: white;
+}
+
+.confirm-btn:hover {
+  background: #5568d3;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+}
+
+.cancel-btn {
+  background: #e9ecef;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background: #dee2e6;
+  transform: translateY(-2px);
+}
+
+.alert-modal {
+  text-align: center;
+}
+
+.modal-icon {
+  font-size: 48px;
+  margin-bottom: 15px;
+  animation: bounce 0.5s ease;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.alert-modal .modal-actions {
+  justify-content: center;
+}
+
+/* 스크롤바 스타일 */
+.quiz-content::-webkit-scrollbar,
+.bookmarks-content::-webkit-scrollbar,
+.wrong-content::-webkit-scrollbar,
+.stats-content::-webkit-scrollbar,
+.bookmark-list::-webkit-scrollbar,
+.wrong-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.quiz-content::-webkit-scrollbar-track,
+.bookmarks-content::-webkit-scrollbar-track,
+.wrong-content::-webkit-scrollbar-track,
+.stats-content::-webkit-scrollbar-track,
+.bookmark-list::-webkit-scrollbar-track,
+.wrong-list::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.quiz-content::-webkit-scrollbar-thumb,
+.bookmarks-content::-webkit-scrollbar-thumb,
+.wrong-content::-webkit-scrollbar-thumb,
+.stats-content::-webkit-scrollbar-thumb,
+.bookmark-list::-webkit-scrollbar-thumb,
+.wrong-list::-webkit-scrollbar-thumb {
+  background: #667eea;
+  border-radius: 10px;
+}
+
+.quiz-content::-webkit-scrollbar-thumb:hover,
+.bookmarks-content::-webkit-scrollbar-thumb:hover,
+.wrong-content::-webkit-scrollbar-thumb:hover,
+.stats-content::-webkit-scrollbar-thumb:hover,
+.bookmark-list::-webkit-scrollbar-thumb:hover,
+.wrong-list::-webkit-scrollbar-thumb:hover {
+  background: #5568d3;
 }
 
 @media (max-width: 768px) {
   .quiz-container {
     padding: 10px;
+    width: 100%;
   }
-
+  
   .quiz-header {
     padding: 20px;
   }
-
+  
   .quiz-header h2 {
     font-size: 22px;
   }
-
+  
   .score-board {
-    flex-direction: column;
-    gap: 10px;
+    gap: 8px;
+    font-size: 13px;
   }
 
-  .quiz-content {
+  .score-board span {
+    padding: 6px 12px;
+  }
+  
+  .menu-bar {
+    flex-direction: column;
+  }
+
+  .menu-bar .reset-btn {
+    margin-left: 0;
+  }
+  
+  .quiz-content,
+  .bookmarks-content,
+  .wrong-content,
+  .stats-content {
     padding: 20px;
+    min-height: 500px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-content {
+    padding: 25px;
+    max-width: 90%;
+  }
+
+  .modal-content h3 {
+    font-size: 20px;
+  }
+
+  .modal-content p {
+    font-size: 15px;
+  }
+
+  .modal-actions button {
+    padding: 10px 20px;
+    font-size: 15px;
   }
 }
 </style>
