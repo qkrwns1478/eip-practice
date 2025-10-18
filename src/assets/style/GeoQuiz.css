@@ -565,7 +565,8 @@
 .modal-actions {
   display: flex;
   gap: 10px;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
   min-height: 48px;
 }
 
@@ -578,6 +579,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   min-width: 100px;
+  height: 48px;
 }
 
 .confirm-btn {
