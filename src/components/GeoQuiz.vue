@@ -116,7 +116,7 @@
 
     <!-- 북마크 모드 -->
     <div v-else-if="showMode === 'bookmarks'" class="bookmarks-content">
-      <h3>북마크한 문제</h3>
+      <!-- <h3>북마크한 문제</h3> -->
       <div v-if="bookmarkedQuestions.length === 0" class="empty-state">
         <p>북마크한 문제가 없습니다.</p>
       </div>
@@ -143,7 +143,7 @@
 
     <!-- 틀린 문제 모드 -->
     <div v-else-if="showMode === 'wrong'" class="wrong-content">
-      <h3>틀린 문제 복습</h3>
+      <!-- <h3>틀린 문제 복습</h3> -->
       <div v-if="wrongQuestions.length === 0" class="empty-state">
         <p>틀린 문제가 없습니다. 완벽해요! 🎉</p>
       </div>
@@ -371,7 +371,8 @@ export default {
       this.answered = false;
       this.isCorrect = false;
 
-      this.saveProgress();
+      if (this.currentQuestionIndex > 1)
+        this.saveProgress();
       
       this.$nextTick(() => {
         if (this.$refs.answerInput) {
@@ -554,7 +555,7 @@ export default {
     resetProgress() {
       this.showConfirm(
         '진행 상황 초기화',
-        '모든 진행 상황을 초기화하시겠습니까?',
+        '진행 상황을 초기화하시겠습니까?',
         () => {
           localStorage.removeItem('geoQuiz_progress');
           localStorage.removeItem('geoQuiz_lastSession');
@@ -562,7 +563,7 @@ export default {
           this.correctCount = 0;
           this.wrongCount = 0;
           this.totalCount = 0;
-          this.bookmarkedQuestions = [];
+          // this.bookmarkedQuestions = [];
           this.solvedQuestions = [];
           this.wrongQuestions = [];
           this.usedQuestions = [];
@@ -583,7 +584,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-
-</style>

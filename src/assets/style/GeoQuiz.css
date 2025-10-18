@@ -3,7 +3,7 @@
   margin: 0 auto;
   padding: 20px;
   font-family: "Noto Sans KR", sans-serif;
-  min-height: 100vh;
+  /* min-height: 100vh; */
 }
 
 .quiz-header {
@@ -111,8 +111,9 @@
   padding: 30px;
   border-radius: 15px;
   box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-  min-height: 600px;
-  max-height: 800px;
+  /* min-height: 600px;
+  max-height: 800px; */
+  height: 480px;
   overflow-y: auto;
 }
 
@@ -357,7 +358,7 @@
   text-align: center;
   padding: 60px 20px;
   color: #999;
-  min-height: 500px;
+  /* min-height: 500px; */
   display: flex;
   align-items: center;
   justify-content: center;
