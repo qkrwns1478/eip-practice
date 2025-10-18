@@ -248,7 +248,6 @@ export default {
       wrongQuestions: [],
       showMode: "quiz",
       
-      // 모달 관련
       showConfirmModal: false,
       confirmModal: {
         title: "",
@@ -287,10 +286,12 @@ export default {
   },
   mounted() {
     this.loadProgress();
-    this.startQuiz();
+    // this.startQuiz();
+    if (!this.currentQuestion) {
+      this.generateQuestion();
+    }
   },
   methods: {
-    // 모달 관련 메서드
     showConfirm(title, message, onConfirm) {
       this.confirmModal = { title, message, onConfirm };
       this.showConfirmModal = true;
@@ -311,7 +312,9 @@ export default {
     
     startQuiz() {
       this.showMode = 'quiz';
-      this.generateQuestion();
+      if (!this.currentQuestion) {
+        this.generateQuestion();
+      }
     },
     
     generateQuestion() {
@@ -367,6 +370,8 @@ export default {
       this.userAnswer = '';
       this.answered = false;
       this.isCorrect = false;
+
+      this.saveProgress();
       
       this.$nextTick(() => {
         if (this.$refs.answerInput) {
@@ -457,6 +462,7 @@ export default {
     nextQuestion() {
       this.currentQuestionIndex++;
       this.generateQuestion();
+      this.saveProgress();
     },
 
     toggleBookmark() {
@@ -510,6 +516,12 @@ export default {
         bookmarkedQuestions: this.bookmarkedQuestions,
         solvedQuestions: this.solvedQuestions,
         wrongQuestions: this.wrongQuestions,
+        usedQuestions: this.usedQuestions,
+        currentQuestionIndex: this.currentQuestionIndex,
+        currentQuestion: this.currentQuestion,
+        isCorrect: this.isCorrect,
+        userAnswer: this.userAnswer,
+        answered: this.answered,
         lastSession: new Date().toISOString()
       };
       
@@ -528,6 +540,11 @@ export default {
           this.bookmarkedQuestions = progress.bookmarkedQuestions || [];
           this.solvedQuestions = progress.solvedQuestions || [];
           this.wrongQuestions = progress.wrongQuestions || [];
+          this.currentQuestionIndex = progress.currentQuestionIndex || 0;
+          this.currentQuestion = progress.currentQuestion || null;
+          this.userAnswer = progress.userAnswer || '';
+          this.answered = progress.answered || false;
+          this.isCorrect = progress.isCorrect || false;
         } catch (e) {
           console.error('Failed to load progress:', e);
         }
