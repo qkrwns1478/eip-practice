@@ -1,13 +1,13 @@
 <template>
   <div class="quiz-container">
     <div class="quiz-header">
-      <h2>정보처리기사 실기 랜덤 퀴즈</h2>
-      <div class="score-board">
+      <h2>정보처리기사 실기 퀴즈</h2>
+      <!-- <div class="score-board">
         <span class="correct">정답: {{ correctCount }}</span>
         <span class="wrong">오답: {{ wrongCount }}</span>
         <span class="total">총 문제: {{ totalCount }}</span>
         <span class="bookmarks">북마크: {{ bookmarkedQuestions.length }}</span>
-      </div>
+      </div> -->
       <div class="progress-bar">
         <div class="progress-fill" :style="{ width: progressPercentage + '%' }"></div>
         <span class="progress-text">{{ solvedQuestions.length }} / {{ totalAvailableQuestions }} 문제 풀이</span>
