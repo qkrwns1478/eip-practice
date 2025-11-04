@@ -98,10 +98,10 @@ export const geoData = [
     {parentId:16, childId:7, keyword:'물리 계층', alt:'물리', desc:'0과 1의 비트 정보를 회선에 보내기 위한 전기적 신호 변환'},
 
     {id:17, keyword:'애플리케이션 성능 측정 지표'},
-    {parentId:17, childId:1, keyword:'처리량', alt:'Throughput', desc:'애플리케이션이 주어진 시간에 처리할 수 있는 트랜잭션의 수'},
-    {parentId:17, childId:2, keyword:'응답시간', alt:'Response time', desc:'사용자 입력이 끝난 후, 애플리케이션의 응답 출력이 개시될때까지의 시간'},
-    {parentId:17, childId:3, keyword:'경과 시간', alt:'Turnaround time', desc:'애플리케이션에 사용자가 요구를 입력한 시점부터 트랜잭션을 처리 후 그 결과의 출력이 완료할 때까지 걸리는 시간'},
-    {parentId:17, childId:4, keyword:'자원 사용률', alt:'Resource usage', desc:'애플리케이션이 트랜잭션을 처리하는 동안 사용하는 CPU 사용량, 메모리 사용량, 네트워크 사용량'},
+    {parentId:17, childId:1, keyword:'처리량', desc:'애플리케이션이 주어진 시간에 처리할 수 있는 트랜잭션의 수'},
+    {parentId:17, childId:2, keyword:'응답시간', desc:'사용자 입력이 끝난 후, 애플리케이션의 응답 출력이 개시될때까지의 시간'},
+    {parentId:17, childId:3, keyword:'경과 시간', desc:'애플리케이션에 사용자가 요구를 입력한 시점부터 트랜잭션을 처리 후 그 결과의 출력이 완료할 때까지 걸리는 시간'},
+    {parentId:17, childId:4, keyword:'자원 사용률', alt:'자원 사용량', desc:'애플리케이션이 트랜잭션을 처리하는 동안 사용하는 CPU 사용량, 메모리 사용량, 네트워크 사용량'},
 
     {id:18, keyword:'비즈니스 연속성 계획(BCP)의 주요 용어'},
     {parentId:18, childId:1, keyword:'BIA', desc:'장애나 재해로 인해 운영상의 주요 손실을 볼 것을 가정하여 시간 흐름에 따른 영향도 및 손실평가를 조사하는 BCP를 구축하기 위한 비즈니스 영향 분석'},
@@ -158,7 +158,7 @@ export const geoData = [
     {parentId:26, childId:3, keyword:'학습성', alt:'Learnability', desc:'초보와 숙련자 모두가 쉽게 배우고 사용할 수 있게 제작'},
     {parentId:26, childId:4, keyword:'유연성', alt:'Flexibility', desc:'사용자의 인터랙션을 최대한 포용하고, 실수를 방지할 수 있도록 제작'},
 
-    {id:27, keyword:'LOD', alt:'Linked Open Data', desc:'웹상에 존재하는 데이터를 개별 RUI(Uniform Resource Identifier)로 식별하고, 각 URI에 링크 정보를 부여함으로써 상호 연결된 웹을 지향하는 데이터'},
+    {id:27, keyword:'LOD', alt:'Linked Open Data', desc:'웹상에 존재하는 데이터를 개별 URI(Uniform Resource Identifier)로 식별하고, 각 URI에 링크 정보를 부여함으로써 상호 연결된 웹을 지향하는 데이터'},
 
     {id:28, keyword:'데이터모델링의 절차'},
     {parentId:28, childId:1, keyword:'개념적 모델', desc:'현실 세계에 대한 인식을 추상적, 개념적으로 표현하여 개념적 구조를 도출하는 데이터 모델'},
@@ -195,7 +195,7 @@ export const geoData = [
 
     {id:34, keyword:'블랙박스 테스트의 유형'},
     {parentId:34, childId:1, keyword:'동등분할 테스트', desc:'입력 데이터의 영역을 유사한 도메인별로 유효 값/ 무효 값을 그룹핑하여 대푯값 테스트 케이스를 도출하여 테스트하는 기법'},
-    {parentId:34, childId:2, keyword:'경곗값 분석 테스트', desc:'등가 분할 후 경곗값 부분에서 오류 발생 확률이 높기 때문에 경곗값을 포함하여 테스트 케이스를 설계하여 테스트하는 기법'},
+    {parentId:34, childId:2, keyword:'경곗값 분석 테스트', alt:'경계값 분석 테스트', desc:'등가 분할 후 경곗값 부분에서 오류 발생 확률이 높기 때문에 경곗값을 포함하여 테스트 케이스를 설계하여 테스트하는 기법'},
     {parentId:34, childId:3, keyword:'결정 테이블 테스트', desc:'요구사항의 논리와 발생 조건을 테이블 형태로 나열하여 조건과 행위를 모두 조합하여 테스트하는 기법'},
     {parentId:34, childId:4, keyword:'상태 전이 테스트', desc:'테스트 대상, 시스템이나 객체의 상태를 구분하고 이벤트에 의해 어느 한 상태에서 다른 상태로 전이되는 경우의 수를 수행하는 테스트 기법'},
     {parentId:34, childId:5, keyword:'유스케이스 테스트', desc:'시스템이 실제 사용되는 유스케이스로 모델링 되어있을 때 프로세스 흐름을 기반으로 테스트 케이스를 명세화하여 수행하는 테스트 기법'},
@@ -207,7 +207,7 @@ export const geoData = [
     {id:35, keyword:'EAI의 구축 유형'},
     {parentId:35, childId:1, keyword:'포인트 투 포인트', desc:'가장 기초적인 애플리케이션 통합방법으로 1:1 단순 통합방법'},
     {parentId:35, childId:2, keyword:'허브 앤 스포크', desc:'단일한 접점의 허브 시스템을 통하여 데이터를 전송하는 중앙 집중식 방식'},
-    {parentId:35, childId:3, keyword:'메시지 버스', desc:'애플리케이션 사이 미들웨어(버스)를 두어 연계하는 미들웨어 통합 방식'},
+    {parentId:35, childId:3, keyword:'메시지 버스', alt:'메세지 버스', desc:'애플리케이션 사이 미들웨어(버스)를 두어 연계하는 미들웨어 통합 방식'},
     {parentId:35, childId:4, keyword:'하이브리드', desc:'그룹 내부는 허브 앤 스포크 방식을 사용하고, 그룹 간에는 메세지 버스 방식을 사용하는 통합 방식'},
 
     {id:36, keyword:'IPv4 주소', alt:'IPv4', desc:'주소체계는 10진수로 총 12자리이며, 네 부분으로 나뉨. 각 부분은 0~255까지 3자리의 수로 표현. 32bit로 구성되어 있음'},
@@ -286,7 +286,7 @@ export const geoData = [
     {parentId:48, childId:7, keyword:'회귀 테스트', desc:'오류를 제거하거나 수정한 시스템에서 오류 제거와 수정 때문에 새로이 유입된 오류가 없는지 확인하는 일종의 반복 테스트 기법'},
 
     {id:49, keyword:'IPC 기법'},
-    {parentId:49, childId:1, keyword:'메시지 큐', desc:'메시지 단위로 동작하여 프로세스 간 통신함'},
+    {parentId:49, childId:1, keyword:'메시지 큐', alt:'메세지 큐', desc:'메시지 단위로 동작하여 프로세스 간 통신함'},
     {parentId:49, childId:2, keyword:'공유 메모리', desc:'한 프로세스의 일부분을 다른 프로세스와 공유'},
     {parentId:49, childId:3, keyword:'소켓', desc:'클라이언트와 서버 프로세스 둘 사이에 통신을 가능하게 함'},
     {parentId:49, childId:4, keyword:'세마포어', desc:'프로세스 사이의 동기를 맞추는 기능을 제공함'},
