@@ -1,7 +1,7 @@
 // id, keyword, (alt), (desc)
 // parentId, childId, keyword, desc
 export const geoData = [
-    {id:1, keyword:'살충제 패러독스', desc:'동일한 테스트 케스트에 의한 반복적 테스트는 새로운 버그를 찾지 못한다는 테스트의 원리'},
+    {id:1, keyword:'살충제 패러독스', desc:'동일한 테스트 케이스에 의한 반복적 테스트는 새로운 버그를 찾지 못한다는 테스트의 원리'},
 
     {id:2, keyword:'데이터 마이닝', desc:'대규모로 저장된 데이터 안에서 체계적이고 자동적으로 통계적 규칙이나 패턴을 찾아내는 기술'},
 
@@ -10,21 +10,21 @@ export const geoData = [
     {parentId:3, childId:2, keyword:'의미', desc:'시스템 간의 정보 전송을 위한 제어 정보로 조정과 에러 처리를 위한 규정'},
     {parentId:3, childId:3, keyword:'타이밍', desc:'시스템 간의 정보 전송을 위한 속도 조절과 순서 관리 규정'},
 
-    {id:4, keyword:'XML', desc:'송.수신 시스템 간 데이터 연계의 편의성을 위해서 전송되는 데이터 구조를 동일한 형태로 정의'},
+    {id:4, keyword:'XML', desc:'송수신 시스템 간 데이터 연계의 편의성을 위해서 전송되는 데이터 구조를 동일한 형태로 정의'},
 
-    {id:5, keyword:'JSON', desc:"비동기 브라우저 . 서버 통신(AJAX)을 위해 '속성-값 쌍', '키-값-쌍'으로 이루어진 데이터 오브젝트를 전달하기 위해 인간이 읽을 수 있는 텍스트를 사용하는 개방형 표준 포맷"},
+    {id:5, keyword:'JSON', desc:"비동기 브라우저/서버 통신(AJAX)을 위해 '속성-값 쌍', '키-값-쌍'으로 이루어진 데이터 오브젝트를 전달하기 위해 인간이 읽을 수 있는 텍스트를 사용하는 개방형 표준 포맷"},
 
     {id:6, keyword:'비선점형 스케줄링 알고리즘 유형'},
     {parentId:6, childId:1, keyword:'우선순위', desc:'프로세스별로 우선순위가 주어지고, 우선순위에 따라 CPU를 할당'},
     {parentId:6, childId:2, keyword:'기한부', desc:'작업들이 명시된 시간이나 기한 내에 완료되도록 계획'},
     {parentId:6, childId:3, keyword:'FCFS', desc:'프로세스가 대기 큐에 도착한 순서에 따라 CPU를 할당'},
     {parentId:6, childId:4, keyword:'SJF', desc:'프로세스가 도착하는 시점에 따라 그 당시 가장 작은 서비스 기간을 갖는 프로세스가 종료까지 원 점유'},
-    {parentId:6, childId:5, keyword:'HRN', desc:'대기 중인 프로세스 중 현재 응답률이 가장 높은 것을 선택 (대기 시간 + 서비스 시간) / 서비스 시간'},
+    {parentId:6, childId:5, keyword:'HRN', desc:'대기 중인 프로세스 중 현재 응답률이 가장 높은 것을 선택'},
 
     {id:7, keyword:'선점형 스케줄링 알고리즘 유형'},
-    {parentId:7, childId:1, keyword:'RR', desc:'시분할 시스템에서 사용 / FCFS와 비슷하지만 제한시간이 지난 후, 다음 프로세스에게 자원을 할당'},
+    {parentId:7, childId:1, keyword:'Round Robin', alt:'라운드 로빈', desc:'시분할 시스템에서 사용 / FCFS와 비슷하지만 제한시간이 지난 후, 다음 프로세스에게 자원을 할당'},
     {parentId:7, childId:2, keyword:'SRT', desc:'SJF기법을 선점형으로 바꾼 스케줄링'},
-    {parentId:7, childId:3, keyword:'선점 우선순위', desc:'비선점 우선순위를 선점형으로 바꾼 것'},
+    {parentId:7, childId:3, keyword:'선점 우선순위', alt:'우선순위', desc:'비선점 우선순위를 선점형으로 바꾼 것'},
     {parentId:7, childId:4, keyword:'다단계 큐', desc:'프로세스의 우선순위에 따라 시스템 프로세스, 대화형 프로세스, 일괄처리 프로세스 등으로 나누어 준비상태 큐를 상위 중위 하위단계로 배치'},
     {parentId:7, childId:5, keyword:'다단계 피드백 큐', desc:'다단계 큐의 단점을 보완함 / 큐마다 timeout을 설정하여 timeout초과시 우선순위가 낮은 다음단계 큐로 이동'},
 
@@ -39,7 +39,7 @@ export const geoData = [
     {parentId:9, childId:2, keyword:'롤백', desc:'트랜잭션 취소 트랜잭션 내역을 저장 무효화시키는 명령어'},
     {parentId:9, childId:3, keyword:'체크 포인트', desc:'저장 시기 설정 롤백을 위한 시점을 지정하는 명령어'},
 
-    {id:10, keyword:'랜드 어택', desc:'출발지(Source) IP와 목적지(Destination) IP를 같은 패킷 주소로 만들어 보냄으로써 수신자가 자기 자신에게 응답을 보내게 하여 시스템의 가용성을 침해하는 공격 기법'},
+    {id:10, keyword:'Land Attack', alt:'랜드 어택', desc:'출발지(Source) IP와 목적지(Destination) IP를 같은 패킷 주소로 만들어 보냄으로써 수신자가 자기 자신에게 응답을 보내게 하여 시스템의 가용성을 침해하는 공격 기법'},
 
     {id:11, keyword:'해시 암호화 알고리즘 종류'},
     {parentId:11, childId:1, keyword:'MD5', desc:'각각의 512bit짜리 입력 메세지 블록에 대해 차례로 동작하여 128bit의 해시값을 생성하는 해시 알고리즘'},
@@ -60,22 +60,26 @@ export const geoData = [
     {parentId:13, childId:2, keyword:'논리적 응집도', desc:'유사한 성격을 갖거나 특정 형태로 분류되는 처리 요소들이 한 모듈에서 처리되는 경우의 응집도'},
     {parentId:13, childId:3, keyword:'시간적 응집도', desc:'연관된 기능이라기보다는 특정 시간에 처리되어야 하는 활동들을 한 모듈에서 처리할 경우의 응집도'},
     {parentId:13, childId:4, keyword:'절차적 응집도', desc:'모듈 다수의 관련 기능을 가질 때 모듈 안의 구성요소들이 그 기능을 순차적으로 수행할 경우의 응집도'},
-    {parentId:13, childId:5, keyword:'교환적 응집도', desc:'동일한 입력과 출력을 사용하여 다른 기능을 수행하는 활동들이 모여 있을 경우의 응집도'},
+    {parentId:13, childId:5, keyword:'통신적 응집도', alt:'교환적 응집도', desc:'동일한 입력과 출력을 사용하여 다른 기능을 수행하는 활동들이 모여 있을 경우의 응집도'},
     {parentId:13, childId:6, keyword:'순차적 응집도', desc:'모듈 내에서 한 활동으로부터 나온 출력값을 다른 활동이 사용할 경우의 응집도'},
     {parentId:13, childId:7, keyword:'기능적 응집도', desc:'모듈 내부의 모든 기능이 단일한 목적을 위해 수행되는 경우의 응집도'},
 
-    {id:14, keyword:'릴리즈 노트의 주요 작성 항목'},
-    {parentId:14, childId:1, keyword:'해더', desc:'문서이름, 제품이름, 버전 번호, 릴리즈 날짜, 참고 날짜, 노트 버전 등의 정보'},
-    {parentId:14, childId:2, keyword:'개요', desc:'제품 및 변경에 대한 간략한 전반적 개요'},
-    {parentId:14, childId:3, keyword:'목적', desc:'릴리스 버전의 새로운 기능목록과 릴리스 노트의 목적에 대한 개요, 버그 수정 및 새로운 기능 기술'},
-    {parentId:14, childId:4, keyword:'이슈 요약', desc:'버그의 간단한 설명 또는 릴리즈 추가 항목 요약'},
-    {parentId:14, childId:5, keyword:'재현 항목', desc:'버그 발견에 따른 재현 단계 기술'},
-    {parentId:14, childId:6, keyword:'수정.개선 내용', desc:'수정.개선의 간단한 설명 기술'},
-    {parentId:14, childId:7, keyword:'사용자 영향도', desc:'버전 변경에 따른 최종 사용자 기준의 기능 및 응용 프로그램상의 영향도 기술'},
-    {parentId:14, childId:8, keyword:'소프트웨어 지원 영향도', desc:'버전 변경에 따른 소프트웨어의 지원 프로세스 및 영향도 기술'},
-    {parentId:14, childId:9, keyword:'노트', desc:'소프트웨어 및 하드웨어 설치 항목, 제품 문서를 포함한 업그레이드 항목 메모'},
-    {parentId:14, childId:10, keyword:'면책 조항', desc:'회사 및 표준 제품과 관련된 메세지, 프리웨어 및 불법 복제 방지, 중복 등 참조에 대한 고지 사항'},
-    {parentId:14, childId:11, keyword:'연락 정보', desc:'사용자 지원 및 문의에 관련한 연락처 정보'},
+    // {id:14, keyword:'릴리즈 노트의 주요 작성 항목'},
+    // {parentId:14, childId:1, keyword:'해더', desc:'문서이름, 제품이름, 버전 번호, 릴리즈 날짜, 참고 날짜, 노트 버전 등의 정보'},
+    // {parentId:14, childId:2, keyword:'개요', desc:'제품 및 변경에 대한 간략한 전반적 개요'},
+    // {parentId:14, childId:3, keyword:'목적', desc:'릴리스 버전의 새로운 기능목록과 릴리스 노트의 목적에 대한 개요, 버그 수정 및 새로운 기능 기술'},
+    // {parentId:14, childId:4, keyword:'이슈 요약', desc:'버그의 간단한 설명 또는 릴리즈 추가 항목 요약'},
+    // {parentId:14, childId:5, keyword:'재현 항목', desc:'버그 발견에 따른 재현 단계 기술'},
+    // {parentId:14, childId:6, keyword:'수정.개선 내용', desc:'수정.개선의 간단한 설명 기술'},
+    // {parentId:14, childId:7, keyword:'사용자 영향도', desc:'버전 변경에 따른 최종 사용자 기준의 기능 및 응용 프로그램상의 영향도 기술'},
+    // {parentId:14, childId:8, keyword:'소프트웨어 지원 영향도', desc:'버전 변경에 따른 소프트웨어의 지원 프로세스 및 영향도 기술'},
+    // {parentId:14, childId:9, keyword:'노트', desc:'소프트웨어 및 하드웨어 설치 항목, 제품 문서를 포함한 업그레이드 항목 메모'},
+    // {parentId:14, childId:10, keyword:'면책 조항', desc:'회사 및 표준 제품과 관련된 메세지, 프리웨어 및 불법 복제 방지, 중복 등 참조에 대한 고지 사항'},
+    // {parentId:14, childId:11, keyword:'연락 정보', desc:'사용자 지원 및 문의에 관련한 연락처 정보'},
+
+    {id:14, keyword:'결합도/응집도의 순서'},
+    {parentId:14, childId:1, keyword:'내공외제스자', desc:'결합도 높은 순: ○○○○○○'},
+    {parentId:14, childId:2, keyword:'우논시절통순기', desc:'응집도 낮은 순: ○○○○○○○'},
 
     {id:15, keyword:'반정규화의 주요 기법'},
     {parentId:15, childId:1, keyword:'테이블 병합', desc:'1:1관계, 1:M 관계를 통합하여 조인 횟수를 줄여 성능을 향상'},
@@ -85,19 +89,19 @@ export const geoData = [
     {parentId:15, childId:5, keyword:'중복 관계 추가', desc:'데이터를 처리하기 위한 여러 경로를 거쳐 조인이 가능하지만, 이때 발생할 수 있는 성능 저하를 예방하기 위해 추가적 관계를 맺는 방법'},
 
     {id:16, keyword:'OSI 7계층의 특징'},
-    {parentId:16, childId:1, keyword:'응용 계층', desc:'사용자와 네트워크 간 응용서비스 연결, 데이터 생성'},
-    {parentId:16, childId:2, keyword:'표현 계층', desc:'데이터 형식 설정, 부호교환, 암.복호화'},
-    {parentId:16, childId:3, keyword:'세션 계층', desc:'송수신 간의 논리적 연결 / 연결 접속, 동기제어'},
-    {parentId:16, childId:4, keyword:'전송 계층', desc:'송수신 프로세스 간의 연결 / 신뢰성 있는 통신 보장 / 데이터 분할, 제조립, 흐름제어, 오류 제어, 혼잡 제어'},
-    {parentId:16, childId:5, keyword:'네트워크 계층', desc:'단말기 간 데이터를 전송하기 위한 최적화된 경로 제공'},
-    {parentId:16, childId:6, keyword:'데이터링크 계층', desc:'인접 시스템 간 데이터 전송, 전송 오류 제어 / 동기화, 오류 제어, 흐름 제어, 회선 제어'},
-    {parentId:16, childId:7, keyword:'물리 계층', desc:'0과 1의 비트 정보를 회선에 보내기 위한 전기적 신호 변환'},
+    {parentId:16, childId:1, keyword:'응용 계층', alt:'응용', desc:'사용자와 네트워크 간 응용서비스 연결, 데이터 생성'},
+    {parentId:16, childId:2, keyword:'표현 계층', alt:'표현', desc:'데이터 형식 설정, 부호교환, 암.복호화'},
+    {parentId:16, childId:3, keyword:'세션 계층', alt:'세션', desc:'송수신 간의 논리적 연결 / 연결 접속, 동기제어'},
+    {parentId:16, childId:4, keyword:'전송 계층', alt:'전송', desc:'송수신 프로세스 간의 연결 / 신뢰성 있는 통신 보장 / 데이터 분할, 제조립, 흐름제어, 오류 제어, 혼잡 제어'},
+    {parentId:16, childId:5, keyword:'네트워크 계층', alt:'네트워크', desc:'단말기 간 데이터를 전송하기 위한 최적화된 경로 제공'},
+    {parentId:16, childId:6, keyword:'데이터링크 계층', alt:'데이터링크', desc:'인접 시스템 간 데이터 전송, 전송 오류 제어 / 동기화, 오류 제어, 흐름 제어, 회선 제어'},
+    {parentId:16, childId:7, keyword:'물리 계층', alt:'물리', desc:'0과 1의 비트 정보를 회선에 보내기 위한 전기적 신호 변환'},
 
     {id:17, keyword:'애플리케이션 성능 측정 지표'},
-    {parentId:17, childId:1, keyword:'처리량', desc:'애플리케이션이 주어진 시간에 처리할 수 있는 트랜잭션의 수'},
-    {parentId:17, childId:2, keyword:'응답시간', desc:'사용자 입력이 끝난 후, 애플리케이션의 응답 출력이 개시될때까지의 시간'},
-    {parentId:17, childId:3, keyword:'경과 시간', desc:'애플리케이션에 사용자가 요구를 입력한 시점부터 트랜잭션을 처리 후 그 결과의 출력이 완료할 때까지 걸리는 시간'},
-    {parentId:17, childId:4, keyword:'자원 사용률', desc:'애플리케이션이 트랜잭션을 처리하는 동안 사용하는 CPU 사용량, 메모리 사용량, 네트워크 사용량'},
+    {parentId:17, childId:1, keyword:'처리량', alt:'Throughput', desc:'애플리케이션이 주어진 시간에 처리할 수 있는 트랜잭션의 수'},
+    {parentId:17, childId:2, keyword:'응답시간', alt:'Response time', desc:'사용자 입력이 끝난 후, 애플리케이션의 응답 출력이 개시될때까지의 시간'},
+    {parentId:17, childId:3, keyword:'경과 시간', alt:'Turnaround time', desc:'애플리케이션에 사용자가 요구를 입력한 시점부터 트랜잭션을 처리 후 그 결과의 출력이 완료할 때까지 걸리는 시간'},
+    {parentId:17, childId:4, keyword:'자원 사용률', alt:'Resource usage', desc:'애플리케이션이 트랜잭션을 처리하는 동안 사용하는 CPU 사용량, 메모리 사용량, 네트워크 사용량'},
 
     {id:18, keyword:'비즈니스 연속성 계획(BCP)의 주요 용어'},
     {parentId:18, childId:1, keyword:'BIA', desc:'장애나 재해로 인해 운영상의 주요 손실을 볼 것을 가정하여 시간 흐름에 따른 영향도 및 손실평가를 조사하는 BCP를 구축하기 위한 비즈니스 영향 분석'},
@@ -108,11 +112,11 @@ export const geoData = [
 
     {id:19, keyword:'AJAX', desc:'브라우저가 가지고 있는 XMLHttpRequest 객체를 이용해서 전체 페이지를 새로 고치지 않고도 페이지 일부만을 위한 데이터를 로드하는 기법'},
 
-    {id:20, keyword:'소프트웨어 개발방법론 종류'},
+    {id:20, keyword:'소프트웨어 개발 방법론 종류'},
     {parentId:20, childId:1, keyword:'구조적 방법론', desc:'전체 시스템을 기능에 따라 나누어 개발하고, 이를 통합하는 분할과 정복 접근 방식의 방법론'},
     {parentId:20, childId:2, keyword:'정보공학 방법론', desc:'정보시스템 개발에 필요한 관리 절차와 작업 기반을 체계화한 방법론'},
-    {parentId:20, childId:3, keyword:'개체지향 방법론', desc:'객체라는 기본 단위로 시스템을 분석 및 설계하는 방법론'},
-    {parentId:20, childId:4, keyword:'컴포넌트 기반 방법론', desc:'소프트웨어를 구성하는 컴포넌트를 조립해서 하나의 새로운 응용 프로그램을 작성하는 방법론'},
+    {parentId:20, childId:3, keyword:'객체지향 방법론', desc:'객체라는 기본 단위로 시스템을 분석 및 설계하는 방법론'},
+    {parentId:20, childId:4, keyword:'컴포넌트 기반 방법론', alt:'CBD', desc:'소프트웨어를 구성하는 컴포넌트를 조립해서 하나의 새로운 응용 프로그램을 작성하는 방법론'},
     {parentId:20, childId:5, keyword:'애자일 방법론', desc:'절차보다는 사람이 중심이 되어 변화에 유연하고 신속하게 적응하면서 효율적으로 시스템을 개발할 수 있는 신속 적응적 경량 개발방법론'},
     {parentId:20, childId:6, keyword:'제품 계열 방법론', desc:'특정 제품에 적용하고 싶은 공통된 기능을 정의하여 개발하는 방법론'},
 
@@ -121,7 +125,7 @@ export const geoData = [
     {parentId:21, childId:2, keyword:'암호화 프로토콜', desc:'메세지 인증 코드(MAC)와 암호화를 이용하여 인증과 송신처 인증과 기밀성을 제공하는 프로토콜'},
     {parentId:21, childId:3, keyword:'키 관리 프로토콜', desc:'Key를 주고 받는 알고리즘 / 공개된 네트워크를 통하여 Key를 어떻게 할 것인가를 정의'},
 
-    {id:22, keyword:'디자인 패턴 중 행위 패턴'},
+    {id:22, keyword:'디자인 패턴 - 행위 패턴'},
     {parentId:22, childId:1, keyword:'Mediator', desc:'객체지향 설계에서 객체 수가 많아지면 서로 간 통신을 위해 복잡해져서 중간에서 이를 통제하고 지시할 수 있는 역할의 중재자를 두고, 중재자에게 모든 것을 요구하여 통신의 빈도를 줄여 객체지향의 목표를 달성하게 해줌'},
     {parentId:22, childId:2, keyword:'Interpreter', desc:'언어의 다양한 해석, 구체적으로 구문을 나누고, 그 분리된 구문의 해석을 맡는 클래스를 각각 작성하여 여러 형태의 언어 구문을 해석할 수 있게 만듬'},
     {parentId:22, childId:3, keyword:'Iterator', desc:'컬렉션 구현 방법을 노출시키지 않으면서도 그 집합체 안에 들어가있는 모든 항목에 접근할 방법을 제공'},
@@ -134,30 +138,31 @@ export const geoData = [
     {parentId:22, childId:10, keyword:'Memento', desc:'클래스 설계 관점에서 객체의 정보를 저장할 필요가 있을 때 적용하는 디자인 패턴'},
     {parentId:22, childId:11, keyword:'Chain of Responsibility', desc:'정적으로 어떤 기능에 대한 처리의 연결이 하드 코딩되어 있을 때 기능처리의 연결 변경이 불가능한데, 이를 동적으로 연결된 경우에 따라 다르게 처리될 수 있도록 연결한 디자인 패턴'},
 
-    {id:23, keyword:'안드로이드의 특징'},
-    {parentId:23, childId:1, keyword:'리눅스 기반', desc:'안드로이드는 리눅스 커널 위에서 동작'},
-    {parentId:23, childId:2, keyword:'자바와 코틀린 언어', desc:'고수준 언어를 사용해 응용 프로그램을 작성'},
-    {parentId:23, childId:3, keyword:'런타임 라이브러리', desc:'컴파일된 바이트 코드 구동 기능'},
-    {parentId:23, childId:4, keyword:'안드로이드 소프트웨어 개발', desc:'응용 프로그램을 개발하는데 필요한 각종 도구와 API를 제공'},
+    // {id:23, keyword:'안드로이드의 특징'},
+    // {parentId:23, childId:1, keyword:'리눅스 기반', desc:'안드로이드는 리눅스 커널 위에서 동작'},
+    // {parentId:23, childId:2, keyword:'자바와 코틀린 언어', desc:'고수준 언어를 사용해 응용 프로그램을 작성'},
+    // {parentId:23, childId:3, keyword:'런타임 라이브러리', desc:'컴파일된 바이트 코드 구동 기능'},
+    // {parentId:23, childId:4, keyword:'안드로이드 소프트웨어 개발', desc:'응용 프로그램을 개발하는데 필요한 각종 도구와 API를 제공'},
+    {id:23, keyword:'안드로이드', desc: '○○○○○의 특징: 리눅스 기반 / 자바와 코틀린 언어 / 런타임 라이브러리 / ○○○○○ 소프트웨어 개발'},
 
     {id:24, keyword:'SOAP', desc:'HTTP, HTTPS, SMTP 등을 사용하여 XML 기반의 메세지를 네트워크 상태에서 교환하는 프로토콜'},
 
     {id:25, keyword:'입력 데이터 검증 및 표현에 대한 취약점'},
     {parentId:25, childId:1, keyword:'XSS', desc:'검증되지 않은 외부 입력 데이터가 포함된 웹 페이지가 전송되는 경우, 사용자가 해당 웹 페이지를 열람함으로써 웹 페이지에 포함된 부적절한 스크립트가 실행되는 공격'},
-    {parentId:25, childId:2, keyword:'사이트 간 요청 위조', desc:'사용자가 자신의 의지와는 무관하게 공격자가 의도한 행위를 특정 웹 사이트에 요청하게 하는 공격'},
-    {parentId:25, childId:3, keyword:'SQL 삽입', desc:'응용 프로그램의 보안 취약점을 이용해서 악의적인 sql 구문을 삽입, 실행시켜서 데이터베이스의 접근을 통해 정보를 탕취하거나 조작 등을 행위하는 공격 기법'},
+    {parentId:25, childId:2, keyword:'CSRF', alt:'사이트 간 요청 위조', desc:'사용자가 자신의 의지와는 무관하게 공격자가 의도한 행위를 특정 웹 사이트에 요청하게 하는 공격'},
+    {parentId:25, childId:3, keyword:'SQL 삽입', alt:'SQL Injection', desc:'응용 프로그램의 보안 취약점을 이용해서 악의적인 sql 구문을 삽입, 실행시켜서 데이터베이스의 접근을 통해 정보를 탕취하거나 조작 등을 행위하는 공격 기법'},
 
     {id:26, keyword:'UI 설계 원칙'},
-    {parentId:26, childId:1, keyword:'직관성', desc:'누구나 쉽게 이해하고, 쉽게 사용할 수 있어야 함'},
-    {parentId:26, childId:2, keyword:'유효성', desc:'정확하고 완벽하게 사용자의 목표가 달성될 수 있도록 제작'},
-    {parentId:26, childId:3, keyword:'학습성', desc:'초보와 숙련자 모두가 쉽게 배우고 사용할 수 있게 제작'},
-    {parentId:26, childId:4, keyword:'유연성', desc:'사용자의 인터랙션을 최대한 포용하고, 실수를 방지할 수 있도록 제작'},
+    {parentId:26, childId:1, keyword:'직관성', alt:'Intuitiveness', desc:'누구나 쉽게 이해하고, 쉽게 사용할 수 있어야 함'},
+    {parentId:26, childId:2, keyword:'유효성', alt:'Efficiency', desc:'정확하고 완벽하게 사용자의 목표가 달성될 수 있도록 제작'},
+    {parentId:26, childId:3, keyword:'학습성', alt:'Learnability', desc:'초보와 숙련자 모두가 쉽게 배우고 사용할 수 있게 제작'},
+    {parentId:26, childId:4, keyword:'유연성', alt:'Flexibility', desc:'사용자의 인터랙션을 최대한 포용하고, 실수를 방지할 수 있도록 제작'},
 
     {id:27, keyword:'LOD', alt:'Linked Open Data', desc:'웹상에 존재하는 데이터를 개별 RUI(Uniform Resource Identifier)로 식별하고, 각 URI에 링크 정보를 부여함으로써 상호 연결된 웹을 지향하는 데이터'},
 
     {id:28, keyword:'데이터모델링의 절차'},
-    {parentId:28, childId:1, keyword:'개념적 데이터 모델', desc:'현실 세계에 대한 인식을 추상적, 개념적으로 표현하여 개념적 구조를 도출하는 데이터 모델'},
-    {parentId:28, childId:2, keyword:'논리적 데이터 모델', desc:'업무의 모습을 모델링 표기법으로 형상화화여 사람이 이해하기 쉽게 표현한 데이터 모델'},
+    {parentId:28, childId:1, keyword:'개념적 모델', desc:'현실 세계에 대한 인식을 추상적, 개념적으로 표현하여 개념적 구조를 도출하는 데이터 모델'},
+    {parentId:28, childId:2, keyword:'논리적 모델', desc:'업무의 모습을 모델링 표기법으로 형상화화여 사람이 이해하기 쉽게 표현한 데이터 모델'},
     {parentId:28, childId:3, keyword:'물리적 모델', desc:'논리 데이터 모델을 특정 DBMS의 특성 및 성능을 고려하여 물리적인 스키마를 만드는 일련의 모델'},
 
     {id:29, keyword:'형상관리의 절차'},
@@ -166,25 +171,27 @@ export const geoData = [
     {parentId:29, childId:3, keyword:'형상 감사', desc:'소프트웨어 베이스라인의 무결성 평가'},
     {parentId:29, childId:4, keyword:'형상 기록', desc:'소프트웨어 형상 및 변경관리에 대한 각종 수행결과를 기록'},
 
-    {id:30, keyword:'리팩토링의 목적'},
-    {parentId:30, childId:1, keyword:'유지보수성 향상', desc:'복잡한 코드의 단순화, 소스의 가독성 향상'},
-    {parentId:30, childId:2, keyword:'유연한 시스템', desc:'소프트웨어 요구사항 변경에 유연한 대응'},
-    {parentId:30, childId:3, keyword:'생산성 향상', desc:'정제 및 최적화된 소스의 재사용'},
-    {parentId:30, childId:4, keyword:'품질 향상', desc:'소프트웨어 오류발견이 용이하여 품질향상'},
+    // {id:30, keyword:'리팩토링의 목적'},
+    // {parentId:30, childId:1, keyword:'유지보수성 향상', desc:'복잡한 코드의 단순화, 소스의 가독성 향상'},
+    // {parentId:30, childId:2, keyword:'유연한 시스템', desc:'소프트웨어 요구사항 변경에 유연한 대응'},
+    // {parentId:30, childId:3, keyword:'생산성 향상', desc:'정제 및 최적화된 소스의 재사용'},
+    // {parentId:30, childId:4, keyword:'품질 향상', desc:'소프트웨어 오류발견이 용이하여 품질향상'},
+    {id:30, keyword:'리팩토링', desc:'○○○○의 목적: 유지보수성 향상 / 유연한 시스템 / 생산성 향상 / 품질 향상'},
 
-    {id:31, keyword:'OSPF의 특징'},
-    {parentId:31, childId:1, keyword:'다익스트라 알고리즘 사용', desc:'다익스트라 알고리즘을 사용하는 내부 라우팅 프로토콜'},
-    {parentId:31, childId:2, keyword:'라우팅 메트릭 지정', desc:'최조, 지연, 최대 처리량 등 관리자가 라우팅 메트릭 지정'},
-    {parentId:31, childId:3, keyword:'AS분할 사용', desc:'자치 시스템을 지역으로 나누어 라우팅을 효과적으로 관리'},
-    {parentId:31, childId:4, keyword:'홉 카운트 무제한', desc:'홉 카운트에 제한이 없음'},
+    // {id:31, keyword:'OSPF의 특징'},
+    // {parentId:31, childId:1, keyword:'다익스트라 알고리즘 사용', desc:'다익스트라 알고리즘을 사용하는 내부 라우팅 프로토콜'},
+    // {parentId:31, childId:2, keyword:'라우팅 메트릭 지정', desc:'최조, 지연, 최대 처리량 등 관리자가 라우팅 메트릭 지정'},
+    // {parentId:31, childId:3, keyword:'AS분할 사용', desc:'자치 시스템을 지역으로 나누어 라우팅을 효과적으로 관리'},
+    // {parentId:31, childId:4, keyword:'홉 카운트 무제한', desc:'홉 카운트에 제한이 없음'},
+    {id:31, keyword:'OSPF', desc: '○○○○의 특징: 다익스트라 알고리즘 사용 / 라우팅 메트릭 지정 / AS분할 사용 / 홉 카운트 무제한'},
 
     {id:32, keyword:'ICMP', desc:'IP 패킷을 처리할 때 발생하는 문제를 알려주는 프로토콜로, 메세지 형식은 8비트의 헤더와 가변 길이의 데이터 영역으로 분리되어 있음'},
 
     {id:33, keyword:'식별자 표기법'},
-    {parentId:33, childId:1, keyword:'카멜 표기법', desc:'식별자 표기 시에 여러 단어가 이어지면 첫 단어 시작만 소문자로 표시하고, 각 단어의 첫 글자는 대문자로 지정하는 표기법 (ex : goodMan)'},
-    {parentId:33, childId:2, keyword:'파스칼 표기법', desc:'식별자 표기 시에 여러 단어가 이어지면 각 단어의 첫 글자는 대문자로 지정하는 표기법 (ex : GoodMan)'},
-    {parentId:33, childId:3, keyword:'스네이크 표기법', desc:'식별자 표기 시에 여러 단어가 이어지면 단어 사이에 언더 바를 넣는 표기법 (ex : good_man)'},
-    {parentId:33, childId:4, keyword:'헝가리안 표기법', desc:'식별자 표기 시, 접두어에 자료형을 붙이는 표기법 (ex : iGoodMan > 정수형)'},
+    {parentId:33, childId:1, keyword:'카멜 표기법', alt:'카멜', desc:'식별자 표기 시에 여러 단어가 이어지면 첫 단어 시작만 소문자로 표시하고, 각 단어의 첫 글자는 대문자로 지정하는 표기법 (ex : goodMan)'},
+    {parentId:33, childId:2, keyword:'파스칼 표기법', alt:'파스칼', desc:'식별자 표기 시에 여러 단어가 이어지면 각 단어의 첫 글자는 대문자로 지정하는 표기법 (ex : GoodMan)'},
+    {parentId:33, childId:3, keyword:'스네이크 표기법', alt:'스네이크', desc:'식별자 표기 시에 여러 단어가 이어지면 단어 사이에 언더 바를 넣는 표기법 (ex : good_man)'},
+    {parentId:33, childId:4, keyword:'헝가리안 표기법', alt:'헝가리안', desc:'식별자 표기 시, 접두어에 자료형을 붙이는 표기법 (ex : goodMan > 정수형)'},
 
     {id:34, keyword:'블랙박스 테스트의 유형'},
     {parentId:34, childId:1, keyword:'동등분할 테스트', desc:'입력 데이터의 영역을 유사한 도메인별로 유효 값/ 무효 값을 그룹핑하여 대푯값 테스트 케이스를 도출하여 테스트하는 기법'},
@@ -203,9 +210,9 @@ export const geoData = [
     {parentId:35, childId:3, keyword:'메시지 버스', desc:'애플리케이션 사이 미들웨어(버스)를 두어 연계하는 미들웨어 통합 방식'},
     {parentId:35, childId:4, keyword:'하이브리드', desc:'그룹 내부는 허브 앤 스포크 방식을 사용하고, 그룹 간에는 메세지 버스 방식을 사용하는 통합 방식'},
 
-    {id:36, keyword:'IPv4 주소', alt:'IPv4', desc:'주소체계는 10진수로 총 12자리이며, 네 부분으로 나뉨. 각 부분은 0~255까지 3자리의 수로 표현. 32bit로 구성되어 있으며, 주소 공간의 고갈로 128bit 주소체계를 갖는 IPv6가 등장'},
+    {id:36, keyword:'IPv4 주소', alt:'IPv4', desc:'주소체계는 10진수로 총 12자리이며, 네 부분으로 나뉨. 각 부분은 0~255까지 3자리의 수로 표현. 32bit로 구성되어 있음'},
 
-    {id:37, keyword:'IPv6 주소', alt:'IPv6', desc:'IPv4의 기존 32bit 주소 공간에서 벗어나, IPv6는 128bit 주소 공간을 제공하고, 네트워크의 물리적 위치에 제한받지 않고 같은 주소를 유지'},
+    {id:37, keyword:'IPv6 주소', alt:'IPv6', desc:'기존 32bit 주소 공간에서 벗어나 128bit 주소 공간을 제공하고, 네트워크의 물리적 위치에 제한받지 않고 같은 주소를 유지함'},
 
     {id:38, keyword:'디자인 패턴의 유형'},
     {parentId:38, childId:1, keyword:'생성 패턴', desc:'객체 인스턴스 생성에 관여, 클래스 정의와 객체 생성 방식을 구조화, 캡슐화를 수행하는 패턴'},
@@ -216,7 +223,7 @@ export const geoData = [
 
     {id:39, keyword:'네트워크 공격 기법'},
     {parentId:39, childId:1, keyword:'스니핑', desc:'공격 대상에게 직접 공격하지 않고 데이터만 몰래 들여다보는 수동적 공격 기법'},
-    {parentId:39, childId:2, keyword:'네트워크 스캐너, 스피너', desc:'네트워크 하드웨어 및 소프트웨어 구성의 취약점 파악을 위해 공격자가 취약점을 탐색하는 공격 도구'},
+    {parentId:39, childId:2, keyword:'네트워크 스캐너', alt:'스피너', desc:'네트워크 하드웨어 및 소프트웨어 구성의 취약점 파악을 위해 공격자가 취약점을 탐색하는 공격 도구'},
     {parentId:39, childId:3, keyword:'패스워드 크래킹', desc:'사전 크래킹 공격, 무차별 크래킹 공격, 패스워드 하이브리드 공격, 레인보우 테이블 공격 활용'},
     {parentId:39, childId:4, keyword:'IP 스푸핑', desc:'침입자가 인증된 컴퓨팅 시스템인 것처럼 속여서 타깃 시스템의 정보를 빼내기 위해서 본인의 패킷 헤더를 인증된 호스트의 IP 어드레스로 위조하여 타깃에 전송하는 공격기법'},
     {parentId:39, childId:5, keyword:'ARP 스푸핑', desc:'공격자가 특정 호스트의 MAC 주소를 자신의 MAC 주소로 위조한 ARP Reply를 만들어 희생자에게 지속적으로 전송하여 희생자의 ARP Cache Table에 특정 호스트의 MAC 정보를 공격자의 MAC 정보로 변경, 희생자로부터 특정 호스트로 나가는 패킷을 공격자가 스니핑하는 공격 기법'},
@@ -233,25 +240,26 @@ export const geoData = [
 
     {id:42, keyword:'하둡의 구성'},
     {parentId:42, childId:1, keyword:'HDFS', desc:'대용량 파일을 분산된 서버에 저장하고 그 저장된 데이터를 빠르게 처리할 수 있게 하는 시스템'},
-    {parentId:42, childId:2, keyword:'Map Reduce', desc:'대용량 데이터 세트를 분산 병렬 컴퓨팅에서 처리하거나 생성하기 위한 목적으로 만들어진 소프트웨어 프레임워크'},
+    {parentId:42, childId:2, keyword:'Map Reduce', alt:'맵 리듀스', desc:'대용량 데이터 세트를 분산 병렬 컴퓨팅에서 처리하거나 생성하기 위한 목적으로 만들어진 소프트웨어 프레임워크'},
 
     {id:43, keyword:'데이터베이스 이상 현상'},
     {parentId:43, childId:1, keyword:'삽입 이상', desc:'정보 저장 시 해당 정보의 불필요한 세부정보를 입력해야 하는 경우'},
     {parentId:43, childId:2, keyword:'삭제 이상', desc:'정보 삭제 시 원치 않는 다른 정보가 같이 삭제되는 경우'},
     {parentId:43, childId:3, keyword:'갱신 이상', desc:'중복 데이터 중에서 특정 부분만 수정되어 중복된 값이 모순을 일으키는 경우'},
 
-    {id:44, keyword:'프로세스 상태 전이'},
-    {parentId:44, childId:1, keyword:'생성 상태', desc:'사용자에 의해 프로세스가 생성된 상태'},
-    {parentId:44, childId:2, keyword:'준비 상태', desc:'CPU를 할당받을 수 있는 상태'},
-    {parentId:44, childId:3, keyword:'실행 상태', desc:'프로세스가 CPU를 할당받아 동작 중인 상태'},
-    {parentId:44, childId:4, keyword:'대기 상태', desc:'프로세스 실행 중 입출력 처리 등으로 인해 CPU를 양도하고 입출력 처리가 완료까지 대기 리스트에서 기다리는 상태'},
-    {parentId:44, childId:5, keyword:'완료 상태', desc:'프로세스가 CPU를 할당받아 주어진 시간 내에 완전히 수행을 종료한 상태'},
+    // {id:44, keyword:'프로세스 상태 전이'},
+    // {parentId:44, childId:1, keyword:'생성 상태', desc:'사용자에 의해 프로세스가 생성된 상태'},
+    // {parentId:44, childId:2, keyword:'준비 상태', desc:'CPU를 할당받을 수 있는 상태'},
+    // {parentId:44, childId:3, keyword:'실행 상태', desc:'프로세스가 CPU를 할당받아 동작 중인 상태'},
+    // {parentId:44, childId:4, keyword:'대기 상태', desc:'프로세스 실행 중 입출력 처리 등으로 인해 CPU를 양도하고 입출력 처리가 완료까지 대기 리스트에서 기다리는 상태'},
+    // {parentId:44, childId:5, keyword:'완료 상태', desc:'프로세스가 CPU를 할당받아 주어진 시간 내에 완전히 수행을 종료한 상태'},
+    {id:44, keyword:'생성 준비 실행 대기 완료', desc:'프로세스 상태 전이: ○○ 상태 → ○○ 상태 → ○○ 상태 → ○○ 상태 → ○○ 상태'},
 
     {id:45, keyword:'테스트 오라클 유형'},
     {parentId:45, childId:1, keyword:'참 오라클', desc:'모든 입력값에 대하여 기대하는 결과를 생성함으로써 발행된 오류를 모두 검출할 수 있는 오라클'},
     {parentId:45, childId:2, keyword:'샘플링 오라클', desc:'특정한 몇 개의 입력값에 대해서만 기대하는 결과를 제공해주는 오라클'},
     {parentId:45, childId:3, keyword:'휴리스틱 오라클', desc:'샘플링 오라클을 개선한 오라클로, 특정 입력값에 대해 올바른 결과를 제공하고, 나머지 값들에 대해서는 휴리스틱(추정)으로 처리하는 오라클'},
-    {parentId:45, childId:4, keyword:'일관성 검사 오라클', desc:'애플리케이션 변경이 있을 때, 수행 전과 후의 결과값이 동일한지 확인하는 오라클'},
+    {parentId:45, childId:4, keyword:'일관성 오라클', desc:'애플리케이션 변경이 있을 때, 수행 전과 후의 결과값이 동일한지 확인하는 오라클'},
 
     {id:46, keyword:'네트워크 계층 프로토콜 종류'},
     {parentId:46, childId:1, keyword:'IP', desc:'송수신 간의 패킷 단위로 데이터를 교환하는 네트워크에서 정보를 주고받는 데 사용하는 통신 프로토콜'},
@@ -259,7 +267,7 @@ export const geoData = [
     {parentId:46, childId:3, keyword:'RARP', desc:'IP 호스트가 자신의 물리 네트워크 주소(MAC)는 알지만 IP주소를 모르는 경우, 서버로부터 IP 주소를 요청하기 위해 사용하는 프로토콜'},
     {parentId:46, childId:4, keyword:'ICMP', desc:'IP 패킷을 처리할 때 발생하는 문제를 알려주는 프로토콜 메세지 형식은 8bit 헤더와 가변 길이의 데이터 영역으로 분리'},
     {parentId:46, childId:5, keyword:'IGMP', desc:'호스트 컴퓨터와 인접 라우터가 멀티캐스트 그룹 멤버십을 구성하는데 사용하는 통신 프로토콜'},
-    {parentId:46, childId:6, keyword:'라우팅 프로토콜', desc:'데이터 전송을 위해 목적지까지 갈 수 있는 여러 경로 중 최적의 경로를 설정해 주는 라우터 간의 상호 통신 프로토콜'},
+    {parentId:46, childId:6, keyword:'라우팅 프로토콜', alt:'RIP', desc:'데이터 전송을 위해 목적지까지 갈 수 있는 여러 경로 중 최적의 경로를 설정해 주는 라우터 간의 상호 통신 프로토콜'},
 
     {id:47, keyword:'DB설계 절차'},
     {parentId:47, childId:1, keyword:'요구사항 분석', desc:'사용자에게서 데이터베이스를 사용하는 용도를 파악'},
@@ -279,7 +287,7 @@ export const geoData = [
 
     {id:49, keyword:'IPC 기법'},
     {parentId:49, childId:1, keyword:'메시지 큐', desc:'메시지 단위로 동작하여 프로세스 간 통신함'},
-    {parentId:49, childId:2, keyword:'공유메모리', desc:'한 프로세스의 일부분을 다른 프로세스와 공유'},
+    {parentId:49, childId:2, keyword:'공유 메모리', desc:'한 프로세스의 일부분을 다른 프로세스와 공유'},
     {parentId:49, childId:3, keyword:'소켓', desc:'클라이언트와 서버 프로세스 둘 사이에 통신을 가능하게 함'},
     {parentId:49, childId:4, keyword:'세마포어', desc:'프로세스 사이의 동기를 맞추는 기능을 제공함'},
 
