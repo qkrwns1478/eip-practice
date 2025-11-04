@@ -1,13 +1,13 @@
 <template>
   <div class="quiz-container">
     <div class="quiz-header">
-      <h2>정보처리기사 실기 랜덤 퀴즈</h2>
-      <div class="score-board">
+      <h2>정보처리기사 실기 퀴즈</h2>
+      <!-- <div class="score-board">
         <span class="correct">정답: {{ correctCount }}</span>
         <span class="wrong">오답: {{ wrongCount }}</span>
         <span class="total">총 문제: {{ totalCount }}</span>
         <span class="bookmarks">북마크: {{ bookmarkedQuestions.length }}</span>
-      </div>
+      </div> -->
       <div class="progress-bar">
         <div class="progress-fill" :style="{ width: progressPercentage + '%' }"></div>
         <span class="progress-text">{{ solvedQuestions.length }} / {{ totalAvailableQuestions }} 문제 풀이</span>
@@ -34,7 +34,7 @@
     </div>
 
     <!-- 퀴즈 모드 -->
-    <div v-if="showMode === 'quiz' && currentQuestion" class="quiz-content">
+    <div v-if="showMode === 'quiz' && currentQuestion" class="quiz-content" ref="quizContent">
       <div class="question-section">
         <div class="question-header">
           <h3>문제 {{ currentQuestionIndex + 1 }}</h3>
@@ -53,7 +53,7 @@
           <div class="answer-input">
             <input 
               v-model="userAnswer"
-              @keyup.enter="checkAnswer"
+              @keydown.enter.prevent="checkAnswer"
               placeholder="답을 입력하세요"
               :disabled="answered"
               ref="answerInput"
@@ -79,9 +79,10 @@
               <div class="answer-input">
                 <input 
                   v-model="item.userAnswer"
-                  @keyup.enter="checkSubAnswer(index)"
+                  @keydown.enter.prevent="checkSubAnswer(index)"
                   placeholder="답을 입력하세요"
                   :disabled="item.answered"
+                  :ref="el => { if (el) subItemInputs[index] = el }"
                 />
                 <button 
                   @click="checkSubAnswer(index)" 
@@ -109,7 +110,7 @@
               {{ currentQuestion.correctSubCount }} / {{ currentQuestion.subItems.length }} 정답
             </p>
           </div>
-          <button @click="nextQuestion" class="next-button">다음 문제</button>
+          <button @click="nextQuestion" class="next-button" ref="nextButton">다음 문제</button>
         </div>
       </div>
     </div>
@@ -259,7 +260,8 @@ export default {
         icon: "",
         title: "",
         message: ""
-      }
+      },
+      subItemInputs: []
     };
   },
   computed: {
@@ -374,9 +376,15 @@ export default {
       if (this.currentQuestionIndex > 1)
         this.saveProgress();
       
+      this.subItemInputs = [];
       this.$nextTick(() => {
+        if (this.$refs.quizContent) {
+          this.$refs.quizContent.scrollTop = 0;
+        }
         if (this.$refs.answerInput) {
           this.$refs.answerInput.focus();
+        } else if (this.subItemInputs[0]) {
+          this.subItemInputs[0].focus();
         }
       });
     },
@@ -410,6 +418,16 @@ export default {
       }
 
       this.saveProgress();
+
+      this.$nextTick(() => {
+        if (this.$refs.nextButton) {
+          this.$refs.nextButton.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+          this.$refs.nextButton.focus();
+        }
+      });
     },
     
     checkSubAnswer(index) {
@@ -427,6 +445,23 @@ export default {
       
       item.answered = true;
       
+      this.$nextTick(() => {
+        const nextIndex = index + 1;
+        if (nextIndex < this.currentQuestion.subItems.length) {
+          const nextInput = this.subItemInputs[nextIndex];
+          if (nextInput) {
+            nextInput.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+            
+            setTimeout(() => {
+              nextInput.focus();
+            }, 100); 
+          }
+        }
+      });
+
       if (item.isCorrect) {
         this.currentQuestion.correctSubCount++;
         this.correctCount++;
@@ -448,6 +483,16 @@ export default {
         }
 
         this.saveProgress();
+
+        this.$nextTick(() => {
+          if (this.$refs.nextButton) {
+            this.$refs.nextButton.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+            this.$refs.nextButton.focus();
+          }
+        });
       }
     },
     
