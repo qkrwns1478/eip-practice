@@ -329,21 +329,39 @@ export default {
       this.answered = true;
       this.totalCount++;
       
-      const answer = this.currentQuestion.answer;
-      const altAnswer = this.currentQuestion.alt;
+      const question = this.currentQuestion;
+      const answer = question.answer;
+      const altAnswer = question.alt;
+      const altAnswers = question.alts || [];
 
-      // 정답 또는 alt에 줄바꿈이 있는지 확인
-      const requiresLineBreak = answer.includes('\n') || (altAnswer && altAnswer.includes('\n'));
+      // 모든 정답 후보군에서 줄바꿈 필요한지 확인
+      let requiresLineBreak = answer.includes('\n') || (altAnswer && altAnswer.includes('\n'));
+      if (!requiresLineBreak && altAnswers.length > 0) {
+          requiresLineBreak = altAnswers.some(a => a && a.includes('\n'));
+      }
       
       // 사용자 입력 정규화
       const normalizedUserAnswer = this.normalizeString(this.userAnswer, requiresLineBreak);
       
-      // 정답 및 alt 정규화
+      // 기본 정답 비교
       const normalizedAnswer = this.normalizeString(answer, requiresLineBreak);
-      const normalizedAlt = altAnswer ? this.normalizeString(altAnswer, requiresLineBreak) : null;
-      
-      // 정답 또는 alt와 일치하는지 비교
-      this.isCorrect = (normalizedUserAnswer === normalizedAnswer) || (normalizedAlt && normalizedUserAnswer === normalizedAlt);
+      this.isCorrect = (normalizedUserAnswer === normalizedAnswer);
+
+      // alt 비교
+      if (!this.isCorrect && altAnswer) {
+          const normalizedAlt = this.normalizeString(altAnswer, requiresLineBreak);
+          if (normalizedUserAnswer === normalizedAlt) {
+              this.isCorrect = true;
+          }
+      }
+
+      // alts 배열 순회 비교
+      if (!this.isCorrect && altAnswers.length > 0) {
+          this.isCorrect = altAnswers.some(alt => {
+              const normalizedAlt = this.normalizeString(alt, requiresLineBreak);
+              return normalizedUserAnswer === normalizedAlt;
+          });
+      }
 
       // 점수 및 오답 노트 처리
       if (this.isCorrect) {
