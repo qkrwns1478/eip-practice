@@ -933,7 +933,7 @@ orange	기초토익	P004`,
     id: 49,
     answer: "6 6",
     question: "다음은 운영체제 페이지 순서를 참고하여 할당된 프레임의 수가 3개일 때 LRU와 LFU 알고리즘의 페이지 부재 횟수를 각각 작성하시오.",
-    passageOrCode: `페이지 참조 순서 : 1, 2, 3, 1, 2, 4, 1, 2, 5, 7`,
+    passageOrCode: "페이지 참조 순서 : 1, 2, 3, 1, 2, 4, 1, 2, 5, 7",
     options: null,
     imageUrl: null
   },
@@ -1179,6 +1179,348 @@ int main(){
 연관성이 있는 객체 군이 여러개 있을 경우 이들을 묶어 추상화하고, 어떤 구체적인 상황이 주어지면 팩토리 객체에서 집합으로 묶은 객체 군을 구현화 하는 생성 패턴이다.
 관련성 있는 여러 종류의 객체를 일관된 방식으로 생성하는 경우에 유용하다.
 kit라고도 불린다.`,
+    options: null,
+    imageUrl: null
+  },
+/* 2024년 2회 */
+  {
+    id: 61,
+    answer: "NNN",
+    question: "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    passageOrCode: `class Main {
+    public static void main(String[] args) {
+        int[] a = new int[]{1, 2, 3, 4};
+        int[] b = new int[]{1, 2, 3, 4};
+        int[] c = new int[]{1, 2, 3};
+        
+        check(a, b);
+        check(a, c); 
+        check(b, c); 
+    }
+ 
+    public static void check(int[] a, int[] b) {
+        if (a==b) {
+            System.out.print("O");
+        }else{
+            System.out.print("N");
+        }
+        
+    }
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 62,
+    answer: "반정규화",
+    question: "다음 문제에서 설명하는 용어를 작성하시오.",
+    passageOrCode: "데이터를 중복시켜 성능을 향상시키기 위한 기법으로 데이터를 중복 저장하거나 테이블을 합치는 등으로 성능을 향상시키지만 데이터 무결성이 저하될 수 있는 기법",
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 63,
+    answer: "VALUES SELECT FROM SET",
+    question: "다음은 SQL에 관한 문제이다. 아래 SQL 구문의 빈칸을 작성하시오.",
+    passageOrCode: `테이블
+사원 [사원번호(PK), 이름, 나이, 부서]
+부서 [사원번호(PK), 이름, 주소, 나이]
+
+신입 사원이 들어와서 사원 테이블에 추가
+INSERT INTO 사원 (사원번호, 이름, 주소, 부서)   [      ①     ] (32431, '정실기', '서울', '영업');
+
+위에 신입사원을 검색하면서 부서 테이블에 추가
+INSERT INTO 부서 (사원번호, 이름, 나이, 부서)
+[    ②     ] 사원번호, 이름, 나이, 23 FROM 사원 WHERE 이름 = '정실기';
+
+전체 사원 테이블 조회
+SELECT  *   [    ③   ]   사원;
+
+퇴사로 인해 부서에 해당하는 값을 '퇴사'로 변경
+UPDATE 사원   [      ④     ]   부서  =  '퇴사'  WHERE 사원번호  = 32431;`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 64,
+    answer: "5 4",
+    question: "다음 릴레이션의 Cardinality와 Degree를 작성하시오.",
+    passageOrCode: null,
+    options: ["Cardinality : (  ①  )", "Degree : (  ②  )"],
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2F9GCnk%2FbtsIQHjwfX4%2FAAAAAAAAAAAAAAAAAAAAAFcwOwpSbNpVcvUGl9r3CTTjPEncjPAQEPGf6rQv7RxE%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3Dh7Ea%252Fde%252F1PCQOb3rpub9ZzkEZTo%253D"
+  },
+  {
+    id: 65,
+    answer: "IPSec",
+    question: "다음은 프로토콜에 대한 내용이다. 아래 내용을 읽고 알맞는 답을 작성하시오.",
+    passageOrCode: `- Network layer에서 IP패킷을 암호화하고 인증하는 등의 보안을 위한 표준이다. 
+- 기업에서 사설 인터넷망으로 사용할 수 있는 VPN을 구현하는데 사용되는 프로토콜이다.
+- AH(Authentication Header)와 ESP(Encapsulating Security Payload)라는 두 가지 보안 프로토콜을 사용한다.`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 66,
+    answer: "ab3ca3",
+    question: "다음은 Python에 대한 문제이다. 아래 코드를 읽고 알맞는 출력 값을 작성하시오.",
+    passageOrCode: `def fnCalculation(x,y):
+    result = 0;
+    for i in range(len(x)):
+     temp = x[i:i+len(y)] 
+     if temp == y:
+       result += 1;
+    return result
+ 
+a = "abdcabcabca"
+p1 = "ab";
+p2 = "ca";
+ 
+out = f"ab{fnCalculation(a,p1)}ca{fnCalculation(a,p2)}"
+print(out)`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 67,
+    answer: "AES",
+    question: "아래 설명하는 내용을 확인하여 알맞는 알고리즘을 작성하시오.",
+    passageOrCode: `- 대칭키 알고리즘으로 1997년 NIST(미국 국립기술표준원)에서 DES를 대체하기 위해 생성되었다.
+- 128비트, 192비트 또는 256비트의 가변 키 크기와 128비트의 고정 블록 크기를 사용한다.
+- 높은 안전성과 효율성, 속도 등으로 인해 DES 대신 전 세계적으로 많이 사용되고 있다.`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 68,
+    answer: "가상회선 데이터그램",
+    question: "패킷 교환 방식 중에 ①연결형 교환 방식과 ②비연결형 교환 방식에 해당하는 방식을 작성하시오.",
+    passageOrCode: null,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 69,
+    answer: "ㅂ",
+    alt: "순차적",
+    question: "아래 내용을 확인하고 보기에서 알맞는 답을 고르시오.",
+    passageOrCode: `실행 순서가 밀접한 관계를 갖는 기능을 모아 모듈로 구성한다.
+한 모듈 내부의 한 기능 요소에 의한 출력 자료가 다음 기능 원소의 입력 자료로서 제공되는 형태이다.`,
+    options: ["ㄱ. 기능적(functional)", "ㄴ. 우연적(Coincidental)", "ㄷ. 통신적(Communication)", "ㄹ. 절차적(Procedural)", "ㅁ. 시간적(Temporal)", "ㅂ. 순차적(sequential)", "ㅅ. 논리적(Logical)"],
+    imageUrl: null
+  },
+  {
+    id: 70,
+    answer: "Iterator",
+    question: "아래는 디자인 패턴에 관한 설명이다. 아래 설명을 읽고 보기에서 알맞는 용어를 작성하시오.",
+    passageOrCode: `- 컬렉션 객체의 내부 구조를 노출하지 않고 순차적으로 접근할 수 있게 하는 패턴이다. 
+- 이 패턴은 객체의 내부 표현 방식에 독립적으로 요소에 접근할 수 있도록 해준다
+- 반복 프로세스를 캡슐화하여 클라이언트 코드에서는 컬렉션의 구체적인 구현에 종속되지 않도록 한다.`,
+    options: ["Singleton", "Adapter", "Iterator", "Factory Method", "Bridge", "Visitor", "Abstract Factory", "Composite", "Observer"],
+    imageUrl: null
+  },
+  {
+    id: 71,
+    answer: "A D C F",
+    question: "아래 그림을 바탕으로 RIP을 구성하여 최단 경로 비용을 계산하여 흐름에 맞게 작성하시오. (A에서 시작)",
+    passageOrCode: null,
+    options: null,
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbDn5o2%2FbtsIQLTXSHe%2FAAAAAAAAAAAAAAAAAAAAAJFzRUUsEI7beM5FTIMGSH1FCvW-dE-ni6ipmIyST9YZ%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DEIX5pwnfm6OQ4oak5kcHqCafiWU%253D"
+  },
+  {
+    id: 72,
+    answer: "6.5",
+    question: "아래의 표를 확인하여 SRT 스케줄링의 평균 대기시간을 계산하여 작성하시오.",
+    passageOrCode: `프로세스	도착 시간	서비스 시간
+A	0	8
+B	1	4
+C	2	9
+D	3	5`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 73,
+    answer: "21",
+    question: "다음은 C언어에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+int main() {
+    int arr[3][3] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int* parr[2] = {arr[1], arr[2]};
+    printf("%d", parr[1][1] + *(parr[1]+2) + **parr);
+    return 0;
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 74,
+    answer: "25, 20",
+    question: "다음은 Java 언어에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    passageOrCode: `class Main {
+    public static void main(String[] args) {
+        int a[] = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        ODDNumber OE = new ODDNumber();
+        System.out.print(OE.sum(a, true) + ", " + OE.sum(a, false));
+    }
+}
+ 
+interface Number {
+    int sum(int[] a, boolean odd);
+}
+ 
+class ODDNumber implements Number {
+    public int sum(int[] a, boolean odd) {
+        int result = 0;
+        for(int i=0; i < a.length; i++){
+            if((odd && a[i] % 2 != 0) || (!odd && a[i] % 2 == 0))
+                result += a[i];
+        }        
+        return result;
+    }    
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 75,
+    answer: "10",
+    question: "다음은 C언어에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+#include <string.h>
+ 
+void sumFn(char* d, const char* s) {
+ 
+    while (*s) {
+        *d = *s;
+        d++;
+        s++;
+    }
+    *d = '\0'; 
+}
+ 
+int main() {
+    const char* str1 = "first";
+    char str2[50] = "teststring";  
+    int result=0;
+    sumFn(str2, str1);
+ 
+    for (int i = 0; str2[i] != '\0'; i++) {
+        result += i;
+    }
+    printf("%d", result);
+    
+    return 0;
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 76,
+    answer: "Control",
+    alt: "제어",
+    question: "아래는 소프트웨어 설계에 대한 내용이다. 내용을 읽고 괄호안에 알맞는 답을 작성하시오.",
+    passageOrCode: `- 어떤 모듈이 다른 모듈 내부의 논리적인 흐름을 제어하기 위해, 제어를 통신하거나 제어 요소를 전달하는 결합도이다.
+- 한 모듈이 다른 모듈의 상세한 처리 절차를 알고 있어 이를 통제하는 경우나 처리 기능이 두 모듈에 분리되어 설계된 경우에 발생한다.`,
+    options: ["(              ) Coupling"],
+    imageUrl: null
+  },
+  {
+    id: 77,
+    answer: "dcba",
+    question: "다음은 Java에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력 값을 작성하시오.",
+    passageOrCode: `class Main {
+    public static void main(String[] args) {
+        String str = "abacabcd";
+        boolean[] seen = new boolean[256];
+        System.out.print(calculFn(str, str.length()-1, seen));
+    }
+ 
+    public static String calculFn(String str, int index, boolean[] seen) {
+        if(index < 0) return "";
+        char c = str.charAt(index);
+        String result = calculFn(str, index-1, seen);
+        if(!seen[c]) {
+            seen[c] = true;
+            return c + result;
+        }
+        return result;
+    }
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 78,
+    answer: "-13",
+    question: "다음은 C언어에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력 값을 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+ 
+void swap(int a, int b) {
+    int t = a;
+    a = b;
+    b = t;
+}
+ 
+int main() {
+    
+    int a = 11;
+    int b = 19;
+    swap(a, b);
+    
+    switch(a) {
+        case 1:
+            b += 1;
+        case 11:
+            b += 2;
+        default:
+            b += 3;
+        break;
+    }
+    
+    printf("%d", a-b);
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 79,
+    answer: "20",
+    question: "다음은 C언어에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력 값을 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+ 
+struct node {
+    int n1;
+    struct node *n2;
+};
+ 
+int main() {
+ 
+    struct node a = {10, NULL};
+    struct node b = {20, NULL};
+    struct node c = {30, NULL};
+ 
+    struct node *head = &a;
+    a.n2 = &b;
+    b.n2 = &c;
+ 
+    printf("%d\n", head->n2->n1);
+ 
+    return 0;
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 80,
+    answer: "S",
+    question: "다음은 Java언어에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력 값을 작성하시오.",
+    passageOrCode: `class Main {
+    public static void main(String[] args) {
+        String str = "ITISTESTSTRING";
+        String[] result = str.split("T");
+        System.out.print(result[3]);
+    }
+}`,
     options: null,
     imageUrl: null
   },
