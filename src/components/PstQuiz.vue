@@ -199,7 +199,6 @@
 .answer-input textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2); }
 .answer-input textarea:disabled { background: #f1f1f1; cursor: not-allowed; }
 .answer-input button { height: 48px; }
-
 </style>
 
 <script>
@@ -320,7 +319,6 @@ export default {
       if (event.shiftKey) {
         return;
       }
-      
       event.preventDefault();
       this.checkAnswer();
     },
@@ -332,11 +330,20 @@ export default {
       this.totalCount++;
       
       const answer = this.currentQuestion.answer;
-      const requiresLineBreak = answer.includes('\n');
-      const normalizedAnswer = this.normalizeString(this.userAnswer, requiresLineBreak);
-      const normalizedKeyword = this.normalizeString(answer, requiresLineBreak);
+      const altAnswer = this.currentQuestion.alt;
+
+      // 정답 또는 alt에 줄바꿈이 있는지 확인
+      const requiresLineBreak = answer.includes('\n') || (altAnswer && altAnswer.includes('\n'));
       
-      this.isCorrect = normalizedAnswer === normalizedKeyword;
+      // 사용자 입력 정규화
+      const normalizedUserAnswer = this.normalizeString(this.userAnswer, requiresLineBreak);
+      
+      // 정답 및 alt 정규화
+      const normalizedAnswer = this.normalizeString(answer, requiresLineBreak);
+      const normalizedAlt = altAnswer ? this.normalizeString(altAnswer, requiresLineBreak) : null;
+      
+      // 정답 또는 alt와 일치하는지 비교
+      this.isCorrect = (normalizedUserAnswer === normalizedAnswer) || (normalizedAlt && normalizedUserAnswer === normalizedAlt);
 
       // 점수 및 오답 노트 처리
       if (this.isCorrect) {
@@ -464,8 +471,7 @@ export default {
           this.correctCount = 0;
           this.wrongCount = 0;
           this.totalCount = 0;
-          
-          this.bookmarkedQuestions = [];
+          // this.bookmarkedQuestions = [];
           this.solvedQuestions = [];
           this.wrongQuestions = [];
           this.usedQuestions = [];
