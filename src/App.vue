@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    
     <nav class="sidebar">
       <ul>
         <li>
@@ -65,6 +64,8 @@ export default {
   padding: 16px 0;
   box-sizing: border-box;
   overflow: visible;
+  position: relative;
+  z-index: 100; 
 }
 
 .sidebar ul {
@@ -159,6 +160,8 @@ export default {
   background-color: var(--color-background);
   /* padding: 2rem; */
   box-sizing: border-box;
+  position: relative;
+  z-index: 1;
 }
 
 .quiz-container {

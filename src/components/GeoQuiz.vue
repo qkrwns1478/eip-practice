@@ -1,35 +1,26 @@
 <template>
-  <div class="quiz-container">
-    <div class="quiz-header">
-      <h2>정보처리기사 실기 퀴즈</h2>
-      <!-- <div class="score-board">
-        <span class="correct">정답: {{ correctCount }}</span>
-        <span class="wrong">오답: {{ wrongCount }}</span>
-        <span class="total">총 문제: {{ totalCount }}</span>
-        <span class="bookmarks">북마크: {{ bookmarkedQuestions.length }}</span>
-      </div> -->
-      <div class="progress-bar">
-        <div class="progress-fill" :style="{ width: progressPercentage + '%' }"></div>
-        <span class="progress-text">{{ solvedQuestions.length }} / {{ totalAvailableQuestions }} 문제 풀이</span>
-      </div>
-    </div>
+  <div class="quiz-container geo-quiz-layout">
 
-    <!-- 상단 메뉴 -->
-    <div class="menu-bar">
+    <div class="menu-bar icon-menu-bar">
       <button @click="showMode = 'quiz'" :class="{ active: showMode === 'quiz' }">
-        📝 퀴즈
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+        <span class="tooltip-text">퀴즈</span>
       </button>
       <button @click="showMode = 'bookmarks'" :class="{ active: showMode === 'bookmarks' }">
-        ⭐ 북마크 ({{ bookmarkedQuestions.length }})
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <span class="tooltip-text">북마크 ({{ bookmarkedQuestions.length }})</span>
       </button>
       <button @click="showMode = 'wrong'" :class="{ active: showMode === 'wrong' }">
-        ❌ 틀린 문제 ({{ wrongQuestions.length }})
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <span class="tooltip-text">틀린 문제 ({{ wrongQuestions.length }})</span>
       </button>
       <button @click="showMode = 'stats'" :class="{ active: showMode === 'stats' }">
-        📊 통계
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20V16"/></svg>
+        <span class="tooltip-text">통계</span>
       </button>
       <button @click="resetProgress" class="reset-btn">
-        🔄 초기화
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        <span class="tooltip-text">초기화</span>
       </button>
     </div>
 
@@ -117,7 +108,7 @@
 
     <!-- 북마크 모드 -->
     <div v-else-if="showMode === 'bookmarks'" class="bookmarks-content">
-      <!-- <h3>북마크한 문제</h3> -->
+      <h3>북마크한 문제</h3>
       <div v-if="bookmarkedQuestions.length === 0" class="empty-state">
         <p>북마크한 문제가 없습니다.</p>
       </div>
@@ -144,7 +135,7 @@
 
     <!-- 틀린 문제 모드 -->
     <div v-else-if="showMode === 'wrong'" class="wrong-content">
-      <!-- <h3>틀린 문제 복습</h3> -->
+      <h3>틀린 문제</h3>
       <div v-if="wrongQuestions.length === 0" class="empty-state">
         <p>틀린 문제가 없습니다. 완벽해요! 🎉</p>
       </div>
@@ -226,9 +217,169 @@
   </div>
 </template>
 
+<style>
+@import "../assets/style/GeoQuiz.css";
+
+.geo-quiz-layout.quiz-container {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.icon-menu-bar {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 10px 20px;
+  background-color: var(--color-white);
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+  min-height: 0;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.icon-menu-bar button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid transparent;
+  background-color: transparent;
+  color: var(--color-text-light);
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  box-shadow: none;
+}
+
+.icon-menu-bar button:hover:not(.active) {
+  background-color: var(--color-background);
+  color: var(--color-text);
+  transform: none;
+  box-shadow: none;
+  border-color: transparent;
+}
+
+.icon-menu-bar button.active {
+  background-color: var(--color-primary-light);
+  color: var(--color-primary);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.icon-menu-bar button.reset-btn {
+  margin-left: auto;
+  border-color: transparent;
+}
+.icon-menu-bar button.reset-btn:hover,
+.icon-menu-bar button.reset-btn.active {
+  background-color: #fcf1f2;
+  color: var(--color-danger);
+  border-color: transparent;
+  transform: none;
+  box-shadow: none;
+}
+
+.icon-menu-bar button svg {
+  width: 20px;
+  height: 20px;
+  stroke-width: 2;
+  color: currentColor;
+}
+
+.icon-menu-bar button .tooltip-text {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 8px;
+  
+  background-color: var(--color-text);
+  color: var(--color-white);
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  z-index: 20;
+  pointer-events: none;
+}
+
+.icon-menu-bar button .tooltip-text::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent var(--color-text) transparent;
+}
+
+.icon-menu-bar button:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+.geo-quiz-layout .quiz-content,
+.geo-quiz-layout .bookmarks-content,
+.geo-quiz-layout .wrong-content,
+.geo-quiz-layout .stats-content,
+.geo-quiz-layout .no-question {
+  flex: 1;
+  overflow-y: auto;
+  padding: 30px;
+  
+  border: none;
+  box-shadow: none;
+  border-radius: 0;
+  background-color: transparent;
+  
+  /* max-width: 960px; */
+  /* margin: 0 auto; */
+  width: 100%;
+  box-sizing: border-box;
+}
+.geo-quiz-layout .no-question {
+  max-width: 100%;
+}
+
+.geo-quiz-layout .description,
+.geo-quiz-layout .main-keyword,
+.geo-quiz-layout .sub-item {
+  background-color: var(--color-white);
+}
+
+.geo-quiz-layout .sub-item.correct {
+  background: #f0f9f2;
+}
+
+.geo-quiz-layout .sub-item.wrong {
+  background: #fcf1f2;
+}
+
+.geo-quiz-layout .answer-input input {
+  background-color: var(--color-white);
+}
+
+.geo-quiz-layout .last-session {
+  background: var(--color-white);
+  border-color: var(--color-border);
+}
+</style>
+
 <script>
 import { geoData } from "../assets/geoData";
-import "../assets/style/GeoQuiz.css"
 
 export default {
   name: "GeoQuiz",
