@@ -71,7 +71,107 @@
       </div>
     </div>
 
+    <div v-else-if="showMode === 'bookmarks'" class="bookmarks-content">
+      <div v-if="bookmarkedQuestions.length === 0" class="empty-state">
+        <p>북마크한 문제가 없습니다.</p>
+      </div>
+      <div v-else class="bookmark-list">
+        <div 
+          v-for="id in bookmarkedQuestions" 
+          :key="id"
+          class="bookmark-item"
+          @click="startBookmarkedQuestion(id)"
+        >
+          <div class="bookmark-info">
+            <h4>{{ getQuestionById(id)?.question || '문제' }}</h4>
+            <p>정답: {{ getQuestionById(id)?.answer || '설명 없음' }}</p>
+          </div>
+          <button 
+            @click.stop="removeBookmark(id)"
+            class="remove-bookmark-btn"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
     </div>
+
+    <div v-else-if="showMode === 'wrong'" class="wrong-content">
+      <div v-if="wrongQuestions.length === 0" class="empty-state">
+        <p>틀린 문제가 없습니다. 완벽해요! 🎉</p>
+      </div>
+      <div v-else class="wrong-list">
+        <div 
+          v-for="id in wrongQuestions" 
+          :key="id"
+          class="wrong-item"
+          @click="startWrongQuestion(id)"
+        >
+          <div class="wrong-info">
+            <h4>{{ getQuestionById(id)?.question || '문제' }}</h4>
+            <p>정답: {{ getQuestionById(id)?.answer || '설명 없음' }}</p>
+          </div>
+          <span class="retry-badge">재도전</span>
+        </div>
+      </div>
+    </div>
+
+    <div v-else-if="showMode === 'stats'" class="stats-content">
+      <h3>학습 통계</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h4>전체 진행률</h4>
+          <div class="stat-value">{{ progressPercentage.toFixed(1) }}%</div>
+          <p>{{ solvedQuestions.length }} / {{ totalAvailableQuestions }} 문제</p>
+        </div>
+        <div class="stat-card">
+          <h4>정답률</h4>
+          <div class="stat-value">{{ accuracyRate.toFixed(1) }}%</div>
+          <p>{{ correctCount }} / {{ totalCount }} 정답</p>
+        </div>
+        <div class="stat-card">
+          <h4>북마크</h4>
+          <div class="stat-value">{{ bookmarkedQuestions.length }}</div>
+          <p>중요한 문제</p>
+        </div>
+        <div class="stat-card">
+          <h4>틀린 문제</h4>
+          <div class="stat-value">{{ wrongQuestions.length }}</div>
+          <p>복습 필요</p>
+        </div>
+      </div>
+      <div classs="last-session">
+        <h4>마지막 학습</h4>
+        <p>{{ lastSessionDate }}</p>
+      </div>
+    </div>
+
+    <div v-else-if="!currentQuestion && showMode === 'quiz'" class="no-question">
+      <button @click="startQuiz" class="start-button">퀴즈 시작</button>
+    </div>
+
+    <div v-if="showConfirmModal" class="modal-overlay" @click="closeConfirmModal">
+      <div class="modal-content" @click.stop>
+        <h3>{{ confirmModal.title }}</h3>
+        <p>{{ confirmModal.message }}</p>
+        <div class="modal-actions">
+          <button @click="confirmModal.onConfirm" class="confirm-btn">확인</button>
+          <button @click="closeConfirmModal" class="cancel-btn">취소</button>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="showAlertModal" class="modal-overlay" @click="closeAlertModal">
+      <div class="modal-content alert-modal" @click.stop>
+        <div class="modal-icon">{{ alertModal.icon }}</div>
+        <h3>{{ alertModal.title }}</h3>
+        <p>{{ alertModal.message }}</p>
+        <div class="modal-actions">
+          <button @click="closeAlertModal" class="confirm-btn">확인</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style>
@@ -86,69 +186,20 @@
   overflow-x: auto;
   margin-bottom: 20px;
   font-family: Consolas, 'Courier New', monospace;
-  white-space: pre-wrap; /* 코드가 길 때 줄바꿈 */
-  word-wrap: break-word; /* 단어가 길 때 줄바꿈 */
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
+.pst-question .image-container { margin-bottom: 20px; }
+.pst-question .image-container img { max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--color-border); }
+.pst-question .options-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; text-align: left; }
+.pst-question .option-item { background: var(--color-primary-light); padding: 12px 16px; border-radius: 8px; border-left: 4px solid var(--color-primary); }
 
-.pst-question .image-container {
-  margin-bottom: 20px;
-}
+.answer-input { height: auto; min-height: 48px; align-items: flex-start; }
+.answer-input textarea { flex: 1; padding: 12px 16px; font-size: 16px; font-family: inherit; border: 1px solid var(--color-border); border-radius: 8px; transition: border-color 0.3s ease, box-shadow 0.3s ease; resize: vertical; min-height: 48px; line-height: 1.6; }
+.answer-input textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2); }
+.answer-input textarea:disabled { background: #f1f1f1; cursor: not-allowed; }
+.answer-input button { height: 48px; }
 
-.pst-question .image-container img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 8px;
-  border: 1px solid var(--color-border);
-}
-
-.pst-question .options-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 20px;
-  text-align: left;
-}
-
-.pst-question .option-item {
-  background: var(--color-primary-light);
-  padding: 12px 16px;
-  border-radius: 8px;
-  border-left: 4px solid var(--color-primary);
-}
-
-.answer-input {
-  height: auto;
-  min-height: 48px;
-  align-items: flex-start; 
-}
-
-.answer-input textarea {
-  flex: 1;
-  padding: 12px 16px;
-  font-size: 16px;
-  font-family: inherit;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  resize: vertical;
-  min-height: 48px;
-  line-height: 1.6;
-}
-
-.answer-input textarea:focus {
-  outline: none;
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
-}
-
-.answer-input textarea:disabled {
-  background: #f1f1f1;
-  cursor: not-allowed;
-}
-
-.answer-input button {
-  height: 48px;
-}
 </style>
 
 <script>
@@ -174,17 +225,9 @@ export default {
       showMode: "quiz",
       
       showConfirmModal: false,
-      confirmModal: {
-        title: "",
-        message: "",
-        onConfirm: null
-      },
+      confirmModal: { title: "", message: "", onConfirm: null },
       showAlertModal: false,
-      alertModal: {
-        icon: "",
-        title: "",
-        message: ""
-      },
+      alertModal: { icon: "", title: "", message: "" },
     };
   },
   computed: {
@@ -220,19 +263,12 @@ export default {
       this.confirmModal = { title, message, onConfirm };
       this.showConfirmModal = true;
     },
-    
-    closeConfirmModal() {
-      this.showConfirmModal = false;
-    },
-    
+    closeConfirmModal() { this.showConfirmModal = false; },
     showAlert(icon, title, message) {
       this.alertModal = { icon, title, message };
       this.showAlertModal = true;
     },
-    
-    closeAlertModal() {
-      this.showAlertModal = false;
-    },
+    closeAlertModal() { this.showAlertModal = false; },
     
     startQuiz() {
       this.showMode = 'quiz';
@@ -240,7 +276,7 @@ export default {
         this.generateQuestion();
       }
     },
-
+    
     generateQuestion() {
       const availableQuestions = this.pstData.filter(item => {
         return !this.usedQuestions.includes(item.id);
@@ -278,16 +314,13 @@ export default {
         }
       });
     },
-
+    
     handleEnter(event) {
       if (this.answered) return;
-
-      // Shift + Enter: 기본 동작 (줄바꿈) 수행
-      if (event.shiftKey) { 
+      if (event.shiftKey) {
         return;
       }
-
-      // Enter: 기본 동작 (줄바꿈) 막고, 정답 확인
+      
       event.preventDefault();
       this.checkAnswer();
     },
@@ -295,18 +328,17 @@ export default {
     checkAnswer() {
       if (this.answered) return;
       
+      this.answered = true;
+      this.totalCount++;
+      
       const answer = this.currentQuestion.answer;
-      // 정답에 줄바꿈이 있는지 확인
       const requiresLineBreak = answer.includes('\n');
-
       const normalizedAnswer = this.normalizeString(this.userAnswer, requiresLineBreak);
       const normalizedKeyword = this.normalizeString(answer, requiresLineBreak);
       
       this.isCorrect = normalizedAnswer === normalizedKeyword;
-      
-      this.answered = true;
-      this.totalCount++;
-      
+
+      // 점수 및 오답 노트 처리
       if (this.isCorrect) {
         this.correctCount++;
       } else {
@@ -324,10 +356,7 @@ export default {
 
       this.$nextTick(() => {
         if (this.$refs.nextButton) {
-          this.$refs.nextButton.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
+          this.$refs.nextButton.scrollIntoView({ behavior: "smooth", block: "center" });
           this.$refs.nextButton.focus();
         }
       });
@@ -335,20 +364,11 @@ export default {
     
     normalizeString(str, preserveLineBreaks = false) {
       if (!str) return '';
-
       let normalized = str.toLowerCase();
-
       if (preserveLineBreaks) {
-        // 줄바꿈이 필요한 경우 (코드 정답 등)
-        normalized = normalized
-          .trim() // 양 끝 공백만 제거
-          .replace(/[()[\]{}]/g, ''); // 괄호 제거 (선택적)
+        normalized = normalized.trim().replace(/[()[\]{}]/g, '');
       } else {
-        // 일반 정답 (단답형 등)
-        normalized = normalized
-          .replace(/\s+/g, '') // 모든 공백 (줄바꿈 포함) 제거
-          .replace(/[()[\]{}]/g, '')
-          .trim();
+        normalized = normalized.replace(/\s+/g, '').replace(/[()[\]{}]/g, '').trim();
       }
       return normalized;
     },
@@ -361,16 +381,13 @@ export default {
 
     toggleBookmark() {
       if (!this.currentQuestion) return;
-      
       const id = this.currentQuestion.id;
       const index = this.bookmarkedQuestions.indexOf(id);
-      
       if (index > -1) {
         this.bookmarkedQuestions.splice(index, 1);
       } else {
         this.bookmarkedQuestions.push(id);
       }
-      
       this.saveProgress();
     },
 
@@ -385,21 +402,13 @@ export default {
     getQuestionById(id) {
       return this.pstData.find(item => item.id === id);
     },
-
     startBookmarkedQuestion(id) {
       const question = this.getQuestionById(id);
-      if (question) {
-        this.showMode = 'quiz';
-        this.setupQuestion(question);
-      }
+      if (question) { this.showMode = 'quiz'; this.setupQuestion(question); }
     },
-
     startWrongQuestion(id) {
       const question = this.getQuestionById(id);
-      if (question) {
-        this.showMode = 'quiz';
-        this.setupQuestion(question);
-      }
+      if (question) { this.showMode = 'quiz'; this.setupQuestion(question); }
     },
 
     saveProgress() {
@@ -418,7 +427,6 @@ export default {
         answered: this.answered,
         lastSession: new Date().toISOString()
       };
-      
       localStorage.setItem('pstQuiz_progress', JSON.stringify(progress));
       localStorage.setItem('pstQuiz_lastSession', progress.lastSession);
     },
@@ -456,7 +464,8 @@ export default {
           this.correctCount = 0;
           this.wrongCount = 0;
           this.totalCount = 0;
-          // this.bookmarkedQuestions = [];
+          
+          this.bookmarkedQuestions = [];
           this.solvedQuestions = [];
           this.wrongQuestions = [];
           this.usedQuestions = [];
