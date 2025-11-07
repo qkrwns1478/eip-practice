@@ -1,6 +1,5 @@
 <template>
-  <div class="quiz-container geo-quiz-layout">
-
+  <div class="quiz-container pst-quiz-layout">
     <div class="menu-bar icon-menu-bar">
       <button @click="showMode = 'quiz'" :class="{ active: showMode === 'quiz' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
@@ -24,7 +23,6 @@
       </button>
     </div>
 
-    <!-- 퀴즈 모드 -->
     <div v-if="showMode === 'quiz' && currentQuestion" class="quiz-content" ref="quizContent">
       <div class="question-section">
         <div class="question-header">
@@ -38,75 +36,38 @@
           </button>
         </div>
         
-        <!-- 단일 항목 문제 -->
-        <div v-if="!currentQuestion.isMultiple" class="single-question">
-          <p class="description">{{ currentQuestion.desc }}</p>
+        <div class="pst-question">
+          <p class="description">{{ currentQuestion.question }}</p>
+          <pre v-if="currentQuestion.passageOrCode" class="code-block"><code>{{ currentQuestion.passageOrCode }}</code></pre>
+          <div v-if="currentQuestion.imageUrl" class="image-container">
+            <img :src="currentQuestion.imageUrl" alt="문제 이미지" />
+          </div>
+          <div v-if="currentQuestion.options && currentQuestion.options.length > 0" class="options-list">
+            <div v-for="(option, index) in currentQuestion.options" :key="index" class="option-item">
+              {{ option }}
+            </div>
+          </div>
+
           <div class="answer-input">
-            <input 
+            <textarea 
               v-model="userAnswer"
-              @keydown.enter.prevent="checkAnswer"
-              placeholder="답을 입력하세요"
+              @keydown.enter="handleEnter"
+              placeholder="답을 입력하세요 (Shift+Enter로 줄바꿈)"
               :disabled="answered"
               ref="answerInput"
-            />
+            ></textarea>
             <button @click="checkAnswer" :disabled="answered">확인</button>
           </div>
         </div>
 
-        <!-- 다중 항목 문제 -->
-        <div v-else class="multiple-question">
-          <p class="main-keyword">{{ currentQuestion.mainKeyword }}</p>
-          <div class="sub-items">
-            <div 
-              v-for="(item, index) in currentQuestion.subItems" 
-              :key="index"
-              class="sub-item"
-              :class="{ 
-                'correct': item.answered && item.isCorrect,
-                'wrong': item.answered && !item.isCorrect 
-              }"
-            >
-              <p class="sub-description">{{ index + 1 }}. {{ item.desc }}</p>
-              <div class="answer-input">
-                <input 
-                  v-model="item.userAnswer"
-                  @keydown.enter.prevent="checkSubAnswer(index)"
-                  placeholder="답을 입력하세요"
-                  :disabled="item.answered"
-                  :ref="el => { if (el) subItemInputs[index] = el }"
-                />
-                <button 
-                  @click="checkSubAnswer(index)" 
-                  :disabled="item.answered"
-                >
-                  확인
-                </button>
-              </div>
-              <div v-if="item.answered" class="result">
-                <span v-if="item.isCorrect" class="correct-mark">✓ 정답!</span>
-                <span v-else class="wrong-mark">✗ 오답: {{ item.keyword }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 결과 표시 -->
         <div v-if="answered" class="result-section">
-          <div v-if="!currentQuestion.isMultiple">
-            <p v-if="isCorrect" class="correct-result">✓ 정답입니다!</p>
-            <p v-else class="wrong-result">✗ 오답입니다. 정답: {{ currentQuestion.keyword }}</p>
-          </div>
-          <div v-else>
-            <p class="multiple-result">
-              {{ currentQuestion.correctSubCount }} / {{ currentQuestion.subItems.length }} 정답
-            </p>
-          </div>
+          <p v-if="isCorrect" class="correct-result">✓ 정답입니다!</p>
+          <p v-else class="wrong-result">✗ 오답입니다. 정답: {{ currentQuestion.answer }}</p>
           <button @click="nextQuestion" class="next-button" ref="nextButton">다음 문제</button>
         </div>
       </div>
     </div>
 
-    <!-- 북마크 모드 -->
     <div v-else-if="showMode === 'bookmarks'" class="bookmarks-content">
       <h3>북마크한 문제</h3>
       <div v-if="bookmarkedQuestions.length === 0" class="empty-state">
@@ -120,8 +81,8 @@
           @click="startBookmarkedQuestion(id)"
         >
           <div class="bookmark-info">
-            <h4>{{ getQuestionById(id)?.keyword || '문제' }}</h4>
-            <p>{{ getQuestionById(id)?.desc || '설명 없음' }}</p>
+            <h4>{{ getQuestionById(id)?.question || '문제' }}</h4>
+            <p>정답: {{ getQuestionById(id)?.answer || '설명 없음' }}</p>
           </div>
           <button 
             @click.stop="removeBookmark(id)"
@@ -133,7 +94,6 @@
       </div>
     </div>
 
-    <!-- 틀린 문제 모드 -->
     <div v-else-if="showMode === 'wrong'" class="wrong-content">
       <h3>틀린 문제</h3>
       <div v-if="wrongQuestions.length === 0" class="empty-state">
@@ -147,15 +107,14 @@
           @click="startWrongQuestion(id)"
         >
           <div class="wrong-info">
-            <h4>{{ getQuestionById(id)?.keyword || '문제' }}</h4>
-            <p>{{ getQuestionById(id)?.desc || '설명 없음' }}</p>
+            <h4>{{ getQuestionById(id)?.question || '문제' }}</h4>
+            <p>정답: {{ getQuestionById(id)?.answer || '설명 없음' }}</p>
           </div>
           <span class="retry-badge">재도전</span>
         </div>
       </div>
     </div>
 
-    <!-- 통계 모드 -->
     <div v-else-if="showMode === 'stats'" class="stats-content">
       <h3>학습 통계</h3>
       <div class="stats-grid">
@@ -180,18 +139,16 @@
           <p>복습 필요</p>
         </div>
       </div>
-      <div class="last-session">
+      <div classs="last-session">
         <h4>마지막 학습</h4>
         <p>{{ lastSessionDate }}</p>
       </div>
     </div>
 
-    <!-- 시작 화면 -->
     <div v-else-if="!currentQuestion && showMode === 'quiz'" class="no-question">
       <button @click="startQuiz" class="start-button">퀴즈 시작</button>
     </div>
 
-    <!-- 확인 모달 -->
     <div v-if="showConfirmModal" class="modal-overlay" @click="closeConfirmModal">
       <div class="modal-content" @click.stop>
         <h3>{{ confirmModal.title }}</h3>
@@ -203,7 +160,6 @@
       </div>
     </div>
 
-    <!-- 알림 모달 -->
     <div v-if="showAlertModal" class="modal-overlay" @click="closeAlertModal">
       <div class="modal-content alert-modal" @click.stop>
         <div class="modal-icon">{{ alertModal.icon }}</div>
@@ -220,7 +176,7 @@
 <style>
 @import "../assets/style/GeoQuiz.css";
 
-.geo-quiz-layout.quiz-container {
+.pst-quiz-layout.quiz-container {
   max-width: 100%;
   margin: 0;
   padding: 0;
@@ -331,11 +287,11 @@
   opacity: 1;
 }
 
-.geo-quiz-layout .quiz-content,
-.geo-quiz-layout .bookmarks-content,
-.geo-quiz-layout .wrong-content,
-.geo-quiz-layout .stats-content,
-.geo-quiz-layout .no-question {
+.pst-quiz-layout .quiz-content,
+.pst-quiz-layout .bookmarks-content,
+.pst-quiz-layout .wrong-content,
+.pst-quiz-layout .stats-content,
+.pst-quiz-layout .no-question {
   flex: 1;
   overflow-y: auto;
   padding: 30px;
@@ -350,42 +306,78 @@
   width: 100%;
   box-sizing: border-box;
 }
-.geo-quiz-layout .no-question {
+.pst-quiz-layout .no-question {
   max-width: 100%;
 }
 
-.geo-quiz-layout .description,
-.geo-quiz-layout .main-keyword,
-.geo-quiz-layout .sub-item {
-  background-color: var(--color-white);
-}
-
-.geo-quiz-layout .sub-item.correct {
-  background: #f0f9f2;
-}
-
-.geo-quiz-layout .sub-item.wrong {
-  background: #fcf1f2;
-}
-
-.geo-quiz-layout .answer-input input {
-  background-color: var(--color-white);
-}
-
-.geo-quiz-layout .last-session {
+.pst-question .code-block {
   background: var(--color-white);
-  border-color: var(--color-border);
+  border: 1px solid var(--color-border);
+  padding: 16px;
+  border-radius: 8px;
+  text-align: left;
+  overflow-x: auto;
+  margin-bottom: 20px;
+  font-family: Consolas, 'Courier New', monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
+
+.pst-question .image-container {
+  margin-bottom: 20px;
+}
+
+.pst-question .image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+}
+
+.pst-question .options-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.pst-question .option-item { 
+  background: var(--color-white); 
+  border: 1px solid var(--color-border);
+  padding: 12px 16px; 
+  border-radius: 8px; 
+  border-left: 4px solid var(--color-primary); 
+  white-space: pre-line;
+}
+
+.answer-input { height: auto; min-height: 48px; align-items: flex-start; }
+.answer-input textarea { 
+  flex: 1; 
+  padding: 12px 16px; 
+  font-size: 16px; 
+  font-family: inherit; 
+  border: 1px solid var(--color-border); 
+  border-radius: 8px; 
+  transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+  resize: vertical; 
+  min-height: 48px; 
+  line-height: 1.6;
+  background-color: var(--color-white);
+}
+.answer-input textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2); }
+.answer-input textarea:disabled { background: #f1f1f1; cursor: not-allowed; }
+.answer-input button { height: 48px; }
 </style>
 
 <script>
-import { geoData } from "../assets/geoData";
+import { pstData } from "../assets/pstData";
 
 export default {
-  name: "GeoQuiz",
+  name: "PstQuiz",
   data() {
     return {
-      geoData: geoData,
+      pstData: pstData,
       currentQuestion: null,
       currentQuestionIndex: 0,
       userAnswer: "",
@@ -401,23 +393,14 @@ export default {
       showMode: "quiz",
       
       showConfirmModal: false,
-      confirmModal: {
-        title: "",
-        message: "",
-        onConfirm: null
-      },
+      confirmModal: { title: "", message: "", onConfirm: null },
       showAlertModal: false,
-      alertModal: {
-        icon: "",
-        title: "",
-        message: ""
-      },
-      subItemInputs: []
+      alertModal: { icon: "", title: "", message: "" },
     };
   },
   computed: {
     totalAvailableQuestions() {
-      return this.geoData.filter(item => item.id).length;
+      return this.pstData.length;
     },
     progressPercentage() {
       if (this.totalAvailableQuestions === 0) return 0;
@@ -431,7 +414,7 @@ export default {
       return this.currentQuestion && this.bookmarkedQuestions.includes(this.currentQuestion.id);
     },
     lastSessionDate() {
-      const saved = localStorage.getItem('geoQuiz_lastSession');
+      const saved = localStorage.getItem('pstQuiz_lastSession');
       if (!saved) return '아직 학습 기록이 없습니다';
       const date = new Date(saved);
       return date.toLocaleString('ko-KR');
@@ -439,7 +422,6 @@ export default {
   },
   mounted() {
     this.loadProgress();
-    // this.startQuiz();
     if (!this.currentQuestion) {
       this.generateQuestion();
     }
@@ -449,19 +431,12 @@ export default {
       this.confirmModal = { title, message, onConfirm };
       this.showConfirmModal = true;
     },
-    
-    closeConfirmModal() {
-      this.showConfirmModal = false;
-    },
-    
+    closeConfirmModal() { this.showConfirmModal = false; },
     showAlert(icon, title, message) {
       this.alertModal = { icon, title, message };
       this.showAlertModal = true;
     },
-    
-    closeAlertModal() {
-      this.showAlertModal = false;
-    },
+    closeAlertModal() { this.showAlertModal = false; },
     
     startQuiz() {
       this.showMode = 'quiz';
@@ -471,8 +446,8 @@ export default {
     },
     
     generateQuestion() {
-      const availableQuestions = this.geoData.filter(item => {
-        return item.id && !this.usedQuestions.includes(item.id);
+      const availableQuestions = this.pstData.filter(item => {
+        return !this.usedQuestions.includes(item.id);
       });
       
       if (availableQuestions.length === 0) {
@@ -489,36 +464,7 @@ export default {
     },
 
     setupQuestion(selectedItem) {
-      const subItems = this.geoData.filter(item => item.parentId === selectedItem.id);
-      
-      if (subItems.length > 0) {
-        this.currentQuestion = {
-          id: selectedItem.id,
-          mainKeyword: selectedItem.keyword,
-          isMultiple: true,
-          subItems: subItems.map(item => ({
-            keyword: item.keyword,
-            desc: item.desc,
-            alt: item.alt || null,
-            userAnswer: '',
-            answered: false,
-            isCorrect: false
-          })),
-          correctSubCount: 0
-        };
-      } else if (selectedItem.desc) {
-        this.currentQuestion = {
-          id: selectedItem.id,
-          keyword: selectedItem.keyword,
-          desc: selectedItem.desc,
-          alt: selectedItem.alt || null,
-          isMultiple: false
-        };
-      } else {
-        this.generateQuestion();
-        return;
-      }
-      
+      this.currentQuestion = selectedItem;
       this.usedQuestions.push(selectedItem.id);
       this.userAnswer = '';
       this.answered = false;
@@ -527,34 +473,60 @@ export default {
       if (this.currentQuestionIndex > 1)
         this.saveProgress();
       
-      this.subItemInputs = [];
       this.$nextTick(() => {
         if (this.$refs.quizContent) {
           this.$refs.quizContent.scrollTop = 0;
         }
         if (this.$refs.answerInput) {
           this.$refs.answerInput.focus();
-        } else if (this.subItemInputs[0]) {
-          this.subItemInputs[0].focus();
         }
       });
     },
     
+    handleEnter(event) {
+      if (this.answered) return;
+      if (event.shiftKey) {
+        return;
+      }
+      event.preventDefault();
+      this.checkAnswer();
+    },
+
     checkAnswer() {
       if (this.answered) return;
-      
-      const normalizedAnswer = this.normalizeString(this.userAnswer);
-      const normalizedKeyword = this.normalizeString(this.currentQuestion.keyword);
-      const normalizedAlt = this.currentQuestion.alt 
-        ? this.normalizeString(this.currentQuestion.alt) 
-        : null;
-      
-      this.isCorrect = normalizedAnswer === normalizedKeyword || 
-                      (normalizedAlt && normalizedAnswer === normalizedAlt);
       
       this.answered = true;
       this.totalCount++;
       
+      const question = this.currentQuestion;
+      const answer = question.answer;
+      const altAnswer = question.alt;
+      const altAnswers = question.alts || [];
+
+      let requiresLineBreak = answer.includes('\n') || (altAnswer && altAnswer.includes('\n'));
+      if (!requiresLineBreak && altAnswers.length > 0) {
+          requiresLineBreak = altAnswers.some(a => a && a.includes('\n'));
+      }
+      
+      const normalizedUserAnswer = this.normalizeString(this.userAnswer, requiresLineBreak);
+      
+      const normalizedAnswer = this.normalizeString(answer, requiresLineBreak);
+      this.isCorrect = (normalizedUserAnswer === normalizedAnswer);
+
+      if (!this.isCorrect && altAnswer) {
+          const normalizedAlt = this.normalizeString(altAnswer, requiresLineBreak);
+          if (normalizedUserAnswer === normalizedAlt) {
+              this.isCorrect = true;
+          }
+      }
+
+      if (!this.isCorrect && altAnswers.length > 0) {
+          this.isCorrect = altAnswers.some(alt => {
+              const normalizedAlt = this.normalizeString(alt, requiresLineBreak);
+              return normalizedUserAnswer === normalizedAlt;
+          });
+      }
+
       if (this.isCorrect) {
         this.correctCount++;
       } else {
@@ -572,88 +544,21 @@ export default {
 
       this.$nextTick(() => {
         if (this.$refs.nextButton) {
-          this.$refs.nextButton.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
+          this.$refs.nextButton.scrollIntoView({ behavior: "smooth", block: "center" });
           this.$refs.nextButton.focus();
         }
       });
     },
     
-    checkSubAnswer(index) {
-      const item = this.currentQuestion.subItems[index];
-      if (item.answered) return;
-      
-      const normalizedAnswer = this.normalizeString(item.userAnswer);
-      const normalizedKeyword = this.normalizeString(item.keyword);
-      const normalizedAlt = item.alt 
-        ? this.normalizeString(item.alt) 
-        : null;
-      
-      item.isCorrect = normalizedAnswer === normalizedKeyword || 
-                      (normalizedAlt && normalizedAnswer === normalizedAlt);
-      
-      item.answered = true;
-      
-      this.$nextTick(() => {
-        const nextIndex = index + 1;
-        if (nextIndex < this.currentQuestion.subItems.length) {
-          const nextInput = this.subItemInputs[nextIndex];
-          if (nextInput) {
-            nextInput.scrollIntoView({
-              behavior: "smooth",
-              block: "center",
-            });
-            
-            setTimeout(() => {
-              nextInput.focus();
-            }, 100); 
-          }
-        }
-      });
-
-      if (item.isCorrect) {
-        this.currentQuestion.correctSubCount++;
-        this.correctCount++;
-      } else {
-        this.wrongCount++;
-        if (!this.wrongQuestions.includes(this.currentQuestion.id)) {
-          this.wrongQuestions.push(this.currentQuestion.id);
-        }
-      }
-      
-      this.totalCount++;
-      
-      const allAnswered = this.currentQuestion.subItems.every(item => item.answered);
-      if (allAnswered) {
-        this.answered = true;
-        
-        if (!this.solvedQuestions.includes(this.currentQuestion.id)) {
-          this.solvedQuestions.push(this.currentQuestion.id);
-        }
-
-        this.saveProgress();
-
-        this.$nextTick(() => {
-          if (this.$refs.nextButton) {
-            this.$refs.nextButton.scrollIntoView({
-              behavior: "smooth",
-              block: "center",
-            });
-            this.$refs.nextButton.focus();
-          }
-        });
-      }
-    },
-    
-    normalizeString(str) {
+    normalizeString(str, preserveLineBreaks = false) {
       if (!str) return '';
-      return str
-        .toLowerCase()
-        .replace(/\s+/g, '')
-        .replace(/[()[\]{}]/g, '')
-        .trim();
+      let normalized = str.toLowerCase();
+      if (preserveLineBreaks) {
+        normalized = normalized.trim().replace(/[()[\]{}]/g, '');
+      } else {
+        normalized = normalized.replace(/\s+/g, '').replace(/[()[\]{}]/g, '').trim();
+      }
+      return normalized;
     },
     
     nextQuestion() {
@@ -664,16 +569,13 @@ export default {
 
     toggleBookmark() {
       if (!this.currentQuestion) return;
-      
       const id = this.currentQuestion.id;
       const index = this.bookmarkedQuestions.indexOf(id);
-      
       if (index > -1) {
         this.bookmarkedQuestions.splice(index, 1);
       } else {
         this.bookmarkedQuestions.push(id);
       }
-      
       this.saveProgress();
     },
 
@@ -686,23 +588,15 @@ export default {
     },
 
     getQuestionById(id) {
-      return this.geoData.find(item => item.id === id);
+      return this.pstData.find(item => item.id === id);
     },
-
     startBookmarkedQuestion(id) {
       const question = this.getQuestionById(id);
-      if (question) {
-        this.showMode = 'quiz';
-        this.setupQuestion(question);
-      }
+      if (question) { this.showMode = 'quiz'; this.setupQuestion(question); }
     },
-
     startWrongQuestion(id) {
       const question = this.getQuestionById(id);
-      if (question) {
-        this.showMode = 'quiz';
-        this.setupQuestion(question);
-      }
+      if (question) { this.showMode = 'quiz'; this.setupQuestion(question); }
     },
 
     saveProgress() {
@@ -721,13 +615,12 @@ export default {
         answered: this.answered,
         lastSession: new Date().toISOString()
       };
-      
-      localStorage.setItem('geoQuiz_progress', JSON.stringify(progress));
-      localStorage.setItem('geoQuiz_lastSession', progress.lastSession);
+      localStorage.setItem('pstQuiz_progress', JSON.stringify(progress));
+      localStorage.setItem('pstQuiz_lastSession', progress.lastSession);
     },
 
     loadProgress() {
-      const saved = localStorage.getItem('geoQuiz_progress');
+      const saved = localStorage.getItem('pstQuiz_progress');
       if (saved) {
         try {
           const progress = JSON.parse(saved);
@@ -753,8 +646,8 @@ export default {
         '진행 상황 초기화',
         '진행 상황을 초기화하시겠습니까?',
         () => {
-          localStorage.removeItem('geoQuiz_progress');
-          localStorage.removeItem('geoQuiz_lastSession');
+          localStorage.removeItem('pstQuiz_progress');
+          localStorage.removeItem('pstQuiz_lastSession');
           
           this.correctCount = 0;
           this.wrongCount = 0;

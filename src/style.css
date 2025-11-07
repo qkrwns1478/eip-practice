@@ -30,8 +30,6 @@
 
 body {
   margin: 0;
-  display: flex;
-  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
   background-color: var(--color-background);
@@ -40,10 +38,7 @@ body {
 
 #app {
   width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  /* padding: 2rem; */
-  text-align: center;
+  height: 100vh;
 }
 
 button {
@@ -58,18 +53,15 @@ button {
   cursor: pointer;
   transition: border-color 0.25s, background-color 0.25s, transform 0.2s;
 }
-
 button:hover {
   border-color: var(--color-primary);
   transform: translateY(-2px);
 }
-
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
   outline-color: var(--color-primary-dark);
 }
-
 a {
   font-weight: 500;
   color: var(--color-primary);
