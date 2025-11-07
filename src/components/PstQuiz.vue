@@ -26,7 +26,9 @@
     <div v-if="showMode === 'quiz' && currentQuestion" class="quiz-content" ref="quizContent">
       <div class="question-section">
         <div class="question-header">
-          <h3>문제 {{ currentQuestionIndex + 1 }}</h3>
+        <h3>문제 {{ currentQuestionIndex + 1 }}</h3>
+        <div class="quiz-actions-group">
+          <span class="quiz-info-badge" v-if="currentQuestion">{{ getQuizInfo(currentQuestion.id) }}</span>
           <button 
             @click="toggleBookmark" 
             class="bookmark-btn"
@@ -35,6 +37,7 @@
             {{ isCurrentQuestionBookmarked ? '⭐' : '☆' }}
           </button>
         </div>
+      </div>
         
         <div class="pst-question">
           <p class="description">{{ currentQuestion.question }}</p>
@@ -285,9 +288,9 @@ export default {
         if (this.$refs.quizContent) {
           this.$refs.quizContent.scrollTop = 0;
         }
-        if (this.$refs.answerInput) {
-          this.$refs.answerInput.focus();
-        }
+        // if (this.$refs.answerInput) {
+        //   this.$refs.answerInput.focus();
+        // }
       });
     },
     

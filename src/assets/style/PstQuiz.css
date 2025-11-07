@@ -198,3 +198,21 @@
   color: var(--color-text-light);
 }
 .answer-input button { height: 48px; }
+
+.quiz-actions-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: nowrap;
+}
+
+.quiz-info-badge {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text-light);
+  background-color: var(--color-background);
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

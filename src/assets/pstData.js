@@ -97,6 +97,7 @@ TCP (   )은/는 TCP의 3-way 핸드셰이크가 완료된 후에 공격자가 �
   {
     id: 9,
     answer: "ㄱ ㄴ ㄷ ㄹ ㅁ",
+    alt: "ㄱㄴㄷㄻ",
     question: "IP 주소가 192.168.35.10, 서브넷 255.255.252.0인 PC에서 브로드캐스팅으로 다른 IP로 정보를 전달한다고 할 때 수신할 수 있는 알맞는 IP를 보기에서 골라 모두 작성하시오.",
     passageOrCode: null,
     options: ["ㄱ. 192.168.34.1", "ㄴ. 192.168.32.19", "ㄷ. 192.168.35.200", "ㄹ. 192.168.33.138", "ㅁ. 192.168.35.50"],
@@ -3617,12 +3618,12 @@ int calculate(w, h, j, i) {
   },
   {
     id: 206,
-    answer: "Boundary Value Analysis",
-    alt: "경계값 분석",
-    question: "아래 표를 확인하여 보기에 알맞는 값을 고르시오.",
+    answer: "ㄴ",
+    alt: "Boundary Value Analysis",
+    question: "아래 표를 확인하여 가장 적절한 것의 기호를 고르시오.",
     passageOrCode: null,
-    options: ["Equivalence Partition", "Boundary Value Analysis", "Condition Test", "Cause-Effect Graph",
-      "Error Guess	Comparison Test", "Base Path Test", "Loop Test", "Data Flow Test"],
+    options: ["ㄱ. Equivalence Partition", "ㄴ. Boundary Value Analysis", "ㄷ. Condition Test", "ㄹ. Cause-Effect Graph",
+      "ㅁ. Error Guess Comparison Test", "ㅂ. Base Path Test", "ㅅ. Loop Test", "ㅇ. Data Flow Test"],
     imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fb68pHw%2Fbtsltj6knGl%2FAAAAAAAAAAAAAAAAAAAAANIFUQxjU-VWWmDLwydmZiSHb8PXSOKJrnBtOxTwNSnl%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DrcsYxHFNHtq98CoT8DDe64EgnwM%253D"
   },
   {
