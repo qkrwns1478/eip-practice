@@ -21,6 +21,16 @@
           </button>
         </li>
       </ul>
+      
+      <ul class="sidebar-bottom">
+        <li>
+          <button @click="toggleDarkMode" class="dark-mode-toggle">
+            <svg v-if="isDarkMode" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-sun"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+            <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+            <span class="tooltip-text">{{ isDarkMode ? '라이트 모드' : '다크 모드' }}</span>
+          </button>
+        </li>
+      </ul>
     </nav>
 
     <main class="main-content">
@@ -42,8 +52,33 @@ export default {
   },
   data() {
     return {
-      currentTab: 'GeoQuiz'
+      currentTab: 'GeoQuiz',
+      isDarkMode: false
     };
+  },
+  methods: {
+    toggleDarkMode() {
+      this.isDarkMode = !this.isDarkMode;
+    }
+  },
+  watch: {
+    isDarkMode(newValue) {
+      if (newValue) {
+        document.documentElement.classList.add('dark-mode');
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        document.documentElement.classList.remove('dark-mode');
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    }
+  },
+  mounted() {
+    const savedMode = localStorage.getItem('darkMode');
+    if (savedMode === 'enabled') {
+      this.isDarkMode = true;
+    } else {
+      this.isDarkMode = false;
+    }
   }
 }
 </script>
@@ -65,7 +100,10 @@ export default {
   box-sizing: border-box;
   overflow: visible;
   position: relative;
-  z-index: 100; 
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .sidebar ul {
@@ -75,6 +113,10 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.sidebar-bottom {
+  margin-top: auto;
 }
 
 .sidebar button {
@@ -107,6 +149,10 @@ export default {
   border-color: transparent;
 }
 
+.sidebar button.dark-mode-toggle:hover {
+  color: var(--color-primary);
+}
+
 .sidebar button svg {
   flex-shrink: 0;
   width: 22px;
@@ -123,8 +169,8 @@ export default {
   transform: translateY(-50%);
   margin-left: 12px;
   
-  background-color: var(--color-text);
-  color: var(--color-white);
+  background-color: var(--color-tooltip-bg);
+  color: var(--color-white-for-text);
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 14px;
@@ -146,7 +192,7 @@ export default {
   margin-top: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent var(--color-text) transparent transparent;
+  border-color: transparent var(--color-tooltip-bg) transparent transparent;
 }
 
 .sidebar button:hover .tooltip-text {

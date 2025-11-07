@@ -235,7 +235,7 @@
 }
 .icon-menu-bar button.reset-btn:hover,
 .icon-menu-bar button.reset-btn.active {
-  background-color: #fcf1f2;
+  background-color: var(--color-danger-light);
   color: var(--color-danger);
   border-color: transparent;
   transform: none;
@@ -256,8 +256,8 @@
   transform: translateX(-50%);
   margin-top: 8px;
   
-  background-color: var(--color-text);
-  color: var(--color-white);
+  background-color: var(--color-tooltip-bg);
+  color: var(--color-white-for-text);
   padding: 5px 10px;
   border-radius: 6px;
   font-size: 13px;
@@ -279,7 +279,7 @@
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent var(--color-text) transparent;
+  border-color: transparent transparent var(--color-tooltip-bg) transparent;
 }
 
 .icon-menu-bar button:hover .tooltip-text {
@@ -321,6 +321,7 @@
   font-family: Consolas, 'Courier New', monospace;
   white-space: pre-wrap;
   word-wrap: break-word;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .pst-question .image-container {
@@ -332,6 +333,7 @@
   height: auto;
   border-radius: 8px;
   border: 1px solid var(--color-border);
+  transition: border-color 0.3s ease;
 }
 
 .pst-question .options-list {
@@ -349,6 +351,7 @@
   border-radius: 8px; 
   border-left: 4px solid var(--color-primary); 
   white-space: pre-line;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .answer-input { height: auto; min-height: 48px; align-items: flex-start; }
@@ -359,14 +362,19 @@
   font-family: inherit; 
   border: 1px solid var(--color-border); 
   border-radius: 8px; 
-  transition: border-color 0.3s ease, box-shadow 0.3s ease; 
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
   resize: vertical; 
   min-height: 48px; 
   line-height: 1.6;
   background-color: var(--color-white);
+  color: var(--color-text);
 }
 .answer-input textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2); }
-.answer-input textarea:disabled { background: #f1f1f1; cursor: not-allowed; }
+.answer-input textarea:disabled { 
+  background: var(--color-disabled-bg);
+  cursor: not-allowed; 
+  color: var(--color-text-light);
+}
 .answer-input button { height: 48px; }
 </style>
 

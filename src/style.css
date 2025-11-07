@@ -18,15 +18,39 @@
   --color-border: #e0e0e0;
   --color-background: #f4f7f6;
   --color-white: #ffffff;
+  --color-tooltip-bg: #333333;
+  --color-white-for-text: #ffffff;
   --color-success: #28a745;
   --color-danger: #dc3545;
   --color-warning: #ffc107;
   --color-disabled: #adb5bd;
+  --color-disabled-bg: #f1f1f1;
+  --color-success-light: #f0f9f2;
+  --color-danger-light: #fcf1f2;
 
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
   --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
+
+:root.dark-mode {
+  --color-primary-light: #2a2d4b;
+  --color-text: #f0f0f0;
+  --color-text-light: #a0a0a0;
+  --color-border: #3a3a3a;
+  --color-background: #1a1a1a;
+  --color-white: #242424;
+  /* --color-white-for-text: #ffffff; */
+  --color-disabled: #555;
+  --color-disabled-bg: #333;
+  --color-success-light: #1a3a2a;
+  --color-danger-light: #3a1a2a;
+
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
 
 body {
   margin: 0;
@@ -34,6 +58,7 @@ body {
   min-height: 100vh;
   background-color: var(--color-background);
   color: var(--color-text);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 #app {
@@ -51,8 +76,14 @@ button {
   background-color: #f9f9f9;
   color: var(--color-text);
   cursor: pointer;
-  transition: border-color 0.25s, background-color 0.25s, transform 0.2s;
+  transition: border-color 0.25s, background-color 0.25s, transform 0.2s, color 0.25s;
 }
+
+:root.dark-mode button {
+  background-color: #333;
+  color: var(--color-text);
+}
+
 button:hover {
   border-color: var(--color-primary);
   transform: translateY(-2px);

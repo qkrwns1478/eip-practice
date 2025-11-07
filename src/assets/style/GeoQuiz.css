@@ -11,7 +11,7 @@
     var(--color-primary) 0%,
     var(--color-secondary) 100%
   );
-  color: var(--color-white);
+  color: var(--color-white-for-text);
   padding: 30px;
   border-radius: 15px;
   margin-bottom: 20px;
@@ -95,7 +95,7 @@
 
 .menu-bar button.active {
   background: var(--color-primary);
-  color: var(--color-white);
+  color: var(--color-white-for-text);
   border-color: var(--color-primary);
   box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
 }
@@ -118,7 +118,7 @@
 .menu-bar .reset-btn:hover {
   background: var(--color-danger);
   border-color: var(--color-danger);
-  color: var(--color-white);
+  color: var(--color-white-for-text);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
 }
@@ -135,6 +135,7 @@
   min-height: 500px;
   overflow-y: auto;
   border: 1px solid var(--color-border);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .question-header {
@@ -201,6 +202,7 @@
   margin-bottom: 20px;
   min-height: 100px;
   text-align: left;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .main-keyword {
@@ -215,6 +217,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: background-color 0.3s ease;
 }
 
 .sub-items {
@@ -232,14 +235,18 @@
   min-height: 140px;
 }
 
+:root.dark-mode .sub-item {
+  background: #2a2a2a;
+}
+
 .sub-item.correct {
   border-color: var(--color-success);
-  background: #f0f9f2;
+  background: var(--color-success-light);
 }
 
 .sub-item.wrong {
   border-color: var(--color-danger);
-  background: #fcf1f2;
+  background: var(--color-danger-light);
 }
 
 .sub-description {
@@ -264,7 +271,9 @@
   font-size: 16px;
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  background-color: var(--color-white);
+  color: var(--color-text);
 }
 
 .answer-input input:focus {
@@ -274,8 +283,9 @@
 }
 
 .answer-input input:disabled {
-  background: #f1f1f1;
+  background: var(--color-disabled-bg);
   cursor: not-allowed;
+  color: var(--color-text-light);
 }
 
 .answer-input button {
@@ -283,7 +293,7 @@
   font-size: 16px;
   font-weight: 600;
   background: var(--color-primary);
-  color: var(--color-white);
+  color: var(--color-white-for-text);
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -300,6 +310,7 @@
 
 .answer-input button:disabled {
   background: var(--color-disabled);
+  color: var(--color-text-light);
   cursor: not-allowed;
   transform: none;
   box-shadow: none;
@@ -325,6 +336,7 @@
   padding-top: 30px;
   border-top: 1px solid var(--color-border);
   min-height: 120px;
+  transition: border-color 0.3s ease;
 }
 
 .correct-result {
@@ -358,7 +370,7 @@
     var(--color-primary) 0%,
     var(--color-secondary) 100%
   );
-  color: var(--color-white);
+  color: var(--color-white-for-text);
   border: none;
   border-radius: 10px;
   cursor: pointer;
@@ -404,9 +416,7 @@
 .empty-state {
   text-align: center;
   padding: 60px 20px;
-  color: var(
-    --color-text-light
-  ); /* #999 -> var(--color-text-light) */
+  color: var(--color-text-light);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -471,7 +481,7 @@
 .remove-bookmark-btn {
   padding: 8px 12px;
   background: var(--color-danger);
-  color: var(--color-white);
+  color: var(--color-white-for-text);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -512,7 +522,7 @@
     var(--color-primary) 0%,
     var(--color-secondary) 100%
   );
-  color: var(--color-white);
+  color: var(--color-white-for-text);
   border-radius: 15px;
   text-align: center;
   box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
@@ -523,10 +533,20 @@
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+:root.dark-mode .stat-card {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+
 .stat-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
+
+:root.dark-mode .stat-card:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+}
+
 
 .stat-card h4 {
   margin: 0 0 15px 0;
@@ -553,6 +573,7 @@
   text-align: center;
   min-height: 80px;
   border: 1px solid var(--color-border);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .last-session h4 {
@@ -599,6 +620,7 @@
   animation: slideUp 0.3s ease;
   min-height: 200px;
   border-top: 5px solid var(--color-primary);
+  transition: background-color 0.3s ease;
 }
 
 @keyframes slideUp {
@@ -650,7 +672,7 @@
 
 .confirm-btn {
   background: var(--color-primary);
-  color: var(--color-white);
+  color: var(--color-white-for-text);
   box-shadow: var(--shadow-sm);
 }
 
@@ -666,9 +688,18 @@
   border: 1px solid var(--color-border);
 }
 
+:root.dark-mode .cancel-btn {
+  background: var(--color-background);
+}
+
+
 .cancel-btn:hover {
   background: #f8f9fa;
   transform: translateY(-2px);
+}
+
+:root.dark-mode .cancel-btn:hover {
+    background: #333;
 }
 
 .alert-modal {
@@ -711,7 +742,7 @@
 .stats-content::-webkit-scrollbar-track,
 .bookmark-list::-webkit-scrollbar-track,
 .wrong-list::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  background: var(--color-background);
   border-radius: 10px;
 }
 
@@ -723,7 +754,7 @@
 .wrong-list::-webkit-scrollbar-thumb {
   background: var(--color-primary);
   border-radius: 10px;
-  border: 2px solid #f1f1f1;
+  border: 2px solid var(--color-background);
 }
 
 .quiz-content::-webkit-scrollbar-thumb:hover,
@@ -737,9 +768,9 @@
 
 /* 미디어 쿼리 (모바일 대응) */
 @media (max-width: 768px) {
-  #app {
+  /* #app {
     padding: 1rem;
-  }
+  } */
 
   .quiz-container {
     padding: 10px;
@@ -764,7 +795,8 @@
   }
 
   .menu-bar {
-    flex-direction: column;
+    /* flex-direction: column; */
+    justify-content: center;
   }
 
   .menu-bar .reset-btn {
@@ -775,7 +807,7 @@
   .bookmarks-content,
   .wrong-content,
   .stats-content {
-    padding: 20px;
+    padding: 15px; /* 모바일 패딩 축소 */
     min-height: 400px;
   }
 
