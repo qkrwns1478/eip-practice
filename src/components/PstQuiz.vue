@@ -192,7 +192,14 @@
 .pst-question .image-container { margin-bottom: 20px; }
 .pst-question .image-container img { max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--color-border); }
 .pst-question .options-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; text-align: left; }
-.pst-question .option-item { background: var(--color-primary-light); padding: 12px 16px; border-radius: 8px; border-left: 4px solid var(--color-primary); }
+
+.pst-question .option-item { 
+  background: var(--color-primary-light); 
+  padding: 12px 16px; 
+  border-radius: 8px; 
+  border-left: 4px solid var(--color-primary); 
+  white-space: pre-line;
+}
 
 .answer-input { height: auto; min-height: 48px; align-items: flex-start; }
 .answer-input textarea { flex: 1; padding: 12px 16px; font-size: 16px; font-family: inherit; border: 1px solid var(--color-border); border-radius: 8px; transition: border-color 0.3s ease, box-shadow 0.3s ease; resize: vertical; min-height: 48px; line-height: 1.6; }
