@@ -322,9 +322,25 @@
   white-space: pre-wrap;
   word-wrap: break-word;
 }
-.pst-question .image-container { margin-bottom: 20px; }
-.pst-question .image-container img { max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--color-border); }
-.pst-question .options-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; text-align: left; }
+
+.pst-question .image-container {
+  margin-bottom: 20px;
+}
+
+.pst-question .image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+}
+
+.pst-question .options-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+  text-align: left;
+}
 
 .pst-question .option-item { 
   background: var(--color-white); 
