@@ -1,4 +1,4 @@
-.geo-quiz-layout.quiz-container {
+.pst-quiz-layout.quiz-container {
   max-width: 100%;
   margin: 0;
   padding: 0;
@@ -57,7 +57,7 @@
 }
 .icon-menu-bar button.reset-btn:hover,
 .icon-menu-bar button.reset-btn.active {
-  background-color: #fcf1f2;
+  background-color: var(--color-danger-light);
   color: var(--color-danger);
   border-color: transparent;
   transform: none;
@@ -78,8 +78,8 @@
   transform: translateX(-50%);
   margin-top: 8px;
   
-  background-color: var(--color-text);
-  color: var(--color-white);
+  background-color: var(--color-tooltip-bg);
+  color: var(--color-white-for-text);
   padding: 5px 10px;
   border-radius: 6px;
   font-size: 13px;
@@ -101,7 +101,7 @@
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent var(--color-text) transparent;
+  border-color: transparent transparent var(--color-tooltip-bg) transparent;
 }
 
 .icon-menu-bar button:hover .tooltip-text {
@@ -109,11 +109,11 @@
   opacity: 1;
 }
 
-.geo-quiz-layout .quiz-content,
-.geo-quiz-layout .bookmarks-content,
-.geo-quiz-layout .wrong-content,
-.geo-quiz-layout .stats-content,
-.geo-quiz-layout .no-question {
+.pst-quiz-layout .quiz-content,
+.pst-quiz-layout .bookmarks-content,
+.pst-quiz-layout .wrong-content,
+.pst-quiz-layout .stats-content,
+.pst-quiz-layout .no-question {
   flex: 1;
   overflow-y: auto;
   padding: 30px;
@@ -128,29 +128,73 @@
   width: 100%;
   box-sizing: border-box;
 }
-.geo-quiz-layout .no-question {
+.pst-quiz-layout .no-question {
   max-width: 100%;
 }
 
-.geo-quiz-layout .description,
-.geo-quiz-layout .main-keyword,
-.geo-quiz-layout .sub-item {
-  background-color: var(--color-white);
-}
-
-.geo-quiz-layout .sub-item.correct {
-  background: #f0f9f2;
-}
-
-.geo-quiz-layout .sub-item.wrong {
-  background: #fcf1f2;
-}
-
-.geo-quiz-layout .answer-input input {
-  background-color: var(--color-white);
-}
-
-.geo-quiz-layout .last-session {
+.pst-question .code-block {
   background: var(--color-white);
-  border-color: var(--color-border);
+  border: 1px solid var(--color-border);
+  padding: 16px;
+  border-radius: 8px;
+  text-align: left;
+  overflow-x: auto;
+  margin-bottom: 20px;
+  font-family: Consolas, 'Courier New', monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
+
+.pst-question .image-container {
+  margin-bottom: 20px;
+}
+
+.pst-question .image-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  transition: border-color 0.3s ease;
+}
+
+.pst-question .options-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.pst-question .option-item { 
+  background: var(--color-white); 
+  border: 1px solid var(--color-border);
+  padding: 12px 16px; 
+  border-radius: 8px; 
+  border-left: 4px solid var(--color-primary); 
+  white-space: pre-line;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.answer-input { height: auto; min-height: 48px; align-items: flex-start; }
+.answer-input textarea { 
+  flex: 1; 
+  padding: 12px 16px; 
+  font-size: 16px; 
+  font-family: inherit; 
+  border: 1px solid var(--color-border); 
+  border-radius: 8px; 
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  resize: vertical; 
+  min-height: 48px; 
+  line-height: 1.6;
+  background-color: var(--color-white);
+  color: var(--color-text);
+}
+.answer-input textarea:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2); }
+.answer-input textarea:disabled { 
+  background: var(--color-disabled-bg);
+  cursor: not-allowed; 
+  color: var(--color-text-light);
+}
+.answer-input button { height: 48px; }
