@@ -155,7 +155,7 @@
 .bookmark-btn {
   font-size: 28px;
   border: none;
-  background: none;
+  background-color: transparent !important;
   cursor: pointer;
   transition: transform 0.2s ease;
   width: 40px;
