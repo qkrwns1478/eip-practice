@@ -121,7 +121,7 @@
         >
           <div class="bookmark-info">
             <h4>{{ getQuestionById(id)?.keyword || '문제' }}</h4>
-            <p>{{ getQuestionById(id)?.desc || '설명 없음' }}</p>
+            <p>{{ getQuestionById(id)?.desc || '' }}</p>
           </div>
           <button 
             @click.stop="removeBookmark(id)"
@@ -148,7 +148,7 @@
         >
           <div class="wrong-info">
             <h4>{{ getQuestionById(id)?.keyword || '문제' }}</h4>
-            <p>{{ getQuestionById(id)?.desc || '설명 없음' }}</p>
+            <p>{{ getQuestionById(id)?.desc || '' }}</p>
           </div>
           <span class="retry-badge">재도전</span>
         </div>
