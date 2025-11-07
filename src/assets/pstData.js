@@ -116,7 +116,7 @@ int main(){
     int i, temp, temp2;
  
     c = 'C';
-    printf("%d\n", Data[3]-Data[1]);
+    printf("%d\\n", Data[3]-Data[1]);
  
     for(i=0;i<5;++i){
         if(Data[i]>c)
@@ -879,7 +879,7 @@ int main(int argc, char* argv[]){
         printf("%c",str[i]);
     }
  
-    printf("\n");
+    printf("\\n");
  
     return 0;
 }`,
@@ -1165,7 +1165,7 @@ int main(){
     }
  
     result[i] = '\0';
-    printf("%s\n",result);
+    printf("%s\\n",result);
  
     return 0;
 }`,
@@ -1503,7 +1503,7 @@ int main() {
     a.n2 = &b;
     b.n2 = &c;
  
-    printf("%d\n", head->n2->n1);
+    printf("%d\\n", head->n2->n1);
  
     return 0;
 }`,
@@ -2343,8 +2343,8 @@ int main() {
   test1 = test();
   test2 = test();
   test3 = test();
-  printf("%s\n",test1);
-  printf("%s\n",test2);
+  printf("%s\\n",test1);
+  printf("%s\\n",test2);
   printf("%s",test3);
 }`,
     options: ["입력값은 홍길동, 김철수, 박영희 순서로 주어진다."],
