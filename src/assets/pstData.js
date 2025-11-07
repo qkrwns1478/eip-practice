@@ -1494,7 +1494,6 @@ struct node {
 };
  
 int main() {
- 
     struct node a = {10, NULL};
     struct node b = {20, NULL};
     struct node c = {30, NULL};
@@ -1524,4 +1523,1496 @@ int main() {
     options: null,
     imageUrl: null
   },
+/* 2024년 3회 */
+  {
+    id: 81,
+    answer: "OOAAA",
+    question: "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    passageOrCode: `public class Main {
+    static String[] s = new String[3];
+    static void func(String[] s, int size) {
+        for (int i = 1; i < size; i++) {
+            if (s[i - 1].equals(s[i])) {
+                System.out.print("O");
+            } else {
+                System.out.print("N");
+            }
+        }
+        for (String m : s) {
+            System.out.print(m);
+        }
+    }
+    public static void main(String[] args) {
+        s[0] = "A";
+        s[1] = "A";
+        s[2] = new String("A");
+        func(s, 3);
+    }
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 82,
+    answer: "3",
+    question: "다음은 파이썬에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    passageOrCode: `def func(lst):
+    for i in range(len(lst) // 2):
+        lst[i], lst[-i - 1] = lst[-i - 1], lst[i]
+
+lst = [1, 2, 3, 4, 5, 6]
+func(lst)
+print(sum(lst[::2]) - sum(lst[1::2]))`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 83,
+    answer: "1",
+    question: "아래의 employee테이블과 project테이블을 참고하여 보기의 SQL명령어에 알맞는 출력 값을 작성하시오.",
+    passageOrCode: `SELECT count(*)
+FROM employee AS e
+JOIN project AS p ON e.project_id = p.project_id
+WHERE p.name IN (
+    SELECT name
+    FROM project p
+    WHERE p.project_id IN (
+        SELECT project_id
+        FROM employee
+        GROUP BY project_id
+        HAVING count(*) < 2
+    )
+);`,
+    options: null,
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2F9Duij%2FbtsKhmXLACx%2FAAAAAAAAAAAAAAAAAAAAAJ7Z6wb65tBG8qfWhrB_xN_Eay6h24r_fPFYzm7NtBE5%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3Dc9ex%252Bt0wsElYV%252B8cX%252FLSYEoTnzc%253D"
+  },
+  {
+    id: 84,
+    answer: "12",
+    question: "다음은 운영체제 페이지 순서를 참고하여 할당된 프레임의 수가 3개일 때 LRU 알고리즘의 페이지 부재 횟수를 작성하시오.",
+    passageOrCode: "페이지 참조 순서 : 7 0 1 2 0 3 0 4 2 3 0 3 2 1 2 0 1 7 0 1",
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 85,
+    answer: "스머프",
+    alt: "스머핑 Smurf Smurfing",
+    question: "다음은 네트워크 취약점에 대한 문제이다. 아래 내용을 보고 알맞는 용어를 작성하시오.",
+    passageOrCode: `- IP나 ICMP의 특성을 악용하여 엄청난 양의 데이터를 한 사이트에 집중적으로 보냄으로써 네트워크의 일부를 불능 상태로 만드는 공격이다.
+- 여러 호스트가 특정 대상에게 다량의 ICMP Echo Reply 를 보내게 하여 서비스거부(DoS)를 유발시키는 보안공격이다.
+- 공격 대상 호스트는 다량으로 유입되는 패킷으로 인해 서비스 불능 상태에 빠진다.`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 86,
+    answer: "행위",
+    alt: "행동 Behavioral",
+    question: "다음은 GoF 디자인 패턴과 관련된 문제이다. 괄호안에 알맞는 용어를 작성하시오.",
+    passageOrCode: `( ) 패턴은 클래스나 객체들이 서로 상호작용하는 방법이나 책임 분배 방법을 정의하는 패턴이다.
+( ) 패턴은 객체들 간의 통신 방법을 정의하고 알고리즘을 캡슐화하여 객체 간의 결합도를 낮춘다.
+( ) 패턴은 Chain of Responsibility나 Command 또는 Observer 패턴이 있다.`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 87,
+    answer: "20",
+    question: "다음은 C언어에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+int func() {
+    static int x = 0;
+    x += 2;
+    return x;
+}
+int main() {
+    int x = 1;
+    int sum = 0;
+    for (int i = 0; i < 4; i++) {
+        x++;
+        sum += func();
+    }
+    printf("%d", sum);
+    return 0;
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 88,
+    answer: "개체",
+    alt: "Entity",
+    question: "다음은 무결성제약조건에 대한 문제이다. 아래 표에서 어떠한 ( ) 무결성을 위반하였는지 작성하시오.",
+    passageOrCode: null,
+    options: null,
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fnh0RX%2FbtsKgJl3Fa7%2FAAAAAAAAAAAAAAAAAAAAAG3F7y15SpGBFn7EpGA8Tqt3MwIPtZOIhTFksxToLV5O%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DiVQiTmsCOVF3H2bSlzQ49q967sI%253D"
+  },
+  {
+    id: 89,
+    answer: "43125",
+    question: "다음은 URL 구조에 관한 문제이다. 아래 보기의 순서대로 URL에 해당하는 번호를 작성하시오.",
+    passageOrCode: null,
+    options: [
+      "query : 서버에 전달할 추가 데이터",
+      "path : 서버 내의 특정 자원을 가리키는 경로",
+      "scheme : 리소스에 접근하는 방법이나 프로토콜",
+      "authority : 사용자 정보, 호스트명, 포트 번호",
+      "fragment : 특정 문서 내의 위치"
+    ],
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fbge1Ni%2FbtsKfy62Ji6%2FAAAAAAAAAAAAAAAAAAAAADDVvxyjlpIU2PB6-m4-7z3CDSaXrwMa09a2ffodtExB%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DrDc0%252FQJUeLIoNStrQKEFXICNBQ0%253D"
+  },
+  {
+    id: 90,
+    answer: "45",
+    question: "다음은 파이썬에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    passageOrCode: `def func(value):
+    if type(value) == type(100):
+        return 100
+    elif type(value) == type(""):
+        return len(value)
+    else:
+        return 20
+
+a = '100.0'
+b = 100.0
+c = (100, 200)
+print(func(a) + func(b) + func(c))`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 91,
+    answer: "52",
+    question: "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    passageOrCode: `public class Main {
+    public static void main(String[] args) {
+        Base a = new Derivate();
+        Derivate b = new Derivate();
+        System.out.print(a.getX() + a.x + b.getX() + b.x);
+    }
+}
+
+class Base {
+    int x = 3;
+    int getX() {
+        return x * 2;
+    }
+}
+
+class Derivate extends Base {
+    int x = 7;
+    int getX() {
+        return x * 3;
+    }
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 92,
+    answer: "312",
+    question: "다음은 C언어에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+struct Node {
+    int value;
+    struct Node* next;
+};
+
+void func(struct Node* node) {
+    while (node != NULL && node->next != NULL) {
+        int t = node->value;
+        node->value = node->next->value;
+        node->next->value = t;
+        node = node->next->next;
+    }
+}
+
+int main() {
+    struct Node n1 = { 1, NULL };
+    struct Node n2 = { 2, NULL };
+    struct Node n3 = { 3, NULL };
+    n1.next = &n3;
+    n3.next = &n2;
+    func(&n1);
+    struct Node* current = &n1;
+    while (current != NULL) {
+        printf("%d", current->value);
+        current = current->next;
+    }
+    return 0;
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 93,
+    answer: "ㅂ ㄹ ㄱ",
+    alt: "문장 분기 조건",
+    question: "다음은 테스트 커버리지에 대한 문제이다. 아래 내용에 알맞는 답을 보기에서 골라 작성하시오.",
+    passageOrCode: `1. 테스트를 통해 프로그램의 모든 문장을 최소한 한 번씩 실행했는지를 측정
+2. 프로그램 내의 모든 분기(조건문)의 각 분기를 최소한 한 번씩 실행했는지를 측정
+3. 복합 조건 내의 각 개별 조건이 참과 거짓으로 평가되는 경우를 모두 테스트했는지를 측정`,
+    options: [
+      "ㄱ. 조건",
+      "ㄴ. 경로",
+      "ㄷ. 결정",
+      "ㄹ. 분기",
+      "ㅁ.함수",
+      "ㅂ. 문장",
+      "ㅅ. 루프"
+    ],
+    imageUrl: null
+  },
+  {
+    id: 94,
+    answer: "ㄴ ㄷ ㄱ",
+    alt: "연관 일반화 의존",
+    question: "아래는 UML클래스의 관계에 관한 문제이다. 보기를 보고 알맞는 관계를 선택하여 작성하시오.",
+    passageOrCode: null,
+    options: [
+      "ㄱ. 의존",
+      "ㄴ. 연관",
+      "ㄷ. 일반화"
+    ],
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fuev6c%2FbtsKheTOKch%2FAAAAAAAAAAAAAAAAAAAAAEwYju5DTzHQzGaTpqTmpYyFCvpFpBfnZJ4Y4VLYPDnh%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3D7guFnyr5C6RXpPE9TIyJ5iZILwE%253D"
+  },
+  {
+    id: 95,
+    answer: "ㄴ ㄹ ㄷ ㄱ",
+    alt: "외래키 후보키 대체키 슈퍼키",
+    question: "다음은 데이터베이스에 관한 문제이다. 아래 내용을 읽고 알맞는 답을 보기에서 찾아 골라 작성하시오.",
+    passageOrCode: `(1) 다른 테이블, 릴레이션의 기본 키를 참조하는 속성 또는 속성들의 집합
+(2) 테이블에서 각 행을 유일하게 식별할 수 있는 최소한의 속성들의 집합
+(3) 후보 키 중에서 선정된 기본 키를 제외한 나머지 후보 키
+(4) 테이블에서 각 행을 유일하게 식별할 수 있는 속성들의 집합`,
+    options: [
+      "ㄱ. 슈퍼키",
+      "ㄴ. 외래키",
+      "ㄷ. 대체키",
+      "ㄹ. 후보키"
+    ],
+    imageUrl: null
+  },
+  {
+    id: 96,
+    answer: "1",
+    question: "다음은 C언어에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+void func(int** arr, int size) {
+    for (int i = 0; i < size; i++) {
+        *(*arr + i) = (*(*arr + i) + i) % size;
+    }
+}
+
+int main() {
+    int arr[] = { 3, 1, 4, 1, 5 };
+    int* p = arr;
+    int** pp = &p;
+    int num = 6;
+    func(pp, 5);
+    num = arr[2];
+    printf("%d", num);
+    return 0;
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 97,
+    answer: "VPN",
+    question: "다음 아래 내용을 보고 알맞는 용어를 작성하시오. (3글자로 작성)",
+    passageOrCode: `- 공용 네트워크를 통해 사설 네트워크를 확장하는 기술이다.
+- 사용자의 IP 주소를 숨기고, 사용자가 어디에서 접속하는지를 추적하기 어렵게 만든다.
+- 종류로는 IPsec 또는 SSL, L2TP 등이 있다.`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 98,
+    answer: "101",
+    question: "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    passageOrCode: `public class ExceptionHandling {
+    public static void main(String[] args) {
+        int sum = 0;
+        try {
+            func();
+        } catch (NullPointerException e) {
+            sum = sum + 1;
+        } catch (Exception e) {
+            sum = sum + 10;
+        } finally {
+            sum = sum + 100;
+        }
+        System.out.print(sum);
+    }
+
+    static void func() throws Exception {
+        throw new NullPointerException();
+    }
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 99,
+    answer: "B0",
+    question: "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    passageOrCode: `class Main {
+    public static class Collection<T> {
+        T value;
+        public Collection(T t) {
+            value = t;
+        }
+        public void print() {
+            new Printer().print(value);
+        }
+        class Printer {
+            void print(Integer a) {
+                System.out.print("A" + a);
+            }
+            void print(Object a) {
+                System.out.print("B" + a);
+            }
+            void print(Number a) {
+                System.out.print("C" + a);
+            }
+        }
+    }
+    public static void main(String[] args) {
+        new Collection<>(0).print();
+    }
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 100,
+    answer: "ㄹ",
+    alt: "Ad-hoc Network",
+    question: "다음은 네트워크에 대한 문제이다. 아래 내용을 보고 알맞는 용어를 작성하시오.",
+    passageOrCode: `- 중앙 관리나 고정된 인프라 없이 임시로 구성되는 네트워크이다.
+- 일반적으로 무선 통신을 통해 노드들이 직접 연결되어 데이터를 주고받는다.
+- 긴급 구조, 긴급 회의, 군사적인 상황 등에서 유용하게 활용될 수 있다.`,
+    options: [
+      "ㄱ. Infrastructure Network",
+      "ㄴ. Firmware Network",
+      "ㄷ. Peer-to-Peer Network",
+      "ㄹ. Ad-hoc Network",
+      "ㅁ. Mesh Network",
+      "ㅂ. Sensor Network",
+      "ㅅ. Virtual Private Network"
+    ],
+    imageUrl: null
+  },
+/* 2023년 1회 */
+  {
+    id: 101,
+    answer: `10
+11
+10
+20`,
+    question: "아래 자바 코드에서 출력되는 값을 순서대로 작성하시오.",
+    passageOrCode: `class Static {
+    public int a = 20;
+    static int b = 0;
+}
+public class Main {
+    public static void main(String[] args) {
+        int a;
+        a = 10;
+        Static.b = a;
+        Static st = new Static();
+        System.out.println(Static.b++);
+        System.out.println(st.b);
+        System.out.println(a);
+        System.out.print(st.a);
+    }
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 102,
+    answer: `Art
+A
+A
+Art
+Art`,
+    question: "다음 C언어의 출력값을 순서대로 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+int main() {
+    char a[] = "Art";
+    char* p = NULL;
+    p = a;
+    printf("%s\\n", a);
+    printf("%c\\n", *p);
+    printf("%c\\n", *a);
+    printf("%s\\n", p);
+    for (int i = 0; a[i] != '\\0'; i++)
+        printf("%c", a[i]);
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 103,
+    answer: "qwe",
+    question: "다음 C언어 코드의 출력값을 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+int main() {
+    char* a = "qwer";
+    char* b = "qwtety";
+    for (int i = 0; a[i] != '\\0'; i++) {
+        for (int j = 0; b[j] != '\\0'; j++) {
+            if (a[i] == b[j])
+                printf("%c", a[i]);
+        }
+    }
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 104,
+    answer: "AJAX",
+    alt: "Asynchronous JavaScript and XML",
+    question: "다음 괄호안에 들어가는 용어의 Full Name 또는 약자를 작성하시오.",
+    passageOrCode: `( )은/는 비동기적인 웹 애플리케이션의 제작을 위해 JavaScript와 XML을 이용한 비동기적 정보 교환 기법이다.
+( )은/는 필요한 데이터만을 웹서버에 요청해서 받은 후 클라이언트에서 데이터에 대한 처리를 할 수 있다.
+보통 SOAP이나 XML 기반의 웹 서비스 프로토콜이 사용되며, 웹 서버의 응답을 처리하기 위해 클라이언트 쪽에서는 자바스크립트를 쓴다.
+( )은/는 Google Map과 Google pages에서 사용한 기술에 기반하여 제작되었다.`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 105,
+    answer: "가상 회선 방식 데이터그램 방식",
+    question: "보기의 통신 기술(회선교환/데이터그램) 중 가장 적합한 답을 표에 맞게 작성하시오.",
+    passageOrCode: `(   )	 - 회선교환 방식과 데이터그램 방식의 장점을 결합한 통신 기술이다.
+ - 처음 패킷으로 최적의 경로를 고정하고 경로가 고정되면 그 다음은 패킷으로 나누어 고속으로 전송할 수 있다.
+ - 통신기술에는 ATM이 있으며, 정해진 시간 안이나 다량의 데이터를 연속으로 보낼 때 적합하다.
+(   )	 - 패킷교환 방식으로 동작하면서 IP 주소를 사용하는 인터넷을 의미한다.
+ - 각 전송패킷을 미리 정해진 경로 없이 독립적으로 처리하여 교환하는 방식이다
+ - 특정 교환기의 고장 시 모든 패킷을 잃어버리는 가상회선과 달리, 그 경로를 피해서 전송할 수 있으므로 더욱 신뢰가 가능하다.
+ - 짧은 메시지의 패킷들을 전송할 때 효과적이고 재정렬 기능이 필요하다.`,
+    options: ["회선 교환 방식", "데이터그램 방식", "가상 회선 방식", "메시지 교환 방식"],
+    imageUrl: null
+  },
+  {
+    id: 106,
+    answer: "L2TP",
+    question: "2 계층(데이터링크 계층)에서 구현되는 터널링 기술 중 하나로 L2F와 PPTP가 결합된 프로토콜 이름은?",
+    passageOrCode: `2 계층(데이터링크 계층)에서 구현되는 터널링 기술 중 하나
+L2F와 PPTP가 결합된 프로토콜로 VPN과 인터넷 서비스 제공자(ISP)가 이용
+IPsec을 함께 사용하면 PPTP보다 훨씬 안전하지만 보안보다 익명화에 더 적합`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 107,
+    answer: "SSH",
+    alt: "Secure SHell",
+    question: "다음 괄호안에 알맞는 용어를 작성하시오. (네트워크 상의 다른 컴퓨터에 원격 로그인/파일 복사 등)",
+    passageOrCode: `( ) 네트워크 상의 다른 컴퓨터에 로그인하거나 원격 시스템에서 명령을 실행하고 다른 시스템으로 파일을 복사할 수 있도록 해주는 응용 프로그램 또는 그 프로토콜을 가리킨다.
+( ) 보안 접속을 통한 rsh, rcp, rlogin, rexec, telnet, ftp 등을 제공하며, IP spoofing(IP스푸핑) 방지 기능을 제공한다.
+( ) 기본적으로 포트는 22번이다.`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 108,
+    answer: "웜 트로이목마 바이러스",
+    question: "다음 설명에 해당하는 악성코드의 이름을 표에 맞게 차례로 작성하시오.",
+    passageOrCode: `(   1   )
+- 감염된 컴퓨터 시스템에서 스스로 복제해 다른 컴퓨터로 복사본을 확산시킬 수 있는 악성 프로그램이다.
+- 독자적으로 실행되며 다른 실행 프로그램이 필요하지 않으며, 파일 전송 기능을 착취하도록 설계된다.
+- 자가 복제 및 네트워크를 통한 전파도 가능하다.
+
+(    2    )
+- 정상적인 프로그램으로 가장해 사용자가 직접 컴퓨터에 설치하도록 위장하며, 백도어를 만들어 공격자가 침입할 수 있도록 만들거나 시스템을 파괴한다.
+- 정상적인 프로그램으로 위장하여 시작부터 끝까지 램에 상주하며, 시스템 내부 정보를 공격자의 컴퓨터로 빼돌리는 프로그램이다. 
+- 좀비PC처럼 내부정보 유출뿐만 아니라 컨트롤까지 가능한 종류가 있고, 단순히 내부 데이터만 유출할 수 있는 타입의 트로이 목마가 있다.
+- 감염된 후에 스스로를 복제하는 능력은 없다.
+
+(    3    )
+- 대상(정상파일)을 감염시키는 형태로 실행되며, 감염시킬 대상이 존재하지 않을 때에는 실행되지 않으며 다른정상파일로의 자기 복제 기능이 있다.
+- 컴퓨터 시스템에 침입해 프로그램에 기생하며 시스템을 변경하거나 사용할 수 없도록 만드는 악성코드이다.
+- 네트워크를 통해 전파되지 않으며 방식 및 위치에 따라 여러형태로 나뉜다.`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 109,
+    answer: "% 10",
+    alts: ["% 5", "% 2", "& 1"],
+    question: "다음 아래 코드에서 이진수를 십진수로 변환하는 코드에 대해 괄호 (a) (b)의 적합한 답을 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+int main() {
+    int input = 101110;
+    int di = 1;
+    int sum = 0;
+    while (1) {
+        if (input == 0)
+            break;
+        else {
+            sum = sum + (input(a)(b)) * di;
+            di = di * 2;
+            input = input / 10;
+        }
+    }
+    printf("%d", sum);
+    return 0;
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 110,
+    answer: "ICMP",
+    question: "다음 보안 관련 설명으로 괄호안에 알맞는 용어를 작성하시오.",
+    passageOrCode: `( )은/는 TCP/IP에서 IP 패킷을 처리할 때 발생되는 문제를 알려주는 프로토콜이다.
+( ) 프로토콜은 보통 다른 호스트나 게이트웨이 와 연결된 네트웍에 문제가 있는지 확인하기 위한 목적으로 주로 사용된다.
+( ) 을/를 이용한 공격에는 ( ) Flooding가 있는데 ping 명령어를 통한 ( ) 패킷을 연속적으로 계속 보내어 서버의 요청에 응답으로 인한 다른작업을 하지 못하도록 하는 공격이다.`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 111,
+    answer: "Proxy",
+    question: "다음은 디자인 패턴에 관한 설명이다. 설명에 내용에 알맞는 답을 고르시오.",
+    passageOrCode: `- 다른 무언가와 이어지는 인터페이스 역할을 하는 클래스를 의미한다.
+- 실제 객체를 호출하면 행위를 중간에 가로채서 다른 동작을 수행하는 객체로 변경한다.
+- 객체를 정교하게 제어해야 하거나 객체 참조가 필요한 경우 사용한다.
+- 분리된 객체를 위임함으로써 대리 작업을 중간 단계에 삽입할 수도 있으며 분리된 객체를 동적으로 연결함으로써 객체의 실행 시점을 관리할 수도 있다.`,
+    options: null,
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fbyfj0t%2FbtsnqTyczWd%2FAAAAAAAAAAAAAAAAAAAAAJBladwROcVET-LSnQeQ3TFs-nXb866ls51loZPWXxtx%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DzJ2DqqqwKafPs%252FEDl7D2%252FObNl9s%253D"
+  },
+  {
+    id: 112,
+    answer: "튜플 릴레이션 인스턴스 카디널리티",
+    alt: "Tuple Relation instance Cardinality",
+    question: "다음은 데이터베이스에 관련된 내용이다. 각 괄호안에 알맞는 답을 작성하시오.",
+    passageOrCode: `(   1   )
+- 셀 수 있는 수량의 순서 있는 열거이다.
+- 어떤 요소의 집합, 혹은 테이블에서의 행을 가리키지만 일반적인 집합과는 달리 중복이 허용될 수 있다.
+- 리스트와 동일하게 여러 객체를 모아서 담으며, 숫자, 문자, 객체, 배열, 튜플 안의 튜플 전부 가능하다.
+
+(   2   )
+- 어느 한 시점에 릴레이션의 내용(상태), 즉 저장된 데이터 전체를 의미한다.
+- 단순히 릴레이션 또는 릴레이션 외연(Relation Extension)라고도 한다.
+
+(   3   )
+- 특정 데이터 집합의 유니크(Unique)한 값의 개수이다.
+- 전체 행에 대한 특정 컬럼의 중복 수치를 나타내는 지표이다.`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 113,
+    answer: "delete from 학생 where 이름 = '민수'",
+    question: "[학생] 테이블에서 학생 이름이 '민수'인 튜플을 삭제하는 쿼리를 작성하시오.",
+    passageOrCode: `조건:
+- 컬럼의 값이 문자열일 경우 작은 따움표 (' ')를 표시하시오.
+- SQL 마지막에 세미콜론(;)은 표기하지 않아도 관계 없습니다.`,
+    options: null,
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FJZEvh%2FbtscyYpYNA0%2FAAAAAAAAAAAAAAAAAAAAAPxWiytZLXl_AvnAjvyPyHPozz5tQhVgioT4mr6BVOPN%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DADqKsGQmNWKExJWMLQIEKY2SRKw%253D"
+  },
+  {
+    id: 114,
+    answer: "idx2 nx",
+    question: "다음 코드에서 괄호안에 알맞는 값을 변수명으로 작성하시오.",
+    passageOrCode: `public class Sort {
+    public static void swap(int[] arr, int idx1, int idx2) {
+        int temp = arr[idx1];
+        arr[idx1] = arr[idx2];
+        arr[( 1 )] = temp;
+    }
+    public static void Usort(int[] array, int length) {
+        for (int i = 0; i < length; i++) {
+            for (int j = 0; j < length - i - 1; j++) {
+                if (array[j] > array[j + 1]) {
+                    swap(array, j, j + 1);
+                }
+            }
+        }
+    }
+    public static void main(String[] args) {
+        int[] item = new int[] { 5, 3, 8, 1, 2, 7 };
+        int nx = 6;
+        Usort(item, ( 2 ));
+        for (int data : item) {
+            System.out.print(data + " ");
+        }
+    }
+}`,
+    options: ["출력 값 : 1 2 3 5 7 8"],
+    imageUrl: null
+  },
+  {
+    id: 115,
+    answer: "{'한국', '중국', '베트남', '홍콩', '태국'}",
+    alt: "한국 중국 베트남 홍콩 태국",
+    question: "다음 파이썬 코드의 알맞는 출력값을 작성하시오.",
+    passageOrCode: `a = {'한국', '중국', '일본'}
+a.add('베트남')
+a.add('중국')
+a.remove('일본')
+a.update({'홍콩', '한국', '태국'})
+print(a)`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 116,
+    answer: "SELECT 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수 FROM 성적 GROUP BY 과목이름 HAVING AVG(점수) >= 90",
+    question: "다음 성적 테이블에서 과목별 점수의 평균이 90점 이상인 '과목이름', '최소점수', '최대점수' 를 검색하고자 한다. [조건]을 참고하여 적합한 SQL문을 작성하시오.",
+    passageOrCode: `조건:
+- where사용하지 말하야 한다.
+- SELECT절에 별칭을 사용하여 작성해야 한다.
+- SQL 구문 마지막에 세미콜론 생락 가능하다.
+- 반드시 GROUP BY와 having을 사용해야 한다.
+- 집계함수를 사용해야 한다.`,
+    options: null,
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FLMbmY%2FbtscwE6HBbG%2FAAAAAAAAAAAAAAAAAAAAACQfu-V5L2L_mttwY89qgXn9FZFkIB1RvzHXGyZVwD3O%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3Dec%252BZ3B87fNtEBSvVGWsm9cDVQ7U%253D"
+  },
+  {
+    id: 117,
+    answer: "Vehicle name: Spark",
+    question: "다음 JAVA 코드에서 알맞는 출력 값을 작성하시오.",
+    passageOrCode: `abstract class Vehicle {
+    String name;
+    abstract public String getName(String val);
+    public String getName() {
+        return "Vehicle name: " + name;
+    }
+}
+class Car extends Vehicle {
+    public Car(String val) {
+        name = super.name = val;
+    }
+    public String getName(String val) {
+        return "Car name:" + val;
+    }
+    public String getName(byte val[]) {
+        return "Car name:" + val;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Vehicle obj = new Car("Spark");
+        System.out.println(obj.getName());
+    }
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 118,
+    answer: "외부 개념 내부",
+    question: "다음은 스키마와 관련된 내용이다. 각 괄호안에 알맞는 답을 작성하시오.",
+    passageOrCode: `(   1   ) 스키마
+- 사용자나 응용 프로그래머가 개인의 입장에서 필요한 데이터베이스의 논리적 구조를 정의한다.
+- 전체 데이터베이스의 한 논리적인 부분으로 볼 수 있기 때문에 서브 스키마라고도 한다.
+- 하나의 데이터베이스 시스템에는 여러 개의 외부 스키마가 존재할 수 있다.
+- 하나의 외부 스키마를 여러개의 응용 프로그램 혹은 사용자가 공유할 수 있다.
+
+(   2   ) 스키마
+- 데이터베이스의 전체적인 논리적 구조로, 모든 응용 프로그램이나 사용자들이 필요로 하는 데이터를 종합한 조직 전체의 데이터베이스로 하나만 존재한다.
+- 개체 간의 관계(Relationship)와 제약 조건을 나타내고 데이터베이스의 접근 권한, 보안 및 무결성 규칙에 관한 명세를 정의한다.
+- 데이터베이스 파일에 저장되는 데이터의 형태를 나타내는 것이다.
+- 기관이나 조직체의 관점에서 데이터베이스를 정의한 것이다.
+
+(   3   ) 스키마
+- 물리적인 저장장치 입장에서 데이터가 저장되는 방법을 기술한 것이다.
+- 실제 데이터베이스에 저장될 레코드의 물리적인 구조를 정의한다. 
+- 저장 데이터 항목의 표현방법, 내부 레코드의 물리적 순서, 인덱스 유/무 등을 나타낸다.
+- 시스템 프로그래머나 시스템 설계자가 관리한다.`,
+    options: ["외부", "내부", "개념"],
+    imageUrl: null
+  },
+  {
+    id: 119,
+    answer: "1234561 124567",
+    alt: "1234567 124561",
+    question: "다음 아래 제어 흐름 그래프가 분기 커버리지를 만족하기 위한 테스팅 순서를 쓰시오.",
+    passageOrCode: null,
+    options: null,
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbQZ756%2FbtscHlK9JMg%2FAAAAAAAAAAAAAAAAAAAAAJYlzoHgpaOGXnuFTvlefXHygp_lM2p_KxdeixRKwfct%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3D6wpIdksAis21d47crfxLm76p7Po%253D"
+  },
+  {
+    id: 120,
+    answer: "500",
+    question: "다음 자바 코드에 대한 출력 값을 작성하시오.",
+    passageOrCode: `class Parent {
+    int x = 100;
+    Parent() {
+        this(500);
+    }
+    Parent(int x) {
+        this.x = x;
+    }
+    int getX() {
+        return x;
+    }
+}
+class Child extends Parent {
+    int x = 4000;
+    Child() {
+        this(5000);
+    }
+    Child(int x) {
+        this.x = x;
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Child obj = new Child();
+        System.out.println(obj.getX());
+    }
+}`,
+    options: null,
+    imageUrl: null
+  },
+/* 2023년 2회 */
+  {
+    id: 121,
+    answer: "n[(i+1) % 5]",
+    question: "다음은 C언어 코드 문제이다. 조건에 따라 괄호안에 알맞은 코드를 작성하시오.",
+    passageOrCode: `int main(void) {
+    int n[5];
+    int i;
+    for (i = 0; i < 5; i++) {
+      printf("숫자를 입력해주세요 : ");
+      scanf("%d", &n[i]);
+    }
+    for (i = 0; i < 5; i++) {
+      printf("%d", ( ) );
+    }
+    return 0;
+  }`,
+    options: ["입력값이 54321일 경우 출력값이 43215로 출력되어야 한다."],
+    imageUrl: null
+  },
+  {
+    id: 122,
+    answer: `m / 1000
+(m % 1000) / 500
+(m % 500) / 100
+(m % 100) / 10`,
+    question: "다음은 JAVA 코드 문제이다. 가지고 있는 돈이 총 4620원일 경우 1000원, 500원, 100원, 10원의 지폐 및 동전을 이용하여 보기의 조건에 맞춰 최소한의 코드를 통해 괄호안을 작성하시오.",
+    passageOrCode: `public class Problem {
+  public static void main(String[] args) {
+    m = 4620;
+    a = ( );
+    b = ( );
+    c = ( );
+    d = ( );
+    System.out.println(a); //천원짜리 4장
+    System.out.println(b); //오백원짜리 1개
+    System.out.println(c); //백원짜리 1개
+    System.out.println(d); //십원짜리 2개
+  }
+}`,
+    options: [`아래 주어진 항목들을 갖고 괄호안의 코드를 작성하시오.
+변수 : m
+연산자 : / , %
+괄호 : [ , ] , ( , )
+정수 : 1000, 500, 100, 10`],
+    imageUrl: null
+  },
+  {
+    id: 123,
+    answer: `박영희
+박영희
+박영희`,
+    question: "다음은 C언어의 코드이다. 보기의 조건에 맞추어 알맞은 출력값을 작성하시오.",
+    passageOrCode: `#include<stdio.h>
+#include<stdlib.h>
+char n[30];
+char *test() {
+  printf("입력하세요 : ");
+  gets(n);
+  return n;
+}
+int main() {
+  char * test1;
+  char * test2;
+  char * test3;
+  test1 = test();
+  test2 = test();
+  test3 = test();
+  printf("%s\n",test1);
+  printf("%s\n",test2);
+  printf("%s",test3);
+}`,
+    options: ["입력값은 홍길동, 김철수, 박영희 순서로 주어진다."],
+    imageUrl: null
+  },
+  {
+    id: 124,
+    answer: `INSTER INTO 학생(학번,이름,학년,전공,전화번호)
+VALUES(9830287,'뉴진스',3,'경영학개론','010-1234-1234');`,
+    question: "아래 보기 조건에 맞게 SQL문을 작성하시오.",
+    passageOrCode: `CREATE TABLE 학생 (
+      학번 int,
+      이름 varchar(20),
+      학년 int,
+      전공 varchar(30),
+      전화번호 varchar(20)
+    );`,
+    options: [`학번	이름	학년	전공	전화번호
+9830287	뉴진스	3	경영학개론	010-1234-1234`, "문자열일 경우 작은따음표를 사용할 것"],
+    imageUrl: null
+  },
+  {
+    id: 125,
+    answer: "BCD",
+    question: "다음은 C언어의 문제이다. 알맞은 출력값을 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+void main(){
+  int n[3] = {73, 95, 82};
+  int sum = 0;
+  for(int i=0;i<3;i++){
+    sum += n[i];
+  }
+  switch(sum/30){
+    case 10:
+    case 9: printf("A");
+    case 8: printf("B");
+    case 7:
+    case 6: printf("C");
+    default: printf("D");
+  }
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 126,
+    answer: "ㅇ",
+    alt: "조건 커버리지",
+    question: "다음은 테스트 커버리지에 대한 내용이다. 조건을 읽고 보기에 맞는 기호를 작성하시오.",
+    passageOrCode: `- 프로그램 내에 있는 결정포인트 내의 모든 각 개별 조건식에 대한 모든 가능한 결과(참/거짓)에 대해 적어도 한번 수행한다.
+- 소프트웨어 테스트 수행시 소스코드를 어느 수준까지 수행하였는가를 나타내는 기준을 나타낸다.
+- 실제 업무에서는 다양한 툴을 사용하여 테스팅 수행한다.
+- True/False에 충분한 영향을 줄 수 없는 경우가 발생 가능한 한계점을 지님.`,
+    options: ["ㄱ. 구문 커버리지", "ㄴ. 경로 커버리지", "ㄷ. 조건/결정 커버리지", "ㄹ. 변형 조건/결정 커버리지", "ㅂ. 다중 조건 커버리지", "ㅅ. 결정 커버리지", "ㅇ. 조건 커버리지"],
+    imageUrl: null
+  },
+  {
+    id: 127,
+    answer: "505",
+    question: "다음은 소스코드의 알맞은 출력을 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+int main(){
+  int c = 0;
+  for(int i = 1; i <= 2023; i++) {
+    if(i%4 == 0) c++;
+  }
+  printf("%d", c);
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 128,
+    answer: "템퍼프루핑",
+    question: "다음 내용에 알맞는 답을 작성하시오.",
+    passageOrCode: `소프트웨어에서 워터마크 삭제등과 같이 소프트웨어가 불법으로 변경(unauthorized modifications)되었을 경우, 그 소프트웨어가 정상 수행되지 않게 하는 기법이다.
+소프트웨어 변조 공격을 방어하기 위해 프로그램에 변조검증코드(tamper-proofing code)를 삽입하는 것도 한 방법으로
+변조검증코드의 용도는 첫째 프로그램이 변경되었는지를 탐지하는 것이고, 둘째는 변조가 탐지되었다면 프로그램이 실행되지 않게 한다.
+소프트웨어의 위변조 방지 역공학 기술의 일종으로 디지털 콘텐츠의 관련 산업이나 전자상거래 또는 보호해야 할 소프트웨어가 있는 다양한 산업 분야에 적용된다.`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 129,
+    answer: "213465",
+    question: "다음은 C언어 문제이다. 알맞은 출력값을 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+#define MAX_SIZE 10
+ 
+int isWhat[MAX_SIZE];
+int point= -1;
+ 
+int isEmpty() {
+    if (point == -1) return 1;
+    return 0;
+}
+ 
+int isFull() {
+    if (point == 10) return 1;
+    return 0;
+}
+ 
+void into(int num) {
+    if (point >= 10) printf("Full");
+    else isWhat[++point] = num;
+}
+ 
+int take() {
+    if (isEmpty() == 1) printf("Empty");
+    else return isWhat[point--];
+    return 0;
+}
+ 
+int main(int argc, char const *argv[]){
+    int e;
+    into(5); into(2);
+ 
+    while(!isEmpty()){
+        printf("%d", take());
+        into(4); into(1); printf("%d", take());
+        into(3); printf("%d", take()); printf("%d", take());
+        into(6); printf("%d", take()); printf("%d", take());
+    }
+    
+    return 0;
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 130,
+    answer: "요구조건 분석 개념적 설계 논리적 설계 물리적 설계 구현",
+    question: "데이터베이스 설계 순서에 관한 내용이다. 보기를 이용하여 괄호안에 알맞은 내용을 작성하시오. ",
+    passageOrCode: null,
+    options: ["구현", "요구조건 분석", "개념적 설계", "물리적 설계", "논리적 설계"],
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FIiEWY%2FbtsC4tQ9MMP%2FAAAAAAAAAAAAAAAAAAAAAO23cQIkL-Fx7knyFogaMP7YJ-Srme1lV66jaMcWyWAp%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DjSaRAMv8V5ksEyes7Il7gY4b6Ag%253D"
+  },
+  {
+    id: 131,
+    answer: "Singleton Visitor",
+    question: "다음은 디자인 패턴에 관한 문제이다. 보기에서 알맞는 답을 작성하시오.",
+    passageOrCode: `1.
+- 생성자가 여러 차례 호출되더라도 실제로 생성되는 객체는 하나이고 최초 생성 이후에 호출된 생성자는 최초의 생성자가 생성한 객체를 리턴한다.
+- 주로 공통된 객체를 여러개 생성해서 사용하는 DBCP(DataBase Connection Pool)와 같은 상황에서 많이 사용한다.
+2.
+- 호스트 객체의 내부 상태에 접근할 수 있는 방법을 제공하여 호스트 객체에 연산을 추가할 수 있도록 한다.
+- 이 패턴은 보통 합성 구조의 원소들과 상호 작용하는 데 사용되며, 기존 코드를 변경하지 않고 새로운 기능을 추가하는 방법이다.`,
+    options: [
+      "생성패턴: Singleton, Factory Method, Builder",
+      "구조패턴: Adapter, Bridge, Decorator",
+      "행위패턴: Observer, Strategy, Visitor"
+    ],
+    imageUrl: null
+  },
+  {
+    id: 132,
+    answer: "hamming FEC BEC parity CRC",
+    question: "다음 내용에서 설명하는 문제에 대해 보기에 알맞는 답을 골라 작성하시오.",
+    passageOrCode: `( 1 ) Code는 데이터 전송시 1 비트의 에러를 정정할 수 있는, 오류정정부호의 일종으로 미국의 Bell 연구소의 Hamming에 의해 고안되었다. 선형블록부호 및 순회부호에 속에 속한다.
+( 2 ) 은/는 송신측이 전송할 문자나 프레임에 부가적 정보(Redundancy)를 첨가하여 전송하고 수신측이 이 부가적 정보를 이용하여 에러검출 및 에러정정을 하는 방식이다.
+( 3 ) 은/는 데이터 전송 과정에서 오류가 발생하면 송신 측에 재전송을 요구하는 방식이다. 오류를 검출하는 방법은 Parity검사와 CRC, 블록 합 검사 등이 있다.
+( 4 ) 은/는 데이터가 저장장치 내의 한 장소에서 다른 장소로 이동되거나, 컴퓨터들간에 전송될 때, 데이터가 유실 또는 손상되었는지 여부를 점검하는 기술과 관련된 용어이다.
+( 5 ) 은/는 네트워크 등을 통하여 데이터를 전송할 때 전송된 데이터에 오류가 있는지를 확인하기 위한 체크값을 결정하는 방식을 말한다.`,
+    options: [
+      "EAC",
+      "FEC",
+      "hamming",
+      "CRC",
+      "PDS",
+      "parity",
+      "BEC"
+    ],
+    imageUrl: null
+  },
+  {
+    id: 133,
+    answer: "ㄷ ㄴ ㅂ ㅊ ㅋ",
+    alt: "정보 감독 비번호 비동기균형 비동기응답",
+    question: "다음은 HDLC 프로토콜에 대한 설명이다. 보기 안에 알맞는 답을 골라 작성하시오.",
+    passageOrCode: `( 1 ) 프레임은 Seq, Next, P/F의 필드를 가진다. 또한 맨 처음 비트를 0으로 가진다. Seq는 송신용 순서번호를 가지고 있다. Next는 응답용 순서번호를 가진다. P/F는 P가 1로 설정된 경우 주국에서 종국에 데이터 전송을 허용하는 것을 의미하고 F가 1로 설정된 경우 종국에서 주국으로 데이터 전송을 하는 것을 의미한다.
+( 2 ) 프레임은 맨 앞의 필드가 1로 되어 있어 정보 프레임이 아니라는 것을 나타내고 다음 비트가 0이 나와있다. Type의 경우에는 2비트를 가지고 있어 4가지의 종류로 나누어진다. 데이터를 보내는 역할이 아니라 응답의 기능을 수행하므로 Seq에 대한 값은 필요가 없고 다음 프레임을 요구하는 Next만 존재한다.
+( 3 ) 프레임은 순서 번호가 없는 프레임을 의미한다. 첫 번째 비트와 두 번째 비트가 모두 1로 설정되어 있다. 여러 종류를 가지고 있는데 Type의 2비트와 Modifier의 3비트를 합쳐 5비트를 통해 종류를 나눈다.
+( 4 ) 은/는 두 호스트 모두 혼합국으로 동작한다. 양쪽에서 명령과 응답을 전송할 수 있다.
+( 5 ) 은/는 불균형 모드로 주국의 허락 없이 종국에서 데이터를 전송할 수 있다.`,
+    options: [
+      "ㄱ. 연결제어",
+      "ㄴ. 감독",
+      "ㄷ. 정보",
+      "ㄹ. 양방향 응답",
+      "ㅁ. 익명",
+      "ㅂ. 비번호",
+      "ㅅ. 릴레이",
+      "ㅇ. 동기균형",
+      "ㅈ. 동기응답",
+      "ㅊ. 비동기균형",
+      "ㅋ. 비동기응답"
+    ],
+    imageUrl: null
+  },
+  {
+    id: 134,
+    answer: `true
+false
+true
+true`,
+    question: "다음은 자바에 대한 문제이다. 알맞은 출력값을 작성하시오.",
+    passageOrCode: `public class Main {
+    public static void main(String[] args) {
+        String str1 = "Programming";
+        String str2 = "Programming";
+        String str3 = new String("Programming");
+        println(str1 == str2)
+        println(str1 == str3)
+        println(str1.equals(str3))
+        print(str2.equals(str3))
+    }
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 135,
+    answer: `DES AES ARIA SEED
+RSA ECC`,
+    question: "다음 보기는 암호화 알고리즘에 대한 내용이다. 대칭키에 해당하는 보기의 내용을 작성하시오. (줄바꿈으로 구분할 것)",
+    passageOrCode: `대칭키 : ( )
+비대칭키 : ( )`,
+    options: [
+      "DES",
+      "RSA",
+      "AES",
+      "ECC",
+      "ARIA",
+      "SEED"
+    ],
+    imageUrl: null
+  },
+  {
+    id: 136,
+    answer: "해시",
+    alts: ["해싱", "hash"],
+    question: "다음 괄호안에 알맞는 답을 작성하시오.",
+    passageOrCode: `- ( ) 란 임의의 크기를 가진 데이터(Key)를 고정된 크기의 데이터(Value)로 변화시켜 저장하는 것이다.
+- 키에 대한 ( ) 값을 사용하여 값을 저장하고 키-값 쌍의 갯수에 따라 동적으로 크기가 증가한다.
+- ( ) 값 자체를 index로 사용하기 때문에 평균 시간복잡도가 O(1) 로 매우 빠르다.
+- ( ) 함수는 임의의 길이의 데이터를 고정된 길이의 데이터로 매핑하는 함수이다.
+- ( ) 함수는 큰 파일에서 중복되는 레코드를 찾을 수 있기 때문에 데이터베이스 검색이나 테이블 검색의 속도를 가속할 수 있다.`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 137,
+    answer: "CASCADE",
+    question: "다음 보기의 SQL문에서 괄호안에 알맞는 단어를 작성하시오.",
+    passageOrCode: "학생 테이블을 참조하는 다른 VIEW나 제약 조건까지 모두 삭제되어야 한다.",
+    options: ["DROP VIEW 학생 ( )"],
+    imageUrl: null
+  },
+  {
+    id: 138,
+    answer: ">",
+    question: "다음 코드는 선택정렬 구현에 관한 문제이다. 오름차순으로 정렬할 경우 빈칸에 알맞는 연산자를 보기에서 골라 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+int main() {
+    int E[] = {64, 25, 12, 22, 11};
+    int n = sizeof(E) / sizeof(E[0]);
+    int i = 0;
+    do {
+        int j = i + 1;
+        do {
+            if (E[i]( ) E[j]) {
+                int tmp = E[i];
+                E[i] = E[j];
+                E[j] = tmp;
+            }
+            j++;
+        } while (j < n);
+        i++;
+    } while (i < n - 1);
+    for (int i = 0; i <= 4; i++)
+        printf("%d ", E[i]);
+}`,
+    options: [
+      "<",
+      "<=",
+      "=>",
+      ">",
+      "==",
+      "/",
+      "%"
+    ],
+    imageUrl: null
+  },
+  {
+    id: 139,
+    answer: "engneing",
+    question: "다음 파이썬 코드에서 알맞는 출력값을 작성하시오.",
+    passageOrCode: `a = "engineer information processing"
+b = a[:3]
+c = a[4:6]
+d = a[28:]
+e = b + c + d
+print(e)`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 140,
+    answer: "스텁 드라이버",
+    question: "다음 설명에 대한 알맞는 답을 작성하시오.",
+    passageOrCode: `1.
+- 하향식 테스트 시 상위 모듈은 존재하나 하위 모듈이 없는 경우의 테스트를 위해 임시 제공되는 모듈이다.
+- 특별한 목적의 소프트웨어를 구현하는 것으로 컴포넌트를 개발하거나 테스트할 때 사용된다.
+- 서버-클라이언트 구조에서 서버만 구현된 상태로 테스트를 해보고 싶을때 단순히 값만 넘겨주는 가상의 클라이언트를 만들어서 테스트 할 수 있다.
+2.
+- 상향식 테스트 시 상위 모듈 없이 하위 모듈이 존재할 때 하위 모듈 구동 시 자료 입출력을 제어하기 위한 제어 모듈(소프트웨어)이다.
+- 서버-클라이언트 구조에서 클라이언트만 구현된 상태로 테스트를 해보고 싶을때 접속 인증 등의 간단한 기능만 하는 가상의 서버를 만들어서 테스트 할 수 있다.`,
+    options: null,
+    imageUrl: null
+  },
+/* 2023년 3회 */
+  {
+    id: 141,
+    answer: "BDCDD",
+    question: "다음은 Java 코드이다. 올바른 출력 결과를 작성하시오.",
+    passageOrCode: `public class main {
+    public static void main(String[] args) {
+        A b = new B();
+        b.paint();
+        b.draw();
+    }
+}
+class A {
+    public void paint() {
+        System.out.print("A");
+        draw();
+    }
+    public void draw() {
+        System.out.print("B");
+        draw();
+    }
+}
+class B extends A {
+    public void paint() {
+        super.draw();
+        System.out.print("C");
+        this.draw();
+    }
+    public void draw() {
+        System.out.print("D");
+    }
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 142,
+    answer: "ㅇ",
+    alt: "OAuth",
+    question: "다음 설명하는 용어를 보기에 맞게 골라 기호를 작성하시오.",
+    passageOrCode: `- 사용자가 사용자 이름 및 암호와 같은 자격 증명을 공유하지 않고도 타사 애플리케이션이 데이터 또는 리소스에 액세스할 수 있도록 권한을 부여할 수 있는 개방형 표준 프로토콜이다.
+- 사용자가 데이터에 대한 제어를 유지하면서 리소스에 대한 액세스 권한을 부여할 수 있는 안전하고 표준화된 방법을 제공하며, 액세스 토큰을 사용하여 타사 애플리케이션에 리소스에 대한 액세스 권한을 부여하는 메커니즘을 사용자에게 제공하는 방식으로 작동한다.
+- 사용자가 응용 프로그램에 대한 액세스 권한을 부여하면 응용 프로그램은 사용자를 대신하여 사용자의 리소스 또는 데이터에 액세스하는 데 사용할 수 있는 액세스 토큰을 받는다.
+- 암호와 같은 사용자의 자격 증명은 타사 응용 프로그램과 공유되지 않으며, 클라우드 스토리지 서비스, 온라인 마켓 플레이스 및 금융 서비스를 포함한 다른 많은 응용 프로그램 및 서비스에서도 사용된다.
+- Facebook, Twitter 및 LinkedIn과 같은 소셜 미디어 플랫폼에서 널리 사용되어 사용자가 소셜 미디어 데이터에 대한 액세스 권한을 타사 애플리케이션에 부여할 수 있도록 한다.
+- 타사 애플리케이션에 대한 사용자 자격 증명의 노출을 최소화하여 향상된 보안, 간소화된 애플리케이션 개발, 사용자가 리소스에 대한 액세스 권한을 쉽게 부여하거나 취소할 수 있도록 하여 향상된 사용자 환경 등 여러 가지 이점을 제공한다.`,
+    options: [
+      "ㄱ.NFT",
+      "ㄴ.JWT",
+      "ㄷ.SAML",
+      "ㄹ.accessToken",
+      "ㅁ.SSO",
+      "ㅂ.OIDC",
+      "ㅅ.Autentication",
+      "ㅇ. OAuth",
+      "ㅈ.Cookie",
+      "ㅊ.Refresh Token"
+    ],
+    imageUrl: null
+  },
+  {
+    id: 143,
+    answer: "chmod 751",
+    question: "리눅스(Linux)에서 사용자에게 읽기/쓰기/실행 권한을 부여하고, 그룹에게는 읽기/실행을 부여하고, 그 이외에는 실행 권한을 test.txt 파일에 부여하는 위한 명령어는 다음과 같다. 빈칸에 들어갈 답을 작성하시오. (8진법 사용)",
+    passageOrCode: "( (1) ) ( (2) ) test.txt",
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 144,
+    answer: "34",
+    question: "다음은 C언어 코드이다. 알맞는 출력 결과를 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+int test(int n) {
+    int i, sum = 0;
+    for (i = 1; i <= n / 2; i++) {
+        if (n % i == 0)
+            sum += i;
+    }
+    if (n == sum)
+        return 1;
+    return 0;
+}
+int main() {
+    int i, sum = 0;
+    for (i = 2; i <= 100; i++) {
+        if (test(i))
+            sum += i;
+    }
+    printf("%d ", sum);
+    return 0;
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 145,
+    answer: "->",
+    question: "C언어에서 구조체의 멤버에 접근하기 위해 괄호안의 기호를 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+#include <stdlib.h>
+typedef struct Data {
+    char c;
+    int* numPtr;
+} Data;
+int main() {
+    int num = 10;
+    Data d1;
+    Data* d2 = malloc(sizeof(struct Data));
+    d1.numPtr = &num; // # 기호 대신 &num으로 수정 (문맥상)
+    d2( ) numPtr = &num; // # 기호 대신 &num으로 수정 (문맥상)
+    printf("%d\\n", *d1.numPtr);
+    printf("%d\\n", *d2( ) numPtr);
+    free(d2);
+    return 0;
+}`,
+    options: [`출력결과:
+10
+10`],
+    imageUrl: null
+  },
+  {
+    id: 146,
+    answer: `4 3 2 1`,
+    question: "다음 빈칸에 들어갈 UNION 연산의 결과값을 작성하시오.",
+    passageOrCode: `[테이블]
+T1: 3, 1, 4
+T2: 2, 4, 3
+
+[쿼리]
+SELECT * FROM T1 UNION SELECT * FROM T2`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 147,
+    answer: "MAC RBAC DAC",
+    question: "다음 설명은 서버 접근 통제의 유형이다. 괄호 안에 들어갈 용어를 작성하시오. (영어 약자로 작성하시오.)",
+    passageOrCode: `- ( (1) )은/는 규칙 기반(Rule-Based) 접근통제 정책으로, 객체에 포함된 정보의 허용 등급과 접근 정보에 대하여 주체가 갖는 접근 허가 권한에 근거하여 객체에 대한 접근을 제한하는 방법이다.
+- ( (2) )은/는 중앙 관리자가 사용자와 시스템의 상호관계를 통제하며 조직 내 맡은 역할(Role)에 기초하여 자원에 대한 접근을 제한하는 방법이다.
+- ( (3) )은/는 신분 기반(Identity-Based) 접근통제 정책으로, 주체나 그룹의 신분에 근거하여 객체에 대한 접근을 제한하는 방법이다.`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 148,
+    answer: "5040",
+    question: "다음 C언어 코드에 알맞는 출력값을 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+int f(int n) {
+    if (n <= 1)
+        return 1;
+    else
+        return n * f(n - 1);
+}
+int main() {
+    printf("%d", f(7));
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 149,
+    answer: "ATM",
+    question: "다음 설명에 대해 괄호 안에 알맞는 용어를 작성하시오. (영어 약자로 작성하시오.)",
+    passageOrCode: `- ( )은/는 자료를 일정한 크기로 정하여 순서대로 전송하는 자료의 전송 방식이다.
+- 셀이라 부르는 고정 길이 패킷을 이용하여 처리가 단순하고 고속망에 적합하며, 연속적으로 셀을 보낼 때 다중화를 하지 않고 셀단위로 동기가 이루어지지만 경우에 따라 동기식 시간 분할 다중화를 사용하기도 한다.
+- 가상 채널 (Virtual Channel) 기반의 연결 지향 서비스로 셀이라 부르는 고정 길이(53바이트) 패킷을 사용하며 통계적 다중화 방식을 이용한다.`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 150,
+    answer: `KOREA
+OREA
+K
+E
+O`,
+    question: "다음은 C언어의 포인터 문제이다. 알맞는 출력값을 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+int main() {
+    char* p = "KOREA";
+    printf("%s\\n", p);
+    printf("%s\\n", p + 1);
+    printf("%c\\n", *p);
+    printf("%c\\n", *(p + 3));
+    printf("%c\\n", *p + 4);
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 151,
+    answer: "2",
+    question: "다음은 Java 코드에 대한 알맞는 출력값을 작성하시오.",
+    passageOrCode: `class Parent {
+    int compute(int num) {
+        if (num <= 1)
+            return num;
+        return compute(num - 1) + compute(num - 2);
+    }
+}
+class Child extends Parent {
+    int compute(int num) {
+        if (num <= 1)
+            return num;
+        return compute(num - 1) + compute(num - 3);
+    }
+}
+public class main {
+    public static void main(String args[]) {
+        Parent obj = new Child();
+        System.out.print(obj.compute(7));
+    }
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 152,
+    answer: "NAT",
+    alt: "Network Address Transformation",
+    question: "IP 패킷에서 외부의 공인 IP주소와 포트 주소에 해당하는 내부 IP주소를 재기록하여 라우터를 통해 네트워크 트래픽을 주고받는 기술은 무엇인가?",
+    passageOrCode: null,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 153,
+    answer: "7",
+    question: "다음 자바 코드를 실행할 경우 에러가 발생이 된다. 에러가 발생하는 라인명을 작성하시오.",
+    passageOrCode: `class Person {
+    private String name;
+    public Person(String val) {
+        name = val;
+    }
+    public static String get() {
+        return name;
+    }
+    public void print() {
+        System.out.println(name);
+    }
+}
+public class main {
+    public static void main(String[] args) {
+        Person obj = new Person("Kim");
+        obj.print();
+    }
+}`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 154,
+    answer: "split",
+    question: "다음은 파이썬에 대한 문제이다. 밑줄친 부분에 알맞는 답을 작성하시오.",
+    passageOrCode: `print("파이썬 입출력에 대한 문제입니다.")
+num1, num2 = input().___()
+num1 = int(num1)
+num2 = int(num2)
+print(num1, num2)
+num3 = num1 + num2
+print(num1 + " + " + num2 + " = " + num3)`,
+    options: ["입력값은 2와 3이다.", `출력화면:
+파이썬 입력출에 대한 문제입니다.
+2 3
+2 + 3 = 5`],
+    imageUrl: null
+  },
+  {
+    id: 155,
+    answer: "Package",
+    alt: "패키지",
+    question: "다음은 판매와 관련된 다이어그램이다. 해당 다이어그램의 명칭을 쓰시오.",
+    passageOrCode: null,
+    options: null,
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FG17fg%2FbtsDs2rLh1k%2FAAAAAAAAAAAAAAAAAAAAAEzsNevCGXIAmmZEVFohw79sXzdlfZnUxEWidCJMTCRJ%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3D4rqV0XZEfWAw70LrvH8%252FLBlO3v4%253D"
+  },
+  {
+    id: 156,
+    answer: "ㄱ",
+    alt: "Equivalence Partitioning",
+    question: "다음 설명에 알맞는 답을 보기에서 골라 작성하시오.",
+    passageOrCode: `- 시스템이나 시스템 구성요소(component) 또는 소프트웨어 프로그램의 입력값과 출력값이 특정 그룹으로 분류되며, 분류된 그룹내의 값들이 시스템에 의해 동일하게 취급된다는 특성을 이용하여 시험하는 기법
+- 유사한 입력값들이 시스템을 거치면서 유사한 답변이 나온다는 것을 가정하여 테스트
+- 하나의 값은 그 분할 내 모든 값을 대표하는 것으로 간주하는 기법
+- 모든 입력값을 시험할 필요가 없게 하여 시험을 효율적으로 수행하도록 지원
+- 일반적으로 경계값 분석기법(boundary value analysis)과 함께 테스트 케이스 도출하는데 사용`,
+    options: [
+      "ㄱ.Equivalence Partitioning",
+      "ㄴ.Statement Coverage",
+      "ㄷ.Boundary Value Analy",
+      "ㄹ.Branch Coverage",
+      "ㅁ.Error Guessing",
+      "ㅂ.Condition Coverage",
+      "ㅅ.Cause Effect Graph"
+    ],
+    imageUrl: null
+  },
+  {
+    id: 157,
+    answer: "IaaS PaaS SaaS",
+    question: "다음은 클라우드에 대한 유형 문제이다. 괄호안에 알맞는 답을 보기에 골라 작성하시오.",
+    passageOrCode: `(1) 인프라형 서비스 - 서버, 스토리지 등의 IT 인프라를 제공
+(2) 플랫폼형 서비스 - 개발 환경을 서비스로 제공
+(3) 소프트웨어형 서비스 - 소프트웨어를 서비스로 제공`,
+    options: [
+      "PaaS",
+      "SaaS",
+      "IaaS"
+    ],
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbgV3Dv%2FbtsDxjzXlXL%2FAAAAAAAAAAAAAAAAAAAAAO1vPFE8OwX5WjtRdf3rKwQojSeV57tJwEDkKca4r2_i%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DcK4Iygs3smzKLzCDMsKo9fQFRCg%253D"
+  },
+  {
+    id: 158,
+    answer: "RIP",
+    question: "다음은 프로토콜 종류에 관한 설명이다. 알맞는 답을 작성하시오.",
+    passageOrCode: `- 최소 Hop count를 파악하여 라우팅하는 프로토콜이다.
+- 거리와 방향으로 길을 찾아가는 Distance Vector 다이나믹 프로토콜이다.
+- 최단거리 즉, Hop count가 적은 경로를 택하여 라우팅하는 프로토콜로 Routing Table에 인접 라우터 정보를 저장하여 경로를 결정한다.
+- 최대 Hop count는 15로 거리가 짧기 때문에 IGP로 많이 이용하는 프로토콜이다.`,
+    options: null,
+    imageUrl: null
+  },
+  {
+    id: 159,
+    answer: "ㄷ ㄴ ㄱ ㄹ",
+    question: "다음은 관계 대수에 대한 내용이다. 보기에 알맞는 기호를 작성하시오.",
+    passageOrCode: `1. join : ( 1 )
+2. project : ( 2 )
+3. select : ( 3 )
+4. division : ( 4 )`,
+    options: [
+      "ㄱ. σ",
+      "ㄴ. π",
+      "ㄷ. ⋈",
+      "ㄹ. ÷"
+    ],
+    imageUrl: null
+  },
+  {
+    id: 160,
+    answer: "참조",
+    alt: "Referential",
+    question: "다음은 데이터베이스에 관련된 문제이다. 괄호 안에 알맞는 답을 작성하시오.",
+    passageOrCode: `- ( ) 무결성은 관계 데이터베이스 관계 모델에서 2개의 관련 있던 관계 변수(테이블) 간의 일관성(데이터 무결성)을 말한다.
+- 종종 기본 키 또는 키가 아닌 후보 키와 외래 키의 조합으로 강제 적용된다.
+- 외래 키가 선언된 관계 변수의 외래 키를 구성하는 속성(열)의 값은 그 관계 변수의 부모가 되는 관계 변수의 기본 키 값 또는 기본 키가 아닌 후보 키 값으로 존재해야 한다.`,
+    options: null,
+    imageUrl: null
+  }
 ];
