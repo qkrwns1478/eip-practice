@@ -29,6 +29,12 @@
 * **진행 상황 저장:** 모든 학습 진행 상황(점수, 푼 문제, 북마크, 틀린 문제)이 퀴즈 모드별로 브라우저의 Local Storage에 자동으로 저장됩니다.
 * **초기화:** 원할 때 모든 학습 기록을 초기화할 수 있습니다.
 
+## 스크린샷
+
+| 족보퀴즈 | 기출문제 | 다크모드 |
+|:---:|:---:|:---:|
+| <img src="./public/images/screenshot_1.jpg"> | <img src="./public/images/screenshot_2.jpg"> | <img src="./public/images/screenshot_3.jpg"> |
+
 ## 기술 스택
 
 [![Vue.js](https://img.shields.io/badge/Vue.js-4FC08D?logo=vue.js&logoColor=white)](https://vuejs.org/)
