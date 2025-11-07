@@ -19,7 +19,7 @@
 
 ## 주요 기능
 
-* **듀얼 퀴즈 모드:** 사이드바 내비게이션을 통해 '정보처리기사 실기 (용어 퀴즈)'와 '기출문제 (코딩/SQL/단답형 퀴즈)' 두 가지 모드를 선택할 수 있습니다.
+* **듀얼 퀴즈 모드:** 사이드바 내비게이션을 통해 **족보퀴즈**와 **기출문제** 두 가지 모드를 선택할 수 있습니다.
 * **랜덤 퀴즈:** 각 모드(`geoData.js`, `pstData.js`)에 정의된 문제 은행에서 랜덤으로 문제를 출제합니다.
 * **다양한 학습 모드:**
     * **퀴즈:** 새로운 문제를 풉니다.
@@ -40,11 +40,11 @@
 * `index.html`: 애플리케이션의 진입점 HTML 파일
 * `src/main.js`: Vue 앱 인스턴스를 생성하고 마운트하는 메인 스크립트
 * `src/App.vue`: 사이드바 내비게이션을 관리하며, `GeoQuiz`와 `PstQuiz` 컴포넌트를 동적으로 렌더링하는 루트 컴포넌트
-* `src/components/GeoQuiz.vue`: '정보처리기사 실기' (용어) 퀴즈의 로직과 UI를 포함하는 컴포넌트
-* `src/assets/geoData.js`: '정보처리기사 실기' 문제와 답을 정의한 데이터 파일
-* `src/components/PstQuiz.vue`: '기출문제' 퀴즈의 로직과 UI를 포함하는 컴포넌트
-* `src/assets/pstData.js`: '기출문제' 문제와 답을 정의한 데이터 파일
-* `src/assets/style/GeoQuiz.css`: 두 퀴즈 컴포넌트에서 공통으로 사용하는 메인 스타일시트
+* `src/components/GeoQuiz.vue`: **족보퀴즈**의 로직과 UI를 포함하는 컴포넌트
+* `src/assets/geoData.js`: **족보퀴즈** 문제와 답을 정의한 데이터 파일
+* `src/components/PstQuiz.vue`: **기출문제**의 로직과 UI를 포함하는 컴포넌트
+* `src/assets/pstData.js`: **기출문제** 문제와 답을 정의한 데이터 파일
+* `src/assets/style/GeoQuiz.css`: 퀴즈 컴포넌트에서 공통으로 사용하는 메인 스타일시트
 
 ## 실행 방법
 
