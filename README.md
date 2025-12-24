@@ -1,6 +1,6 @@
 # 정보처리기사 실기 퀴즈 앱 (EIP Practice)
 
-이 프로젝트는 [Vue 3](https://vuejs.org/)와 [Vite](https://vitejs.dev/)를 사용하여 구축한 정보처리기사 실기 대비용 랜덤 퀴즈 애플리케이션입니다.
+[Vue 3](https://vuejs.org/)와 [Vite](https://vitejs.dev/)를 사용하여 구축한 정보처리기사 실기 대비용 랜덤 퀴즈 애플리케이션입니다.
 
 ## 자료 출처
 * [정보처리기사 실기 족보 1탄](https://chobopark.tistory.com/193)
@@ -50,35 +50,14 @@
 * `src/components/GeoQuiz.vue`: **족보퀴즈**의 로직과 UI를 포함하는 컴포넌트
 * `src/assets/geoData.js`: **족보퀴즈** 문제와 답을 정의한 데이터 파일 (총 51문제)
 * `src/components/PstQuiz.vue`: **기출문제**의 로직과 UI를 포함하는 컴포넌트
-* `src/assets/pstData.js`: **기출문제** 문제와 답을 정의한 데이터 파일 (총 220문제)
+* `src/assets/pstData.js`: **기출문제** 문제와 답을 정의한 데이터 파일 (총 240문제)
 * `src/assets/style/style.css`: 퀴즈 컴포넌트에서 공통으로 사용하는 메인 스타일시트
 * `src/assets/style/GeoQuiz.css`: `GeoQuiz` 컴포넌트에서 사용하는 스타일시트
 * `src/assets/style/PstQuiz.css`: `PstQuiz` 컴포넌트에서 사용하는 스타일시트
 
 ## 실행 방법
 
-### 1. 의존성 설치
-
 ```bash
 npm install
-```
-### 2. 개발 서버 실행
-개발 모드로 애플리케이션을 실행합니다.
-
-```bash
 npm run dev
-```
-
-### 3. 프로덕션 빌드
-배포용으로 프로젝트를 빌드합니다.
-
-```bash
-npm run build
-```
-
-### 4. 빌드 미리보기
-프로덕션 빌드된 결과물을 로컬에서 실행합니다.
-
-```bash
-npm run preview
 ```
