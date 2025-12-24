@@ -486,7 +486,6 @@ export default {
       if (!id) return "정보 없음";
 
       let examInfo = "알 수 없음";
-      
       if (id >= 1 && id <= 20) examInfo = "2025년 1회";
       else if (id >= 21 && id <= 40) examInfo = "2025년 2회";
       else if (id >= 41 && id <= 60) examInfo = "2024년 1회";
@@ -498,6 +497,7 @@ export default {
       else if (id >= 161 && id <= 180) examInfo = "2022년 1회";
       else if (id >= 181 && id <= 200) examInfo = "2022년 2회";
       else if (id >= 201 && id <= 220) examInfo = "2022년 3회";
+      else if (id >- 221 && id <= 240) examInfo = "2025년 3회";
       
       if (examInfo === "알 수 없음") {
         return `ID: ${id}`;
