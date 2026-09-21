@@ -137,8 +137,7 @@ int main() {
  
     sum = (sum ^ 42u) + 100u;
  
-    printf("%u
-", sum);
+    printf("%u", sum);
 }`,
     options: null,
     imageUrl: null,
