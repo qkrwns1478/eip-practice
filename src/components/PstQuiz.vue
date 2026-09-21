@@ -1,12 +1,20 @@
 <template>
   <div class="quiz-container pst-quiz-layout">
     <div class="menu-bar icon-menu-bar">
-      <button @click="showMode = 'quiz'" :class="{ active: showMode === 'quiz' }">
+      <button @click="openRandomQuiz" :class="{ active: showMode === 'quiz' && playMode === 'random' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
         </svg>
         <span class="tooltip-text">퀴즈</span>
+      </button>
+      <button @click="openMockExamMode" :class="{ active: showMode === 'mockExam' || (showMode === 'quiz' && playMode === 'mockExam') }">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M8 6h13" /><path d="M8 12h13" /><path d="M8 18h13" />
+          <path d="M3 6h.01" /><path d="M3 12h.01" /><path d="M3 18h.01" />
+        </svg>
+        <span class="tooltip-text">모의고사</span>
       </button>
       <button @click="showMode = 'bookmarks'" :class="{ active: showMode === 'bookmarks' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -44,10 +52,23 @@
       </button>
     </div>
 
-    <div v-if="showMode === 'quiz' && currentQuestion" class="quiz-content" ref="quizContent">
+    <div v-if="showMode === 'mockExam'" class="mockExam-content">
+      <div class="mockExam-picker">
+        <h3>모의고사</h3>
+        <label for="pst-exam-select">시험 선택</label>
+        <select id="pst-exam-select" v-model="selectedExamKey">
+          <option v-for="exam in pstExams" :key="exam.key" :value="exam.key">
+            {{ exam.year }}년 {{ exam.round }}회
+          </option>
+        </select>
+        <button @click="startMockExamQuiz" class="start-button mockExam-start-button">응시 시작</button>
+      </div>
+    </div>
+
+    <div v-else-if="showMode === 'quiz' && currentQuestion" class="quiz-content" ref="quizContent">
       <div class="question-section">
         <div class="question-header">
-          <h3>문제 {{ currentQuestionIndex + 1 }}</h3>
+          <h3>{{ questionTitle }}</h3>
           <div class="quiz-actions-group">
             <span class="quiz-info-badge" v-if="currentQuestion">{{ getQuizInfo(currentQuestion.id) }}</span>
             <button @click="toggleBookmark" class="bookmark-btn" :class="{ bookmarked: isCurrentQuestionBookmarked }">
@@ -181,15 +202,19 @@
 </style>
 
 <script>
-import { pstData } from "../assets/pstData";
+import { pstData, pstExams } from "../assets/pstData";
 
 export default {
   name: "PstQuiz",
   data() {
     return {
       pstData: pstData,
+      pstExams: pstExams,
       currentQuestion: null,
       currentQuestionIndex: 0,
+      playMode: 'random',
+      selectedExamKey: '2026-2',
+      mockExamQuestions: [],
       userAnswer: "",
       answered: false,
       isCorrect: false,
@@ -223,6 +248,12 @@ export default {
     isCurrentQuestionBookmarked() {
       return this.currentQuestion && this.bookmarkedQuestions.includes(this.currentQuestion.id);
     },
+    questionTitle() {
+      if (this.playMode !== 'mockExam') return `문제 ${this.currentQuestionIndex + 1}`;
+      const exam = this.pstExams.find(item => item.key === this.selectedExamKey);
+      const examLabel = exam ? `${exam.year}년 ${exam.round}회` : '기출문제';
+      return `${examLabel} ${this.currentQuestionIndex + 1}번 / ${this.mockExamQuestions.length}번`;
+    },
     lastSessionDate() {
       const saved = localStorage.getItem('pstQuiz_lastSession');
       if (!saved) return '아직 학습 기록이 없습니다';
@@ -250,9 +281,33 @@ export default {
 
     startQuiz() {
       this.showMode = 'quiz';
+      this.playMode = 'random';
       if (!this.currentQuestion) {
         this.generateQuestion();
       }
+    },
+
+    openRandomQuiz() {
+      const wasMockExam = this.playMode === 'mockExam';
+      this.playMode = 'random';
+      this.showMode = 'quiz';
+      if (wasMockExam) this.currentQuestion = null;
+      if (!this.currentQuestion) this.generateQuestion();
+    },
+
+    openMockExamMode() {
+      this.showMode = 'mockExam';
+    },
+
+    startMockExamQuiz() {
+      const exam = this.pstExams.find(item => item.key === this.selectedExamKey);
+      if (!exam || exam.questions.length === 0) return;
+
+      this.playMode = 'mockExam';
+      this.mockExamQuestions = exam.questions;
+      this.currentQuestionIndex = 0;
+      this.showMode = 'quiz';
+      this.setupQuestion(this.mockExamQuestions[0], false);
     },
 
     generateQuestion() {
@@ -273,9 +328,11 @@ export default {
       this.setupQuestion(selectedItem);
     },
 
-    setupQuestion(selectedItem) {
+    setupQuestion(selectedItem, markAsUsed = this.playMode === 'random') {
       this.currentQuestion = selectedItem;
-      this.usedQuestions.push(selectedItem.id);
+      if (markAsUsed && !this.usedQuestions.includes(selectedItem.id)) {
+        this.usedQuestions.push(selectedItem.id);
+      }
       this.userAnswer = '';
       this.answered = false;
       this.isCorrect = false;
@@ -372,6 +429,21 @@ export default {
     },
 
     nextQuestion() {
+      if (this.playMode === 'mockExam') {
+        if (this.currentQuestionIndex + 1 >= this.mockExamQuestions.length) {
+          this.currentQuestion = null;
+          this.userAnswer = '';
+          this.answered = false;
+          this.showMode = 'mockExam';
+          this.showAlert('응시 완료', '선택한 회차의 모든 문제를 풀었습니다.');
+          this.saveProgress();
+          return;
+        }
+        this.currentQuestionIndex++;
+        this.setupQuestion(this.mockExamQuestions[this.currentQuestionIndex], false);
+        this.saveProgress();
+        return;
+      }
       this.currentQuestionIndex++;
       this.generateQuestion();
       this.saveProgress();
@@ -402,11 +474,11 @@ export default {
     },
     startBookmarkedQuestion(id) {
       const question = this.getQuestionById(id);
-      if (question) { this.showMode = 'quiz'; this.setupQuestion(question); }
+      if (question) { this.playMode = 'review'; this.showMode = 'quiz'; this.setupQuestion(question, false); }
     },
     startWrongQuestion(id) {
       const question = this.getQuestionById(id);
-      if (question) { this.showMode = 'quiz'; this.setupQuestion(question); }
+      if (question) { this.playMode = 'review'; this.showMode = 'quiz'; this.setupQuestion(question, false); }
     },
 
     saveProgress() {
@@ -420,6 +492,8 @@ export default {
         usedQuestions: this.usedQuestions,
         currentQuestionIndex: this.currentQuestionIndex,
         currentQuestion: this.currentQuestion,
+        playMode: this.playMode,
+        selectedExamKey: this.selectedExamKey,
         isCorrect: this.isCorrect,
         userAnswer: this.userAnswer,
         answered: this.answered,
@@ -442,6 +516,13 @@ export default {
           this.wrongQuestions = progress.wrongQuestions || [];
           this.currentQuestionIndex = progress.currentQuestionIndex || 0;
           this.currentQuestion = progress.currentQuestion || null;
+          this.playMode = progress.playMode || 'random';
+          this.selectedExamKey = progress.selectedExamKey || '2026-2';
+          if (this.playMode === 'mockExam') {
+            const exam = this.pstExams.find(item => item.key === this.selectedExamKey);
+            if (exam) this.mockExamQuestions = exam.questions;
+            else this.playMode = 'random';
+          }
           this.userAnswer = progress.userAnswer || '';
           this.answered = progress.answered || false;
           this.isCorrect = progress.isCorrect || false;
@@ -468,6 +549,8 @@ export default {
           this.usedQuestions = [];
           this.currentQuestionIndex = 0;
           this.currentQuestion = null;
+          this.playMode = 'random';
+          this.mockExamQuestions = [];
           this.answered = false;
           this.isCorrect = false;
           this.userAnswer = '';
