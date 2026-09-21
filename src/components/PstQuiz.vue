@@ -70,6 +70,7 @@
         <div class="question-header">
           <h3>{{ questionTitle }}</h3>
           <div class="quiz-actions-group">
+            <button v-if="playMode === 'random' && !answered" @click="skipQuestion" class="skip-button">다음 문제</button>
             <span class="quiz-info-badge" v-if="currentQuestion">{{ getQuizInfo(currentQuestion.id) }}</span>
             <button @click="toggleBookmark" class="bookmark-btn" :class="{ bookmarked: isCurrentQuestionBookmarked }">
               {{ isCurrentQuestionBookmarked ? '⭐' : '☆' }}
@@ -447,6 +448,11 @@ export default {
       this.currentQuestionIndex++;
       this.generateQuestion();
       this.saveProgress();
+    },
+
+    skipQuestion() {
+      if (this.playMode !== 'random' || this.answered) return;
+      this.nextQuestion();
     },
 
     toggleBookmark() {

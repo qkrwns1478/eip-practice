@@ -2,7 +2,7 @@
   <div class="quiz-container geo-quiz-layout">
 
     <div class="menu-bar icon-menu-bar">
-      <button @click="showMode = 'quiz'" :class="{ active: showMode === 'quiz' }">
+      <button @click="openRandomQuiz" :class="{ active: showMode === 'quiz' && playMode === 'random' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
@@ -58,9 +58,12 @@
       <div class="question-section">
         <div class="question-header">
           <h3>문제 {{ currentQuestionIndex + 1 }}</h3>
-          <button @click="toggleBookmark" class="bookmark-btn" :class="{ bookmarked: isCurrentQuestionBookmarked }">
-            {{ isCurrentQuestionBookmarked ? '⭐' : '☆' }}
-          </button>
+          <div class="question-actions-group">
+            <button v-if="isRandomQuiz && !answered" @click="skipQuestion" class="skip-button">다음 문제</button>
+            <button @click="toggleBookmark" class="bookmark-btn" :class="{ bookmarked: isCurrentQuestionBookmarked }">
+              {{ isCurrentQuestionBookmarked ? '⭐' : '☆' }}
+            </button>
+          </div>
         </div>
 
         <!-- 단일 항목 문제 -->
@@ -259,6 +262,7 @@ export default {
       solvedQuestions: [],
       wrongQuestions: [],
       showMode: "quiz",
+      playMode: "random",
 
       showConfirmModal: false,
       confirmModal: {
@@ -288,6 +292,9 @@ export default {
     },
     isCurrentQuestionBookmarked() {
       return this.currentQuestion && this.bookmarkedQuestions.includes(this.currentQuestion.id);
+    },
+    isRandomQuiz() {
+      return this.playMode === 'random';
     },
     studyQuestions() {
       return this.geoData
@@ -333,9 +340,18 @@ export default {
 
     startQuiz() {
       this.showMode = 'quiz';
+      this.playMode = 'random';
       if (!this.currentQuestion) {
         this.generateQuestion();
       }
+    },
+
+    openRandomQuiz() {
+      const wasReview = this.playMode === 'review';
+      this.playMode = 'random';
+      this.showMode = 'quiz';
+      if (wasReview) this.currentQuestion = null;
+      if (!this.currentQuestion) this.generateQuestion();
     },
 
     generateQuestion() {
@@ -530,6 +546,11 @@ export default {
       this.saveProgress();
     },
 
+    skipQuestion() {
+      if (!this.isRandomQuiz || this.answered) return;
+      this.nextQuestion();
+    },
+
     toggleBookmark() {
       if (!this.currentQuestion) return;
 
@@ -560,6 +581,7 @@ export default {
     startBookmarkedQuestion(id) {
       const question = this.getQuestionById(id);
       if (question) {
+        this.playMode = 'review';
         this.showMode = 'quiz';
         this.setupQuestion(question);
       }
@@ -568,6 +590,7 @@ export default {
     startWrongQuestion(id) {
       const question = this.getQuestionById(id);
       if (question) {
+        this.playMode = 'review';
         this.showMode = 'quiz';
         this.setupQuestion(question);
       }
@@ -584,6 +607,7 @@ export default {
         usedQuestions: this.usedQuestions,
         currentQuestionIndex: this.currentQuestionIndex,
         currentQuestion: this.currentQuestion,
+        playMode: this.playMode,
         isCorrect: this.isCorrect,
         userAnswer: this.userAnswer,
         answered: this.answered,
@@ -607,6 +631,7 @@ export default {
           this.wrongQuestions = progress.wrongQuestions || [];
           this.currentQuestionIndex = progress.currentQuestionIndex || 0;
           this.currentQuestion = progress.currentQuestion || null;
+          this.playMode = progress.playMode || 'random';
           this.userAnswer = progress.userAnswer || '';
           this.answered = progress.answered || false;
           this.isCorrect = progress.isCorrect || false;
@@ -633,6 +658,7 @@ export default {
           this.usedQuestions = [];
           this.currentQuestionIndex = 0;
           this.currentQuestion = null;
+          this.playMode = 'random';
           this.answered = false;
           this.isCorrect = false;
           this.userAnswer = '';
