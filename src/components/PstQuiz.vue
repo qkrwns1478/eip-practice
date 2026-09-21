@@ -100,7 +100,7 @@
     <div v-else-if="showMode === 'wrong'" class="wrong-content">
       <h3>틀린 문제</h3>
       <div v-if="wrongQuestions.length === 0" class="empty-state">
-        <p>틀린 문제가 없습니다. 완벽해요! 🎉</p>
+        <p>틀린 문제가 없습니다.</p>
       </div>
       <div v-else class="wrong-list">
         <div 
@@ -165,7 +165,6 @@
 
     <div v-if="showAlertModal" class="modal-overlay" @click="closeAlertModal">
       <div class="modal-content alert-modal" @click.stop>
-        <div class="modal-icon">{{ alertModal.icon }}</div>
         <h3>{{ alertModal.title }}</h3>
         <p>{{ alertModal.message }}</p>
         <div class="modal-actions">
@@ -206,7 +205,7 @@ export default {
       showConfirmModal: false,
       confirmModal: { title: "", message: "", onConfirm: null },
       showAlertModal: false,
-      alertModal: { icon: "", title: "", message: "" },
+      alertModal: { title: "", message: "" },
     };
   },
   computed: {
@@ -243,8 +242,8 @@ export default {
       this.showConfirmModal = true;
     },
     closeConfirmModal() { this.showConfirmModal = false; },
-    showAlert(icon, title, message) {
-      this.alertModal = { icon, title, message };
+    showAlert(title, message) {
+      this.alertModal = { title, message };
       this.showAlertModal = true;
     },
     closeAlertModal() { this.showAlertModal = false; },
@@ -262,7 +261,7 @@ export default {
       });
       
       if (availableQuestions.length === 0) {
-        this.showAlert('🎉', '완료!', '모든 문제를 풀었습니다!');
+        this.showAlert('완료', '모든 문제를 풀었습니다.');
         this.usedQuestions = [];
         this.saveProgress();
         return;
@@ -474,7 +473,7 @@ export default {
           this.userAnswer = '';
           
           this.closeConfirmModal();
-          this.showAlert('✅', '완료', '진행 상황이 초기화되었습니다.');
+          this.showAlert('완료', '진행 상황이 초기화되었습니다.');
           
           this.showMode = 'quiz';
           this.generateQuestion();
