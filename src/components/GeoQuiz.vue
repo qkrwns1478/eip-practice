@@ -2,24 +2,53 @@
   <div class="quiz-container geo-quiz-layout">
 
     <div class="menu-bar icon-menu-bar">
-      <button @click="showMode = 'quiz'" :class="{ active: showMode === 'quiz' }">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+      <button @click="openRandomQuiz" :class="{ active: showMode === 'quiz' && playMode === 'random' }">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+        </svg>
         <span class="tooltip-text">퀴즈</span>
       </button>
+      <button @click="showMode = 'study'" :class="{ active: showMode === 'study' }">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+        </svg>
+        <span class="tooltip-text">공부 모드</span>
+      </button>
       <button @click="showMode = 'bookmarks'" :class="{ active: showMode === 'bookmarks' }">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
         <span class="tooltip-text">북마크 ({{ bookmarkedQuestions.length }})</span>
       </button>
       <button @click="showMode = 'wrong'" :class="{ active: showMode === 'wrong' }">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
         <span class="tooltip-text">틀린 문제 ({{ wrongQuestions.length }})</span>
       </button>
       <button @click="showMode = 'stats'" :class="{ active: showMode === 'stats' }">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20V16"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20V10" />
+          <path d="M18 20V4" />
+          <path d="M6 20V16" />
+        </svg>
         <span class="tooltip-text">통계</span>
       </button>
       <button @click="resetProgress" class="reset-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 4 23 10 17 10" />
+          <polyline points="1 20 1 14 7 14" />
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+        </svg>
         <span class="tooltip-text">초기화</span>
       </button>
     </div>
@@ -29,26 +58,20 @@
       <div class="question-section">
         <div class="question-header">
           <h3>문제 {{ currentQuestionIndex + 1 }}</h3>
-          <button 
-            @click="toggleBookmark" 
-            class="bookmark-btn"
-            :class="{ bookmarked: isCurrentQuestionBookmarked }"
-          >
-            {{ isCurrentQuestionBookmarked ? '⭐' : '☆' }}
-          </button>
+          <div class="question-actions-group">
+            <button v-if="isRandomQuiz && !answered" @click="skipQuestion" class="skip-button">다음 문제</button>
+            <button @click="toggleBookmark" class="bookmark-btn" :class="{ bookmarked: isCurrentQuestionBookmarked }">
+              {{ isCurrentQuestionBookmarked ? '⭐' : '☆' }}
+            </button>
+          </div>
         </div>
-        
+
         <!-- 단일 항목 문제 -->
         <div v-if="!currentQuestion.isMultiple" class="single-question">
           <p class="description">{{ currentQuestion.desc }}</p>
           <div class="answer-input">
-            <input 
-              v-model="userAnswer"
-              @keydown.enter.prevent="checkAnswer"
-              placeholder="답을 입력하세요"
-              :disabled="answered"
-              ref="answerInput"
-            />
+            <input v-model="userAnswer" @keydown.enter.prevent="checkAnswer" placeholder="답을 입력하세요" :disabled="answered"
+              ref="answerInput" />
             <button @click="checkAnswer" :disabled="answered">확인</button>
           </div>
         </div>
@@ -57,28 +80,15 @@
         <div v-else class="multiple-question">
           <p class="main-keyword">{{ currentQuestion.mainKeyword }}</p>
           <div class="sub-items">
-            <div 
-              v-for="(item, index) in currentQuestion.subItems" 
-              :key="index"
-              class="sub-item"
-              :class="{ 
-                'correct': item.answered && item.isCorrect,
-                'wrong': item.answered && !item.isCorrect 
-              }"
-            >
+            <div v-for="(item, index) in currentQuestion.subItems" :key="index" class="sub-item" :class="{
+              'correct': item.answered && item.isCorrect,
+              'wrong': item.answered && !item.isCorrect
+            }">
               <p class="sub-description">{{ index + 1 }}. {{ item.desc }}</p>
               <div class="answer-input">
-                <input 
-                  v-model="item.userAnswer"
-                  @keydown.enter.prevent="checkSubAnswer(index)"
-                  placeholder="답을 입력하세요"
-                  :disabled="item.answered"
-                  :ref="el => { if (el) subItemInputs[index] = el }"
-                />
-                <button 
-                  @click="checkSubAnswer(index)" 
-                  :disabled="item.answered"
-                >
+                <input v-model="item.userAnswer" @keydown.enter.prevent="checkSubAnswer(index)" placeholder="답을 입력하세요"
+                  :disabled="item.answered" :ref="el => { if (el) subItemInputs[index] = el }" />
+                <button @click="checkSubAnswer(index)" :disabled="item.answered">
                   확인
                 </button>
               </div>
@@ -106,6 +116,29 @@
       </div>
     </div>
 
+    <!-- 공부 모드: 퀴즈 기록을 변경하지 않고 전체 개념을 열람한다. -->
+    <div v-else-if="showMode === 'study'" class="study-content">
+      <header class="study-header">
+        <h3>공부 모드</h3>
+      </header>
+      <div class="study-list">
+        <article v-for="(question, index) in studyQuestions" :key="question.id" class="study-card">
+          <div class="study-card-header">
+            <span class="study-number">{{ index + 1 }}</span>
+            <h4>{{ question.keyword }}</h4>
+          </div>
+          <p v-if="question.desc" class="study-description">{{ question.desc }}</p>
+          <div v-if="question.subItems.length" class="study-sub-list">
+            <div v-for="(item, subIndex) in question.subItems" :key="item.childId" class="study-sub-item">
+              <strong>{{ subIndex + 1 }}. {{ item.keyword }}</strong>
+              <span v-if="item.alt"> ({{ item.alt }})</span>
+              <p>{{ item.desc }}</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+
     <!-- 북마크 모드 -->
     <div v-else-if="showMode === 'bookmarks'" class="bookmarks-content">
       <h3>북마크한 문제</h3>
@@ -113,20 +146,12 @@
         <p>북마크한 문제가 없습니다.</p>
       </div>
       <div v-else class="bookmark-list">
-        <div 
-          v-for="id in bookmarkedQuestions" 
-          :key="id"
-          class="bookmark-item"
-          @click="startBookmarkedQuestion(id)"
-        >
+        <div v-for="id in bookmarkedQuestions" :key="id" class="bookmark-item" @click="startBookmarkedQuestion(id)">
           <div class="bookmark-info">
             <h4>{{ getQuestionById(id)?.keyword || '문제' }}</h4>
             <p>{{ getQuestionById(id)?.desc || '' }}</p>
           </div>
-          <button 
-            @click.stop="removeBookmark(id)"
-            class="remove-bookmark-btn"
-          >
+          <button @click.stop="removeBookmark(id)" class="remove-bookmark-btn">
             ✕
           </button>
         </div>
@@ -137,15 +162,10 @@
     <div v-else-if="showMode === 'wrong'" class="wrong-content">
       <h3>틀린 문제</h3>
       <div v-if="wrongQuestions.length === 0" class="empty-state">
-        <p>틀린 문제가 없습니다. 완벽해요! 🎉</p>
+        <p>틀린 문제가 없습니다.</p>
       </div>
       <div v-else class="wrong-list">
-        <div 
-          v-for="id in wrongQuestions" 
-          :key="id"
-          class="wrong-item"
-          @click="startWrongQuestion(id)"
-        >
+        <div v-for="id in wrongQuestions" :key="id" class="wrong-item" @click="startWrongQuestion(id)">
           <div class="wrong-info">
             <h4>{{ getQuestionById(id)?.keyword || '문제' }}</h4>
             <p>{{ getQuestionById(id)?.desc || '' }}</p>
@@ -206,7 +226,6 @@
     <!-- 알림 모달 -->
     <div v-if="showAlertModal" class="modal-overlay" @click="closeAlertModal">
       <div class="modal-content alert-modal" @click.stop>
-        <div class="modal-icon">{{ alertModal.icon }}</div>
         <h3>{{ alertModal.title }}</h3>
         <p>{{ alertModal.message }}</p>
         <div class="modal-actions">
@@ -243,7 +262,8 @@ export default {
       solvedQuestions: [],
       wrongQuestions: [],
       showMode: "quiz",
-      
+      playMode: "random",
+
       showConfirmModal: false,
       confirmModal: {
         title: "",
@@ -252,7 +272,6 @@ export default {
       },
       showAlertModal: false,
       alertModal: {
-        icon: "",
         title: "",
         message: ""
       },
@@ -274,6 +293,18 @@ export default {
     isCurrentQuestionBookmarked() {
       return this.currentQuestion && this.bookmarkedQuestions.includes(this.currentQuestion.id);
     },
+    isRandomQuiz() {
+      return this.playMode === 'random';
+    },
+    studyQuestions() {
+      return this.geoData
+        .filter(item => item.id)
+        .map(item => ({
+          ...item,
+          subItems: this.geoData.filter(subItem => subItem.parentId === item.id)
+        }))
+        .filter(item => item.desc || item.subItems.length);
+    },
     lastSessionDate() {
       const saved = localStorage.getItem('geoQuiz_lastSession');
       if (!saved) return '아직 학습 기록이 없습니다';
@@ -293,48 +324,57 @@ export default {
       this.confirmModal = { title, message, onConfirm };
       this.showConfirmModal = true;
     },
-    
+
     closeConfirmModal() {
       this.showConfirmModal = false;
     },
-    
-    showAlert(icon, title, message) {
-      this.alertModal = { icon, title, message };
+
+    showAlert(title, message) {
+      this.alertModal = { title, message };
       this.showAlertModal = true;
     },
-    
+
     closeAlertModal() {
       this.showAlertModal = false;
     },
-    
+
     startQuiz() {
       this.showMode = 'quiz';
+      this.playMode = 'random';
       if (!this.currentQuestion) {
         this.generateQuestion();
       }
     },
-    
+
+    openRandomQuiz() {
+      const wasReview = this.playMode === 'review';
+      this.playMode = 'random';
+      this.showMode = 'quiz';
+      if (wasReview) this.currentQuestion = null;
+      if (!this.currentQuestion) this.generateQuestion();
+    },
+
     generateQuestion() {
       const availableQuestions = this.geoData.filter(item => {
         return item.id && !this.usedQuestions.includes(item.id);
       });
-      
+
       if (availableQuestions.length === 0) {
-        this.showAlert('🎉', '완료!', '모든 문제를 풀었습니다!');
+        this.showAlert('완료', '모든 문제를 풀었습니다.');
         this.usedQuestions = [];
         this.saveProgress();
         return;
       }
-      
+
       const randomIndex = Math.floor(Math.random() * availableQuestions.length);
       const selectedItem = availableQuestions[randomIndex];
-      
+
       this.setupQuestion(selectedItem);
     },
 
     setupQuestion(selectedItem) {
       const subItems = this.geoData.filter(item => item.parentId === selectedItem.id);
-      
+
       if (subItems.length > 0) {
         this.currentQuestion = {
           id: selectedItem.id,
@@ -362,7 +402,7 @@ export default {
         this.generateQuestion();
         return;
       }
-      
+
       this.usedQuestions.push(selectedItem.id);
       this.userAnswer = '';
       this.answered = false;
@@ -370,7 +410,7 @@ export default {
 
       if (this.currentQuestionIndex > 1)
         this.saveProgress();
-      
+
       this.subItemInputs = [];
       this.$nextTick(() => {
         if (this.$refs.quizContent) {
@@ -383,22 +423,22 @@ export default {
         }
       });
     },
-    
+
     checkAnswer() {
       if (this.answered) return;
-      
+
       const normalizedAnswer = this.normalizeString(this.userAnswer);
       const normalizedKeyword = this.normalizeString(this.currentQuestion.keyword);
-      const normalizedAlt = this.currentQuestion.alt 
-        ? this.normalizeString(this.currentQuestion.alt) 
+      const normalizedAlt = this.currentQuestion.alt
+        ? this.normalizeString(this.currentQuestion.alt)
         : null;
-      
-      this.isCorrect = normalizedAnswer === normalizedKeyword || 
-                      (normalizedAlt && normalizedAnswer === normalizedAlt);
-      
+
+      this.isCorrect = normalizedAnswer === normalizedKeyword ||
+        (normalizedAlt && normalizedAnswer === normalizedAlt);
+
       this.answered = true;
       this.totalCount++;
-      
+
       if (this.isCorrect) {
         this.correctCount++;
       } else {
@@ -424,22 +464,22 @@ export default {
         }
       });
     },
-    
+
     checkSubAnswer(index) {
       const item = this.currentQuestion.subItems[index];
       if (item.answered) return;
-      
+
       const normalizedAnswer = this.normalizeString(item.userAnswer);
       const normalizedKeyword = this.normalizeString(item.keyword);
-      const normalizedAlt = item.alt 
-        ? this.normalizeString(item.alt) 
+      const normalizedAlt = item.alt
+        ? this.normalizeString(item.alt)
         : null;
-      
-      item.isCorrect = normalizedAnswer === normalizedKeyword || 
-                      (normalizedAlt && normalizedAnswer === normalizedAlt);
-      
+
+      item.isCorrect = normalizedAnswer === normalizedKeyword ||
+        (normalizedAlt && normalizedAnswer === normalizedAlt);
+
       item.answered = true;
-      
+
       this.$nextTick(() => {
         const nextIndex = index + 1;
         if (nextIndex < this.currentQuestion.subItems.length) {
@@ -449,10 +489,10 @@ export default {
               behavior: "smooth",
               block: "center",
             });
-            
+
             setTimeout(() => {
               nextInput.focus();
-            }, 100); 
+            }, 100);
           }
         }
       });
@@ -466,13 +506,13 @@ export default {
           this.wrongQuestions.push(this.currentQuestion.id);
         }
       }
-      
+
       this.totalCount++;
-      
+
       const allAnswered = this.currentQuestion.subItems.every(item => item.answered);
       if (allAnswered) {
         this.answered = true;
-        
+
         if (!this.solvedQuestions.includes(this.currentQuestion.id)) {
           this.solvedQuestions.push(this.currentQuestion.id);
         }
@@ -490,7 +530,7 @@ export default {
         });
       }
     },
-    
+
     normalizeString(str) {
       if (!str) return '';
       return str
@@ -499,25 +539,30 @@ export default {
         .replace(/[()[\]{}]/g, '')
         .trim();
     },
-    
+
     nextQuestion() {
       this.currentQuestionIndex++;
       this.generateQuestion();
       this.saveProgress();
     },
 
+    skipQuestion() {
+      if (!this.isRandomQuiz || this.answered) return;
+      this.nextQuestion();
+    },
+
     toggleBookmark() {
       if (!this.currentQuestion) return;
-      
+
       const id = this.currentQuestion.id;
       const index = this.bookmarkedQuestions.indexOf(id);
-      
+
       if (index > -1) {
         this.bookmarkedQuestions.splice(index, 1);
       } else {
         this.bookmarkedQuestions.push(id);
       }
-      
+
       this.saveProgress();
     },
 
@@ -536,6 +581,7 @@ export default {
     startBookmarkedQuestion(id) {
       const question = this.getQuestionById(id);
       if (question) {
+        this.playMode = 'review';
         this.showMode = 'quiz';
         this.setupQuestion(question);
       }
@@ -544,6 +590,7 @@ export default {
     startWrongQuestion(id) {
       const question = this.getQuestionById(id);
       if (question) {
+        this.playMode = 'review';
         this.showMode = 'quiz';
         this.setupQuestion(question);
       }
@@ -560,12 +607,13 @@ export default {
         usedQuestions: this.usedQuestions,
         currentQuestionIndex: this.currentQuestionIndex,
         currentQuestion: this.currentQuestion,
+        playMode: this.playMode,
         isCorrect: this.isCorrect,
         userAnswer: this.userAnswer,
         answered: this.answered,
         lastSession: new Date().toISOString()
       };
-      
+
       localStorage.setItem('geoQuiz_progress', JSON.stringify(progress));
       localStorage.setItem('geoQuiz_lastSession', progress.lastSession);
     },
@@ -583,6 +631,7 @@ export default {
           this.wrongQuestions = progress.wrongQuestions || [];
           this.currentQuestionIndex = progress.currentQuestionIndex || 0;
           this.currentQuestion = progress.currentQuestion || null;
+          this.playMode = progress.playMode || 'random';
           this.userAnswer = progress.userAnswer || '';
           this.answered = progress.answered || false;
           this.isCorrect = progress.isCorrect || false;
@@ -599,7 +648,7 @@ export default {
         () => {
           localStorage.removeItem('geoQuiz_progress');
           localStorage.removeItem('geoQuiz_lastSession');
-          
+
           this.correctCount = 0;
           this.wrongCount = 0;
           this.totalCount = 0;
@@ -609,13 +658,14 @@ export default {
           this.usedQuestions = [];
           this.currentQuestionIndex = 0;
           this.currentQuestion = null;
+          this.playMode = 'random';
           this.answered = false;
           this.isCorrect = false;
           this.userAnswer = '';
-          
+
           this.closeConfirmModal();
-          this.showAlert('✅', '완료', '진행 상황이 초기화되었습니다.');
-          
+          this.showAlert('완료', '진행 상황이 초기화되었습니다.');
+
           this.showMode = 'quiz';
           this.generateQuestion();
         }
