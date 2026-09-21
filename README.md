@@ -1,6 +1,6 @@
 # 정보처리기사 실기 퀴즈 앱 (EIP Practice)
 
-[Vue 3](https://vuejs.org/)와 [Vite](https://vitejs.dev/)를 사용하여 구축한 정보처리기사 실기 대비용 랜덤 퀴즈 애플리케이션입니다.
+[Vue 3](https://vuejs.org/)와 [Vite](https://vitejs.dev/)를 사용하여 구축한 정보처리기사 실기 대비용 퀴즈 애플리케이션입니다.
 
 ## 자료 출처
 * [정보처리기사 실기 족보 1탄](https://chobopark.tistory.com/193)
@@ -17,6 +17,8 @@
 * [정보처리기사 실기 기출문제 2025년 1회](https://chobopark.tistory.com/540)
 * [정보처리기사 실기 기출문제 2025년 2회](https://chobopark.tistory.com/554)
 * [정보처리기사 실기 기출문제 2025년 3회](https://chobopark.tistory.com/558)
+* [정보처리기사 실기 기출문제 2026년 1회](https://chobopark.tistory.com/561)
+* [정보처리기사 실기 기출문제 2026년 2회](https://chobopark.tistory.com/562)
 
 ## 주요 기능
 
@@ -48,9 +50,10 @@
 * `src/main.js`: Vue 앱 인스턴스를 생성하고 마운트하는 메인 스크립트
 * `src/App.vue`: 사이드바 내비게이션을 관리하며, `GeoQuiz`와 `PstQuiz` 컴포넌트를 동적으로 렌더링하는 루트 컴포넌트
 * `src/components/GeoQuiz.vue`: **족보퀴즈**의 로직과 UI를 포함하는 컴포넌트
-* `src/assets/geoData.js`: **족보퀴즈** 문제와 답을 정의한 데이터 파일 (총 51문제)
+* `src/assets/geoData.js`: **족보퀴즈** 문제와 답을 정의한 데이터 파일
 * `src/components/PstQuiz.vue`: **기출문제**의 로직과 UI를 포함하는 컴포넌트
-* `src/assets/pstData.js`: **기출문제** 문제와 답을 정의한 데이터 파일 (총 240문제)
+* `src/assets/pstData.js`: **기출문제** 문제 데이터셋 목록을 정의한 인덱스 파일
+* `src/assets/pstData/*.js`: **기출문제** 문제와 답을 정의한 데이터 파일
 * `src/assets/style/style.css`: 퀴즈 컴포넌트에서 공통으로 사용하는 메인 스타일시트
 * `src/assets/style/GeoQuiz.css`: `GeoQuiz` 컴포넌트에서 사용하는 스타일시트
 * `src/assets/style/PstQuiz.css`: `PstQuiz` 컴포넌트에서 사용하는 스타일시트
