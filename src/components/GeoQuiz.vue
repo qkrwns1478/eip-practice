@@ -9,6 +9,14 @@
         </svg>
         <span class="tooltip-text">퀴즈</span>
       </button>
+      <button @click="showMode = 'study'" :class="{ active: showMode === 'study' }">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+          <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+        </svg>
+        <span class="tooltip-text">공부 모드</span>
+      </button>
       <button @click="showMode = 'bookmarks'" :class="{ active: showMode === 'bookmarks' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -102,6 +110,29 @@
           </div>
           <button @click="nextQuestion" class="next-button" ref="nextButton">다음 문제</button>
         </div>
+      </div>
+    </div>
+
+    <!-- 공부 모드: 퀴즈 기록을 변경하지 않고 전체 개념을 열람한다. -->
+    <div v-else-if="showMode === 'study'" class="study-content">
+      <header class="study-header">
+        <h3>공부 모드</h3>
+      </header>
+      <div class="study-list">
+        <article v-for="(question, index) in studyQuestions" :key="question.id" class="study-card">
+          <div class="study-card-header">
+            <span class="study-number">{{ index + 1 }}</span>
+            <h4>{{ question.keyword }}</h4>
+          </div>
+          <p v-if="question.desc" class="study-description">{{ question.desc }}</p>
+          <div v-if="question.subItems.length" class="study-sub-list">
+            <div v-for="(item, subIndex) in question.subItems" :key="item.childId" class="study-sub-item">
+              <strong>{{ subIndex + 1 }}. {{ item.keyword }}</strong>
+              <span v-if="item.alt"> ({{ item.alt }})</span>
+              <p>{{ item.desc }}</p>
+            </div>
+          </div>
+        </article>
       </div>
     </div>
 
@@ -257,6 +288,15 @@ export default {
     },
     isCurrentQuestionBookmarked() {
       return this.currentQuestion && this.bookmarkedQuestions.includes(this.currentQuestion.id);
+    },
+    studyQuestions() {
+      return this.geoData
+        .filter(item => item.id)
+        .map(item => ({
+          ...item,
+          subItems: this.geoData.filter(subItem => subItem.parentId === item.id)
+        }))
+        .filter(item => item.desc || item.subItems.length);
     },
     lastSessionDate() {
       const saved = localStorage.getItem('geoQuiz_lastSession');
