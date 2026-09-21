@@ -3,23 +3,44 @@
 
     <div class="menu-bar icon-menu-bar">
       <button @click="showMode = 'quiz'" :class="{ active: showMode === 'quiz' }">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+        </svg>
         <span class="tooltip-text">퀴즈</span>
       </button>
       <button @click="showMode = 'bookmarks'" :class="{ active: showMode === 'bookmarks' }">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
         <span class="tooltip-text">북마크 ({{ bookmarkedQuestions.length }})</span>
       </button>
       <button @click="showMode = 'wrong'" :class="{ active: showMode === 'wrong' }">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
         <span class="tooltip-text">틀린 문제 ({{ wrongQuestions.length }})</span>
       </button>
       <button @click="showMode = 'stats'" :class="{ active: showMode === 'stats' }">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20V16"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20V10" />
+          <path d="M18 20V4" />
+          <path d="M6 20V16" />
+        </svg>
         <span class="tooltip-text">통계</span>
       </button>
       <button @click="resetProgress" class="reset-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 4 23 10 17 10" />
+          <polyline points="1 20 1 14 7 14" />
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+        </svg>
         <span class="tooltip-text">초기화</span>
       </button>
     </div>
@@ -29,26 +50,17 @@
       <div class="question-section">
         <div class="question-header">
           <h3>문제 {{ currentQuestionIndex + 1 }}</h3>
-          <button 
-            @click="toggleBookmark" 
-            class="bookmark-btn"
-            :class="{ bookmarked: isCurrentQuestionBookmarked }"
-          >
+          <button @click="toggleBookmark" class="bookmark-btn" :class="{ bookmarked: isCurrentQuestionBookmarked }">
             {{ isCurrentQuestionBookmarked ? '⭐' : '☆' }}
           </button>
         </div>
-        
+
         <!-- 단일 항목 문제 -->
         <div v-if="!currentQuestion.isMultiple" class="single-question">
           <p class="description">{{ currentQuestion.desc }}</p>
           <div class="answer-input">
-            <input 
-              v-model="userAnswer"
-              @keydown.enter.prevent="checkAnswer"
-              placeholder="답을 입력하세요"
-              :disabled="answered"
-              ref="answerInput"
-            />
+            <input v-model="userAnswer" @keydown.enter.prevent="checkAnswer" placeholder="답을 입력하세요" :disabled="answered"
+              ref="answerInput" />
             <button @click="checkAnswer" :disabled="answered">확인</button>
           </div>
         </div>
@@ -57,28 +69,15 @@
         <div v-else class="multiple-question">
           <p class="main-keyword">{{ currentQuestion.mainKeyword }}</p>
           <div class="sub-items">
-            <div 
-              v-for="(item, index) in currentQuestion.subItems" 
-              :key="index"
-              class="sub-item"
-              :class="{ 
-                'correct': item.answered && item.isCorrect,
-                'wrong': item.answered && !item.isCorrect 
-              }"
-            >
+            <div v-for="(item, index) in currentQuestion.subItems" :key="index" class="sub-item" :class="{
+              'correct': item.answered && item.isCorrect,
+              'wrong': item.answered && !item.isCorrect
+            }">
               <p class="sub-description">{{ index + 1 }}. {{ item.desc }}</p>
               <div class="answer-input">
-                <input 
-                  v-model="item.userAnswer"
-                  @keydown.enter.prevent="checkSubAnswer(index)"
-                  placeholder="답을 입력하세요"
-                  :disabled="item.answered"
-                  :ref="el => { if (el) subItemInputs[index] = el }"
-                />
-                <button 
-                  @click="checkSubAnswer(index)" 
-                  :disabled="item.answered"
-                >
+                <input v-model="item.userAnswer" @keydown.enter.prevent="checkSubAnswer(index)" placeholder="답을 입력하세요"
+                  :disabled="item.answered" :ref="el => { if (el) subItemInputs[index] = el }" />
+                <button @click="checkSubAnswer(index)" :disabled="item.answered">
                   확인
                 </button>
               </div>
@@ -113,20 +112,12 @@
         <p>북마크한 문제가 없습니다.</p>
       </div>
       <div v-else class="bookmark-list">
-        <div 
-          v-for="id in bookmarkedQuestions" 
-          :key="id"
-          class="bookmark-item"
-          @click="startBookmarkedQuestion(id)"
-        >
+        <div v-for="id in bookmarkedQuestions" :key="id" class="bookmark-item" @click="startBookmarkedQuestion(id)">
           <div class="bookmark-info">
             <h4>{{ getQuestionById(id)?.keyword || '문제' }}</h4>
             <p>{{ getQuestionById(id)?.desc || '' }}</p>
           </div>
-          <button 
-            @click.stop="removeBookmark(id)"
-            class="remove-bookmark-btn"
-          >
+          <button @click.stop="removeBookmark(id)" class="remove-bookmark-btn">
             ✕
           </button>
         </div>
@@ -140,12 +131,7 @@
         <p>틀린 문제가 없습니다.</p>
       </div>
       <div v-else class="wrong-list">
-        <div 
-          v-for="id in wrongQuestions" 
-          :key="id"
-          class="wrong-item"
-          @click="startWrongQuestion(id)"
-        >
+        <div v-for="id in wrongQuestions" :key="id" class="wrong-item" @click="startWrongQuestion(id)">
           <div class="wrong-info">
             <h4>{{ getQuestionById(id)?.keyword || '문제' }}</h4>
             <p>{{ getQuestionById(id)?.desc || '' }}</p>
@@ -242,7 +228,7 @@ export default {
       solvedQuestions: [],
       wrongQuestions: [],
       showMode: "quiz",
-      
+
       showConfirmModal: false,
       confirmModal: {
         title: "",
@@ -291,48 +277,48 @@ export default {
       this.confirmModal = { title, message, onConfirm };
       this.showConfirmModal = true;
     },
-    
+
     closeConfirmModal() {
       this.showConfirmModal = false;
     },
-    
+
     showAlert(title, message) {
       this.alertModal = { title, message };
       this.showAlertModal = true;
     },
-    
+
     closeAlertModal() {
       this.showAlertModal = false;
     },
-    
+
     startQuiz() {
       this.showMode = 'quiz';
       if (!this.currentQuestion) {
         this.generateQuestion();
       }
     },
-    
+
     generateQuestion() {
       const availableQuestions = this.geoData.filter(item => {
         return item.id && !this.usedQuestions.includes(item.id);
       });
-      
+
       if (availableQuestions.length === 0) {
         this.showAlert('완료', '모든 문제를 풀었습니다.');
         this.usedQuestions = [];
         this.saveProgress();
         return;
       }
-      
+
       const randomIndex = Math.floor(Math.random() * availableQuestions.length);
       const selectedItem = availableQuestions[randomIndex];
-      
+
       this.setupQuestion(selectedItem);
     },
 
     setupQuestion(selectedItem) {
       const subItems = this.geoData.filter(item => item.parentId === selectedItem.id);
-      
+
       if (subItems.length > 0) {
         this.currentQuestion = {
           id: selectedItem.id,
@@ -360,7 +346,7 @@ export default {
         this.generateQuestion();
         return;
       }
-      
+
       this.usedQuestions.push(selectedItem.id);
       this.userAnswer = '';
       this.answered = false;
@@ -368,7 +354,7 @@ export default {
 
       if (this.currentQuestionIndex > 1)
         this.saveProgress();
-      
+
       this.subItemInputs = [];
       this.$nextTick(() => {
         if (this.$refs.quizContent) {
@@ -381,22 +367,22 @@ export default {
         }
       });
     },
-    
+
     checkAnswer() {
       if (this.answered) return;
-      
+
       const normalizedAnswer = this.normalizeString(this.userAnswer);
       const normalizedKeyword = this.normalizeString(this.currentQuestion.keyword);
-      const normalizedAlt = this.currentQuestion.alt 
-        ? this.normalizeString(this.currentQuestion.alt) 
+      const normalizedAlt = this.currentQuestion.alt
+        ? this.normalizeString(this.currentQuestion.alt)
         : null;
-      
-      this.isCorrect = normalizedAnswer === normalizedKeyword || 
-                      (normalizedAlt && normalizedAnswer === normalizedAlt);
-      
+
+      this.isCorrect = normalizedAnswer === normalizedKeyword ||
+        (normalizedAlt && normalizedAnswer === normalizedAlt);
+
       this.answered = true;
       this.totalCount++;
-      
+
       if (this.isCorrect) {
         this.correctCount++;
       } else {
@@ -422,22 +408,22 @@ export default {
         }
       });
     },
-    
+
     checkSubAnswer(index) {
       const item = this.currentQuestion.subItems[index];
       if (item.answered) return;
-      
+
       const normalizedAnswer = this.normalizeString(item.userAnswer);
       const normalizedKeyword = this.normalizeString(item.keyword);
-      const normalizedAlt = item.alt 
-        ? this.normalizeString(item.alt) 
+      const normalizedAlt = item.alt
+        ? this.normalizeString(item.alt)
         : null;
-      
-      item.isCorrect = normalizedAnswer === normalizedKeyword || 
-                      (normalizedAlt && normalizedAnswer === normalizedAlt);
-      
+
+      item.isCorrect = normalizedAnswer === normalizedKeyword ||
+        (normalizedAlt && normalizedAnswer === normalizedAlt);
+
       item.answered = true;
-      
+
       this.$nextTick(() => {
         const nextIndex = index + 1;
         if (nextIndex < this.currentQuestion.subItems.length) {
@@ -447,10 +433,10 @@ export default {
               behavior: "smooth",
               block: "center",
             });
-            
+
             setTimeout(() => {
               nextInput.focus();
-            }, 100); 
+            }, 100);
           }
         }
       });
@@ -464,13 +450,13 @@ export default {
           this.wrongQuestions.push(this.currentQuestion.id);
         }
       }
-      
+
       this.totalCount++;
-      
+
       const allAnswered = this.currentQuestion.subItems.every(item => item.answered);
       if (allAnswered) {
         this.answered = true;
-        
+
         if (!this.solvedQuestions.includes(this.currentQuestion.id)) {
           this.solvedQuestions.push(this.currentQuestion.id);
         }
@@ -488,7 +474,7 @@ export default {
         });
       }
     },
-    
+
     normalizeString(str) {
       if (!str) return '';
       return str
@@ -497,7 +483,7 @@ export default {
         .replace(/[()[\]{}]/g, '')
         .trim();
     },
-    
+
     nextQuestion() {
       this.currentQuestionIndex++;
       this.generateQuestion();
@@ -506,16 +492,16 @@ export default {
 
     toggleBookmark() {
       if (!this.currentQuestion) return;
-      
+
       const id = this.currentQuestion.id;
       const index = this.bookmarkedQuestions.indexOf(id);
-      
+
       if (index > -1) {
         this.bookmarkedQuestions.splice(index, 1);
       } else {
         this.bookmarkedQuestions.push(id);
       }
-      
+
       this.saveProgress();
     },
 
@@ -563,7 +549,7 @@ export default {
         answered: this.answered,
         lastSession: new Date().toISOString()
       };
-      
+
       localStorage.setItem('geoQuiz_progress', JSON.stringify(progress));
       localStorage.setItem('geoQuiz_lastSession', progress.lastSession);
     },
@@ -597,7 +583,7 @@ export default {
         () => {
           localStorage.removeItem('geoQuiz_progress');
           localStorage.removeItem('geoQuiz_lastSession');
-          
+
           this.correctCount = 0;
           this.wrongCount = 0;
           this.totalCount = 0;
@@ -610,10 +596,10 @@ export default {
           this.answered = false;
           this.isCorrect = false;
           this.userAnswer = '';
-          
+
           this.closeConfirmModal();
           this.showAlert('완료', '진행 상황이 초기화되었습니다.');
-          
+
           this.showMode = 'quiz';
           this.generateQuestion();
         }

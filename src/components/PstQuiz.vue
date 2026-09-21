@@ -2,23 +2,44 @@
   <div class="quiz-container pst-quiz-layout">
     <div class="menu-bar icon-menu-bar">
       <button @click="showMode = 'quiz'" :class="{ active: showMode === 'quiz' }">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
+        </svg>
         <span class="tooltip-text">퀴즈</span>
       </button>
       <button @click="showMode = 'bookmarks'" :class="{ active: showMode === 'bookmarks' }">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon
+            points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+        </svg>
         <span class="tooltip-text">북마크 ({{ bookmarkedQuestions.length }})</span>
       </button>
       <button @click="showMode = 'wrong'" :class="{ active: showMode === 'wrong' }">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
         <span class="tooltip-text">틀린 문제 ({{ wrongQuestions.length }})</span>
       </button>
       <button @click="showMode = 'stats'" :class="{ active: showMode === 'stats' }">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"/><path d="M18 20V4"/><path d="M6 20V16"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 20V10" />
+          <path d="M18 20V4" />
+          <path d="M6 20V16" />
+        </svg>
         <span class="tooltip-text">통계</span>
       </button>
       <button @click="resetProgress" class="reset-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 4 23 10 17 10" />
+          <polyline points="1 20 1 14 7 14" />
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+        </svg>
         <span class="tooltip-text">초기화</span>
       </button>
     </div>
@@ -26,22 +47,19 @@
     <div v-if="showMode === 'quiz' && currentQuestion" class="quiz-content" ref="quizContent">
       <div class="question-section">
         <div class="question-header">
-        <h3>문제 {{ currentQuestionIndex + 1 }}</h3>
-        <div class="quiz-actions-group">
-          <span class="quiz-info-badge" v-if="currentQuestion">{{ getQuizInfo(currentQuestion.id) }}</span>
-          <button 
-            @click="toggleBookmark" 
-            class="bookmark-btn"
-            :class="{ bookmarked: isCurrentQuestionBookmarked }"
-          >
-            {{ isCurrentQuestionBookmarked ? '⭐' : '☆' }}
-          </button>
+          <h3>문제 {{ currentQuestionIndex + 1 }}</h3>
+          <div class="quiz-actions-group">
+            <span class="quiz-info-badge" v-if="currentQuestion">{{ getQuizInfo(currentQuestion.id) }}</span>
+            <button @click="toggleBookmark" class="bookmark-btn" :class="{ bookmarked: isCurrentQuestionBookmarked }">
+              {{ isCurrentQuestionBookmarked ? '⭐' : '☆' }}
+            </button>
+          </div>
         </div>
-      </div>
-        
+
         <div class="pst-question">
           <p class="description">{{ currentQuestion.question }}</p>
-          <pre v-if="currentQuestion.passageOrCode" class="code-block"><code>{{ currentQuestion.passageOrCode }}</code></pre>
+          <pre v-if="currentQuestion.passageOrCode"
+            class="code-block"><code>{{ currentQuestion.passageOrCode }}</code></pre>
           <div v-if="currentQuestion.imageUrl" class="image-container">
             <img :src="currentQuestion.imageUrl" alt="문제 이미지" />
           </div>
@@ -52,13 +70,8 @@
           </div>
 
           <div class="answer-input">
-            <textarea 
-              v-model="userAnswer"
-              @keydown.enter="handleEnter"
-              placeholder="답을 입력하세요 (Shift+Enter로 줄바꿈)"
-              :disabled="answered"
-              ref="answerInput"
-            ></textarea>
+            <textarea v-model="userAnswer" @keydown.enter="handleEnter" placeholder="답을 입력하세요 (Shift+Enter로 줄바꿈)"
+              :disabled="answered" ref="answerInput"></textarea>
             <button @click="checkAnswer" :disabled="answered">확인</button>
           </div>
         </div>
@@ -77,20 +90,12 @@
         <p>북마크한 문제가 없습니다.</p>
       </div>
       <div v-else class="bookmark-list">
-        <div 
-          v-for="id in bookmarkedQuestions" 
-          :key="id"
-          class="bookmark-item"
-          @click="startBookmarkedQuestion(id)"
-        >
+        <div v-for="id in bookmarkedQuestions" :key="id" class="bookmark-item" @click="startBookmarkedQuestion(id)">
           <div class="bookmark-info">
             <h4>{{ getQuestionById(id)?.question || '문제' }}</h4>
             <p>{{ getQuizInfo(id) }}</p>
           </div>
-          <button 
-            @click.stop="removeBookmark(id)"
-            class="remove-bookmark-btn"
-          >
+          <button @click.stop="removeBookmark(id)" class="remove-bookmark-btn">
             ✕
           </button>
         </div>
@@ -103,12 +108,7 @@
         <p>틀린 문제가 없습니다.</p>
       </div>
       <div v-else class="wrong-list">
-        <div 
-          v-for="id in wrongQuestions" 
-          :key="id"
-          class="wrong-item"
-          @click="startWrongQuestion(id)"
-        >
+        <div v-for="id in wrongQuestions" :key="id" class="wrong-item" @click="startWrongQuestion(id)">
           <div class="wrong-info">
             <h4>{{ getQuestionById(id)?.question || '문제' }}</h4>
             <p>{{ getQuizInfo(id) }}</p>
@@ -201,7 +201,7 @@ export default {
       solvedQuestions: [],
       wrongQuestions: [],
       showMode: "quiz",
-      
+
       showConfirmModal: false,
       confirmModal: { title: "", message: "", onConfirm: null },
       showAlertModal: false,
@@ -247,29 +247,29 @@ export default {
       this.showAlertModal = true;
     },
     closeAlertModal() { this.showAlertModal = false; },
-    
+
     startQuiz() {
       this.showMode = 'quiz';
       if (!this.currentQuestion) {
         this.generateQuestion();
       }
     },
-    
+
     generateQuestion() {
       const availableQuestions = this.pstData.filter(item => {
         return !this.usedQuestions.includes(item.id);
       });
-      
+
       if (availableQuestions.length === 0) {
         this.showAlert('완료', '모든 문제를 풀었습니다.');
         this.usedQuestions = [];
         this.saveProgress();
         return;
       }
-      
+
       const randomIndex = Math.floor(Math.random() * availableQuestions.length);
       const selectedItem = availableQuestions[randomIndex];
-      
+
       this.setupQuestion(selectedItem);
     },
 
@@ -282,7 +282,7 @@ export default {
 
       if (this.currentQuestionIndex > 1)
         this.saveProgress();
-      
+
       this.$nextTick(() => {
         if (this.$refs.quizContent) {
           this.$refs.quizContent.scrollTop = 0;
@@ -292,7 +292,7 @@ export default {
         // }
       });
     },
-    
+
     handleEnter(event) {
       if (this.answered) return;
       if (event.shiftKey) {
@@ -304,10 +304,10 @@ export default {
 
     checkAnswer() {
       if (this.answered) return;
-      
+
       this.answered = true;
       this.totalCount++;
-      
+
       const question = this.currentQuestion;
       const answer = question.answer;
       const altAnswer = question.alt;
@@ -315,26 +315,26 @@ export default {
 
       let requiresLineBreak = answer.includes('\n') || (altAnswer && altAnswer.includes('\n'));
       if (!requiresLineBreak && altAnswers.length > 0) {
-          requiresLineBreak = altAnswers.some(a => a && a.includes('\n'));
+        requiresLineBreak = altAnswers.some(a => a && a.includes('\n'));
       }
-      
+
       const normalizedUserAnswer = this.normalizeString(this.userAnswer, requiresLineBreak);
-      
+
       const normalizedAnswer = this.normalizeString(answer, requiresLineBreak);
       this.isCorrect = (normalizedUserAnswer === normalizedAnswer);
 
       if (!this.isCorrect && altAnswer) {
-          const normalizedAlt = this.normalizeString(altAnswer, requiresLineBreak);
-          if (normalizedUserAnswer === normalizedAlt) {
-              this.isCorrect = true;
-          }
+        const normalizedAlt = this.normalizeString(altAnswer, requiresLineBreak);
+        if (normalizedUserAnswer === normalizedAlt) {
+          this.isCorrect = true;
+        }
       }
 
       if (!this.isCorrect && altAnswers.length > 0) {
-          this.isCorrect = altAnswers.some(alt => {
-              const normalizedAlt = this.normalizeString(alt, requiresLineBreak);
-              return normalizedUserAnswer === normalizedAlt;
-          });
+        this.isCorrect = altAnswers.some(alt => {
+          const normalizedAlt = this.normalizeString(alt, requiresLineBreak);
+          return normalizedUserAnswer === normalizedAlt;
+        });
       }
 
       if (this.isCorrect) {
@@ -359,7 +359,7 @@ export default {
         }
       });
     },
-    
+
     normalizeString(str, preserveLineBreaks = false) {
       if (!str) return '';
       let normalized = str.toLowerCase();
@@ -370,7 +370,7 @@ export default {
       }
       return normalized;
     },
-    
+
     nextQuestion() {
       this.currentQuestionIndex++;
       this.generateQuestion();
@@ -458,7 +458,7 @@ export default {
         () => {
           localStorage.removeItem('pstQuiz_progress');
           localStorage.removeItem('pstQuiz_lastSession');
-          
+
           this.correctCount = 0;
           this.wrongCount = 0;
           this.totalCount = 0;
@@ -471,10 +471,10 @@ export default {
           this.answered = false;
           this.isCorrect = false;
           this.userAnswer = '';
-          
+
           this.closeConfirmModal();
           this.showAlert('완료', '진행 상황이 초기화되었습니다.');
-          
+
           this.showMode = 'quiz';
           this.generateQuestion();
         }
@@ -496,12 +496,12 @@ export default {
       else if (id >= 161 && id <= 180) examInfo = "2022년 1회";
       else if (id >= 181 && id <= 200) examInfo = "2022년 2회";
       else if (id >= 201 && id <= 220) examInfo = "2022년 3회";
-      else if (id >- 221 && id <= 240) examInfo = "2025년 3회";
-      
+      else if (id > - 221 && id <= 240) examInfo = "2025년 3회";
+
       if (examInfo === "알 수 없음") {
         return `ID: ${id}`;
       }
-      
+
       const questionNum = (id - 1) % 20 + 1;
       return `${examInfo} ${questionNum}번 문제`;
     }
