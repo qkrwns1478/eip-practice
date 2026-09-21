@@ -11,6 +11,7 @@ import { pstData_2022_1 } from './pstData/2022-1.js';
 import { pstData_2022_2 } from './pstData/2022-2.js';
 import { pstData_2022_3 } from './pstData/2022-3.js';
 import { pstData_2026_1 } from './pstData/2026-1.js';
+import { pstData_2026_2 } from './pstData/2026-2.js';
 
 export const pstData = [
   ...pstData_2025_1,
@@ -26,4 +27,5 @@ export const pstData = [
   ...pstData_2022_2,
   ...pstData_2022_3,
   ...pstData_2026_1,
+  ...pstData_2026_2,
 ];
