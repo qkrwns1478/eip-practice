@@ -8,6 +8,10 @@
         </svg>
         <span class="tooltip-text">퀴즈</span>
       </button>
+      <button @click="openCodeMode" :class="{ active: showMode === 'codePicker' || (showMode === 'quiz' && playMode === 'code') }" aria-label="코드 문제 모드" title="코드 문제 모드">
+        <span aria-hidden="true" class="code-menu-symbol">&lt;/&gt;</span>
+        <span class="tooltip-text">코드 문제</span>
+      </button>
       <button @click="openMockExamMode" :class="{ active: showMode === 'mockExam' || (showMode === 'quiz' && playMode === 'mockExam') }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -52,7 +56,31 @@
       </button>
     </div>
 
-    <div v-if="showMode === 'mockExam'" class="mockExam-content">
+    <div v-if="showMode === 'codePicker'" class="code-mode-content">
+      <div class="code-mode-picker">
+        <h3>코드 문제</h3>
+        <p>C · Java · Python 기출 코드를 모아 풀고, 변수와 실행 흐름을 단계별로 확인하세요.</p>
+        <div class="code-language-options" role="group" aria-label="문제 언어">
+          <button v-for="language in ['all', ...codeLanguages]" :key="language" @click="selectedCodeLanguage = language" :aria-pressed="selectedCodeLanguage === language" :class="{ selected: selectedCodeLanguage === language }">
+            {{ language === 'all' ? '전체' : language }} <span>{{ codeLanguageCount(language) }}문제</span>
+          </button>
+        </div>
+        <div class="code-mode-filters">
+          <label>기출 회차
+            <select v-model="selectedCodeExamKey"><option value="all">전체 회차</option><option v-for="exam in pstExams" :key="exam.key" :value="exam.key">{{ exam.year }}년 {{ exam.round }}회</option></select>
+          </label>
+          <label>문제 순서
+            <select v-model="codeQuestionOrder"><option value="random">무작위</option><option value="ordered">기출 순서</option></select>
+          </label>
+        </div>
+        <p class="code-mode-count">선택한 코드 문제 {{ filteredCodeQuestions.length }}개 · 풀이 완료 {{ filteredCodeQuestions.filter(q => solvedQuestions.includes(q.id)).length }}개</p>
+        <p v-if="!filteredCodeQuestions.length" class="empty-state">이 회차에는 선택한 언어의 코드 문제가 없습니다. 다른 언어나 회차를 선택하세요.</p>
+        <button @click="startCodeQuiz" :disabled="!filteredCodeQuestions.length" class="start-button">코드 문제 시작</button>
+        <button v-if="playMode === 'code' && currentQuestion" @click="showMode = 'quiz'" class="code-resume-button">풀던 코드 문제 이어서 풀기</button>
+      </div>
+    </div>
+
+    <div v-else-if="showMode === 'mockExam'" class="mockExam-content">
       <div class="mockExam-picker">
         <h3>모의고사</h3>
         <label for="pst-exam-select">시험 선택</label>
@@ -70,7 +98,7 @@
         <div class="question-header">
           <h3>{{ questionTitle }}</h3>
           <div class="quiz-actions-group">
-            <button v-if="playMode === 'random' && !answered" @click="skipQuestion" class="skip-button">다음 문제</button>
+            <button v-if="['random', 'code'].includes(playMode) && !answered" @click="skipQuestion" class="skip-button">다음 문제</button>
             <span class="quiz-info-badge" v-if="currentQuestion">{{ getQuizInfo(currentQuestion.id) }}</span>
             <button @click="toggleBookmark" class="bookmark-btn" :class="{ bookmarked: isCurrentQuestionBookmarked }">
               {{ isCurrentQuestionBookmarked ? '⭐' : '☆' }}
@@ -80,7 +108,8 @@
 
         <div class="pst-question">
           <p class="description">{{ currentQuestion.question }}</p>
-          <pre v-if="currentQuestion.passageOrCode"
+          <CodeVisualizer v-if="playMode === 'code'" :key="currentQuestion.id" :question="currentQuestion" :language="getCodeLanguage(currentQuestion)" :answered="answered" />
+          <pre v-else-if="currentQuestion.passageOrCode"
             class="code-block"><code>{{ currentQuestion.passageOrCode }}</code></pre>
           <div v-if="currentQuestion.imageUrl" class="image-container">
             <img :src="currentQuestion.imageUrl" alt="문제 이미지" />
@@ -204,9 +233,12 @@
 
 <script>
 import { pstData, pstExams } from "../assets/pstData";
+import CodeVisualizer from './CodeVisualizer.vue';
+import { codeLanguages, getCodeLanguage, getCodeQuestions } from '../utils/codeQuestions.js';
 
 export default {
   name: "PstQuiz",
+  components: { CodeVisualizer },
   data() {
     return {
       pstData: pstData,
@@ -216,6 +248,11 @@ export default {
       playMode: 'random',
       selectedExamKey: '2026-2',
       mockExamQuestions: [],
+      codeLanguages,
+      selectedCodeLanguage: 'C',
+      selectedCodeExamKey: 'all',
+      codeQuestionOrder: 'random',
+      codeSessionIds: [],
       userAnswer: "",
       answered: false,
       isCorrect: false,
@@ -235,6 +272,10 @@ export default {
     };
   },
   computed: {
+    filteredCodeQuestions() {
+      const exams = this.selectedCodeExamKey === 'all' ? this.pstExams : this.pstExams.filter(exam => exam.key === this.selectedCodeExamKey);
+      return getCodeQuestions(exams.flatMap(exam => exam.questions), this.selectedCodeLanguage);
+    },
     totalAvailableQuestions() {
       return this.pstData.length;
     },
@@ -250,6 +291,7 @@ export default {
       return this.currentQuestion && this.bookmarkedQuestions.includes(this.currentQuestion.id);
     },
     questionTitle() {
+      if (this.playMode === 'code') return `${getCodeLanguage(this.currentQuestion)} 코드 문제 ${this.currentQuestionIndex + 1} / ${this.codeSessionIds.length}`;
       if (this.playMode !== 'mockExam') return `문제 ${this.currentQuestionIndex + 1}`;
       const exam = this.pstExams.find(item => item.key === this.selectedExamKey);
       const examLabel = exam ? `${exam.year}년 ${exam.round}회` : '기출문제';
@@ -264,11 +306,30 @@ export default {
   },
   mounted() {
     this.loadProgress();
-    if (!this.currentQuestion) {
+    if (!this.currentQuestion && this.playMode !== 'code') {
       this.generateQuestion();
     }
   },
   methods: {
+    getCodeLanguage,
+    codeLanguageCount(language) { return getCodeQuestions(this.pstData, language).length; },
+    openCodeMode() { this.showMode = 'codePicker'; },
+    startCodeQuiz() {
+      const questions = [...this.filteredCodeQuestions];
+      if (!questions.length) return;
+      if (this.codeQuestionOrder === 'random') {
+        for (let i = questions.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [questions[i], questions[j]] = [questions[j], questions[i]];
+        }
+      }
+      this.codeSessionIds = questions.map(question => question.id);
+      this.playMode = 'code';
+      this.currentQuestionIndex = 0;
+      this.showMode = 'quiz';
+      this.setupQuestion(questions[0], false);
+      this.saveProgress();
+    },
     showConfirm(title, message, onConfirm) {
       this.confirmModal = { title, message, onConfirm };
       this.showConfirmModal = true;
@@ -289,7 +350,7 @@ export default {
     },
 
     openRandomQuiz() {
-      const wasMockExam = this.playMode === 'mockExam';
+      const wasMockExam = this.playMode === 'mockExam' || this.playMode === 'code';
       this.playMode = 'random';
       this.showMode = 'quiz';
       if (wasMockExam) this.currentQuestion = null;
@@ -430,6 +491,20 @@ export default {
     },
 
     nextQuestion() {
+      if (this.playMode === 'code') {
+        if (this.currentQuestionIndex + 1 >= this.codeSessionIds.length) {
+          this.currentQuestion = null;
+          this.userAnswer = '';
+          this.answered = false;
+          this.showMode = 'codePicker';
+          this.showAlert('코드 문제 완료', `선택한 코드 문제 ${this.codeSessionIds.length}개를 모두 확인했습니다.`);
+        } else {
+          this.currentQuestionIndex++;
+          this.setupQuestion(this.getQuestionById(this.codeSessionIds[this.currentQuestionIndex]), false);
+        }
+        this.saveProgress();
+        return;
+      }
       if (this.playMode === 'mockExam') {
         if (this.currentQuestionIndex + 1 >= this.mockExamQuestions.length) {
           this.currentQuestion = null;
@@ -451,7 +526,7 @@ export default {
     },
 
     skipQuestion() {
-      if (this.playMode !== 'random' || this.answered) return;
+      if (!['random', 'code'].includes(this.playMode) || this.answered) return;
       this.nextQuestion();
     },
 
@@ -500,6 +575,10 @@ export default {
         currentQuestion: this.currentQuestion,
         playMode: this.playMode,
         selectedExamKey: this.selectedExamKey,
+        selectedCodeLanguage: this.selectedCodeLanguage,
+        selectedCodeExamKey: this.selectedCodeExamKey,
+        codeQuestionOrder: this.codeQuestionOrder,
+        codeSessionIds: this.codeSessionIds,
         isCorrect: this.isCorrect,
         userAnswer: this.userAnswer,
         answered: this.answered,
@@ -524,6 +603,16 @@ export default {
           this.currentQuestion = progress.currentQuestion || null;
           this.playMode = progress.playMode || 'random';
           this.selectedExamKey = progress.selectedExamKey || '2026-2';
+          this.selectedCodeLanguage = ['all', ...codeLanguages].includes(progress.selectedCodeLanguage) ? progress.selectedCodeLanguage : 'C';
+          this.selectedCodeExamKey = progress.selectedCodeExamKey || 'all';
+          this.codeQuestionOrder = progress.codeQuestionOrder === 'ordered' ? 'ordered' : 'random';
+          this.codeSessionIds = Array.isArray(progress.codeSessionIds) ? progress.codeSessionIds : [];
+          if (this.playMode === 'code') {
+            const validSession = this.codeSessionIds.length && this.codeSessionIds.every(id => getCodeLanguage(this.getQuestionById(id)));
+            const question = this.getQuestionById(this.codeSessionIds[this.currentQuestionIndex]);
+            if (validSession && question && this.currentQuestion?.id === question.id) this.currentQuestion = question;
+            else { this.currentQuestion = null; this.showMode = 'codePicker'; }
+          }
           if (this.playMode === 'mockExam') {
             const exam = this.pstExams.find(item => item.key === this.selectedExamKey);
             if (exam) this.mockExamQuestions = exam.questions;
@@ -557,6 +646,7 @@ export default {
           this.currentQuestion = null;
           this.playMode = 'random';
           this.mockExamQuestions = [];
+          this.codeSessionIds = [];
           this.answered = false;
           this.isCorrect = false;
           this.userAnswer = '';
