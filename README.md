@@ -6,6 +6,13 @@
 - [[2026년 대비] 핵심 키워드만 암기하면 쉽게 기억되는 키워드 찾기 130문제](https://www.sinagong.co.kr/pds/001001002/past-exams)
 - [정보처리기사 실기 족보 1탄](https://chobopark.tistory.com/193)
 - [정보처리기사 실기 족보 2탄](https://chobopark.tistory.com/197)
+- [정보처리기사 실기 기출문제 2020년 1회](https://chobopark.tistory.com/196)
+- [정보처리기사 실기 기출문제 2020년 2회](https://chobopark.tistory.com/195)
+- [정보처리기사 실기 기출문제 2020년 3회](https://chobopark.tistory.com/194)
+- [정보처리기사 실기 기출문제 2020년 4회](https://chobopark.tistory.com/192)
+- [정보처리기사 실기 기출문제 2021년 1회](https://chobopark.tistory.com/191)
+- [정보처리기사 실기 기출문제 2021년 2회](https://chobopark.tistory.com/210)
+- [정보처리기사 실기 기출문제 2021년 3회](https://chobopark.tistory.com/217)
 - [정보처리기사 실기 기출문제 2022년 1회](https://chobopark.tistory.com/271)
 - [정보처리기사 실기 기출문제 2022년 2회](https://chobopark.tistory.com/423)
 - [정보처리기사 실기 기출문제 2022년 3회](https://chobopark.tistory.com/424)
@@ -31,7 +38,7 @@
   - 자주 출제되는 개념을 중심으로 반복 학습할 수 있습니다.
 
 - **기출문제**
-  - 2022년부터 2026년까지의 정보처리기사 실기 기출문제를 회차별로 풀 수 있습니다.
+  - 2020년부터 2026년까지의 정보처리기사 실기 기출문제를 회차별로 풀 수 있습니다.
   - 전체 문제를 무작위로 풀거나 원하는 시험 회차를 선택하여 모의고사 형태로 풀 수 있습니다.
 
 - **코드 문제**
