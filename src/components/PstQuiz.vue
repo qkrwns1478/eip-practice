@@ -308,9 +308,7 @@ export default {
   },
   mounted() {
     this.loadProgress();
-    if (!this.currentQuestion && this.playMode !== 'code') {
-      this.generateQuestion();
-    }
+    this.openRandomQuiz();
   },
   methods: {
     getCodeLanguage,

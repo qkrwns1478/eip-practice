@@ -69,7 +69,7 @@ test('SQL sessions filter by exam, grade and restore questions without inline so
   assert.equal(quiz.isCorrect, true);
   assert.equal(quiz.correctCount, 1);
   const restored = createQuiz(storage);
-  restored.mount();
+  restored.loadProgress();
   assert.equal(restored.selectedCodeLanguage, 'SQL');
   assert.equal(restored.currentQuestion.id, 272);
   assert.equal(restored.answered, true);
@@ -136,7 +136,7 @@ test('random order contains every selected question once; skip resets answer wit
   assert.equal(quiz.currentQuestionIndex, 1);
 });
 
-test('refresh restores code queue and grading; returning to random mode leaves the code session', () => {
+test('loading restores code queue and grading; entering past exams opens the random quiz', () => {
   const storage = new Map();
   const quiz = createQuiz(storage);
   quiz.startCodeQuiz();
@@ -144,7 +144,7 @@ test('refresh restores code queue and grading; returning to random mode leaves t
   quiz.userAnswer = 'wrong answer';
   quiz.checkAnswer();
   const restored = createQuiz(storage);
-  restored.mount();
+  restored.loadProgress();
   assert.equal(restored.playMode, 'code');
   assert.equal(restored.currentQuestion.id, quiz.currentQuestion.id);
   assert.equal(restored.currentQuestionIndex, 1);
@@ -152,12 +152,17 @@ test('refresh restores code queue and grading; returning to random mode leaves t
   assert.equal(restored.answered, true);
   assert.equal(restored.userAnswer, 'wrong answer');
   assert.ok(restored.wrongQuestions.includes(quiz.currentQuestion.id));
-  restored.openRandomQuiz();
+  restored.mount();
   assert.equal(restored.playMode, 'random');
+  assert.equal(restored.showMode, 'quiz');
+  assert.equal(restored.answered, false);
+  assert.equal(restored.userAnswer, '');
+  assert.equal(restored.totalCount, quiz.totalCount);
+  assert.deepEqual(restored.codeSessionIds, quiz.codeSessionIds);
   assert.ok(restored.usedQuestions.includes(restored.currentQuestion.id));
 });
 
-test('completed and invalid saved code sessions return to picker; legacy saves still restore', () => {
+test('completed and invalid saved code sessions open the random quiz; legacy saves still restore', () => {
   const storage = new Map();
   const quiz = createQuiz(storage);
   quiz.selectedCodeLanguage = 'Python';
@@ -166,13 +171,15 @@ test('completed and invalid saved code sessions return to picker; legacy saves s
   quiz.nextQuestion();
   const restored = createQuiz(storage);
   restored.mount();
-  assert.equal(restored.showMode, 'codePicker');
-  assert.equal(restored.currentQuestion, null);
+  assert.equal(restored.showMode, 'quiz');
+  assert.equal(restored.playMode, 'random');
+  assert.ok(restored.currentQuestion);
   storage.set('pstQuiz_progress', JSON.stringify({ playMode: 'code', codeSessionIds: [999999], currentQuestion: question(5) }));
   const invalid = createQuiz(storage);
   invalid.mount();
-  assert.equal(invalid.showMode, 'codePicker');
-  assert.equal(invalid.currentQuestion, null);
+  assert.equal(invalid.showMode, 'quiz');
+  assert.equal(invalid.playMode, 'random');
+  assert.ok(invalid.currentQuestion);
   storage.set('pstQuiz_progress', JSON.stringify({ currentQuestion: question(5), correctCount: 3 }));
   const legacy = createQuiz(storage);
   legacy.mount();
