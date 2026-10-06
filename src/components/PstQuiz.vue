@@ -237,7 +237,6 @@
 import { pstData, pstExams } from "../assets/pstData";
 import CodeVisualizer from './CodeVisualizer.vue';
 import { codeLanguages, getCodeLanguage, getCodeQuestions } from '../utils/codeQuestions.js';
-import { matchesPstAnswer } from '../utils/pstAnswers.js';
 
 export default {
   name: "PstQuiz",
@@ -428,7 +427,33 @@ export default {
       this.answered = true;
       this.totalCount++;
 
-      this.isCorrect = matchesPstAnswer(this.currentQuestion, this.userAnswer);
+      const question = this.currentQuestion;
+      const answer = question.answer;
+      const altAnswer = question.alt;
+      const altAnswers = question.alts || [];
+
+      let requiresLineBreak = answer.includes('\n') || (altAnswer && altAnswer.includes('\n'));
+      if (!requiresLineBreak && altAnswers.length > 0) {
+        requiresLineBreak = altAnswers.some(a => a && a.includes('\n'));
+      }
+
+      const normalizedUserAnswer = this.normalizeString(this.userAnswer, requiresLineBreak);
+      const normalizedAnswer = this.normalizeString(answer, requiresLineBreak);
+      this.isCorrect = (normalizedUserAnswer === normalizedAnswer);
+
+      if (!this.isCorrect && altAnswer) {
+        const normalizedAlt = this.normalizeString(altAnswer, requiresLineBreak);
+        if (normalizedUserAnswer === normalizedAlt) {
+          this.isCorrect = true;
+        }
+      }
+
+      if (!this.isCorrect && altAnswers.length > 0) {
+        this.isCorrect = altAnswers.some(alt => {
+          const normalizedAlt = this.normalizeString(alt, requiresLineBreak);
+          return normalizedUserAnswer === normalizedAlt;
+        });
+      }
 
       if (this.isCorrect) {
         this.correctCount++;
@@ -451,6 +476,17 @@ export default {
           this.$refs.nextButton.focus();
         }
       });
+    },
+
+    normalizeString(str, preserveLineBreaks = false) {
+      if (!str) return '';
+      let normalized = str.toLowerCase();
+      if (preserveLineBreaks) {
+        normalized = normalized.trim().replace(/[()[\]{}]/g, '');
+      } else {
+        normalized = normalized.replace(/\s+/g, '').replace(/[()[\]{}]/g, '').trim();
+      }
+      return normalized;
     },
 
     nextQuestion() {
@@ -563,8 +599,7 @@ export default {
           this.solvedQuestions = progress.solvedQuestions || [];
           this.wrongQuestions = progress.wrongQuestions || [];
           this.currentQuestionIndex = progress.currentQuestionIndex || 0;
-          this.currentQuestion = this.getQuestionById(progress.currentQuestion?.id) || null;
-          const answerChanged = this.currentQuestion && progress.currentQuestion?.answer !== this.currentQuestion.answer;
+          this.currentQuestion = progress.currentQuestion || null;
           this.playMode = progress.playMode || 'random';
           this.selectedExamKey = progress.selectedExamKey || '2026-2';
           this.selectedCodeLanguage = ['all', ...codeLanguages].includes(progress.selectedCodeLanguage) ? progress.selectedCodeLanguage : 'C';
@@ -585,11 +620,6 @@ export default {
           this.userAnswer = progress.userAnswer || '';
           this.answered = progress.answered || false;
           this.isCorrect = progress.isCorrect || false;
-          if (answerChanged) {
-            this.userAnswer = '';
-            this.answered = false;
-            this.isCorrect = false;
-          }
         } catch (e) {
           console.error('Failed to load progress:', e);
         }

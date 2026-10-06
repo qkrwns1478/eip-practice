@@ -7,13 +7,12 @@ import { renderToString } from '@vue/server-renderer';
 import { pstData, pstExams } from '../src/assets/pstData.js';
 import { codeLanguages, getCodeLanguage, getCodeQuestions } from '../src/utils/codeQuestions.js';
 import { getCodeTrace } from '../src/assets/codeTraces.js';
-import { matchesPstAnswer } from '../src/utils/pstAnswers.js';
 
 const source = readFileSync(new URL('../src/components/PstQuiz.vue', import.meta.url), 'utf8');
 const script = source.match(/<script>([\s\S]*?)<\/script>/)[1].replace(/^import .*;\r?$/gm, '').replace('export default', 'return');
 function createQuiz(storage = new Map()) {
   const localStorage = { getItem: key => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value), removeItem: key => storage.delete(key) };
-  const options = new Function('pstData', 'pstExams', 'CodeVisualizer', 'codeLanguages', 'getCodeLanguage', 'getCodeQuestions', 'matchesPstAnswer', 'localStorage', script)(pstData, pstExams, {}, codeLanguages, getCodeLanguage, getCodeQuestions, matchesPstAnswer, localStorage);
+  const options = new Function('pstData', 'pstExams', 'CodeVisualizer', 'codeLanguages', 'getCodeLanguage', 'getCodeQuestions', 'localStorage', script)(pstData, pstExams, {}, codeLanguages, getCodeLanguage, getCodeQuestions, localStorage);
   const quiz = { ...options.data(), $refs: {}, $nextTick: callback => callback() };
   for (const [name, method] of Object.entries(options.methods)) quiz[name] = method.bind(quiz);
   for (const [name, getter] of Object.entries(options.computed)) Object.defineProperty(quiz, name, { get: getter.bind(quiz) });
@@ -22,6 +21,13 @@ function createQuiz(storage = new Map()) {
 }
 const question = id => pstData.find(q => q.id === id);
 const final = id => getCodeTrace(question(id)).steps.at(-1);
+function matchesPstAnswer(question, answer) {
+  const quiz = createQuiz();
+  quiz.currentQuestion = question;
+  quiz.userAnswer = answer;
+  quiz.checkAnswer();
+  return quiz.isCorrect;
+}
 
 test('classifies source-only questions, including uppercase JAVA, syntax-only and blank exercises', () => {
   assert.equal(getCodeLanguage(question(122)), 'Java');
@@ -105,8 +111,8 @@ test('former descriptive exercises ask for terms and accept reviewed aliases', (
   assert.equal(matchesPstAnswer(question(408), 'Network Address Transformation'), false);
 });
 
-test('multi-part answers allow alias combinations and separators while preserving required order', () => {
-  for (const [id, input] of [[282, 'Physical Design, 개념적 설계, Logical Design'], [289, '경곗값 분석 / 동치분할 테스트'], [309, 'Statement Coverage, Branch Coverage, Condition Coverage'], [326, 'Data Link Layer; 네트워크; 표현 계층'], [328, '테스트 조건, 입력 데이터, 기대 결과'], [405, 'n>=1, n&1']]) {
+test('multi-part exercises accept declared space-delimited alternatives', () => {
+  for (const [id, input] of [[282, 'Physical Design Conceptual Design Logical Design'], [289, '경곗값 분석 동등분할 테스트'], [309, 'Statement Coverage Branch Coverage Condition Coverage'], [326, '데이터링크 계층 네트워크 계층 표현 계층'], [328, '테스트 조건 테스트 데이터 기대 결과'], [405, 'n>=1 n&1']]) {
     const quiz = createQuiz();
     quiz.currentQuestion = question(id);
     quiz.userAnswer = input;
@@ -120,8 +126,8 @@ test('multi-part answers allow alias combinations and separators while preservin
   assert.equal(matchesPstAnswer(question(405), 'n>0 n/2'), false);
 });
 
-test('unordered concepts and Python sets require every distinct answer exactly once', () => {
-  for (const [id, input] of [[343, 'Timing, 구문, Semantics'], [348, '격리성 / Atomicity'], [360, 'H, F'], [362, '{"홍콩", "한국", "태국", "중국", "베트남"}'], [398, 'Hub and Spoke, 포인트 투 포인트'], [412, '갱신, 삽입 이상, Deletion Anomaly']]) {
+test('declared alternative orders use spaces and Python set elements use the requested sorted order', () => {
+  for (const [id, input] of [[343, '타이밍 구문 의미'], [348, '격리성 원자성'], [360, 'H F'], [362, '베트남 중국 태국 한국 홍콩'], [398, '허브 앤 스포크 포인트 투 포인트'], [412, '갱신 이상 삽입 이상 삭제 이상']]) {
     assert.equal(matchesPstAnswer(question(id), input), true, `${id}: ${input}`);
   }
   for (const input of ['삽입 삭제', '삽입 삭제 삭제', '삽입 삭제 갱신 갱신', '삽입 삭제 갱신 기타']) {
@@ -140,23 +146,6 @@ test('legacy alt and alts still grade and code punctuation and output lines rema
   assert.equal(matchesPstAnswer(question(354), '8'), false);
   assert.equal(matchesPstAnswer(question(389), "DELETE FROM 학생 WHERE 이름 = '민수'"), true);
   assert.equal(matchesPstAnswer(question(389), "DELETE FROM 학생 WHERE 이름 = '영수'"), false);
-});
-
-test('restoring an old descriptive question uses the current short-answer data', () => {
-  const storage = new Map([['pstQuiz_progress', JSON.stringify({
-    currentQuestion: {id:341, question:'살충제 패러독스를 설명하시오.', answer:'동일한 테스트를 반복하면 새로운 버그를 찾지 못한다'},
-    userAnswer:'동일한 테스트를 반복하면 새로운 버그를 찾지 못한다', answered:true, isCorrect:true,
-    correctCount:3, solvedQuestions:[341], bookmarkedQuestions:[341], playMode:'random'
-  })]]);
-  const quiz = createQuiz(storage);
-  quiz.loadProgress();
-  assert.equal(quiz.currentQuestion, question(341));
-  assert.equal(quiz.currentQuestion.answer, '살충제 패러독스');
-  assert.equal(quiz.answered, false);
-  assert.equal(quiz.userAnswer, '');
-  assert.equal(quiz.isCorrect, false);
-  assert.equal(quiz.correctCount, 3);
-  assert.deepEqual(quiz.bookmarkedQuestions, [341]);
 });
 
 test('SQL sessions filter by exam, grade and restore questions without inline source', () => {

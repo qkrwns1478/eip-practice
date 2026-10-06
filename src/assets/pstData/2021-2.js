@@ -3,40 +3,38 @@ export const pstData_2021_2 = [
   {
     id: 301,
     answer: "애드혹 네트워크",
+    alts: ["Ad-hoc Network", "Ad hoc Network", "애드혹", "애드훅", "애드훅 네트워크", "Ad-hoc", "Ad hoc"],
     question: "중앙 장비 없이 단말들이 임시로 구성하는 무선망은?",
     passageOrCode: null,
     options: null,
-    imageUrl: null,
-    alts: ["Ad-hoc Network","Ad hoc Network","애드혹","애드훅","애드훅 네트워크","Ad-hoc","Ad hoc"]
+    imageUrl: null
   },
   {
     id: 302,
     answer: "UX UI",
+    alts: ["User Experience User Interface", "사용자 경험 사용자 인터페이스"],
     question: "사용자 경험과 사용자 인터페이스의 약어를 순서대로 쓰시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: null,
-    alts: [],
-    answerParts: [["UX","User Experience","사용자 경험"],["UI","User Interface","사용자 인터페이스"]],
-    answerOrder: "ordered"
+    imageUrl: null
   },
   {
     id: 303,
     answer: "원자성",
+    alt: "Atomicity",
     question: "트랜잭션의 모든 연산이 반영되거나 모두 취소되는 특성은?",
     passageOrCode: null,
     options: null,
-    imageUrl: null,
-    alts: ["Atomicity"]
+    imageUrl: null
   },
   {
     id: 304,
     answer: "2",
+    alts: ["제2정규형", "2NF", "2정규형", "Second Normal Form"],
     question: "부분 함수 종속을 제거한 제 몇 정규형인가?",
     passageOrCode: null,
     options: null,
-    imageUrl: null,
-    alts: ["제2정규형","2NF","2정규형","Second Normal Form"]
+    imageUrl: null
   },
   {
     id: 305,
@@ -44,10 +42,7 @@ export const pstData_2021_2 = [
     question: "SQL 빈칸을 채우시오.",
     passageOrCode: `(1) 성적 (2) 점수 = 100 WHERE 점수 >= 90;`,
     options: null,
-    imageUrl: null,
-    alts: [],
-    answerParts: [["UPDATE"],["SET"]],
-    answerOrder: "ordered"
+    imageUrl: null
   },
   {
     id: 306,
@@ -55,10 +50,7 @@ export const pstData_2021_2 = [
     question: "SQL 조인 빈칸을 채우시오.",
     passageOrCode: `SELECT a.이름 FROM 학생정보 a JOIN 학과정보 b (1) a.학과 = b.(2);`,
     options: null,
-    imageUrl: null,
-    alts: [],
-    answerParts: [["ON"],["학과"]],
-    answerOrder: "ordered"
+    imageUrl: null
   },
   {
     id: 307,
@@ -70,90 +62,79 @@ for shift in range(1, 3):
     result = (value >> shift) + 1
 print(result)`,
     options: null,
-    imageUrl: null,
-    alts: []
+    imageUrl: null
   },
   {
     id: 308,
     answer: "AES",
+    alts: ["Advanced Encryption Standard", "고급 암호화 표준"],
     question: "블록 128비트, 키 128·192·256비트인 대칭키 암호는?",
     passageOrCode: null,
     options: null,
-    imageUrl: null,
-    alts: ["Advanced Encryption Standard","고급 암호화 표준"]
+    imageUrl: null
   },
   {
     id: 309,
     answer: "문장 결정 조건",
+    alts: ["문장 분기 조건", "문장 커버리지 결정 커버리지 조건 커버리지", "문장 커버리지 분기 커버리지 조건 커버리지", "Statement Coverage Branch Coverage Condition Coverage"],
     question: "화이트박스 커버리지를 순서대로 쓰시오.",
     passageOrCode: `① 모든 문장 ② 전체 조건식의 참·거짓 ③ 개별 조건의 참·거짓`,
     options: null,
-    imageUrl: null,
-    alts: [],
-    answerParts: [["문장","문장 커버리지","구문 커버리지","문장 검증 기준","Statement","Statement Coverage"],["결정","분기","결정 커버리지","분기 커버리지","결정 검증 기준","분기 검증 기준","Decision","Branch","Decision Coverage","Branch Coverage"],["조건","조건 커버리지","조건 검증 기준","Condition","Condition Coverage"]],
-    answerOrder: "ordered"
+    imageUrl: null
   },
   {
     id: 310,
     answer: "이% DESC",
+    alt: "'이%' DESC",
     question: "이씨 이름을 내림차순 조회하는 SQL 빈칸은?",
     passageOrCode: `SELECT 이름 FROM 학생 WHERE 이름 LIKE '(1)' ORDER BY 이름 (2);`,
     options: null,
-    imageUrl: null,
-    alts: [],
-    answerParts: [["이%","'이%'"],["DESC"]],
-    answerOrder: "ordered"
+    imageUrl: null
   },
   {
     id: 311,
     answer: "절차적 응집도 교환적 응집도 기능적 응집도",
+    alts: ["절차적 응집도 통신적 응집도 기능적 응집도", "절차적 교환적 기능적", "절차적 통신적 기능적", "Procedural Cohesion Communicational Cohesion Functional Cohesion"],
     question: "응집도를 순서대로 쓰시오.",
     passageOrCode: `① 수행 순서만 연관 ② 같은 입출력 사용 ③ 단일 기능 수행`,
     options: null,
-    imageUrl: null,
-    alts: ["절차적 응집도 통신적 응집도 기능적 응집도"],
-    answerParts: [["절차적 응집도","절차적","절차","Procedural Cohesion"],["교환적 응집도","통신적 응집도","교환적","통신적","Communicational Cohesion","Communication Cohesion"],["기능적 응집도","기능적","기능","Functional Cohesion"]],
-    answerOrder: "ordered"
+    imageUrl: null
   },
   {
     id: 312,
     answer: "가상 회선 방식 데이터그램 방식",
+    alts: ["가상 회선 데이터그램", "Virtual Circuit Datagram"],
     question: "패킷 교환 방식을 순서대로 쓰시오.",
     passageOrCode: `① 연결을 설정한 뒤 전송 ② 패킷마다 독립 경로로 전송`,
     options: null,
-    imageUrl: null,
-    alts: [],
-    answerParts: [["가상 회선 방식","가상 회선","Virtual Circuit","Virtual Circuit Switching"],["데이터그램 방식","데이터그램","Datagram","Datagram Switching"]],
-    answerOrder: "ordered"
+    imageUrl: null
   },
   {
     id: 313,
     answer: "행위",
+    alts: ["behavioral", "행위 패턴", "행위 디자인 패턴", "Behavioral Pattern"],
     question: "Observer·Command·Interpreter가 속하는 디자인 패턴 분류는?",
     passageOrCode: null,
     options: null,
-    imageUrl: null,
-    alts: ["behavioral","행위 패턴","행위 디자인 패턴","Behavioral Pattern"]
+    imageUrl: null
   },
   {
     id: 314,
     answer: "로킹",
+    alts: ["locking", "잠금", "로킹 기법", "잠금 기법"],
     question: "데이터 연산 완료까지 다른 트랜잭션의 접근을 막는 병행 제어는?",
     passageOrCode: null,
     options: null,
-    imageUrl: null,
-    alts: ["locking","잠금","로킹 기법","잠금 기법"]
+    imageUrl: null
   },
   {
     id: 315,
     answer: "기능 모델링 동적 모델링 객체 모델링",
+    alts: ["기능 동적 객체", "Function Modeling Dynamic Modeling Object Modeling", "Functional Modeling Dynamic Modeling Object Modeling"],
     question: "럼바우 모델링을 순서대로 쓰시오.",
     passageOrCode: `① DFD ② 상태도 ③ 객체 관계`,
     options: null,
-    imageUrl: null,
-    alts: ["Function Modeling Dynamic Modeling Object Modeling"],
-    answerParts: [["기능 모델링","기능","Functional Modeling","Function Modeling"],["동적 모델링","동적","Dynamic Modeling"],["객체 모델링","객체","Object Modeling"]],
-    answerOrder: "ordered"
+    imageUrl: null
   },
   {
     id: 316,
@@ -167,8 +148,7 @@ int power(int base, int exponent) {
 }
 int main(void) { printf("%d", power(2, 10)); return 0; }`,
     options: null,
-    imageUrl: null,
-    alts: []
+    imageUrl: null
   },
   {
     id: 317,
@@ -179,8 +159,7 @@ int main(void) { printf("%d", power(2, 10)); return 0; }`,
     (1) String check(int number) { return number >= 0 ? "positive" : "negative"; }
 }`,
     options: null,
-    imageUrl: null,
-    alts: []
+    imageUrl: null
   },
   {
     id: 318,
@@ -197,8 +176,7 @@ int main(void) {
     return 0;
 }`,
     options: null,
-    imageUrl: null,
-    alts: []
+    imageUrl: null
   },
   {
     id: 319,
@@ -214,16 +192,15 @@ class Main {
     }
 }`,
     options: null,
-    imageUrl: null,
-    alts: []
+    imageUrl: null
   },
   {
     id: 320,
     answer: "스텁",
+    alts: ["stub", "테스트 스텁", "Test Stub"],
     question: "하향식 통합 테스트에서 하위 모듈을 대체하는 것은?",
     passageOrCode: null,
     options: null,
-    imageUrl: null,
-    alts: ["stub","테스트 스텁","Test Stub"]
+    imageUrl: null
   }
 ];
