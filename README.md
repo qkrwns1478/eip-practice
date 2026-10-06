@@ -63,7 +63,7 @@
 
 | 족보퀴즈 | 기출문제 | 다크모드 |
 |:---:|:---:|:---:|
-| <img src="./public/images/screenshot_1.jpg"> | <img src="./public/images/screenshot_2.jpg"> | <img src="./public/images/screenshot_3.jpg"> |
+| <img src="./public/images/screenshot_1.jpg" alt="라이트 모드 족보퀴즈 화면"> | <img src="./public/images/screenshot_2.jpg" alt="라이트 모드 2026년 2회 기출문제 화면"> | <img src="./public/images/screenshot_3.jpg" alt="VS Code 스타일 다크 모드 기출문제 화면"> |
 
 ## 기술 스택
 
