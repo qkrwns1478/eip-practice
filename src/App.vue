@@ -116,7 +116,7 @@ export default {
 .sidebar {
   width: 72px;
   flex-shrink: 0;
-  background-color: var(--color-white);
+  background-color: var(--color-sidebar);
   border-right: 1px solid var(--color-border);
   padding: 16px 0;
   box-sizing: border-box;
@@ -167,12 +167,12 @@ export default {
 
 .sidebar button.active {
   background-color: var(--color-primary-light);
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   border-color: transparent;
 }
 
 .sidebar button.dark-mode-toggle:hover {
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 .sidebar button svg {

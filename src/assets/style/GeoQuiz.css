@@ -56,7 +56,7 @@
 
 .icon-menu-bar button.active {
   background-color: var(--color-primary-light);
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   border-color: transparent;
   box-shadow: none;
 }
@@ -67,7 +67,7 @@
 }
 .icon-menu-bar button.reset-btn:hover,
 .icon-menu-bar button.reset-btn.active {
-  background-color: #fcf1f2;
+  background-color: var(--color-danger-light);
   color: var(--color-danger);
   border-color: transparent;
   transform: none;
@@ -88,8 +88,8 @@
   transform: translateX(-50%);
   margin-top: 8px;
   
-  background-color: var(--color-text);
-  color: var(--color-white);
+  background-color: var(--color-tooltip-bg);
+  color: var(--color-white-for-text);
   padding: 5px 10px;
   border-radius: 6px;
   font-size: 13px;
@@ -111,7 +111,7 @@
   margin-left: -5px;
   border-width: 5px;
   border-style: solid;
-  border-color: transparent transparent var(--color-text) transparent;
+  border-color: transparent transparent var(--color-tooltip-bg) transparent;
 }
 
 .icon-menu-bar button:hover .tooltip-text {
@@ -150,11 +150,11 @@
 }
 
 .geo-quiz-layout .sub-item.correct {
-  background: #f0f9f2;
+  background: var(--color-success-light);
 }
 
 .geo-quiz-layout .sub-item.wrong {
-  background: #fcf1f2;
+  background: var(--color-danger-light);
 }
 
 .geo-quiz-layout .answer-input input {
@@ -199,7 +199,7 @@
 
 .geo-quiz-layout .study-card-header h4 {
   margin: 0;
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 .geo-quiz-layout .study-answer {
@@ -210,7 +210,7 @@
 
 .geo-quiz-layout .study-answer strong {
   margin-right: 8px;
-  color: var(--color-primary);
+  color: var(--color-primary-text);
 }
 
 .geo-quiz-layout .study-sub-item .study-prompt {
@@ -224,7 +224,7 @@
   min-width: 26px;
   height: 26px;
   padding: 0 5px;
-  color: var(--color-white);
+  color: var(--color-white-for-text);
   background: var(--color-primary);
   border-radius: 50%;
   font-size: 13px;
