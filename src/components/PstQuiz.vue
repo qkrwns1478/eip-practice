@@ -59,7 +59,6 @@
     <div v-if="showMode === 'codePicker'" class="code-mode-content">
       <div class="code-mode-picker">
         <h3>코드 문제</h3>
-        <p>C · Java · Python · SQL 기출 문제를 모아 풀어보세요. C · Java · Python은 변수와 실행 흐름도 단계별로 확인할 수 있습니다.</p>
         <div class="code-language-options" role="group" aria-label="문제 언어">
           <button v-for="language in ['all', ...codeLanguages]" :key="language" @click="selectedCodeLanguage = language" :aria-pressed="selectedCodeLanguage === language" :class="{ selected: selectedCodeLanguage === language }">
             {{ language === 'all' ? '전체' : language }} <span>{{ codeLanguageCount(language) }}문제</span>
@@ -83,12 +82,16 @@
     <div v-else-if="showMode === 'mockExam'" class="mockExam-content">
       <div class="mockExam-picker">
         <h3>모의고사</h3>
-        <select id="pst-exam-select" v-model="selectedExamKey">
-          <option v-for="exam in pstExams" :key="exam.key" :value="exam.key">
-            {{ exam.year }}년 {{ exam.round }}회
-          </option>
-        </select>
-        <button @click="startMockExamQuiz" class="mockExam-start-button" style="width: 100%;">응시 시작</button>
+        <div class="mockExam-filters">
+          <label for="pst-exam-select">기출 회차
+            <select id="pst-exam-select" v-model="selectedExamKey">
+              <option v-for="exam in pstExams" :key="exam.key" :value="exam.key">
+                {{ exam.year }}년 {{ exam.round }}회
+              </option>
+            </select>
+          </label>
+        </div>
+        <button @click="startMockExamQuiz" class="mockExam-start-button">응시 시작</button>
       </div>
     </div>
 

@@ -113,7 +113,6 @@
 .pst-quiz-layout .bookmarks-content,
 .pst-quiz-layout .wrong-content,
 .pst-quiz-layout .stats-content,
-.pst-quiz-layout .mockExam-content,
 .pst-quiz-layout .no-question {
   flex: 1;
   overflow-y: auto;
@@ -131,41 +130,6 @@
 }
 .pst-quiz-layout .no-question {
   max-width: 100%;
-}
-
-.mockExam-picker {
-  max-width: 520px;
-  margin: 20px auto;
-  padding: 28px;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  background: var(--color-white);
-}
-
-.mockExam-picker p {
-  color: var(--color-text-light);
-  margin-bottom: 24px;
-}
-
-.mockExam-picker label,
-.mockExam-picker select {
-  display: block;
-  width: 100%;
-}
-
-.mockExam-picker h3 {
-  margin: 0;
-  margin-bottom: 1em;
-}
-
-.mockExam-picker select {
-  box-sizing: border-box;
-  padding: 12px;
-  margin-bottom: 16px;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  background: var(--color-white);
-  color: var(--color-text);
 }
 
 .pst-question .code-block {
@@ -257,17 +221,24 @@
 }
 
 .code-menu-symbol { font-family: Consolas, monospace; font-size: 18px; font-weight: 700; }
-.pst-quiz-layout .code-mode-content { flex: 1; min-height: 0; overflow-y: auto; padding: 30px; }
-.code-mode-picker { max-width: 740px; margin: 20px auto; text-align: left; }
-.code-mode-picker h3 { font-size: 26px; margin: 0 0 12px; }
+.pst-quiz-layout .code-mode-content,
+.pst-quiz-layout .mockExam-content { flex: 1; min-height: 0; overflow-y: auto; padding: 30px; }
+.code-mode-picker,
+.mockExam-picker { max-width: 740px; margin: 20px auto; text-align: left; }
+.code-mode-picker h3,
+.mockExam-picker h3 { font-size: 26px; margin: 0 0 12px; }
 .code-mode-picker > p { color: var(--color-text-light); }
 .code-language-options { display: flex; gap: 10px; flex-wrap: wrap; margin: 26px 0; }
 .code-language-options button { flex: 1; min-width: 110px; border: 1px solid var(--color-border); background: var(--color-white); padding: 18px 14px; text-align: left; }
 .code-language-options button span { display: block; font-size: 13px; margin-top: 6px; color: var(--color-text-light); }
 .code-language-options button.selected { border-color: var(--color-primary); background: var(--color-primary-light); color: var(--color-primary); }
-.code-mode-filters { display: flex; gap: 20px; }
-.code-mode-filters label { flex: 1; font-weight: 600; }
-.code-mode-filters select { display: block; box-sizing: border-box; width: 100%; margin-top: 8px; padding: 10px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-white); color: var(--color-text); font: inherit; }
+.code-mode-filters,
+.mockExam-filters { display: flex; gap: 20px; }
+.mockExam-filters { margin: 26px 0 24px; }
+.code-mode-filters label,
+.mockExam-filters label { flex: 1; font-weight: 600; }
+.code-mode-filters select,
+.mockExam-filters select { display: block; box-sizing: border-box; width: 100%; margin-top: 8px; padding: 10px; border: 1px solid var(--color-border); border-radius: 6px; background: var(--color-white); color: var(--color-text); font: inherit; }
 .code-mode-count { margin: 24px 0; }
 .mockExam-start-button,
 .code-start-button,
@@ -312,7 +283,8 @@
   .code-workspace.is-revealed { grid-template-columns: minmax(0, 1fr); }
   .trace-state { border-left: none; border-top: 1px solid var(--color-border); max-height: none; }
   .trace-source { max-height: 380px; }
-  .pst-quiz-layout .code-mode-content { padding: 20px; }
+  .pst-quiz-layout .code-mode-content,
+  .pst-quiz-layout .mockExam-content { padding: 20px; }
   .code-mode-filters { flex-direction: column; gap: 12px; }
   .code-resume-button { margin-left: 0; }
   .pst-quiz-layout .question-header { flex-wrap: wrap; gap: 12px; }
