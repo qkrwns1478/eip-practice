@@ -2,14 +2,15 @@
   <div class="quiz-container geo-quiz-layout">
 
     <div class="menu-bar icon-menu-bar">
-      <button @click="openRandomQuiz" :class="{ active: showMode === 'quiz' && playMode === 'random' }">
+      <slot name="mode-selector" />
+      <button @click="openRandomQuiz" aria-label="퀴즈" :class="{ active: showMode === 'quiz' && playMode === 'random' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
         </svg>
         <span class="tooltip-text">퀴즈</span>
       </button>
-      <button @click="showMode = 'study'" :class="{ active: showMode === 'study' }">
+      <button @click="showMode = 'study'" aria-label="공부 모드" :class="{ active: showMode === 'study' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
@@ -17,7 +18,7 @@
         </svg>
         <span class="tooltip-text">공부 모드</span>
       </button>
-      <button @click="showMode = 'bookmarks'" :class="{ active: showMode === 'bookmarks' }">
+      <button @click="showMode = 'bookmarks'" aria-label="북마크" :class="{ active: showMode === 'bookmarks' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polygon
@@ -25,7 +26,7 @@
         </svg>
         <span class="tooltip-text">북마크 ({{ bookmarkedQuestions.length }})</span>
       </button>
-      <button @click="showMode = 'wrong'" :class="{ active: showMode === 'wrong' }">
+      <button @click="showMode = 'wrong'" aria-label="틀린 문제" :class="{ active: showMode === 'wrong' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18" />
@@ -33,7 +34,7 @@
         </svg>
         <span class="tooltip-text">틀린 문제 ({{ wrongQuestions.length }})</span>
       </button>
-      <button @click="showMode = 'stats'" :class="{ active: showMode === 'stats' }">
+      <button @click="showMode = 'stats'" aria-label="통계" :class="{ active: showMode === 'stats' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M12 20V10" />
@@ -42,7 +43,7 @@
         </svg>
         <span class="tooltip-text">통계</span>
       </button>
-      <button @click="resetProgress" class="reset-btn">
+      <button @click="resetProgress" aria-label="현재 모드 진행 상황 초기화" class="reset-btn">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="23 4 23 10 17 10" />
@@ -66,6 +67,7 @@
           </div>
         </div>
 
+        <img v-if="currentQuestion.image" :src="currentQuestion.image" alt="문제에 제시된 다이어그램" class="keyword-question-image" />
         <!-- 단일 항목 문제 -->
         <div v-if="!currentQuestion.isMultiple" class="single-question">
           <p class="description">{{ currentQuestion.desc }}</p>
@@ -125,14 +127,22 @@
         <article v-for="(question, index) in studyQuestions" :key="question.id" class="study-card">
           <div class="study-card-header">
             <span class="study-number">{{ index + 1 }}</span>
-            <h4>{{ question.keyword }}</h4>
+            <h4>{{ questionStudy ? (question.desc || question.keyword) : question.keyword }}</h4>
           </div>
-          <p v-if="question.desc" class="study-description">{{ question.desc }}</p>
+          <p v-if="question.desc && !questionStudy" class="study-description">{{ question.desc }}</p>
+          <img v-if="question.image" :src="question.image" alt="문제에 제시된 다이어그램" class="keyword-question-image" />
+          <p v-if="questionStudy && !question.subItems.length" class="study-answer"><strong>정답</strong> {{ question.keyword }}</p>
           <div v-if="question.subItems.length" class="study-sub-list">
             <div v-for="(item, subIndex) in question.subItems" :key="item.childId" class="study-sub-item">
-              <strong>{{ subIndex + 1 }}. {{ item.keyword }}</strong>
-              <span v-if="item.alt"> ({{ item.alt }})</span>
-              <p>{{ item.desc }}</p>
+              <template v-if="questionStudy">
+                <p class="study-prompt">{{ subIndex + 1 }}. {{ item.desc }}</p>
+                <p class="study-answer"><strong>정답</strong> {{ item.keyword }}</p>
+              </template>
+              <template v-else>
+                <strong>{{ subIndex + 1 }}. {{ item.keyword }}</strong>
+                <span v-if="item.alt"> ({{ item.alt }})</span>
+                <p>{{ item.desc }}</p>
+              </template>
             </div>
           </div>
         </article>
@@ -246,9 +256,15 @@ import { geoData } from "../assets/geoData";
 
 export default {
   name: "GeoQuiz",
+  props: {
+    questions: { type: Array, default: () => geoData },
+    storagePrefix: { type: String, default: 'geoQuiz' },
+    initialView: { type: String, default: 'quiz' },
+    questionStudy: { type: Boolean, default: false }
+  },
   data() {
     return {
-      geoData: geoData,
+      geoData: this.questions,
       currentQuestion: null,
       currentQuestionIndex: 0,
       userAnswer: "",
@@ -261,7 +277,7 @@ export default {
       bookmarkedQuestions: [],
       solvedQuestions: [],
       wrongQuestions: [],
-      showMode: "quiz",
+      showMode: this.initialView || 'quiz',
       playMode: "random",
 
       showConfirmModal: false,
@@ -306,7 +322,7 @@ export default {
         .filter(item => item.desc || item.subItems.length);
     },
     lastSessionDate() {
-      const saved = localStorage.getItem('geoQuiz_lastSession');
+      const saved = localStorage.getItem(`${this.storagePrefix}_lastSession`);
       if (!saved) return '아직 학습 기록이 없습니다';
       const date = new Date(saved);
       return date.toLocaleString('ko-KR');
@@ -315,9 +331,12 @@ export default {
   mounted() {
     this.loadProgress();
     // this.startQuiz();
-    if (!this.currentQuestion) {
+    if (this.showMode === 'quiz' && !this.currentQuestion) {
       this.generateQuestion();
     }
+  },
+  beforeUnmount() {
+    if (this.currentQuestion) this.saveProgress();
   },
   methods: {
     showConfirm(title, message, onConfirm) {
@@ -361,6 +380,7 @@ export default {
 
       if (availableQuestions.length === 0) {
         this.showAlert('완료', '모든 문제를 풀었습니다.');
+        this.currentQuestion = null;
         this.usedQuestions = [];
         this.saveProgress();
         return;
@@ -378,12 +398,14 @@ export default {
       if (subItems.length > 0) {
         this.currentQuestion = {
           id: selectedItem.id,
+          image: selectedItem.image,
           mainKeyword: selectedItem.keyword,
           isMultiple: true,
           subItems: subItems.map(item => ({
             keyword: item.keyword,
             desc: item.desc,
             alt: item.alt || null,
+            aliases: item.aliases || [],
             userAnswer: '',
             answered: false,
             isCorrect: false
@@ -393,9 +415,12 @@ export default {
       } else if (selectedItem.desc) {
         this.currentQuestion = {
           id: selectedItem.id,
+          image: selectedItem.image,
           keyword: selectedItem.keyword,
           desc: selectedItem.desc,
           alt: selectedItem.alt || null,
+          aliases: selectedItem.aliases || [],
+          answerGroups: selectedItem.answerGroups || null,
           isMultiple: false
         };
       } else {
@@ -403,13 +428,12 @@ export default {
         return;
       }
 
-      this.usedQuestions.push(selectedItem.id);
+      if (!this.usedQuestions.includes(selectedItem.id)) this.usedQuestions.push(selectedItem.id);
       this.userAnswer = '';
       this.answered = false;
       this.isCorrect = false;
 
-      if (this.currentQuestionIndex > 1)
-        this.saveProgress();
+      this.saveProgress();
 
       this.subItemInputs = [];
       this.$nextTick(() => {
@@ -427,14 +451,7 @@ export default {
     checkAnswer() {
       if (this.answered) return;
 
-      const normalizedAnswer = this.normalizeString(this.userAnswer);
-      const normalizedKeyword = this.normalizeString(this.currentQuestion.keyword);
-      const normalizedAlt = this.currentQuestion.alt
-        ? this.normalizeString(this.currentQuestion.alt)
-        : null;
-
-      this.isCorrect = normalizedAnswer === normalizedKeyword ||
-        (normalizedAlt && normalizedAnswer === normalizedAlt);
+      this.isCorrect = this.matchesAnswer(this.currentQuestion, this.userAnswer);
 
       this.answered = true;
       this.totalCount++;
@@ -469,14 +486,7 @@ export default {
       const item = this.currentQuestion.subItems[index];
       if (item.answered) return;
 
-      const normalizedAnswer = this.normalizeString(item.userAnswer);
-      const normalizedKeyword = this.normalizeString(item.keyword);
-      const normalizedAlt = item.alt
-        ? this.normalizeString(item.alt)
-        : null;
-
-      item.isCorrect = normalizedAnswer === normalizedKeyword ||
-        (normalizedAlt && normalizedAnswer === normalizedAlt);
+      item.isCorrect = this.matchesAnswer(item, item.userAnswer);
 
       item.answered = true;
 
@@ -529,6 +539,23 @@ export default {
           }
         });
       }
+    },
+
+    matchesAnswer(question, answer) {
+      if (question.answerGroups) {
+        const parts = answer.split(/[,，;\n]+/).map(part => this.normalizeString(part.trim()));
+        const remaining = [...question.answerGroups];
+        if (parts.length !== remaining.length) return false;
+        for (const part of parts) {
+          const index = remaining.findIndex(group => group.some(value => this.normalizeString(value) === part));
+          if (index < 0) return false;
+          remaining.splice(index, 1);
+        }
+        return true;
+      }
+      const normalized = this.normalizeString(answer);
+      return [question.keyword, question.alt, ...(question.aliases || [])]
+        .filter(Boolean).some(value => this.normalizeString(value) === normalized);
     },
 
     normalizeString(str) {
@@ -614,12 +641,12 @@ export default {
         lastSession: new Date().toISOString()
       };
 
-      localStorage.setItem('geoQuiz_progress', JSON.stringify(progress));
-      localStorage.setItem('geoQuiz_lastSession', progress.lastSession);
+      localStorage.setItem(`${this.storagePrefix}_progress`, JSON.stringify(progress));
+      localStorage.setItem(`${this.storagePrefix}_lastSession`, progress.lastSession);
     },
 
     loadProgress() {
-      const saved = localStorage.getItem('geoQuiz_progress');
+      const saved = localStorage.getItem(`${this.storagePrefix}_progress`);
       if (saved) {
         try {
           const progress = JSON.parse(saved);
@@ -629,6 +656,7 @@ export default {
           this.bookmarkedQuestions = progress.bookmarkedQuestions || [];
           this.solvedQuestions = progress.solvedQuestions || [];
           this.wrongQuestions = progress.wrongQuestions || [];
+          this.usedQuestions = progress.usedQuestions || [];
           this.currentQuestionIndex = progress.currentQuestionIndex || 0;
           this.currentQuestion = progress.currentQuestion || null;
           this.playMode = progress.playMode || 'random';
@@ -646,8 +674,8 @@ export default {
         '진행 상황 초기화',
         '진행 상황을 초기화하시겠습니까?',
         () => {
-          localStorage.removeItem('geoQuiz_progress');
-          localStorage.removeItem('geoQuiz_lastSession');
+          localStorage.removeItem(`${this.storagePrefix}_progress`);
+          localStorage.removeItem(`${this.storagePrefix}_lastSession`);
 
           this.correctCount = 0;
           this.wrongCount = 0;
