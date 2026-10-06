@@ -70,26 +70,25 @@
             <select v-model="selectedCodeExamKey"><option value="all">전체 회차</option><option v-for="exam in pstExams" :key="exam.key" :value="exam.key">{{ exam.year }}년 {{ exam.round }}회</option></select>
           </label>
           <label>문제 순서
-            <select v-model="codeQuestionOrder"><option value="random">무작위</option><option value="ordered">기출 순서</option></select>
+            <select v-model="codeQuestionOrder"><option value="random">무작위</option><option value="ordered">순서대로</option></select>
           </label>
         </div>
         <p class="code-mode-count">선택한 코드 문제 {{ filteredCodeQuestions.length }}개 · 풀이 완료 {{ filteredCodeQuestions.filter(q => solvedQuestions.includes(q.id)).length }}개</p>
         <p v-if="!filteredCodeQuestions.length" class="empty-state">이 회차에는 선택한 언어의 코드 문제가 없습니다. 다른 언어나 회차를 선택하세요.</p>
-        <button @click="startCodeQuiz" :disabled="!filteredCodeQuestions.length" class="start-button">코드 문제 시작</button>
-        <button v-if="playMode === 'code' && currentQuestion" @click="showMode = 'quiz'" class="code-resume-button">풀던 코드 문제 이어서 풀기</button>
+        <button @click="startCodeQuiz" :disabled="!filteredCodeQuestions.length" class="code-start-button">코드 문제 시작</button>
+        <button v-if="playMode === 'code' && currentQuestion" @click="showMode = 'quiz'" class="code-resume-button">이어서 풀기</button>
       </div>
     </div>
 
     <div v-else-if="showMode === 'mockExam'" class="mockExam-content">
       <div class="mockExam-picker">
         <h3>모의고사</h3>
-        <label for="pst-exam-select">시험 선택</label>
         <select id="pst-exam-select" v-model="selectedExamKey">
           <option v-for="exam in pstExams" :key="exam.key" :value="exam.key">
             {{ exam.year }}년 {{ exam.round }}회
           </option>
         </select>
-        <button @click="startMockExamQuiz" class="start-button mockExam-start-button">응시 시작</button>
+        <button @click="startMockExamQuiz" class="mockExam-start-button" style="width: 100%;">응시 시작</button>
       </div>
     </div>
 

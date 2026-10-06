@@ -357,11 +357,6 @@
   padding: 14px 32px;
   font-size: 18px;
   font-weight: 700;
-  background: linear-gradient(
-    135deg,
-    var(--color-primary) 0%,
-    var(--color-secondary) 100%
-  );
   color: var(--color-white-for-text);
   border: none;
   border-radius: 10px;
@@ -374,6 +369,7 @@
 
 .next-button:hover,
 .start-button:hover {
+  background: var(--color-primary);
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
 }
