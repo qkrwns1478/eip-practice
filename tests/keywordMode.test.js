@@ -5,7 +5,7 @@ import { parse, compileTemplate } from '@vue/compiler-sfc';
 import * as Vue from 'vue';
 import { renderToString } from '@vue/server-renderer';
 import { geoData } from '../src/assets/geoData.js';
-import { keywordData, excludedKeywordQuestions } from '../src/assets/keywordData.js';
+import { keywordData, excludedKeywordQuestions, convertedKeywordQuestions } from '../src/assets/keywordData.js';
 
 const source = readFileSync(new URL('../src/components/GeoQuiz.vue', import.meta.url), 'utf8');
 const script = source.match(/<script>([\s\S]*?)<\/script>/)[1]
@@ -24,7 +24,7 @@ function createQuiz(questions, storagePrefix, storage = new Map(), initialView =
 
 test('all 130 source numbers are included or explicitly excluded, and figures exist', () => {
   const roots = keywordData.filter(q => q.id);
-  assert.equal(roots.length, 113);
+  assert.equal(roots.length, 130);
   const numbers = [...roots.map(q => q.id), ...excludedKeywordQuestions];
   assert.equal(new Set(numbers).size, 130);
   assert.deepEqual(numbers.sort((a, b) => a - b), Array.from({ length: 130 }, (_, i) => i + 1));
@@ -66,12 +66,14 @@ test('study renders keyword questions, multi-part answers and diagrams without q
   const options = new Function('geoData', 'localStorage', script)(geoData, { getItem: () => null });
   options.render = compileRender(source);
   const keyword = await renderToString(Vue.createSSRApp(options, { questions: keywordData, initialView: 'study', questionStudy: true }));
-  assert.equal((keyword.match(/class="study-card"/g) || []).length, 113);
+  assert.equal((keyword.match(/class="study-card"/g) || []).length, 130);
+  assert.match(keyword, /<strong>정답<\/strong> 리팩토링/);
+  assert.match(keyword, /<strong>정답<\/strong> 형상 통제/);
   assert.match(keyword, /시제품을 끊임없이/);
   assert.match(keyword, /<strong>정답<\/strong> 애자일/);
   assert.match(keyword, /<strong>정답<\/strong> 비기능/);
   assert.match(keyword, /<strong>정답<\/strong> CVS, Git, SVN/);
-  for (const id of [7, 14, 40, 66, 98]) assert.match(keyword, new RegExp(`/images/keyword/${id}\\.png`));
+  for (const id of [7, 14, 40, 60, 66, 98]) assert.match(keyword, new RegExp(`/images/keyword/${id}\\.png`));
   assert.doesNotMatch(keyword, /<input|원문 \d+번/);
   const legacy = await renderToString(Vue.createSSRApp(options, { questions: geoData, initialView: 'study' }));
   assert.match(legacy, /<h4>살충제 패러독스<\/h4>/);
@@ -112,6 +114,48 @@ test('keyword grading accepts aliases and unordered sets while rejecting duplica
   quiz.checkAnswer();
   assert.equal(quiz.isCorrect, true);
   assert.equal(quiz.correctCount, 1);
+});
+
+test('converted descriptive questions ask for terms, accept Korean/English answers and keep source order', () => {
+  const quiz = createQuiz(keywordData, 'keywordQuiz');
+  assert.equal(convertedKeywordQuestions.length, 16);
+  assert.deepEqual(excludedKeywordQuestions, []);
+  for (const id of convertedKeywordQuestions) {
+    const question = keywordData.find(q => q.id === id);
+    assert.ok(question.desc.endsWith('?'), `question ${id} asks a short-answer question`);
+    assert.ok(!question.desc.includes(question.keyword), `question ${id} does not reveal the answer`);
+    assert.equal(quiz.matchesAnswer(question, question.keyword), true);
+    for (const alias of question.aliases) assert.equal(quiz.matchesAnswer(question, alias), true);
+    assert.equal(quiz.matchesAnswer(question, ''), false);
+    assert.equal(quiz.matchesAnswer(question, '모름'), false);
+  }
+  const roots = keywordData.filter(q => q.id).map(q => q.id);
+  assert.deepEqual(roots, [...roots].sort((a, b) => a - b));
+  quiz.setupQuestion(keywordData.find(q => q.id === 78));
+  quiz.userAnswer = 'sql 인젝션';
+  quiz.checkAnswer();
+  assert.equal(quiz.isCorrect, true);
+  assert.ok(quiz.solvedQuestions.includes(78));
+});
+
+test('branch coverage accepts both source solutions but rejects pairs that miss a branch', () => {
+  const quiz = createQuiz(keywordData, 'keywordQuiz');
+  const question = keywordData.find(q => q.id === 60);
+  for (const answer of [question.keyword, ...question.aliases]) {
+    assert.equal(quiz.matchesAnswer(question, answer), true);
+  }
+  assert.equal(quiz.matchesAnswer(question, '(①) → (②) → (③) → (④) → (⑤) → (⑥) → (⑦), (①) → (②) → (④) → (⑤) → (⑥) → (①)'), true);
+  // Both paths exit at ⑦, so the Yes branch of ⑥ is never exercised.
+  assert.equal(quiz.matchesAnswer(question, '1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7, 1 -> 2 -> 4 -> 5 -> 6 -> 7'), false);
+  // Both paths loop to ①, so the No branch of ⑥ is never exercised.
+  assert.equal(quiz.matchesAnswer(question, '1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 1, 1 -> 2 -> 4 -> 5 -> 6 -> 1'), false);
+  assert.equal(quiz.matchesAnswer(question, '1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7'), false);
+  quiz.setupQuestion(question);
+  quiz.userAnswer = '1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 1, 1 -> 2 -> 4 -> 5 -> 6 -> 7';
+  quiz.checkAnswer();
+  assert.equal(quiz.isCorrect, true);
+  assert.ok(quiz.solvedQuestions.includes(60));
+  assert.equal(quiz.currentQuestion.image, '/images/keyword/60.png');
 });
 
 test('switching modes preserves legacy progress and incomplete multi-answer questions separately', () => {

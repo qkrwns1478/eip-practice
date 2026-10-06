@@ -1,7 +1,8 @@
 // 정보처리기사실기_01_키워드찾기130문제.pdf의 단답형 문항.
 // 원문 번호를 유지하며, 보기의 기호 답은 용어로 바꾸고 지문을 화면용으로 정리했다.
 export const keywordSource = '정보처리기사실기_01_키워드찾기130문제.pdf';
-export const excludedKeywordQuestions = [2, 9, 19, 24, 25, 54, 57, 60, 75, 76, 77, 78, 92, 93, 94, 124, 129];
+export const excludedKeywordQuestions = [];
+export const convertedKeywordQuestions = [2, 9, 19, 24, 25, 54, 57, 75, 76, 77, 78, 92, 93, 94, 124, 129];
 const rows = [];
 function single(id, desc, keyword, ...aliases) {
   rows.push({ id, sourceNumber: id, desc, keyword, aliases });
@@ -129,4 +130,39 @@ single(127, '릴리즈 노트 이름·소프트웨어 이름·릴리즈 버전·
 setAnswer(128, '형상 관리 도구 3가지를 고르세요. 보기: OLAP, CVS, Ant, Maven, Git, Jenkins, Spring, SVN', [['CVS'], ['Git'], ['SVN']]);
 single(130, '개발 과정에서 만들어지는 프로그램·문서·데이터 및 여러 버전의 변경 사항을 관리하는 활동이다. Git·SVN 등의 도구가 지원하는 것은?', '형상관리', 'SCM', 'Software Configuration Management');
 
-export const keywordData = rows;
+// 60번의 두 정답 조합을 기존 aliases 필드로 채점한다.
+// 각 조합은 ②와 ⑥의 Yes/No 분기를 모두 지나야 한다.
+const branchCasePairs = [
+  [[1, 2, 3, 4, 5, 6, 7], [1, 2, 4, 5, 6, 1]],
+  [[1, 2, 3, 4, 5, 6, 1], [1, 2, 4, 5, 6, 7]]
+];
+function pathSpellings(path) {
+  const circled = path.map(n => '①②③④⑤⑥⑦'[n - 1]);
+  return [circled.join(' → '), path.join(' → '), path.join(' -> '), circled.join(' -> '), path.join(' ')];
+}
+const branchCaseAnswers = branchCasePairs.flatMap(([first, second]) =>
+  pathSpellings(first).flatMap(a => pathSpellings(second).flatMap(b => [`${a}, ${b}`, `${b}, ${a}`])));
+single(60, '다음 순서도의 분기 커버리지를 만족하는 테스트 케이스 경로 두 개를 작성하세요. 한 경로는 7개, 다른 경로는 6개의 노드로 구성합니다. 경로 안의 노드는 → 또는 ->로 연결하고, 두 경로는 쉼표로 구분하세요. 동그라미 번호 대신 숫자를 입력해도 됩니다.', branchCaseAnswers[0], ...branchCaseAnswers.slice(1));
+rows.at(-1).image = '/images/keyword/60.png';
+
+// 서술형 답안의 설명을 지문으로 바꾸어 해당 용어를 묻는 단답형 문항.
+single(2, '외부 동작을 유지하면서 코드의 가독성과 유지보수성을 높인다. 프로그램을 쉽게 이해하고 수정할 수 있도록 내부 구조를 개선하는 작업은?', '리팩토링', 'Refactoring', '리팩터링');
+single(9, '데이터베이스의 구조와 제약 조건에 관한 전반적인 명세를 기술한 것은?', '스키마', 'Schema');
+single(19, '테이블에서 튜플을 삭제할 때 의도와는 상관없는 값들도 함께 삭제되는 현상을 무엇이라고 하나요?', '삭제 이상', 'Deletion Anomaly');
+single(24, '정규화된 데이터 모델을 의도적으로 통합·중복·분리하여 정규화 원칙을 위배하는 행위는?', '비정규화', '반정규화', 'Denormalization');
+single(25, '트랜잭션의 연산이 데이터베이스에 모두 반영되거나 전혀 반영되지 않도록 보장하는 특성은?', '원자성', 'Atomicity');
+single(54, 'UI 설계 원칙 중 누구나 쉽게 이해하고 사용할 수 있어야 한다는 원칙은?', '직관성');
+single(57, '동일한 테스트 케이스로 동일한 테스트를 반복하면 더 이상 새로운 결함이 발견되지 않는 현상을 무엇이라고 하나요?', '살충제 패러독스', 'Pesticide Paradox');
+single(75, '데이터베이스 관리자가 사용자에게 데이터베이스 접근 권한을 부여할 때 사용하는 SQL 명령어는?', 'GRANT');
+single(76, '트랜잭션이 실패한 경우 작업을 취소하고 이전 상태로 되돌리기 위한 SQL 명령어는?', 'ROLLBACK', '롤백');
+single(77, '인가받은 사용자가 시스템 내의 정보와 자원을 언제라도 사용할 수 있어야 한다는 보안 요건은?', '가용성', 'Availability');
+single(78, '웹 응용 프로그램에 악의적인 SQL 구문을 삽입하여 데이터베이스의 데이터를 유출·변조하거나 관리자 인증을 우회하는 공격 기법은?', 'SQL Injection', 'SQL 인젝션', 'SQL 삽입 공격', 'SQL 주입');
+single(92, '변수의 자료형을 알 수 있도록 변수명에 자료형을 의미하는 문자를 포함하여 작성하는 표기법은?', '헝가리안 표기법', 'Hungarian Notation', '헝가리 표기법');
+single(93, '네트워크 중간에서 다른 사람의 패킷 정보를 도청하는 수동적 공격 기법은?', '스니핑', 'Sniffing');
+single(94, 'C++에서 객체가 생성될 때 호출되어 객체의 초기화를 수행하는 특수 멤버 함수는?', '생성자', 'Constructor');
+single(124, '대량의 데이터를 분석하여 데이터에 내재된 변수 사이의 상호관계를 규명하고 일정한 패턴을 찾아내는 기법은?', '데이터 마이닝', 'Data Mining');
+single(129, '식별된 형상 항목의 변경 요구를 검토하여 현재의 기준선이 잘 반영될 수 있도록 조정하는 형상 관리 활동은?', '형상 통제', 'Configuration Control');
+
+// 추가한 문항도 기존 공부 목록의 원문 순서에 배치한다.
+export const keywordData = rows.sort((a, b) =>
+  (a.id ?? a.parentId) - (b.id ?? b.parentId) || (a.childId ?? 0) - (b.childId ?? 0));
