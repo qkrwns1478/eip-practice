@@ -59,7 +59,7 @@
     <div v-if="showMode === 'codePicker'" class="code-mode-content">
       <div class="code-mode-picker">
         <h3>코드 문제</h3>
-        <p>C · Java · Python 기출 코드를 모아 풀고, 변수와 실행 흐름을 단계별로 확인하세요.</p>
+        <p>C · Java · Python · SQL 기출 문제를 모아 풀어보세요. C · Java · Python은 변수와 실행 흐름도 단계별로 확인할 수 있습니다.</p>
         <div class="code-language-options" role="group" aria-label="문제 언어">
           <button v-for="language in ['all', ...codeLanguages]" :key="language" @click="selectedCodeLanguage = language" :aria-pressed="selectedCodeLanguage === language" :class="{ selected: selectedCodeLanguage === language }">
             {{ language === 'all' ? '전체' : language }} <span>{{ codeLanguageCount(language) }}문제</span>
@@ -108,7 +108,7 @@
 
         <div class="pst-question">
           <p class="description">{{ currentQuestion.question }}</p>
-          <CodeVisualizer v-if="playMode === 'code'" :key="currentQuestion.id" :question="currentQuestion" :language="getCodeLanguage(currentQuestion)" :answered="answered" />
+          <CodeVisualizer v-if="playMode === 'code' && getCodeLanguage(currentQuestion) !== 'SQL'" :key="currentQuestion.id" :question="currentQuestion" :language="getCodeLanguage(currentQuestion)" :answered="answered" />
           <pre v-else-if="currentQuestion.passageOrCode"
             class="code-block"><code>{{ currentQuestion.passageOrCode }}</code></pre>
           <div v-if="currentQuestion.imageUrl" class="image-container">

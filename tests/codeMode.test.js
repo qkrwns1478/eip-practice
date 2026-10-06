@@ -28,12 +28,21 @@ test('classifies source-only questions, including uppercase JAVA, syntax-only an
   assert.equal(getCodeLanguage(question(154)), 'Python');
   assert.equal(getCodeLanguage(question(228)), 'Java');
   assert.equal(getCodeLanguage({ question: 'Java 설명', passageOrCode: null }), null);
-  assert.equal(getCodeLanguage({ question: 'SQL', passageOrCode: 'CREATE TABLE foo (name VARCHAR(20));' }), null);
-  assert.deepEqual(codeLanguages.map(language => getCodeQuestions(pstData, language).length), [48, 42, 19]);
+  assert.equal(getCodeLanguage({ question: 'SQL', passageOrCode: 'CREATE TABLE foo (name VARCHAR(20));' }), 'SQL');
+  assert.deepEqual(codeLanguages.map(language => getCodeQuestions(pstData, language).length), [48, 42, 19, 22]);
+});
+
+test('SQL classification includes queries in options and images, and query-writing conditions', () => {
+  for (const id of [7, 113, 116, 137, 146, 183, 272, 273, 274, 279]) {
+    assert.equal(getCodeLanguage(question(id)), 'SQL', `SQL question ${id}`);
+  }
+  assert.equal(getCodeLanguage({ question: 'SQL이란 무엇인가?', passageOrCode: null }), null);
+  assert.equal(getCodeLanguage(question(159)), null); // Relational algebra is not a SQL exercise.
+  assert.equal(getCodeLanguage({ question: '실행 결과', passageOrCode: 'select count(*) from employees;' }), 'SQL');
 });
 
 test('every code question has bounded source anchors and an initial frame without spoilers', () => {
-  for (const q of getCodeQuestions(pstData)) {
+  for (const q of getCodeQuestions(pstData).filter(q => getCodeLanguage(q) !== 'SQL')) {
     const trace = getCodeTrace(q);
     assert.ok(trace, `missing trace ${q.id}`);
     assert.equal(trace.steps[0].output, '');
@@ -43,6 +52,29 @@ test('every code question has bounded source anchors and an initial frame withou
       assert.ok(frame.explanation);
     }
   }
+});
+
+test('SQL sessions filter by exam, grade and restore questions without inline source', () => {
+  const storage = new Map();
+  const quiz = createQuiz(storage);
+  quiz.selectedCodeLanguage = 'SQL';
+  quiz.selectedCodeExamKey = '2026-2';
+  quiz.codeQuestionOrder = 'ordered';
+  assert.deepEqual(quiz.filteredCodeQuestions.map(q => q.id), [272, 273, 274, 279]);
+  quiz.startCodeQuiz();
+  assert.equal(quiz.currentQuestion.passageOrCode, null);
+  assert.match(quiz.questionTitle, /SQL 코드 문제/);
+  quiz.userAnswer = quiz.currentQuestion.answer;
+  quiz.checkAnswer();
+  assert.equal(quiz.isCorrect, true);
+  assert.equal(quiz.correctCount, 1);
+  const restored = createQuiz(storage);
+  restored.mount();
+  assert.equal(restored.selectedCodeLanguage, 'SQL');
+  assert.equal(restored.currentQuestion.id, 272);
+  assert.equal(restored.answered, true);
+  restored.nextQuestion();
+  assert.equal(restored.currentQuestion.id, 273);
 });
 
 test('teaching traces calculate memory updates, recursion and overloads', () => {
