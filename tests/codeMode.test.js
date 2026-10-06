@@ -7,12 +7,13 @@ import { renderToString } from '@vue/server-renderer';
 import { pstData, pstExams } from '../src/assets/pstData.js';
 import { codeLanguages, getCodeLanguage, getCodeQuestions } from '../src/utils/codeQuestions.js';
 import { getCodeTrace } from '../src/assets/codeTraces.js';
+import { matchesPstAnswer } from '../src/utils/pstAnswers.js';
 
 const source = readFileSync(new URL('../src/components/PstQuiz.vue', import.meta.url), 'utf8');
 const script = source.match(/<script>([\s\S]*?)<\/script>/)[1].replace(/^import .*;\r?$/gm, '').replace('export default', 'return');
 function createQuiz(storage = new Map()) {
   const localStorage = { getItem: key => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value), removeItem: key => storage.delete(key) };
-  const options = new Function('pstData', 'pstExams', 'CodeVisualizer', 'codeLanguages', 'getCodeLanguage', 'getCodeQuestions', 'localStorage', script)(pstData, pstExams, {}, codeLanguages, getCodeLanguage, getCodeQuestions, localStorage);
+  const options = new Function('pstData', 'pstExams', 'CodeVisualizer', 'codeLanguages', 'getCodeLanguage', 'getCodeQuestions', 'matchesPstAnswer', 'localStorage', script)(pstData, pstExams, {}, codeLanguages, getCodeLanguage, getCodeQuestions, matchesPstAnswer, localStorage);
   const quiz = { ...options.data(), $refs: {}, $nextTick: callback => callback() };
   for (const [name, method] of Object.entries(options.methods)) quiz[name] = method.bind(quiz);
   for (const [name, getter] of Object.entries(options.computed)) Object.defineProperty(quiz, name, { get: getter.bind(quiz) });
@@ -29,7 +30,7 @@ test('classifies source-only questions, including uppercase JAVA, syntax-only an
   assert.equal(getCodeLanguage(question(228)), 'Java');
   assert.equal(getCodeLanguage({ question: 'Java 설명', passageOrCode: null }), null);
   assert.equal(getCodeLanguage({ question: 'SQL', passageOrCode: 'CREATE TABLE foo (name VARCHAR(20));' }), 'SQL');
-  assert.deepEqual(codeLanguages.map(language => getCodeQuestions(pstData, language).length), [48, 42, 19, 22]);
+  assert.deepEqual(codeLanguages.map(language => getCodeQuestions(pstData, language).length), [57, 57, 24, 34]);
 });
 
 test('SQL classification includes queries in options and images, and query-writing conditions', () => {
@@ -41,8 +42,9 @@ test('SQL classification includes queries in options and images, and query-writi
   assert.equal(getCodeLanguage({ question: '실행 결과', passageOrCode: 'select count(*) from employees;' }), 'SQL');
 });
 
-test('every code question has bounded source anchors and an initial frame without spoilers', () => {
-  for (const q of getCodeQuestions(pstData).filter(q => getCodeLanguage(q) !== 'SQL')) {
+test('reviewed 2022–2026 code questions have bounded source anchors and an initial frame without spoilers', () => {
+  const reviewedQuestions = pstExams.filter(exam => Number(exam.year) >= 2022).flatMap(exam => exam.questions);
+  for (const q of getCodeQuestions(reviewedQuestions).filter(q => getCodeLanguage(q) !== 'SQL')) {
     const trace = getCodeTrace(q);
     assert.ok(trace, `missing trace ${q.id}`);
     assert.equal(trace.steps[0].output, '');
@@ -52,6 +54,109 @@ test('every code question has bounded source anchors and an initial frame withou
       assert.ok(frame.explanation);
     }
   }
+});
+
+test('2020–2021 exams register twenty ordered questions with unique persistent IDs', () => {
+  const addedExams = pstExams.filter(exam => Number(exam.year) <= 2021);
+  assert.deepEqual(addedExams.map(exam => exam.key), ['2020-1', '2020-2', '2020-3', '2020-4', '2021-1', '2021-2', '2021-3']);
+  assert.equal(pstData.length, 420);
+  assert.equal(new Set(pstData.map(q => q.id)).size, pstData.length);
+  const quiz = createQuiz();
+  for (const exam of addedExams) {
+    assert.equal(exam.questions.length, 20);
+    exam.questions.forEach((q, index) => {
+      assert.ok(q.question.trim());
+      assert.ok(q.answer.trim());
+      assert.equal(typeof q.alt === 'undefined' || typeof q.alt === 'string', true);
+      assert.equal(quiz.getQuizInfo(q.id), `${exam.year}년 ${exam.round}회 ${index + 1}번 문제`);
+      assert.ok(pstData.includes(q));
+    });
+    quiz.selectedExamKey = exam.key;
+    quiz.startMockExamQuiz();
+    assert.equal(quiz.currentQuestion.id, exam.questions[0].id);
+    quiz.selectedCodeExamKey = exam.key;
+    quiz.selectedCodeLanguage = 'all';
+    assert.deepEqual(quiz.filteredCodeQuestions.map(q => q.id), getCodeQuestions(exam.questions).map(q => q.id));
+  }
+});
+
+test('new code and SQL answers, alternatives and set exercises can be graded', () => {
+  for (const q of pstData.filter(q => q.id > 280)) {
+    for (const answer of [q.answer, ...(q.alts || []), ...(q.alt ? [q.alt] : [])]) {
+      const quiz = createQuiz();
+      quiz.currentQuestion = q;
+      quiz.userAnswer = answer;
+      quiz.checkAnswer();
+      assert.equal(quiz.isCorrect, true, `answer for ${q.id}: ${answer}`);
+    }
+  }
+});
+
+test('former descriptive exercises ask for terms and accept reviewed aliases', () => {
+  const converted = new Map([[303, 'Atomicity'], [323, 'GRANT'], [341, '살충제 역설'], [342, 'Data Mining'], [357, '비정규화'], [367, '롤백'], [374, 'SQL 삽입 공격'], [381, '리팩터링'], [384, 'Configuration Control'], [391, 'Hungarian Notation'], [394, 'DB 스키마'], [396, '직관성'], [399, 'Constructor'], [407, '패킷 스니핑'], [420, 'Availability']]);
+  for (const [id, alias] of converted) {
+    assert.doesNotMatch(question(id).question, /설명하시오|서술하시오|약술하시오/);
+    assert.equal(matchesPstAnswer(question(id), alias), true, `${id}: ${alias}`);
+    assert.equal(matchesPstAnswer(question(id), '모르겠음'), false);
+  }
+  assert.equal(matchesPstAnswer(question(356), '20개월'), true);
+  assert.equal(matchesPstAnswer(question(281), 'Reverse Address Resolution Protocol'), true);
+  assert.equal(matchesPstAnswer(question(408), 'Network Address Translation'), true);
+  assert.equal(matchesPstAnswer(question(408), 'Network Address Transformation'), false);
+});
+
+test('multi-part answers allow alias combinations and separators while preserving required order', () => {
+  for (const [id, input] of [[282, 'Physical Design, 개념적 설계, Logical Design'], [289, '경곗값 분석 / 동치분할 테스트'], [309, 'Statement Coverage, Branch Coverage, Condition Coverage'], [326, 'Data Link Layer; 네트워크; 표현 계층'], [328, '테스트 조건, 입력 데이터, 기대 결과'], [405, 'n>=1, n&1']]) {
+    const quiz = createQuiz();
+    quiz.currentQuestion = question(id);
+    quiz.userAnswer = input;
+    quiz.checkAnswer();
+    assert.equal(quiz.isCorrect, true, `${id}: ${input}`);
+  }
+  assert.equal(matchesPstAnswer(question(282), '개념적 설계 물리적 설계 논리적 설계'), false);
+  assert.equal(matchesPstAnswer(question(322), 'Authentication Accounting Authorization'), false);
+  assert.equal(matchesPstAnswer(question(326), '데이터링크 네트워크'), false);
+  assert.equal(matchesPstAnswer(question(405), 'n<0 n%2'), false);
+  assert.equal(matchesPstAnswer(question(405), 'n>0 n/2'), false);
+});
+
+test('unordered concepts and Python sets require every distinct answer exactly once', () => {
+  for (const [id, input] of [[343, 'Timing, 구문, Semantics'], [348, '격리성 / Atomicity'], [360, 'H, F'], [362, '{"홍콩", "한국", "태국", "중국", "베트남"}'], [398, 'Hub and Spoke, 포인트 투 포인트'], [412, '갱신, 삽입 이상, Deletion Anomaly']]) {
+    assert.equal(matchesPstAnswer(question(id), input), true, `${id}: ${input}`);
+  }
+  for (const input of ['삽입 삭제', '삽입 삭제 삭제', '삽입 삭제 갱신 갱신', '삽입 삭제 갱신 기타']) {
+    assert.equal(matchesPstAnswer(question(412), input), false, input);
+  }
+  assert.equal(matchesPstAnswer(question(362), "{'홍콩','한국','태국','중국','일본'}"), false);
+  assert.equal(matchesPstAnswer(question(362), ''), false);
+});
+
+test('legacy alt and alts still grade and code punctuation and output lines remain significant', () => {
+  assert.equal(matchesPstAnswer({answer:'정답', alt:'동의어', alts:['별칭']}, '동의어'), true);
+  assert.equal(matchesPstAnswer({answer:'정답', alt:'동의어', alts:['별칭']}, '별칭'), true);
+  assert.equal(matchesPstAnswer({answer:'정답'}, ''), false);
+  assert.equal(matchesPstAnswer(question(287), '3 1 45 50 89'), false);
+  assert.equal(matchesPstAnswer(question(287), '3\n1\n45\n50\n89'), true);
+  assert.equal(matchesPstAnswer(question(354), '8'), false);
+  assert.equal(matchesPstAnswer(question(389), "DELETE FROM 학생 WHERE 이름 = '민수'"), true);
+  assert.equal(matchesPstAnswer(question(389), "DELETE FROM 학생 WHERE 이름 = '영수'"), false);
+});
+
+test('restoring an old descriptive question uses the current short-answer data', () => {
+  const storage = new Map([['pstQuiz_progress', JSON.stringify({
+    currentQuestion: {id:341, question:'살충제 패러독스를 설명하시오.', answer:'동일한 테스트를 반복하면 새로운 버그를 찾지 못한다'},
+    userAnswer:'동일한 테스트를 반복하면 새로운 버그를 찾지 못한다', answered:true, isCorrect:true,
+    correctCount:3, solvedQuestions:[341], bookmarkedQuestions:[341], playMode:'random'
+  })]]);
+  const quiz = createQuiz(storage);
+  quiz.loadProgress();
+  assert.equal(quiz.currentQuestion, question(341));
+  assert.equal(quiz.currentQuestion.answer, '살충제 패러독스');
+  assert.equal(quiz.answered, false);
+  assert.equal(quiz.userAnswer, '');
+  assert.equal(quiz.isCorrect, false);
+  assert.equal(quiz.correctCount, 3);
+  assert.deepEqual(quiz.bookmarkedQuestions, [341]);
 });
 
 test('SQL sessions filter by exam, grade and restore questions without inline source', () => {

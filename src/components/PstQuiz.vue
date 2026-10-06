@@ -237,6 +237,7 @@
 import { pstData, pstExams } from "../assets/pstData";
 import CodeVisualizer from './CodeVisualizer.vue';
 import { codeLanguages, getCodeLanguage, getCodeQuestions } from '../utils/codeQuestions.js';
+import { matchesPstAnswer } from '../utils/pstAnswers.js';
 
 export default {
   name: "PstQuiz",
@@ -427,34 +428,7 @@ export default {
       this.answered = true;
       this.totalCount++;
 
-      const question = this.currentQuestion;
-      const answer = question.answer;
-      const altAnswer = question.alt;
-      const altAnswers = question.alts || [];
-
-      let requiresLineBreak = answer.includes('\n') || (altAnswer && altAnswer.includes('\n'));
-      if (!requiresLineBreak && altAnswers.length > 0) {
-        requiresLineBreak = altAnswers.some(a => a && a.includes('\n'));
-      }
-
-      const normalizedUserAnswer = this.normalizeString(this.userAnswer, requiresLineBreak);
-
-      const normalizedAnswer = this.normalizeString(answer, requiresLineBreak);
-      this.isCorrect = (normalizedUserAnswer === normalizedAnswer);
-
-      if (!this.isCorrect && altAnswer) {
-        const normalizedAlt = this.normalizeString(altAnswer, requiresLineBreak);
-        if (normalizedUserAnswer === normalizedAlt) {
-          this.isCorrect = true;
-        }
-      }
-
-      if (!this.isCorrect && altAnswers.length > 0) {
-        this.isCorrect = altAnswers.some(alt => {
-          const normalizedAlt = this.normalizeString(alt, requiresLineBreak);
-          return normalizedUserAnswer === normalizedAlt;
-        });
-      }
+      this.isCorrect = matchesPstAnswer(this.currentQuestion, this.userAnswer);
 
       if (this.isCorrect) {
         this.correctCount++;
@@ -477,17 +451,6 @@ export default {
           this.$refs.nextButton.focus();
         }
       });
-    },
-
-    normalizeString(str, preserveLineBreaks = false) {
-      if (!str) return '';
-      let normalized = str.toLowerCase();
-      if (preserveLineBreaks) {
-        normalized = normalized.trim().replace(/[()[\]{}]/g, '');
-      } else {
-        normalized = normalized.replace(/\s+/g, '').replace(/[()[\]{}]/g, '').trim();
-      }
-      return normalized;
     },
 
     nextQuestion() {
@@ -600,7 +563,8 @@ export default {
           this.solvedQuestions = progress.solvedQuestions || [];
           this.wrongQuestions = progress.wrongQuestions || [];
           this.currentQuestionIndex = progress.currentQuestionIndex || 0;
-          this.currentQuestion = progress.currentQuestion || null;
+          this.currentQuestion = this.getQuestionById(progress.currentQuestion?.id) || null;
+          const answerChanged = this.currentQuestion && progress.currentQuestion?.answer !== this.currentQuestion.answer;
           this.playMode = progress.playMode || 'random';
           this.selectedExamKey = progress.selectedExamKey || '2026-2';
           this.selectedCodeLanguage = ['all', ...codeLanguages].includes(progress.selectedCodeLanguage) ? progress.selectedCodeLanguage : 'C';
@@ -621,6 +585,11 @@ export default {
           this.userAnswer = progress.userAnswer || '';
           this.answered = progress.answered || false;
           this.isCorrect = progress.isCorrect || false;
+          if (answerChanged) {
+            this.userAnswer = '';
+            this.answered = false;
+            this.isCorrect = false;
+          }
         } catch (e) {
           console.error('Failed to load progress:', e);
         }
@@ -662,29 +631,10 @@ export default {
 
     getQuizInfo(id) {
       if (!id) return "NO INFO";
-
-      const unknown = "UNKNOWN";
-      let examInfo = unknown;
-
-      if      (id >=   1 && id <=  20) examInfo = "2025년 1회";
-      else if (id >=  21 && id <=  40) examInfo = "2025년 2회";
-      else if (id >=  41 && id <=  60) examInfo = "2024년 1회";
-      else if (id >=  61 && id <=  80) examInfo = "2024년 2회";
-      else if (id >=  81 && id <= 100) examInfo = "2024년 3회";
-      else if (id >= 101 && id <= 120) examInfo = "2023년 1회";
-      else if (id >= 121 && id <= 140) examInfo = "2023년 2회";
-      else if (id >= 141 && id <= 160) examInfo = "2023년 3회";
-      else if (id >= 161 && id <= 180) examInfo = "2022년 1회";
-      else if (id >= 181 && id <= 200) examInfo = "2022년 2회";
-      else if (id >= 201 && id <= 220) examInfo = "2022년 3회";
-      else if (id >= 221 && id <= 240) examInfo = "2025년 3회";
-      else if (id >= 241 && id <= 260) examInfo = "2026년 1회";
-      else if (id >= 261 && id <= 280) examInfo = "2026년 2회";
-
-      if (examInfo === unknown) return `ID: ${id}`;
-
-      const questionNum = (id - 1) % 20 + 1;
-      return `${examInfo} ${questionNum}번 문제`;
+      const exam = pstExams.find(exam => exam.questions.some(question => question.id === id));
+      if (!exam) return `ID: ${id}`;
+      const questionNum = exam.questions.findIndex(question => question.id === id) + 1;
+      return `${exam.year}년 ${exam.round}회 ${questionNum}번 문제`;
     }
   }
 };
