@@ -3,13 +3,13 @@
     <nav class="sidebar">
       <ul>
         <li>
-          <button @click="currentTab = 'GeoQuiz'" :class="{ active: currentTab === 'GeoQuiz' }">
+          <button @click="currentTab = 'GeoQuiz'" :class="{ active: currentTab === 'GeoQuiz' }" aria-label="키워드">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
               <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
             </svg>
-            <span class="tooltip-text">족보퀴즈</span>
+            <span class="tooltip-text">키워드</span>
           </button>
         </li>
         <li>
@@ -55,20 +55,20 @@
     </nav>
 
     <main class="main-content">
-      <GeoQuiz v-if="currentTab === 'GeoQuiz'" />
+      <KeywordQuiz v-if="currentTab === 'GeoQuiz'" />
       <PstQuiz v-if="currentTab === 'PstQuiz'" />
     </main>
   </div>
 </template>
 
 <script>
-import GeoQuiz from './components/GeoQuiz.vue';
+import KeywordQuiz from './components/KeywordQuiz.vue';
 import PstQuiz from './components/PstQuiz.vue';
 
 export default {
   name: 'App',
   components: {
-    GeoQuiz,
+    KeywordQuiz,
     PstQuiz
   },
   data() {

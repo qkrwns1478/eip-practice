@@ -7,6 +7,16 @@
   height: 100%;
 }
 
+.keyword-question-image {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+  margin: 16px 0;
+  background: #fff;
+}
+
 .icon-menu-bar {
   display: flex;
   justify-content: center;
@@ -190,6 +200,21 @@
 .geo-quiz-layout .study-card-header h4 {
   margin: 0;
   color: var(--color-primary);
+}
+
+.geo-quiz-layout .study-answer {
+  margin: 12px 0 0;
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+.geo-quiz-layout .study-answer strong {
+  margin-right: 8px;
+  color: var(--color-primary);
+}
+
+.geo-quiz-layout .study-sub-item .study-prompt {
+  margin: 0;
 }
 
 .geo-quiz-layout .study-number {
