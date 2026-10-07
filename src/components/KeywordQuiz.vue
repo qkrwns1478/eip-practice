@@ -1,4 +1,4 @@
-﻿<template>
+<template>
   <GeoQuiz ref="quiz" :key="selectedMode"
     :questions="selectedMode === 'keyword' ? keywordData : geoData"
     :storage-prefix="selectedMode === 'keyword' ? 'keywordQuiz' : 'geoQuiz'"
@@ -42,16 +42,18 @@ export default {
 
 <style scoped>
 .keyword-mode-select {
+  flex-shrink: 0;
   align-self: center;
   max-width: 130px;
-  height: 44px;
-  padding: 0 12px;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  background: var(--color-white);
-  color: var(--color-text);
+  height: 28px;
+  padding: 0 8px;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  background: #1f1f1f;
+  color: #9d9d9d;
   font: inherit;
-  font-size: 14px;
+  font-size: 13px;
+  color-scheme: dark;
   cursor: pointer;
 }
 

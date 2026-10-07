@@ -18,45 +18,56 @@
 }
 
 .icon-menu-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 101;
+  height: var(--header-height);
+  box-sizing: border-box;
   display: flex;
-  justify-content: center;
-  gap: 12px;
-  padding: 10px 20px;
-  background-color: var(--color-white);
-  border-bottom: 1px solid var(--color-border);
+  justify-content: flex-start;
+  gap: 0;
+  padding: 3px 8px;
+  background-color: #1f1f1f;
+  border-bottom: 1px solid #2b2b2b;
   flex-shrink: 0;
   min-height: 0;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
   margin: 0;
 }
 
 .icon-menu-bar button {
+  flex-shrink: 0;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  padding: 0;
+  width: auto;
+  height: 28px;
+  padding: 0 8px;
   border: 1px solid transparent;
   background-color: transparent;
-  color: var(--color-text-light);
-  border-radius: 8px;
-  transition: all 0.2s ease;
+  color: #9d9d9d;
+  border-radius: 4px;
+  transition: background-color 120ms, color 120ms;
   box-shadow: none;
 }
 
 .icon-menu-bar button:hover:not(.active) {
-  background-color: var(--color-background);
-  color: var(--color-text);
+  background-color: #2a2a2a;
+  color: #ffffff;
   transform: none;
   box-shadow: none;
   border-color: transparent;
 }
 
 .icon-menu-bar button.active {
-  background-color: var(--color-primary-light);
-  color: var(--color-primary-text);
+  background-color: transparent;
+  color: #cccccc;
   border-color: transparent;
   box-shadow: none;
 }
@@ -67,57 +78,38 @@
 }
 .icon-menu-bar button.reset-btn:hover,
 .icon-menu-bar button.reset-btn.active {
-  background-color: var(--color-danger-light);
-  color: var(--color-danger);
+  background-color: #2a2a2a;
+  color: #f48771;
   border-color: transparent;
   transform: none;
   box-shadow: none;
 }
 
-.icon-menu-bar button svg {
-  width: 20px;
-  height: 20px;
-  stroke-width: 2;
-  color: currentColor;
+.icon-menu-bar button svg,
+.icon-menu-bar button .code-menu-symbol {
+  display: none;
 }
 
 .icon-menu-bar button .tooltip-text {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  margin-top: 8px;
-  
-  background-color: var(--color-tooltip-bg);
-  color: var(--color-white-for-text);
-  padding: 5px 10px;
-  border-radius: 6px;
+  position: static;
+  transform: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  border-radius: 0;
+  font-family: 'Segoe UI', 'Noto Sans KR', sans-serif;
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 400;
   white-space: nowrap;
-  
-  visibility: hidden;
-  opacity: 0;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
-  z-index: 20;
-  pointer-events: none;
-}
-
-.icon-menu-bar button .tooltip-text::before {
-  content: "";
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent transparent var(--color-tooltip-bg) transparent;
-}
-
-.icon-menu-bar button:hover .tooltip-text {
   visibility: visible;
   opacity: 1;
 }
+
+.icon-menu-bar button .tooltip-text::before {
+  display: none;
+}
+
 
 .geo-quiz-layout .quiz-content,
 .geo-quiz-layout .bookmarks-content,

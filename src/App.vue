@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="app-shell">
     <nav class="sidebar">
       <ul>
         <li>
@@ -106,21 +106,31 @@ export default {
 </script>
 
 <style>
-#app {
+.app-shell {
+  --chrome-bg: #181818;
+  --chrome-border: #2b2b2b;
+  --chrome-text: #cccccc;
+  --chrome-muted: #9d9d9d;
+  --chrome-hover: #2a2a2a;
+  --chrome-selection: #333333;
+  --header-height: 35px;
   display: flex;
   height: 100vh;
+  height: 100dvh;
   width: 100%;
+  padding-top: var(--header-height);
+  box-sizing: border-box;
+  overflow: hidden;
   text-align: left;
 }
 
 .sidebar {
-  width: 72px;
+  width: 48px;
   flex-shrink: 0;
-  background-color: var(--color-sidebar);
-  border-right: 1px solid var(--color-border);
-  padding: 16px 0;
+  background: var(--chrome-bg);
+  border-right: 1px solid var(--chrome-border);
+  padding: 4px 0;
   box-sizing: border-box;
-  overflow: visible;
   position: relative;
   z-index: 100;
   display: flex;
@@ -130,15 +140,11 @@ export default {
 
 .sidebar ul {
   list-style: none;
-  padding: 0 12px;
+  padding: 0 6px;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-}
-
-.sidebar-bottom {
-  margin-top: auto;
+  gap: 6px;
 }
 
 .sidebar button {
@@ -146,93 +152,72 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   padding: 0;
-  font-weight: 600;
-  border: 1px solid transparent;
-  background-color: transparent;
-  color: var(--color-text-light);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  border-radius: 8px;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  color: var(--chrome-muted);
+  transition: background-color 120ms, color 120ms;
 }
 
-.sidebar button:hover:not(.active) {
-  background-color: var(--color-background);
-  color: var(--color-text);
+.sidebar button:hover {
+  background: var(--chrome-hover);
+  color: #ffffff;
   transform: none;
-  border-color: transparent;
 }
 
 .sidebar button.active {
-  background-color: var(--color-primary-light);
-  color: var(--color-primary-text);
-  border-color: transparent;
-}
-
-.sidebar button.dark-mode-toggle:hover {
-  color: var(--color-primary-text);
+  background: var(--chrome-selection);
+  color: #ffffff;
 }
 
 .sidebar button svg {
   flex-shrink: 0;
-  width: 22px;
-  height: 22px;
-  margin-right: 0;
-  stroke-width: 2;
-  color: currentColor;
+  width: 24px;
+  height: 24px;
+  stroke-width: 1.5;
 }
 
-.sidebar button .tooltip-text {
+.sidebar .tooltip-text {
   position: absolute;
   left: 100%;
   top: 50%;
   transform: translateY(-50%);
   margin-left: 12px;
-
-  background-color: var(--color-tooltip-bg);
-  color: var(--color-white-for-text);
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 500;
+  background: #252526;
+  border: 1px solid #454545;
+  color: var(--chrome-text);
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 12px;
   white-space: nowrap;
-
   visibility: hidden;
   opacity: 0;
-  transition: opacity 0.2s ease, visibility 0.2s ease;
   z-index: 10;
   pointer-events: none;
 }
 
-.sidebar button .tooltip-text::before {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: 100%;
-  margin-top: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: transparent var(--color-tooltip-bg) transparent transparent;
-}
-
-.sidebar button:hover .tooltip-text {
+.sidebar button:hover .tooltip-text,
+.sidebar button:focus-visible .tooltip-text {
   visibility: visible;
   opacity: 1;
 }
 
+.sidebar button:focus-visible {
+  outline: 1px solid #007acc;
+  outline-offset: -1px;
+}
+
 .main-content {
   flex: 1;
+  min-width: 0;
   overflow-y: auto;
-  background-color: var(--color-background);
-  /* padding: 2rem; */
+  background: var(--color-background);
   box-sizing: border-box;
   position: relative;
   z-index: 1;
 }
 
-.quiz-container {
-  margin: 0 auto;
-}
 </style>
