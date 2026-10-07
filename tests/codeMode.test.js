@@ -1,26 +1,63 @@
-import test from 'node:test';
-import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
-import { parse, compileScript } from '@vue/compiler-sfc';
-import { createSSRApp } from 'vue';
-import { renderToString } from '@vue/server-renderer';
-import { pstData, pstExams } from '../src/assets/pstData.js';
-import { codeLanguages, getCodeLanguage, getCodeQuestions } from '../src/utils/codeQuestions.js';
-import { getCodeTrace } from '../src/assets/codeTraces.js';
+import test from "node:test";
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { parse, compileScript } from "@vue/compiler-sfc";
+import { createSSRApp } from "vue";
+import { renderToString } from "@vue/server-renderer";
+import { pstData, pstExams } from "../src/assets/pstData.js";
+import {
+  codeLanguages,
+  getCodeLanguage,
+  getCodeQuestions,
+} from "../src/utils/codeQuestions.js";
+import { getCodeTrace } from "../src/assets/codeTraces.js";
 
-const source = readFileSync(new URL('../src/components/PstQuiz.vue', import.meta.url), 'utf8');
-const script = source.match(/<script>([\s\S]*?)<\/script>/)[1].replace(/^import .*;\r?$/gm, '').replace('export default', 'return');
+const source = readFileSync(
+  new URL("../src/components/PstQuiz.vue", import.meta.url),
+  "utf8",
+);
+const script = source
+  .match(/<script>([\s\S]*?)<\/script>/)[1]
+  .replace(/^import .*;\r?$/gm, "")
+  .replace("export default", "return");
 function createQuiz(storage = new Map()) {
-  const localStorage = { getItem: key => storage.get(key) ?? null, setItem: (key, value) => storage.set(key, value), removeItem: key => storage.delete(key) };
-  const options = new Function('pstData', 'pstExams', 'CodeVisualizer', 'codeLanguages', 'getCodeLanguage', 'getCodeQuestions', 'localStorage', script)(pstData, pstExams, {}, codeLanguages, getCodeLanguage, getCodeQuestions, localStorage);
-  const quiz = { ...options.data(), $refs: {}, $nextTick: callback => callback() };
-  for (const [name, method] of Object.entries(options.methods)) quiz[name] = method.bind(quiz);
-  for (const [name, getter] of Object.entries(options.computed)) Object.defineProperty(quiz, name, { get: getter.bind(quiz) });
+  const localStorage = {
+    getItem: (key) => storage.get(key) ?? null,
+    setItem: (key, value) => storage.set(key, value),
+    removeItem: (key) => storage.delete(key),
+  };
+  const options = new Function(
+    "pstData",
+    "pstExams",
+    "CodeVisualizer",
+    "codeLanguages",
+    "getCodeLanguage",
+    "getCodeQuestions",
+    "localStorage",
+    script,
+  )(
+    pstData,
+    pstExams,
+    {},
+    codeLanguages,
+    getCodeLanguage,
+    getCodeQuestions,
+    localStorage,
+  );
+  const quiz = {
+    ...options.data(),
+    $refs: {},
+    $nextTick: (callback) => callback(),
+  };
+  for (const [name, method] of Object.entries(options.methods))
+    quiz[name] = method.bind(quiz);
+  for (const [name, getter] of Object.entries(options.computed))
+    Object.defineProperty(quiz, name, { get: getter.bind(quiz) });
   quiz.mount = () => options.mounted.call(quiz);
   return quiz;
 }
-const question = id => pstData.find(q => q.id === id);
-const final = id => getCodeTrace(question(id)).steps.at(-1);
+const question = (id) => pstData.find((q) => q.id === id);
+const final = (id) => getCodeTrace(question(id)).steps.at(-1);
 function matchesPstAnswer(question, answer) {
   const quiz = createQuiz();
   quiz.currentQuestion = question;
@@ -29,66 +66,110 @@ function matchesPstAnswer(question, answer) {
   return quiz.isCorrect;
 }
 
-test('classifies source-only questions, including uppercase JAVA, syntax-only and blank exercises', () => {
-  assert.equal(getCodeLanguage(question(122)), 'Java');
-  assert.equal(getCodeLanguage(question(109)), 'C');
-  assert.equal(getCodeLanguage(question(154)), 'Python');
-  assert.equal(getCodeLanguage(question(228)), 'Java');
-  assert.equal(getCodeLanguage({ question: 'Java 설명', passageOrCode: null }), null);
-  assert.equal(getCodeLanguage({ question: 'SQL', passageOrCode: 'CREATE TABLE foo (name VARCHAR(20));' }), 'SQL');
-  assert.deepEqual(codeLanguages.map(language => getCodeQuestions(pstData, language).length), [57, 57, 24, 34]);
+test("classifies source-only questions, including uppercase JAVA, syntax-only and blank exercises", () => {
+  assert.equal(getCodeLanguage(question(122)), "Java");
+  assert.equal(getCodeLanguage(question(109)), "C");
+  assert.equal(getCodeLanguage(question(154)), "Python");
+  assert.equal(getCodeLanguage(question(228)), "Java");
+  assert.equal(
+    getCodeLanguage({ question: "Java 설명", passageOrCode: null }),
+    null,
+  );
+  assert.equal(
+    getCodeLanguage({
+      question: "SQL",
+      passageOrCode: "CREATE TABLE foo (name VARCHAR(20));",
+    }),
+    "SQL",
+  );
+  assert.deepEqual(
+    codeLanguages.map((language) => getCodeQuestions(pstData, language).length),
+    [57, 57, 24, 34],
+  );
 });
 
-test('SQL classification includes queries in options and images, and query-writing conditions', () => {
+test("SQL classification includes queries in options and images, and query-writing conditions", () => {
   for (const id of [7, 113, 116, 137, 146, 183, 272, 273, 274, 279]) {
-    assert.equal(getCodeLanguage(question(id)), 'SQL', `SQL question ${id}`);
+    assert.equal(getCodeLanguage(question(id)), "SQL", `SQL question ${id}`);
   }
-  assert.equal(getCodeLanguage({ question: 'SQL이란 무엇인가?', passageOrCode: null }), null);
+  assert.equal(
+    getCodeLanguage({ question: "SQL이란 무엇인가?", passageOrCode: null }),
+    null,
+  );
   assert.equal(getCodeLanguage(question(159)), null); // Relational algebra is not a SQL exercise.
-  assert.equal(getCodeLanguage({ question: '실행 결과', passageOrCode: 'select count(*) from employees;' }), 'SQL');
+  assert.equal(
+    getCodeLanguage({
+      question: "실행 결과",
+      passageOrCode: "select count(*) from employees;",
+    }),
+    "SQL",
+  );
 });
 
-test('reviewed 2022–2026 code questions have bounded source anchors and an initial frame without spoilers', () => {
-  const reviewedQuestions = pstExams.filter(exam => Number(exam.year) >= 2022).flatMap(exam => exam.questions);
-  for (const q of getCodeQuestions(reviewedQuestions).filter(q => getCodeLanguage(q) !== 'SQL')) {
+test("reviewed 2022–2026 code questions have bounded source anchors and an initial frame without spoilers", () => {
+  const reviewedQuestions = pstExams
+    .filter((exam) => Number(exam.year) >= 2022)
+    .flatMap((exam) => exam.questions);
+  for (const q of getCodeQuestions(reviewedQuestions).filter(
+    (q) => getCodeLanguage(q) !== "SQL",
+  )) {
     const trace = getCodeTrace(q);
     assert.ok(trace, `missing trace ${q.id}`);
-    assert.equal(trace.steps[0].output, '');
+    assert.equal(trace.steps[0].output, "");
     assert.deepEqual(trace.steps[0].variables, {});
     for (const frame of trace.steps.slice(1)) {
-      assert.ok(frame.line >= 1 && frame.line <= q.passageOrCode.split('\n').length, `invalid anchor ${q.id}: ${frame.at}`);
+      assert.ok(
+        frame.line >= 1 && frame.line <= q.passageOrCode.split("\n").length,
+        `invalid anchor ${q.id}: ${frame.at}`,
+      );
       assert.ok(frame.explanation);
     }
   }
 });
 
-test('2020–2021 exams register twenty ordered questions with unique persistent IDs', () => {
-  const addedExams = pstExams.filter(exam => Number(exam.year) <= 2021);
-  assert.deepEqual(addedExams.map(exam => exam.key), ['2020-1', '2020-2', '2020-3', '2020-4', '2021-1', '2021-2', '2021-3']);
+test("2020–2021 exams register twenty ordered questions with unique persistent IDs", () => {
+  const addedExams = pstExams.filter((exam) => Number(exam.year) <= 2021);
+  assert.deepEqual(
+    addedExams.map((exam) => exam.key),
+    ["2020-1", "2020-2", "2020-3", "2020-4", "2021-1", "2021-2", "2021-3"],
+  );
   assert.equal(pstData.length, 420);
-  assert.equal(new Set(pstData.map(q => q.id)).size, pstData.length);
+  assert.equal(new Set(pstData.map((q) => q.id)).size, pstData.length);
   const quiz = createQuiz();
   for (const exam of addedExams) {
     assert.equal(exam.questions.length, 20);
     exam.questions.forEach((q, index) => {
       assert.ok(q.question.trim());
       assert.ok(q.answer.trim());
-      assert.equal(typeof q.alt === 'undefined' || typeof q.alt === 'string', true);
-      assert.equal(quiz.getQuizInfo(q.id), `${exam.year}년 ${exam.round}회 ${index + 1}번 문제`);
+      assert.equal(
+        typeof q.alt === "undefined" || typeof q.alt === "string",
+        true,
+      );
+      assert.equal(
+        quiz.getQuizInfo(q.id),
+        `${exam.year}년 ${exam.round}회 ${index + 1}번 문제`,
+      );
       assert.ok(pstData.includes(q));
     });
     quiz.selectedExamKey = exam.key;
     quiz.startMockExamQuiz();
     assert.equal(quiz.currentQuestion.id, exam.questions[0].id);
     quiz.selectedCodeExamKey = exam.key;
-    quiz.selectedCodeLanguage = 'all';
-    assert.deepEqual(quiz.filteredCodeQuestions.map(q => q.id), getCodeQuestions(exam.questions).map(q => q.id));
+    quiz.selectedCodeLanguage = "all";
+    assert.deepEqual(
+      quiz.filteredCodeQuestions.map((q) => q.id),
+      getCodeQuestions(exam.questions).map((q) => q.id),
+    );
   }
 });
 
-test('new code and SQL answers, alternatives and set exercises can be graded', () => {
-  for (const q of pstData.filter(q => q.id > 280)) {
-    for (const answer of [q.answer, ...(q.alts || []), ...(q.alt ? [q.alt] : [])]) {
+test("new code and SQL answers, alternatives and set exercises can be graded", () => {
+  for (const q of pstData.filter((q) => q.id > 280)) {
+    for (const answer of [
+      q.answer,
+      ...(q.alts || []),
+      ...(q.alt ? [q.alt] : []),
+    ]) {
       const quiz = createQuiz();
       quiz.currentQuestion = q;
       quiz.userAnswer = answer;
@@ -98,63 +179,145 @@ test('new code and SQL answers, alternatives and set exercises can be graded', (
   }
 });
 
-test('former descriptive exercises ask for terms and accept reviewed aliases', () => {
-  const converted = new Map([[303, 'Atomicity'], [323, 'GRANT'], [341, '살충제 역설'], [342, 'Data Mining'], [357, '비정규화'], [367, '롤백'], [374, 'SQL 삽입 공격'], [381, '리팩터링'], [384, 'Configuration Control'], [391, 'Hungarian Notation'], [394, 'DB 스키마'], [396, '직관성'], [399, 'Constructor'], [407, '패킷 스니핑'], [420, 'Availability']]);
+test("former descriptive exercises ask for terms and accept reviewed aliases", () => {
+  const converted = new Map([
+    [303, "Atomicity"],
+    [323, "GRANT"],
+    [341, "살충제 역설"],
+    [342, "Data Mining"],
+    [357, "비정규화"],
+    [367, "롤백"],
+    [374, "SQL 삽입 공격"],
+    [381, "리팩터링"],
+    [384, "Configuration Control"],
+    [391, "Hungarian Notation"],
+    [394, "DB 스키마"],
+    [396, "직관성"],
+    [399, "Constructor"],
+    [407, "패킷 스니핑"],
+    [420, "Availability"],
+  ]);
   for (const [id, alias] of converted) {
-    assert.doesNotMatch(question(id).question, /설명하시오|서술하시오|약술하시오/);
-    assert.equal(matchesPstAnswer(question(id), alias), true, `${id}: ${alias}`);
-    assert.equal(matchesPstAnswer(question(id), '모르겠음'), false);
+    assert.doesNotMatch(
+      question(id).question,
+      /설명하시오|서술하시오|약술하시오/,
+    );
+    assert.equal(
+      matchesPstAnswer(question(id), alias),
+      true,
+      `${id}: ${alias}`,
+    );
+    assert.equal(matchesPstAnswer(question(id), "모르겠음"), false);
   }
-  assert.equal(matchesPstAnswer(question(356), '20개월'), true);
-  assert.equal(matchesPstAnswer(question(281), 'Reverse Address Resolution Protocol'), true);
-  assert.equal(matchesPstAnswer(question(408), 'Network Address Translation'), true);
-  assert.equal(matchesPstAnswer(question(408), 'Network Address Transformation'), false);
+  assert.equal(matchesPstAnswer(question(356), "20개월"), true);
+  assert.equal(
+    matchesPstAnswer(question(281), "Reverse Address Resolution Protocol"),
+    true,
+  );
+  assert.equal(
+    matchesPstAnswer(question(408), "Network Address Translation"),
+    true,
+  );
+  assert.equal(
+    matchesPstAnswer(question(408), "Network Address Transformation"),
+    false,
+  );
 });
 
-test('multi-part exercises accept declared space-delimited alternatives', () => {
-  for (const [id, input] of [[282, 'Physical Design Conceptual Design Logical Design'], [289, '경곗값 분석 동등분할 테스트'], [309, 'Statement Coverage Branch Coverage Condition Coverage'], [326, '데이터링크 계층 네트워크 계층 표현 계층'], [328, '테스트 조건 테스트 데이터 기대 결과'], [405, 'n>=1 n&1']]) {
+test("multi-part exercises accept declared space-delimited alternatives", () => {
+  for (const [id, input] of [
+    [282, "Physical Design Conceptual Design Logical Design"],
+    [289, "경곗값 분석 동등분할 테스트"],
+    [309, "Statement Coverage Branch Coverage Condition Coverage"],
+    [326, "데이터링크 계층 네트워크 계층 표현 계층"],
+    [328, "테스트 조건 테스트 데이터 기대 결과"],
+    [405, "n>=1 n&1"],
+  ]) {
     const quiz = createQuiz();
     quiz.currentQuestion = question(id);
     quiz.userAnswer = input;
     quiz.checkAnswer();
     assert.equal(quiz.isCorrect, true, `${id}: ${input}`);
   }
-  assert.equal(matchesPstAnswer(question(282), '개념적 설계 물리적 설계 논리적 설계'), false);
-  assert.equal(matchesPstAnswer(question(322), 'Authentication Accounting Authorization'), false);
-  assert.equal(matchesPstAnswer(question(326), '데이터링크 네트워크'), false);
-  assert.equal(matchesPstAnswer(question(405), 'n<0 n%2'), false);
-  assert.equal(matchesPstAnswer(question(405), 'n>0 n/2'), false);
+  assert.equal(
+    matchesPstAnswer(question(282), "개념적 설계 물리적 설계 논리적 설계"),
+    false,
+  );
+  assert.equal(
+    matchesPstAnswer(question(322), "Authentication Accounting Authorization"),
+    false,
+  );
+  assert.equal(matchesPstAnswer(question(326), "데이터링크 네트워크"), false);
+  assert.equal(matchesPstAnswer(question(405), "n<0 n%2"), false);
+  assert.equal(matchesPstAnswer(question(405), "n>0 n/2"), false);
 });
 
-test('declared alternative orders use spaces and Python set elements use the requested sorted order', () => {
-  for (const [id, input] of [[343, '타이밍 구문 의미'], [348, '격리성 원자성'], [360, 'H F'], [362, '베트남 중국 태국 한국 홍콩'], [398, '허브 앤 스포크 포인트 투 포인트'], [412, '갱신 이상 삽입 이상 삭제 이상']]) {
-    assert.equal(matchesPstAnswer(question(id), input), true, `${id}: ${input}`);
+test("declared alternative orders use spaces and Python set elements use the requested sorted order", () => {
+  for (const [id, input] of [
+    [343, "타이밍 구문 의미"],
+    [348, "격리성 원자성"],
+    [360, "H F"],
+    [362, "베트남 중국 태국 한국 홍콩"],
+    [398, "허브 앤 스포크 포인트 투 포인트"],
+    [412, "갱신 이상 삽입 이상 삭제 이상"],
+  ]) {
+    assert.equal(
+      matchesPstAnswer(question(id), input),
+      true,
+      `${id}: ${input}`,
+    );
   }
-  for (const input of ['삽입 삭제', '삽입 삭제 삭제', '삽입 삭제 갱신 갱신', '삽입 삭제 갱신 기타']) {
+  for (const input of [
+    "삽입 삭제",
+    "삽입 삭제 삭제",
+    "삽입 삭제 갱신 갱신",
+    "삽입 삭제 갱신 기타",
+  ]) {
     assert.equal(matchesPstAnswer(question(412), input), false, input);
   }
-  assert.equal(matchesPstAnswer(question(362), "{'홍콩','한국','태국','중국','일본'}"), false);
-  assert.equal(matchesPstAnswer(question(362), ''), false);
+  assert.equal(
+    matchesPstAnswer(question(362), "{'홍콩','한국','태국','중국','일본'}"),
+    false,
+  );
+  assert.equal(matchesPstAnswer(question(362), ""), false);
 });
 
-test('legacy alt and alts still grade and code punctuation and output lines remain significant', () => {
-  assert.equal(matchesPstAnswer({answer:'정답', alt:'동의어', alts:['별칭']}, '동의어'), true);
-  assert.equal(matchesPstAnswer({answer:'정답', alt:'동의어', alts:['별칭']}, '별칭'), true);
-  assert.equal(matchesPstAnswer({answer:'정답'}, ''), false);
-  assert.equal(matchesPstAnswer(question(287), '3 1 45 50 89'), false);
-  assert.equal(matchesPstAnswer(question(287), '3\n1\n45\n50\n89'), true);
-  assert.equal(matchesPstAnswer(question(354), '8'), false);
-  assert.equal(matchesPstAnswer(question(389), "DELETE FROM 학생 WHERE 이름 = '민수'"), true);
-  assert.equal(matchesPstAnswer(question(389), "DELETE FROM 학생 WHERE 이름 = '영수'"), false);
+test("legacy alt and alts still grade and code punctuation and output lines remain significant", () => {
+  assert.equal(
+    matchesPstAnswer(
+      { answer: "정답", alt: "동의어", alts: ["별칭"] },
+      "동의어",
+    ),
+    true,
+  );
+  assert.equal(
+    matchesPstAnswer({ answer: "정답", alt: "동의어", alts: ["별칭"] }, "별칭"),
+    true,
+  );
+  assert.equal(matchesPstAnswer({ answer: "정답" }, ""), false);
+  assert.equal(matchesPstAnswer(question(287), "3 1 45 50 89"), false);
+  assert.equal(matchesPstAnswer(question(287), "3\n1\n45\n50\n89"), true);
+  assert.equal(matchesPstAnswer(question(354), "8"), false);
+  assert.equal(
+    matchesPstAnswer(question(389), "DELETE FROM 학생 WHERE 이름 = '민수'"),
+    true,
+  );
+  assert.equal(
+    matchesPstAnswer(question(389), "DELETE FROM 학생 WHERE 이름 = '영수'"),
+    false,
+  );
 });
 
-test('SQL sessions filter by exam, grade and restore questions without inline source', () => {
+test("SQL sessions filter by exam, grade and restore questions without inline source", () => {
   const storage = new Map();
   const quiz = createQuiz(storage);
-  quiz.selectedCodeLanguage = 'SQL';
-  quiz.selectedCodeExamKey = '2026-2';
-  quiz.codeQuestionOrder = 'ordered';
-  assert.deepEqual(quiz.filteredCodeQuestions.map(q => q.id), [272, 273, 274, 279]);
+  quiz.selectedCodeLanguage = "SQL";
+  quiz.selectedCodeExamKey = "2026-2";
+  quiz.codeQuestionOrder = "ordered";
+  assert.deepEqual(
+    quiz.filteredCodeQuestions.map((q) => q.id),
+    [272, 273, 274, 279],
+  );
   quiz.startCodeQuiz();
   assert.equal(quiz.currentQuestion.passageOrCode, null);
   assert.match(quiz.questionTitle, /SQL 코드 문제/);
@@ -164,26 +327,35 @@ test('SQL sessions filter by exam, grade and restore questions without inline so
   assert.equal(quiz.correctCount, 1);
   const restored = createQuiz(storage);
   restored.loadProgress();
-  assert.equal(restored.selectedCodeLanguage, 'SQL');
+  assert.equal(restored.selectedCodeLanguage, "SQL");
   assert.equal(restored.currentQuestion.id, 272);
   assert.equal(restored.answered, true);
   restored.nextQuestion();
   assert.equal(restored.currentQuestion.id, 273);
 });
 
-test('teaching traces calculate memory updates, recursion and overloads', () => {
-  assert.deepEqual(final(11).variables.arr, [[9, 5, 2], [7, 4, 1], [8, 3, 6]]);
-  assert.equal(final(11).output, '13');
+test("teaching traces calculate memory updates, recursion and overloads", () => {
+  assert.deepEqual(final(11).variables.arr, [
+    [9, 5, 2],
+    [7, 4, 1],
+    [8, 3, 6],
+  ]);
+  assert.equal(final(11).output, "13");
   assert.deepEqual(final(96).variables.arr, [3, 2, 1, 4, 4]);
-  assert.deepEqual(final(254).variables.m, [[1], [2, 1], [3, 2, 1], [4, 3, 2, 1]]);
+  assert.deepEqual(final(254).variables.m, [
+    [1],
+    [2, 1],
+    [3, 2, 1],
+    [4, 3, 2, 1],
+  ]);
   assert.equal(final(13).variables.total, 54);
-  assert.equal(final(148).output, '5040');
-  assert.equal(final(151).output, '2');
-  assert.equal(final(278).output, '1');
-  assert.equal(final(247).output, '2');
-  assert.equal(final(193).output, 'REMEMBER AND STR');
-  assert.equal(final(252).output, '20');
-  assert.equal(final(197).output, '61');
+  assert.equal(final(148).output, "5040");
+  assert.equal(final(151).output, "2");
+  assert.equal(final(278).output, "1");
+  assert.equal(final(247).output, "2");
+  assert.equal(final(193).output, "REMEMBER AND STR");
+  assert.equal(final(252).output, "20");
+  assert.equal(final(197).output, "61");
   assert.match(getCodeTrace(question(197)).note, /56/);
   const trace = getCodeTrace(question(13));
   const original = trace.steps[1].variables.total;
@@ -191,17 +363,20 @@ test('teaching traces calculate memory updates, recursion and overloads', () => 
   assert.equal(getCodeTrace(question(13)).steps[1].variables.total, original);
 });
 
-test('language and exam filtering creates an ordered, isolated code session', () => {
+test("language and exam filtering creates an ordered, isolated code session", () => {
   const quiz = createQuiz();
-  quiz.selectedCodeLanguage = 'Python';
-  quiz.selectedCodeExamKey = '2025-1';
-  quiz.codeQuestionOrder = 'ordered';
-  assert.deepEqual(quiz.filteredCodeQuestions.map(q => q.id), [17]);
+  quiz.selectedCodeLanguage = "Python";
+  quiz.selectedCodeExamKey = "2025-1";
+  quiz.codeQuestionOrder = "ordered";
+  assert.deepEqual(
+    quiz.filteredCodeQuestions.map((q) => q.id),
+    [17],
+  );
   quiz.startCodeQuiz();
-  assert.equal(quiz.playMode, 'code');
+  assert.equal(quiz.playMode, "code");
   assert.equal(quiz.currentQuestion.id, 17);
   assert.deepEqual(quiz.usedQuestions, []);
-  quiz.userAnswer = '13';
+  quiz.userAnswer = "13";
   quiz.checkAnswer();
   quiz.checkAnswer();
   assert.equal(quiz.totalCount, 1);
@@ -210,105 +385,153 @@ test('language and exam filtering creates an ordered, isolated code session', ()
   quiz.toggleBookmark();
   assert.deepEqual(quiz.bookmarkedQuestions, [17]);
   quiz.nextQuestion();
-  assert.equal(quiz.showMode, 'codePicker');
+  assert.equal(quiz.showMode, "codePicker");
   assert.equal(quiz.currentQuestion, null);
 });
 
-test('random order contains every selected question once; skip resets answer without recording a solve', () => {
+test("random order contains every selected question once; skip resets answer without recording a solve", () => {
   const quiz = createQuiz();
-  quiz.selectedCodeLanguage = 'all';
-  quiz.selectedCodeExamKey = '2025-1';
-  const ids = quiz.filteredCodeQuestions.map(q => q.id);
+  quiz.selectedCodeLanguage = "all";
+  quiz.selectedCodeExamKey = "2025-1";
+  const ids = quiz.filteredCodeQuestions.map((q) => q.id);
   quiz.startCodeQuiz();
-  assert.deepEqual([...quiz.codeSessionIds].sort((a, b) => a - b), [...ids].sort((a, b) => a - b));
-  quiz.userAnswer = 'unfinished';
+  assert.deepEqual(
+    [...quiz.codeSessionIds].sort((a, b) => a - b),
+    [...ids].sort((a, b) => a - b),
+  );
+  quiz.userAnswer = "unfinished";
   quiz.skipQuestion();
   assert.equal(quiz.currentQuestion.id, quiz.codeSessionIds[1]);
-  assert.equal(quiz.userAnswer, '');
+  assert.equal(quiz.userAnswer, "");
   assert.equal(quiz.totalCount, 0);
   assert.equal(quiz.answered, false);
   assert.equal(quiz.currentQuestionIndex, 1);
 });
 
-test('loading restores code queue and grading; entering past exams opens the random quiz', () => {
+test("loading restores code queue and grading; entering past exams opens the random quiz", () => {
   const storage = new Map();
   const quiz = createQuiz(storage);
   quiz.startCodeQuiz();
   quiz.skipQuestion();
-  quiz.userAnswer = 'wrong answer';
+  quiz.userAnswer = "wrong answer";
   quiz.checkAnswer();
   const restored = createQuiz(storage);
   restored.loadProgress();
-  assert.equal(restored.playMode, 'code');
+  assert.equal(restored.playMode, "code");
   assert.equal(restored.currentQuestion.id, quiz.currentQuestion.id);
   assert.equal(restored.currentQuestionIndex, 1);
   assert.deepEqual(restored.codeSessionIds, quiz.codeSessionIds);
   assert.equal(restored.answered, true);
-  assert.equal(restored.userAnswer, 'wrong answer');
+  assert.equal(restored.userAnswer, "wrong answer");
   assert.ok(restored.wrongQuestions.includes(quiz.currentQuestion.id));
   restored.mount();
-  assert.equal(restored.playMode, 'random');
-  assert.equal(restored.showMode, 'quiz');
+  assert.equal(restored.playMode, "random");
+  assert.equal(restored.showMode, "quiz");
   assert.equal(restored.answered, false);
-  assert.equal(restored.userAnswer, '');
+  assert.equal(restored.userAnswer, "");
   assert.equal(restored.totalCount, quiz.totalCount);
   assert.deepEqual(restored.codeSessionIds, quiz.codeSessionIds);
   assert.ok(restored.usedQuestions.includes(restored.currentQuestion.id));
 });
 
-test('completed and invalid saved code sessions open the random quiz; legacy saves still restore', () => {
+test("completed and invalid saved code sessions open the random quiz; legacy saves still restore", () => {
   const storage = new Map();
   const quiz = createQuiz(storage);
-  quiz.selectedCodeLanguage = 'Python';
-  quiz.selectedCodeExamKey = '2025-1';
+  quiz.selectedCodeLanguage = "Python";
+  quiz.selectedCodeExamKey = "2025-1";
   quiz.startCodeQuiz();
   quiz.nextQuestion();
   const restored = createQuiz(storage);
   restored.mount();
-  assert.equal(restored.showMode, 'quiz');
-  assert.equal(restored.playMode, 'random');
+  assert.equal(restored.showMode, "quiz");
+  assert.equal(restored.playMode, "random");
   assert.ok(restored.currentQuestion);
-  storage.set('pstQuiz_progress', JSON.stringify({ playMode: 'code', codeSessionIds: [999999], currentQuestion: question(5) }));
+  storage.set(
+    "pstQuiz_progress",
+    JSON.stringify({
+      playMode: "code",
+      codeSessionIds: [999999],
+      currentQuestion: question(5),
+    }),
+  );
   const invalid = createQuiz(storage);
   invalid.mount();
-  assert.equal(invalid.showMode, 'quiz');
-  assert.equal(invalid.playMode, 'random');
+  assert.equal(invalid.showMode, "quiz");
+  assert.equal(invalid.playMode, "random");
   assert.ok(invalid.currentQuestion);
-  storage.set('pstQuiz_progress', JSON.stringify({ currentQuestion: question(5), correctCount: 3 }));
+  storage.set(
+    "pstQuiz_progress",
+    JSON.stringify({ currentQuestion: question(5), correctCount: 3 }),
+  );
   const legacy = createQuiz(storage);
   legacy.mount();
-  assert.equal(legacy.playMode, 'random');
+  assert.equal(legacy.playMode, "random");
   assert.equal(legacy.currentQuestion.id, 5);
   assert.equal(legacy.correctCount, 3);
 });
 
-test('exam and review practice continue to use the existing grading flow', () => {
+test("exam and review practice continue to use the existing grading flow", () => {
   const quiz = createQuiz();
-  quiz.selectedExamKey = '2025-1';
+  quiz.selectedExamKey = "2025-1";
   quiz.startMockExamQuiz();
-  assert.equal(quiz.playMode, 'mockExam');
-  assert.equal(quiz.currentQuestion.id, pstExams.find(e => e.key === '2025-1').questions[0].id);
+  assert.equal(quiz.playMode, "mockExam");
+  assert.equal(
+    quiz.currentQuestion.id,
+    pstExams.find((e) => e.key === "2025-1").questions[0].id,
+  );
   quiz.nextQuestion();
   assert.equal(quiz.currentQuestionIndex, 1);
   quiz.startBookmarkedQuestion(17);
-  assert.equal(quiz.playMode, 'review');
+  assert.equal(quiz.playMode, "review");
   assert.equal(quiz.currentQuestion.id, 17);
 });
 
-test('visualizer renders numbered code with hidden output before reveal, and trace controls after grading', async () => {
-  const filename = new URL('../src/components/CodeVisualizer.vue', import.meta.url);
-  const { descriptor } = parse(readFileSync(filename, 'utf8'), { filename: filename.pathname });
-  let content = compileScript(descriptor, { id: 'visualizer-test', inlineTemplate: true }).content;
-  content = content.replaceAll('from "vue"', `from ${JSON.stringify(import.meta.resolve('vue'))}`)
-    .replaceAll("from 'vue'", `from ${JSON.stringify(import.meta.resolve('vue'))}`)
-    .replace("from '../assets/codeTraces.js'", `from ${JSON.stringify(new URL('../src/assets/codeTraces.js', import.meta.url).href)}`);
-  const { default: Visualizer } = await import(`data:text/javascript,${encodeURIComponent(content)}`);
-  const hidden = await renderToString(createSSRApp(Visualizer, { question: question(13), language: 'Java', answered: false }));
+test("visualizer renders numbered code with hidden output before reveal, and trace controls after grading", async () => {
+  const filename = new URL(
+    "../src/components/CodeVisualizer.vue",
+    import.meta.url,
+  );
+  const { descriptor } = parse(readFileSync(filename, "utf8"), {
+    filename: filename.pathname,
+  });
+  let content = compileScript(descriptor, {
+    id: "visualizer-test",
+    inlineTemplate: true,
+  }).content;
+  content = content
+    .replaceAll(
+      'from "vue"',
+      `from ${JSON.stringify(import.meta.resolve("vue"))}`,
+    )
+    .replaceAll(
+      "from 'vue'",
+      `from ${JSON.stringify(import.meta.resolve("vue"))}`,
+    )
+    .replace(
+      "from '../assets/codeTraces.js'",
+      `from ${JSON.stringify(new URL("../src/assets/codeTraces.js", import.meta.url).href)}`,
+    );
+  const { default: Visualizer } = await import(
+    `data:text/javascript,${encodeURIComponent(content)}`
+  );
+  const hidden = await renderToString(
+    createSSRApp(Visualizer, {
+      question: question(13),
+      language: "Java",
+      answered: false,
+    }),
+  );
   assert.match(hidden, /trace-source/);
   assert.match(hidden, /line-number/);
   assert.match(hidden, /실행 해설 보기/);
   assert.doesNotMatch(hidden, /trace-output/);
-  const revealed = await renderToString(createSSRApp(Visualizer, { question: question(13), language: 'Java', answered: true }));
+  const revealed = await renderToString(
+    createSSRApp(Visualizer, {
+      question: question(13),
+      language: "Java",
+      answered: true,
+    }),
+  );
   assert.match(revealed, /기출 코드 해설 시뮬레이션/);
   assert.match(revealed, /자동 재생/);
   assert.match(revealed, /실행 단계 선택/);
