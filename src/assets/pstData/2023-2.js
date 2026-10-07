@@ -206,7 +206,7 @@ int main(int argc, char const *argv[]){
     question: "데이터베이스 설계 순서에 관한 내용이다. 보기를 이용하여 괄호안에 알맞은 내용을 작성하시오. ",
     passageOrCode: null,
     options: ["구현", "요구조건 분석", "개념적 설계", "물리적 설계", "논리적 설계"],
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FIiEWY%2FbtsC4tQ9MMP%2FAAAAAAAAAAAAAAAAAAAAAO23cQIkL-Fx7knyFogaMP7YJ-Srme1lV66jaMcWyWAp%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DjSaRAMv8V5ksEyes7Il7gY4b6Ag%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/IiEWY/btsC4tQ9MMP/AAAAAAAAAAAAAAAAAAAAAO23cQIkL-Fx7knyFogaMP7YJ-Srme1lV66jaMcWyWAp/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=qnfehbwPG%2Fyaki2LGHXUF27TB%2Fw%3D"
   },
   {
     id: 131,

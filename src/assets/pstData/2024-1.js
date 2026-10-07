@@ -120,7 +120,7 @@ int main(int argc, char* argv[]){
 3) 129.200.10.16/22
 6) 192.168.36.24/24`,
     options: ["192.168.35.0", "192.168.35.72", "192.168.36.0", "192.168.36.249", "129.200.8.0", "129.200.8.249"],
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbHTbEI%2FbtsHqLsBYPd%2FAAAAAAAAAAAAAAAAAAAAAIMm2bQrfA7pDuPPzWrNJY_wzyMU_mYXW-zf3w4iVs4z%2Fimg.jpg%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DQBJf605nUtWkh2DMnqCeLdJoabA%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/bHTbEI/btsHqLsBYPd/AAAAAAAAAAAAAAAAAAAAAIMm2bQrfA7pDuPPzWrNJY_wzyMU_mYXW-zf3w4iVs4z/img.jpg?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=tOfy1Rxm0UBE%2Fc%2BHlrN5supoTmA%3D"
   },
   {
     id: 46,
@@ -278,7 +278,7 @@ FROM
 WHERE
     C IN (SELECT C FROM R2 WHERE D="k");`,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FcdGyt7%2FbtsHrT44l4V%2FAAAAAAAAAAAAAAAAAAAAAJ7pvKDZrvZliNMonxEJjJWyOPXgzfu0vTF8HJGlC8Gr%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3Dnj%252FYivkgF59p2suO%252FlK42ncESyE%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/cdGyt7/btsHrT44l4V/AAAAAAAAAAAAAAAAAAAAAJ7pvKDZrvZliNMonxEJjJWyOPXgzfu0vTF8HJGlC8Gr/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=SmkWLqUPI67KVg0JqLvg27XVgnE%3D"
   },
   {
     id: 54,
@@ -365,7 +365,7 @@ WHERE
 AND 
     SAL >= 3000 OR EMPNO = 200`,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FdR34LK%2FbtsHqjES9Ot%2FAAAAAAAAAAAAAAAAAAAAAF89NFObm5YWW0w5qpXaAW3PMG8OFFO8H7eBSDJRlOnx%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DidUwKZefuE84AzTA7TFyBBcSP14%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/dR34LK/btsHqjES9Ot/AAAAAAAAAAAAAAAAAAAAAF89NFObm5YWW0w5qpXaAW3PMG8OFFO8H7eBSDJRlOnx/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=dhaq7qNe5WD82z8%2FlxLQ3P5Z7wo%3D"
   },
   {
     id: 59,

@@ -63,7 +63,7 @@ int main() {
     question: "데이터베이스(DB) 설계 절차를 순서대로 나타낸 것이다. 각 빈칸에 들어갈 알맞은 용어를 쓰시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fbz3PSN%2FdJMcabDWLOf%2FAAAAAAAAAAAAAAAAAAAAAMfACIdyKtB0JQwv0XStEBX054bg-hZUA0mhRO0T_ssC%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1790780399%26allow_ip%3D%26allow_referer%3D%26signature%3Dj3tAOrf22JLF8skKjQcyqYqOzFI%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/bz3PSN/dJMcabDWLOf/AAAAAAAAAAAAAAAAAAAAAMfACIdyKtB0JQwv0XStEBX054bg-hZUA0mhRO0T_ssC/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=Kc1bfYFSCtpVBTrJKZLL6HjP4Ec%3D"
   },
   {
     id: 244,
@@ -312,7 +312,7 @@ WHERE d.budget > (
     SELECT AVG(budget) FROM dept
 );`,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbcwdlQ%2FdJMcaduV5BY%2FAAAAAAAAAAAAAAAAAAAAACLQegXzkNQDpKJQCJYGDtH8WcNVf4O8rjbmiTqOe0FD%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1790780399%26allow_ip%3D%26allow_referer%3D%26signature%3D%252F6rKA9HdMsbvIHIKXN17OCYbaQY%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/bcwdlQ/dJMcaduV5BY/AAAAAAAAAAAAAAAAAAAAACLQegXzkNQDpKJQCJYGDtH8WcNVf4O8rjbmiTqOe0FD/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=i2N52BV7YzivGJ6KApKO4sRBHUU%3D"
   },
   {
     id: 259,

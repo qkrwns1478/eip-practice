@@ -299,7 +299,7 @@ export default {
       if (this.playMode !== 'mockExam') return `문제 ${this.currentQuestionIndex + 1}`;
       const exam = this.pstExams.find(item => item.key === this.selectedExamKey);
       const examLabel = exam ? `${exam.year}년 ${exam.round}회` : '기출문제';
-      return `${examLabel} ${this.currentQuestionIndex + 1}번 / ${this.mockExamQuestions.length}번`;
+      return `${examLabel} (${this.currentQuestionIndex + 1} / ${this.mockExamQuestions.length})`;
     },
     lastSessionDate() {
       const saved = localStorage.getItem('pstQuiz_lastSession');

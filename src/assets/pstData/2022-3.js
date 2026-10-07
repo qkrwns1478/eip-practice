@@ -35,7 +35,7 @@ int calculate(w, h, j, i) {
     return 0;
 }`,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FcCbUxZ%2FbtsC34D6MjF%2FAAAAAAAAAAAAAAAAAAAAAN7qlVhxL0nqGPbxmxuYzdCQqGFVUJi3FfPHHkScqCtR%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3D1EVUZ0RQVWZ8YAm0AUpliTFgAps%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/cCbUxZ/btsC34D6MjF/AAAAAAAAAAAAAAAAAAAAAN7qlVhxL0nqGPbxmxuYzdCQqGFVUJi3FfPHHkScqCtR/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=SLUrUzFO%2FJdZr%2FSJM9yi1dWtebg%3D"
   },
   {
     id: 202,
@@ -100,7 +100,7 @@ int calculate(w, h, j, i) {
     passageOrCode: null,
     options: ["ㄱ. Equivalence Partition", "ㄴ. Boundary Value Analysis", "ㄷ. Condition Test", "ㄹ. Cause-Effect Graph",
       "ㅁ. Error Guess Comparison Test", "ㅂ. Base Path Test", "ㅅ. Loop Test", "ㅇ. Data Flow Test"],
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fb68pHw%2Fbtsltj6knGl%2FAAAAAAAAAAAAAAAAAAAAANIFUQxjU-VWWmDLwydmZiSHb8PXSOKJrnBtOxTwNSnl%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DrcsYxHFNHtq98CoT8DDe64EgnwM%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/cqQGyy/btsCZgMmZH6/AAAAAAAAAAAAAAAAAAAAAJpxkYDyTwSJZWp3PJ1nhcodZkfZPJ2wgmtApb1o0Ohu/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=a6GgtKB6VqTf0Z%2BmYMTWFUhBTro%3D"
   },
   {
     id: 207,
@@ -108,7 +108,7 @@ int calculate(w, h, j, i) {
     question: "아래 데이터 명령어를 적용할 경우 알맞는 출력값을 작성하시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FH8BvW%2FbtsCX4kLwNa%2FAAAAAAAAAAAAAAAAAAAAAE1yuWHODH-48-95pyCaufeZeUiGHPPZ5mZ9B1sciVLd%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DpB4gDbqIqbmvvulVyIhBLPELOAc%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/H8BvW/btsCX4kLwNa/AAAAAAAAAAAAAAAAAAAAAE1yuWHODH-48-95pyCaufeZeUiGHPPZ5mZ9B1sciVLd/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=0hHfd9i8cFQX1UhEQCuHJUp%2F3ZI%3D"
   },
   {
     id: 208,
@@ -234,7 +234,7 @@ printf("%d", el);`,
     question: "다음은 E-R다이어그램에 관한 설명이다. 괄호 안에 알맞는 답을 작성하시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FeiLWsb%2FbtslErbJVEX%2FAAAAAAAAAAAAAAAAAAAAAFngEXTHjtHZkiGo_oUbhdJmW_5vKTO0qrOe1fyvzpnT%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3D9TBFWWQtC9Ivz4VH0Gpwtq%252BH6R4%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/tLYA3/btsC4KeezeX/AAAAAAAAAAAAAAAAAAAAAG7YB91wu6Cls8kiwkbB6Ni5df0SysazYiNsMSZ9c0p6/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=F%2BgDMsIfPA5rvGTPhb7pddkdmE8%3D"
   },
   {
     id: 219,

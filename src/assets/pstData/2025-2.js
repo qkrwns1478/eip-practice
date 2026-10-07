@@ -160,7 +160,7 @@ Telnet의 보안 취약점을 보완한 대안으로 널리 사용된다.`,
     question: "다음 아래 제어 흐름 그래프가 분기 커버리지를 만족하기 위한 테스팅 순서를 쓰시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FontAh%2FbtsPr5j39Go%2FAAAAAAAAAAAAAAAAAAAAAF7OOTxRSmoqRdz_y53RaHGui4wnxMDfWWDkzR0IAnjI%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DnEaCAM75%252Bk1Nj35vNv9Mp6zNg8w%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/ontAh/btsPr5j39Go/AAAAAAAAAAAAAAAAAAAAAF7OOTxRSmoqRdz_y53RaHGui4wnxMDfWWDkzR0IAnjI/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=Id%2FxlH2bQg3mYGV7esS%2BWViijZY%3D"
   },
   {
     id: 32,
@@ -357,6 +357,6 @@ int main() {
     question: "다음 테이블에서 πTTL(employee)에 대한 연산 결과 값을 작성하시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FyRw19%2FbtsPrsmwocC%2FAAAAAAAAAAAAAAAAAAAAAGj9fscjC-kGGNZajz0zMo_o1cfYQ2xxHnU3YH5rGA9p%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3D41z1rIoDcKXx8TE%252FDOMS%252BzbbKeE%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/yRw19/btsPrsmwocC/AAAAAAAAAAAAAAAAAAAAAGj9fscjC-kGGNZajz0zMo_o1cfYQ2xxHnU3YH5rGA9p/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=sREpyu5URXWDeiexFM9xKLu8VqA%3D"
   },
 ];

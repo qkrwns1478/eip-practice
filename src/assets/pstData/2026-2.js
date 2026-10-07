@@ -13,7 +13,7 @@ export const pstData_2026_2 = [
       "ㄷ. 결정테이블 테스트 (Decision Table Testing)",
       "ㄹ. 상태전이 테스트 (State Transition Testing)",
     ],
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fcs8zYV%2FdJMcag7j8qX%2FAAAAAAAAAAAAAAAAAAAAAM1CaaVDMUc3j9v1W9_UIS5HyLYdBwSPYCSTOevXvrmT%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1790780399%26allow_ip%3D%26allow_referer%3D%26signature%3DzHtIX6FScl3llCWkyvWr8pg7pQ4%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/cs8zYV/dJMcag7j8qX/AAAAAAAAAAAAAAAAAAAAAM1CaaVDMUc3j9v1W9_UIS5HyLYdBwSPYCSTOevXvrmT/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=b12Aaeub1iUd0UF1bZVEyA2T0nU%3D"
   },
   {
     id: 262,
@@ -162,7 +162,7 @@ int main() {
     question: "다음 프로세스들을 SRT(Shortest Remaining Time) 스케줄링 기법으로 처리할 때, 평균 대기시간을 구하시오. (단위: ms)",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fbg1SJ4%2FdJMcabZlvUE%2FAAAAAAAAAAAAAAAAAAAAAMOykm5WvUEmLnQnGZkjPwZWIQDzJ1id3L6tIA4EvfCz%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1790780399%26allow_ip%3D%26allow_referer%3D%26signature%3DGIt%252Fu2WeoQajVzVXEfCh2WKSCf0%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/bg1SJ4/dJMcabZlvUE/AAAAAAAAAAAAAAAAAAAAAMOykm5WvUEmLnQnGZkjPwZWIQDzJ1id3L6tIA4EvfCz/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=6H9fQludOAJD3rdMZBD6ELQYotY%3D"
   },
   {
     id: 269,
@@ -204,7 +204,7 @@ int main() {
     question: "다음은 네트워크 A, B, C에 속한 호스트의 IP 주소 목록이다. 괄호 안에 들어갈 수 있는 IP 주소를 각각 하나씩 쓰시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FcBrkGy%2FdJMcabZlxM4%2FAAAAAAAAAAAAAAAAAAAAAK25-IeVuinOb3t586IVwhdnyju1Rx1u0i649P00UC17%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1790780399%26allow_ip%3D%26allow_referer%3D%26signature%3D5isveSOxZ%252Fpwz0CAZudsH1Efvz8%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/cBrkGy/dJMcabZlxM4/AAAAAAAAAAAAAAAAAAAAAK25-IeVuinOb3t586IVwhdnyju1Rx1u0i649P00UC17/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=Q8jfXXt%2FJUOXueHT%2F84LQekFgu4%3D"
   },
   {
     id: 271,
@@ -222,7 +222,7 @@ int main() {
     question: "다음 <학생> 테이블에서 성이 '이'씨인 학생의 정보를 조회하되, 학번을 기준으로 내림차순 정렬하여 출력하고자 한다. SQL문의 괄호 안에 들어갈 알맞은 내용을 각각 쓰시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FcFBUQ1%2FdJMcahSFE1V%2FAAAAAAAAAAAAAAAAAAAAAITWrNrt-YgbCprVUhfw4gZL2o3iiY3752R-XD5nPxD0%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1790780399%26allow_ip%3D%26allow_referer%3D%26signature%3D%252BYWIGLdq6D7hDGjGsPeVdriDBI4%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/cFBUQ1/dJMcahSFE1V/AAAAAAAAAAAAAAAAAAAAAITWrNrt-YgbCprVUhfw4gZL2o3iiY3752R-XD5nPxD0/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=pGjbq98bpWhkIJdViEkfXKik%2BbE%3D"
   },
   {
     id: 273,
@@ -230,7 +230,7 @@ int main() {
     question: "다음 <A>, <B> 테이블과 SQL문을 참고하여, SQL문을 실행했을 때 출력되는 RESULT 값을 구하시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fp4Lvi%2FdJMcadW6aGU%2FAAAAAAAAAAAAAAAAAAAAACefJ-y05TFYmxnsghCGFshdirzb7a9EN3FvWP4cRzTi%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1790780399%26allow_ip%3D%26allow_referer%3D%26signature%3DmNC4tB6D8YmI%252FpSFKHlEWTlSlK0%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/p4Lvi/dJMcadW6aGU/AAAAAAAAAAAAAAAAAAAAACefJ-y05TFYmxnsghCGFshdirzb7a9EN3FvWP4cRzTi/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=%2BPhI6mDQS2ZHHWt%2FDl%2FBV2Pp0OI%3D"
   },
   {
     id: 274,
@@ -238,7 +238,7 @@ int main() {
     question: "다음 <A>, <B> 테이블과 SQL문을 참고하여, SQL문을 실행했을 때 출력되는 결과값을 구하시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fb3mEm8%2FdJMcadW7PRw%2FAAAAAAAAAAAAAAAAAAAAALaV3vhhQ45c1Y0NutdbO5wNoFYJy_jBNRXI_X1JTB4F%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1790780399%26allow_ip%3D%26allow_referer%3D%26signature%3DkaDRmlxlHZT9D5EGbjLsrDkYAe8%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/b3mEm8/dJMcadW7PRw/AAAAAAAAAAAAAAAAAAAAALaV3vhhQ45c1Y0NutdbO5wNoFYJy_jBNRXI_X1JTB4F/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=JLmhTu4D8b8jDIafR%2FurQhlNMLw%3D"
   },
   {
     id: 275,
@@ -327,7 +327,7 @@ int main() {
     question: "다음은 SEASON이라는 도메인을 정의하면서, 입력 가능한 값을 봄/여름/가을/겨울로 제한하는 SQL문이다. 괄호 안에 들어갈 알맞은 키워드를 쓰시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2F3iiFP%2FdJMcagGmJVU%2FAAAAAAAAAAAAAAAAAAAAAJuIYd5Zoos16JeRryLDf36vYRHiZPcPSsFA3NrNwmUP%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1790780399%26allow_ip%3D%26allow_referer%3D%26signature%3D02oexQVYSqDWg53t8AUsh7LyYmw%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/3iiFP/dJMcagGmJVU/AAAAAAAAAAAAAAAAAAAAAJuIYd5Zoos16JeRryLDf36vYRHiZPcPSsFA3NrNwmUP/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=8EUZw%2FGWnrrjXI1dYjkrKcaPOsk%3D"
   },
   {
     id: 280,
@@ -336,6 +336,6 @@ int main() {
     question: "아래 표에서 나타나고 있는 정규형을 작성하시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FqHioy%2FdJMcaixnbjc%2FAAAAAAAAAAAAAAAAAAAAAGoeHCXF7A6pig90kFsjsgfYTTzutbRh61KrzGVQAXL-%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1790780399%26allow_ip%3D%26allow_referer%3D%26signature%3DJTl6ZpXmqAilGiskYg%252Bc25zLVvo%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/qHioy/dJMcaixnbjc/AAAAAAAAAAAAAAAAAAAAAGoeHCXF7A6pig90kFsjsgfYTTzutbRh61KrzGVQAXL-/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=rKOa%2B1jvt5ocP8lH2wA03eGTrwM%3D"
   },
 ]

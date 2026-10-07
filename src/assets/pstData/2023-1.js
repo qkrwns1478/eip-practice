@@ -184,7 +184,7 @@ int main() {
 - 객체를 정교하게 제어해야 하거나 객체 참조가 필요한 경우 사용한다.
 - 분리된 객체를 위임함으로써 대리 작업을 중간 단계에 삽입할 수도 있으며 분리된 객체를 동적으로 연결함으로써 객체의 실행 시점을 관리할 수도 있다.`,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fbyfj0t%2FbtsnqTyczWd%2FAAAAAAAAAAAAAAAAAAAAAJBladwROcVET-LSnQeQ3TFs-nXb866ls51loZPWXxtx%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DzJ2DqqqwKafPs%252FEDl7D2%252FObNl9s%253D"
+    imageUrl: null
   },
   {
     id: 112,
@@ -214,7 +214,7 @@ int main() {
 - 컬럼의 값이 문자열일 경우 작은 따움표 (' ')를 표시하시오.
 - SQL 마지막에 세미콜론(;)은 표기하지 않아도 관계 없습니다.`,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FJZEvh%2FbtscyYpYNA0%2FAAAAAAAAAAAAAAAAAAAAAPxWiytZLXl_AvnAjvyPyHPozz5tQhVgioT4mr6BVOPN%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DADqKsGQmNWKExJWMLQIEKY2SRKw%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/JZEvh/btscyYpYNA0/AAAAAAAAAAAAAAAAAAAAAPxWiytZLXl_AvnAjvyPyHPozz5tQhVgioT4mr6BVOPN/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=M254pbiaF9iFC1%2BH7j961Liy84Y%3D"
   },
   {
     id: 114,
@@ -272,7 +272,7 @@ print(a)`,
 - 반드시 GROUP BY와 having을 사용해야 한다.
 - 집계함수를 사용해야 한다.`,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FLMbmY%2FbtscwE6HBbG%2FAAAAAAAAAAAAAAAAAAAAACQfu-V5L2L_mttwY89qgXn9FZFkIB1RvzHXGyZVwD3O%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3Dec%252BZ3B87fNtEBSvVGWsm9cDVQ7U%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/LMbmY/btscwE6HBbG/AAAAAAAAAAAAAAAAAAAAACQfu-V5L2L_mttwY89qgXn9FZFkIB1RvzHXGyZVwD3O/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=a4sBFOoH%2BGiVE9DdSzgBU%2Bu7DGs%3D"
   },
   {
     id: 117,
@@ -336,7 +336,7 @@ public class Main {
     question: "다음 아래 제어 흐름 그래프가 분기 커버리지를 만족하기 위한 테스팅 순서를 쓰시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbQZ756%2FbtscHlK9JMg%2FAAAAAAAAAAAAAAAAAAAAAJYlzoHgpaOGXnuFTvlefXHygp_lM2p_KxdeixRKwfct%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3D6wpIdksAis21d47crfxLm76p7Po%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/bQZ756/btscHlK9JMg/AAAAAAAAAAAAAAAAAAAAAJYlzoHgpaOGXnuFTvlefXHygp_lM2p_KxdeixRKwfct/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=oI1PgirH5KYSXIhWt%2BiStJNyxVM%3D"
   },
   {
     id: 120,

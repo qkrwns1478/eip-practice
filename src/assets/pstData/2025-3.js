@@ -223,7 +223,7 @@ print(result)`,
     question: "다음은 테이블에서 조건값을 실행한 화면이다. 이에 대한 알맞는 결과값을 작성하시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2F3xNUN%2FdJMcahvY69C%2FAAAAAAAAAAAAAAAAAAAAADw45hfOG4ELvqVn1Ydu87lx5vaNXH94n0GSMrwIQCOA%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1767193199%26allow_ip%3D%26allow_referer%3D%26signature%3Df5pmMC%252B%252FwXH9V7s9pqPXQSxhoHo%253D",
+    imageUrl: "https://blog.kakaocdn.net/dna/3xNUN/dJMcahvY69C/AAAAAAAAAAAAAAAAAAAAADw45hfOG4ELvqVn1Ydu87lx5vaNXH94n0GSMrwIQCOA/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=dw%2FW0%2BznzGRa89hyjL0dhlkcQ90%3D",
   },
   {
     id: 231,
@@ -290,7 +290,7 @@ a1`,
     question: "다음 아래의 테이블을 확인하여 R%S의 결과를 테이블 형태로 기재하시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FnQ3eR%2FdJMcai2Jn1f%2FAAAAAAAAAAAAAAAAAAAAAELHm-w1OFo4fvfDFdSFQJ2TgYLyEdMLMu72VQKV9sEE%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1767193199%26allow_ip%3D%26allow_referer%3D%26signature%3DhdN2xAo48b7uDJ3qfMeDa8%252Bd95w%253D",
+    imageUrl: "https://blog.kakaocdn.net/dna/nQ3eR/dJMcai2Jn1f/AAAAAAAAAAAAAAAAAAAAAELHm-w1OFo4fvfDFdSFQJ2TgYLyEdMLMu72VQKV9sEE/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=XzYy98cT4SNMwizVYRpD5HXR4A0%3D",
   },
   {
     id: 236,
@@ -354,7 +354,7 @@ public class Main {
       "ㅂ. 수행 단계",
       "ㅅ. 성공/실패 기준"
     ],
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FceJ8aE%2FdJMcaacyBpw%2FAAAAAAAAAAAAAAAAAAAAAADJIY3nqTo1a7xE3SURgAb3TNV6FPn10AsS2T_M2YUI%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1767193199%26allow_ip%3D%26allow_referer%3D%26signature%3DvdDapA11DC%252BE0bvC0Ul3%252F9kiqTI%253D",
+    imageUrl: "https://blog.kakaocdn.net/dna/ceJ8aE/dJMcaacyBpw/AAAAAAAAAAAAAAAAAAAAAADJIY3nqTo1a7xE3SURgAb3TNV6FPn10AsS2T_M2YUI/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=5%2Bj1cuxgDsEYvV%2FsWiaO8JyAF8M%3D",
   },
   {
     id: 240,
@@ -362,6 +362,6 @@ public class Main {
     question: "다음은 SQL에 관한 문제이다. 아래 A테이블을 참고하여 쿼리의 결과를 작성하시오.",
     passageOrCode: `SELECT count(col2) FROM A WHERE col1 IN (2, 3) OR col2 IN (3, 5)`,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FrZWcv%2FdJMcagjxAYd%2FAAAAAAAAAAAAAAAAAAAAAORRhi_VXk_jvqfTMe3nWuUAB7JHDQh2F2QSrSsAhHrM%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1767193199%26allow_ip%3D%26allow_referer%3D%26signature%3D0%252F%252FqEQKBKBlqf0MPLySTkiR7ygM%253D",
+    imageUrl: "https://blog.kakaocdn.net/dna/rZWcv/dJMcagjxAYd/AAAAAAAAAAAAAAAAAAAAAORRhi_VXk_jvqfTMe3nWuUAB7JHDQh2F2QSrSsAhHrM/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=4wlaqUXmpmv%2B7E8cFrgMtiye20g%3D",
   }
 ];
