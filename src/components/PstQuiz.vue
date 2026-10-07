@@ -248,6 +248,8 @@ export default {
       currentQuestion: null,
       currentQuestionIndex: 0,
       playMode: 'random',
+      reviewSource: 'wrong',
+      reviewSessionIds: [],
       selectedExamKey: '2026-2',
       mockExamQuestions: [],
       codeLanguages,
@@ -350,7 +352,7 @@ export default {
     },
 
     openRandomQuiz() {
-      const wasMockExam = this.playMode === 'mockExam' || this.playMode === 'code';
+      const wasMockExam = this.playMode !== 'random';
       this.playMode = 'random';
       this.showMode = 'quiz';
       if (wasMockExam) this.currentQuestion = null;
@@ -490,6 +492,10 @@ export default {
     },
 
     nextQuestion() {
+      if (this.playMode === 'review') {
+        this.nextReviewQuestion();
+        return;
+      }
       if (this.playMode === 'code') {
         if (this.currentQuestionIndex + 1 >= this.codeSessionIds.length) {
           this.currentQuestion = null;
@@ -553,12 +559,41 @@ export default {
       return this.pstData.find(item => item.id === id);
     },
     startBookmarkedQuestion(id) {
-      const question = this.getQuestionById(id);
-      if (question) { this.playMode = 'review'; this.showMode = 'quiz'; this.setupQuestion(question, false); }
+      this.startReviewQuestion(id, 'bookmarks');
     },
     startWrongQuestion(id) {
+      this.startReviewQuestion(id, 'wrong');
+    },
+    startReviewQuestion(id, source) {
       const question = this.getQuestionById(id);
-      if (question) { this.playMode = 'review'; this.showMode = 'quiz'; this.setupQuestion(question, false); }
+      if (!question) return;
+      const ids = source === 'bookmarks' ? this.bookmarkedQuestions : this.wrongQuestions;
+      this.reviewSessionIds = ids.filter(item => this.getQuestionById(item));
+      if (!this.reviewSessionIds.includes(id)) this.reviewSessionIds = [id];
+      this.reviewSource = source;
+      this.currentQuestionIndex = this.reviewSessionIds.indexOf(id);
+      this.playMode = 'review';
+      this.showMode = 'quiz';
+      this.setupQuestion(question, false);
+      this.saveProgress();
+    },
+    nextReviewQuestion() {
+      const ids = this.reviewSource === 'bookmarks' ? this.bookmarkedQuestions : this.wrongQuestions;
+      let nextIndex = this.currentQuestionIndex + 1;
+      while (nextIndex < this.reviewSessionIds.length &&
+        (!ids.includes(this.reviewSessionIds[nextIndex]) || !this.getQuestionById(this.reviewSessionIds[nextIndex]))) nextIndex++;
+      if (nextIndex < this.reviewSessionIds.length) {
+        this.currentQuestionIndex = nextIndex;
+        this.setupQuestion(this.getQuestionById(this.reviewSessionIds[nextIndex]), false);
+      } else {
+        this.currentQuestion = null;
+        this.userAnswer = '';
+        this.answered = false;
+        this.isCorrect = false;
+        this.showMode = this.reviewSource;
+        this.showAlert('복습 완료', '선택한 목록의 문제를 모두 풀었습니다.');
+      }
+      this.saveProgress();
     },
 
     saveProgress() {
@@ -573,6 +608,8 @@ export default {
         currentQuestionIndex: this.currentQuestionIndex,
         currentQuestion: this.currentQuestion,
         playMode: this.playMode,
+        reviewSource: this.reviewSource,
+        reviewSessionIds: this.reviewSessionIds,
         selectedExamKey: this.selectedExamKey,
         selectedCodeLanguage: this.selectedCodeLanguage,
         selectedCodeExamKey: this.selectedCodeExamKey,
@@ -601,6 +638,8 @@ export default {
           this.currentQuestionIndex = progress.currentQuestionIndex || 0;
           this.currentQuestion = progress.currentQuestion || null;
           this.playMode = progress.playMode || 'random';
+          this.reviewSource = progress.reviewSource === 'bookmarks' ? 'bookmarks' : 'wrong';
+          this.reviewSessionIds = Array.isArray(progress.reviewSessionIds) ? progress.reviewSessionIds : [];
           this.selectedExamKey = progress.selectedExamKey || '2026-2';
           this.selectedCodeLanguage = ['all', ...codeLanguages].includes(progress.selectedCodeLanguage) ? progress.selectedCodeLanguage : 'C';
           this.selectedCodeExamKey = progress.selectedCodeExamKey || 'all';
@@ -644,6 +683,7 @@ export default {
           this.currentQuestionIndex = 0;
           this.currentQuestion = null;
           this.playMode = 'random';
+          this.reviewSessionIds = [];
           this.mockExamQuestions = [];
           this.codeSessionIds = [];
           this.answered = false;

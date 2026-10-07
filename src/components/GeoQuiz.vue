@@ -279,6 +279,8 @@ export default {
       wrongQuestions: [],
       showMode: this.initialView || 'quiz',
       playMode: "random",
+      reviewSource: 'wrong',
+      reviewSessionIds: [],
 
       showConfirmModal: false,
       confirmModal: {
@@ -428,7 +430,7 @@ export default {
         return;
       }
 
-      if (!this.usedQuestions.includes(selectedItem.id)) this.usedQuestions.push(selectedItem.id);
+      if (this.playMode === 'random' && !this.usedQuestions.includes(selectedItem.id)) this.usedQuestions.push(selectedItem.id);
       this.userAnswer = '';
       this.answered = false;
       this.isCorrect = false;
@@ -568,6 +570,10 @@ export default {
     },
 
     nextQuestion() {
+      if (this.playMode === 'review') {
+        this.nextReviewQuestion();
+        return;
+      }
       this.currentQuestionIndex++;
       this.generateQuestion();
       this.saveProgress();
@@ -606,21 +612,43 @@ export default {
     },
 
     startBookmarkedQuestion(id) {
-      const question = this.getQuestionById(id);
-      if (question) {
-        this.playMode = 'review';
-        this.showMode = 'quiz';
-        this.setupQuestion(question);
-      }
+      this.startReviewQuestion(id, 'bookmarks');
     },
 
     startWrongQuestion(id) {
+      this.startReviewQuestion(id, 'wrong');
+    },
+
+    startReviewQuestion(id, source) {
       const question = this.getQuestionById(id);
-      if (question) {
-        this.playMode = 'review';
-        this.showMode = 'quiz';
-        this.setupQuestion(question);
+      if (!question) return;
+      const ids = source === 'bookmarks' ? this.bookmarkedQuestions : this.wrongQuestions;
+      this.reviewSessionIds = ids.filter(item => this.getQuestionById(item));
+      if (!this.reviewSessionIds.includes(id)) this.reviewSessionIds = [id];
+      this.reviewSource = source;
+      this.currentQuestionIndex = this.reviewSessionIds.indexOf(id);
+      this.playMode = 'review';
+      this.showMode = 'quiz';
+      this.setupQuestion(question);
+    },
+
+    nextReviewQuestion() {
+      const ids = this.reviewSource === 'bookmarks' ? this.bookmarkedQuestions : this.wrongQuestions;
+      let nextIndex = this.currentQuestionIndex + 1;
+      while (nextIndex < this.reviewSessionIds.length &&
+        (!ids.includes(this.reviewSessionIds[nextIndex]) || !this.getQuestionById(this.reviewSessionIds[nextIndex]))) nextIndex++;
+      if (nextIndex < this.reviewSessionIds.length) {
+        this.currentQuestionIndex = nextIndex;
+        this.setupQuestion(this.getQuestionById(this.reviewSessionIds[nextIndex]));
+      } else {
+        this.currentQuestion = null;
+        this.userAnswer = '';
+        this.answered = false;
+        this.isCorrect = false;
+        this.showMode = this.reviewSource;
+        this.showAlert('복습 완료', '선택한 목록의 문제를 모두 풀었습니다.');
       }
+      this.saveProgress();
     },
 
     saveProgress() {
@@ -635,6 +663,8 @@ export default {
         currentQuestionIndex: this.currentQuestionIndex,
         currentQuestion: this.currentQuestion,
         playMode: this.playMode,
+        reviewSource: this.reviewSource,
+        reviewSessionIds: this.reviewSessionIds,
         isCorrect: this.isCorrect,
         userAnswer: this.userAnswer,
         answered: this.answered,
@@ -660,6 +690,9 @@ export default {
           this.currentQuestionIndex = progress.currentQuestionIndex || 0;
           this.currentQuestion = progress.currentQuestion || null;
           this.playMode = progress.playMode || 'random';
+          this.reviewSource = progress.reviewSource === 'bookmarks' ? 'bookmarks' : 'wrong';
+          this.reviewSessionIds = Array.isArray(progress.reviewSessionIds) ? progress.reviewSessionIds : [];
+          if (this.playMode === 'review' && !this.currentQuestion && this.showMode === 'quiz') this.showMode = this.reviewSource;
           this.userAnswer = progress.userAnswer || '';
           this.answered = progress.answered || false;
           this.isCorrect = progress.isCorrect || false;
@@ -687,6 +720,7 @@ export default {
           this.currentQuestionIndex = 0;
           this.currentQuestion = null;
           this.playMode = 'random';
+          this.reviewSessionIds = [];
           this.answered = false;
           this.isCorrect = false;
           this.userAnswer = '';
