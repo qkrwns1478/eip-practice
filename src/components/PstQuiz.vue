@@ -133,67 +133,20 @@
       </div>
     </div>
 
-    <div v-else-if="showMode === 'bookmarks'" class="bookmarks-content">
-      <h3>북마크한 문제</h3>
-      <div v-if="bookmarkedQuestions.length === 0" class="empty-state">
-        <p>북마크한 문제가 없습니다.</p>
-      </div>
-      <div v-else class="bookmark-list">
-        <div v-for="id in bookmarkedQuestions" :key="id" class="bookmark-item" @click="startBookmarkedQuestion(id)">
-          <div class="bookmark-info">
-            <h4>{{ getQuestionById(id)?.question || '문제' }}</h4>
-            <p>{{ getQuizInfo(id) }}</p>
-          </div>
-          <button @click.stop="removeBookmark(id)" class="remove-bookmark-btn">
-            ✕
-          </button>
-        </div>
-      </div>
-    </div>
+    <SavedQuestionList v-else-if="showMode === 'bookmarks'" type="bookmarks" :ids="bookmarkedQuestions"
+      :get-question="getQuestionById" title-key="question" :subtitle-for-id="getQuizInfo"
+      @select="startBookmarkedQuestion" @remove="removeBookmark" />
 
-    <div v-else-if="showMode === 'wrong'" class="wrong-content">
-      <h3>틀린 문제</h3>
-      <div v-if="wrongQuestions.length === 0" class="empty-state">
-        <p>틀린 문제가 없습니다.</p>
-      </div>
-      <div v-else class="wrong-list">
-        <div v-for="id in wrongQuestions" :key="id" class="wrong-item" @click="startWrongQuestion(id)">
-          <div class="wrong-info">
-            <h4>{{ getQuestionById(id)?.question || '문제' }}</h4>
-            <p>{{ getQuizInfo(id) }}</p>
-          </div>
-          <span class="retry-badge">재도전</span>
-          <button @click.stop="removeWrongQuestion(id)" class="remove-bookmark-btn" :aria-label="'틀린 문제 삭제: ' + (getQuestionById(id)?.question || '문제')">
-            ✕
-          </button>
-        </div>
-      </div>
-    </div>
+    <SavedQuestionList v-else-if="showMode === 'wrong'" type="wrong" :ids="wrongQuestions"
+      :get-question="getQuestionById" title-key="question" :subtitle-for-id="getQuizInfo"
+      @select="startWrongQuestion" @remove="removeWrongQuestion" />
 
     <div v-else-if="!currentQuestion && showMode === 'quiz'" class="no-question">
       <button @click="startQuiz" class="start-button">퀴즈 시작</button>
     </div>
 
-    <div v-if="showConfirmModal" class="modal-overlay" @click="closeConfirmModal">
-      <div class="modal-content" @click.stop>
-        <h3>{{ confirmModal.title }}</h3>
-        <p>{{ confirmModal.message }}</p>
-        <div class="modal-actions">
-          <button @click="confirmModal.onConfirm" class="confirm-btn">확인</button>
-          <button @click="closeConfirmModal" class="cancel-btn">취소</button>
-        </div>
-      </div>
-    </div>
-
-    <div v-if="showAlertModal" class="modal-overlay" @click="closeAlertModal">
-      <div class="modal-content alert-modal" @click.stop>
-        <h3>{{ alertModal.title }}</h3>
-        <p>{{ alertModal.message }}</p>
-        <div class="modal-actions">
-          <button @click="closeAlertModal" class="confirm-btn">확인</button>
-        </div>
-      </div>
-    </div>
+    <QuizModals :show-confirm="showConfirmModal" :confirm="confirmModal" :show-alert="showAlertModal"
+      :alert="alertModal" @close-confirm="closeConfirmModal" @close-alert="closeAlertModal" />
   </div>
 </template>
 
@@ -205,15 +158,19 @@
 <script>
 import { pstData, pstExams } from "../assets/pstData";
 import CodeVisualizer from './CodeVisualizer.vue';
+import SavedQuestionList from './SavedQuestionList.vue';
+import QuizModals from './QuizModals.vue';
 import { codeLanguages, getCodeLanguage, getCodeQuestions } from '../utils/codeQuestions.js';
+import { commonQuizComputed, commonQuizMethods, getCommonProgress, restoreCommonProgress } from '../utils/quizCommon.js';
 
 export default {
   name: "PstQuiz",
-  components: { CodeVisualizer },
+  components: { CodeVisualizer, SavedQuestionList, QuizModals },
   data() {
     return {
       pstData: pstData,
       pstExams: pstExams,
+      storagePrefix: 'pstQuiz',
       currentQuestion: null,
       currentQuestionIndex: 0,
       playMode: 'random',
@@ -247,6 +204,7 @@ export default {
     };
   },
   computed: {
+    ...commonQuizComputed,
     examsByYear() {
       const groups = new Map();
       this.pstExams.forEach(exam => {
@@ -262,29 +220,12 @@ export default {
     totalAvailableQuestions() {
       return this.pstData.length;
     },
-    progressPercentage() {
-      if (this.totalAvailableQuestions === 0) return 0;
-      return (this.solvedQuestions.length / this.totalAvailableQuestions) * 100;
-    },
-    accuracyRate() {
-      if (this.totalCount === 0) return 0;
-      return (this.correctCount / this.totalCount) * 100;
-    },
-    isCurrentQuestionBookmarked() {
-      return this.currentQuestion && this.bookmarkedQuestions.includes(this.currentQuestion.id);
-    },
     questionTitle() {
       if (this.playMode === 'code') return `${getCodeLanguage(this.currentQuestion)} 코드 문제 ${this.currentQuestionIndex + 1} / ${this.codeSessionIds.length}`;
       if (this.playMode !== 'mockExam') return `문제 ${this.currentQuestionIndex + 1}`;
       const exam = this.pstExams.find(item => item.key === this.selectedExamKey);
       const examLabel = exam ? `${exam.year}년 ${exam.round}회` : '기출문제';
       return `${examLabel} (${this.currentQuestionIndex + 1} / ${this.mockExamQuestions.length})`;
-    },
-    lastSessionDate() {
-      const saved = localStorage.getItem('pstQuiz_lastSession');
-      if (!saved) return '아직 학습 기록이 없습니다';
-      const date = new Date(saved);
-      return date.toLocaleString('ko-KR');
     }
   },
   mounted() {
@@ -292,6 +233,7 @@ export default {
     this.openRandomQuiz();
   },
   methods: {
+    ...commonQuizMethods,
     getCodeLanguage,
     codeLanguageCount(language) { return getCodeQuestions(this.pstData, language).length; },
     openCodeMode() { this.showMode = 'codePicker'; },
@@ -346,17 +288,6 @@ export default {
       this.setupQuestion(questions[0], false);
       this.saveProgress();
     },
-    showConfirm(title, message, onConfirm) {
-      this.confirmModal = { title, message, onConfirm };
-      this.showConfirmModal = true;
-    },
-    closeConfirmModal() { this.showConfirmModal = false; },
-    showAlert(title, message) {
-      this.alertModal = { title, message };
-      this.showAlertModal = true;
-    },
-    closeAlertModal() { this.showAlertModal = false; },
-
     startQuiz() {
       this.openRandomQuiz();
     },
@@ -592,42 +523,8 @@ export default {
       this.nextQuestion();
     },
 
-    toggleBookmark() {
-      if (!this.currentQuestion) return;
-      const id = this.currentQuestion.id;
-      const index = this.bookmarkedQuestions.indexOf(id);
-      if (index > -1) {
-        this.bookmarkedQuestions.splice(index, 1);
-      } else {
-        this.bookmarkedQuestions.push(id);
-      }
-      this.saveProgress();
-    },
-
-    removeBookmark(id) {
-      const index = this.bookmarkedQuestions.indexOf(id);
-      if (index > -1) {
-        this.bookmarkedQuestions.splice(index, 1);
-        this.saveProgress();
-      }
-    },
-
-    removeWrongQuestion(id) {
-      const index = this.wrongQuestions.indexOf(id);
-      if (index > -1) {
-        this.wrongQuestions.splice(index, 1);
-        this.saveProgress();
-      }
-    },
-
     getQuestionById(id) {
       return this.pstData.find(item => item.id === id);
-    },
-    startBookmarkedQuestion(id) {
-      this.startReviewQuestion(id, 'bookmarks');
-    },
-    startWrongQuestion(id) {
-      this.startReviewQuestion(id, 'wrong');
     },
     startReviewQuestion(id, source) {
       const question = this.getQuestionById(id);
@@ -647,51 +544,17 @@ export default {
       this.setupQuestion(question, false);
       this.saveProgress();
     },
-    nextReviewQuestion() {
-      const ids = this.reviewSource === 'bookmarks' ? this.bookmarkedQuestions : this.wrongQuestions;
-      let nextIndex = this.currentQuestionIndex + 1;
-      while (nextIndex < this.reviewSessionIds.length &&
-        (!ids.includes(this.reviewSessionIds[nextIndex]) || !this.getQuestionById(this.reviewSessionIds[nextIndex]))) nextIndex++;
-      if (nextIndex < this.reviewSessionIds.length) {
-        this.currentQuestionIndex = nextIndex;
-        this.setupQuestion(this.getQuestionById(this.reviewSessionIds[nextIndex]), false);
-      } else {
-        this.currentQuestion = null;
-        this.userAnswer = '';
-        this.answered = false;
-        this.isCorrect = false;
-        this.showMode = this.reviewSource;
-        this.showAlert('복습 완료', '선택한 목록의 문제를 모두 풀었습니다.');
-      }
-      this.saveProgress();
-    },
-
     saveProgress() {
       this.saveCurrentSession();
       const progress = {
+        ...getCommonProgress(this),
         practiceSessions: this.practiceSessions,
         mockExamSession: this.mockExamSession,
-        correctCount: this.correctCount,
-        wrongCount: this.wrongCount,
-        totalCount: this.totalCount,
-        bookmarkedQuestions: this.bookmarkedQuestions,
-        solvedQuestions: this.solvedQuestions,
-        wrongQuestions: this.wrongQuestions,
-        usedQuestions: this.usedQuestions,
-        currentQuestionIndex: this.currentQuestionIndex,
-        currentQuestion: this.currentQuestion,
-        playMode: this.playMode,
-        reviewSource: this.reviewSource,
-        reviewSessionIds: this.reviewSessionIds,
         selectedExamKey: this.selectedExamKey,
         selectedCodeLanguage: this.selectedCodeLanguage,
         selectedCodeExamKey: this.selectedCodeExamKey,
         codeQuestionOrder: this.codeQuestionOrder,
-        codeSessionIds: this.codeSessionIds,
-        isCorrect: this.isCorrect,
-        userAnswer: this.userAnswer,
-        answered: this.answered,
-        lastSession: new Date().toISOString()
+        codeSessionIds: this.codeSessionIds
       };
       localStorage.setItem('pstQuiz_progress', JSON.stringify(progress));
       localStorage.setItem('pstQuiz_lastSession', progress.lastSession);
@@ -704,18 +567,7 @@ export default {
           const progress = JSON.parse(saved);
           this.mockExamSession = progress.mockExamSession || null;
           this.practiceSessions = progress.practiceSessions || {};
-          this.correctCount = progress.correctCount || 0;
-          this.wrongCount = progress.wrongCount || 0;
-          this.totalCount = progress.totalCount || 0;
-          this.bookmarkedQuestions = progress.bookmarkedQuestions || [];
-          this.solvedQuestions = progress.solvedQuestions || [];
-          this.wrongQuestions = progress.wrongQuestions || [];
-          this.usedQuestions = progress.usedQuestions || [];
-          this.currentQuestionIndex = progress.currentQuestionIndex || 0;
-          this.currentQuestion = progress.currentQuestion || null;
-          this.playMode = progress.playMode || 'random';
-          this.reviewSource = progress.reviewSource === 'bookmarks' ? 'bookmarks' : 'wrong';
-          this.reviewSessionIds = Array.isArray(progress.reviewSessionIds) ? progress.reviewSessionIds : [];
+          restoreCommonProgress(this, progress);
           this.selectedExamKey = progress.selectedExamKey || '2026-2';
           this.selectedCodeLanguage = ['all', ...codeLanguages].includes(progress.selectedCodeLanguage) ? progress.selectedCodeLanguage : 'C';
           this.selectedCodeExamKey = progress.selectedCodeExamKey || 'all';
@@ -732,9 +584,6 @@ export default {
             if (exam) this.mockExamQuestions = exam.questions;
             else this.playMode = 'random';
           }
-          this.userAnswer = progress.userAnswer || '';
-          this.answered = progress.answered || false;
-          this.isCorrect = progress.isCorrect || false;
         } catch (e) {
           console.error('Failed to load progress:', e);
         }
