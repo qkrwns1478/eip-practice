@@ -1,14 +1,13 @@
 import { readFile } from 'node:fs/promises';
-import { fileURLToPath } from 'node:url';
+import { resolve, sep } from 'node:path';
 import { pstData } from '../src/assets/pstData.js';
 import { geoData } from '../src/assets/geoData.js';
 import { keywordData } from '../src/assets/keywordData.js';
 
 export const GROQ_MODEL = 'qwen/qwen3.8-27b';
 const datasets = { pstQuiz: pstData, geoQuiz: geoData, keywordQuiz: keywordData };
-const publicRoot = new URL('../public/', import.meta.url);
 
-async function questionContent(quizType, questionId) {
+async function questionContent(quizType, questionId, publicDirectory) {
   const rows = datasets[quizType];
   const question = rows?.find(row => row.id === questionId);
   if (!question) return null;
@@ -27,9 +26,9 @@ async function questionContent(quizType, questionId) {
   if (image?.startsWith('https://')) {
     content.push({ type: 'image_url', image_url: { url: image } });
   } else if (image?.startsWith('/images/')) {
-    const url = new URL(`.${image}`, publicRoot);
-    if (!fileURLToPath(url).startsWith(fileURLToPath(publicRoot))) throw new Error('Invalid image path');
-    const bytes = await readFile(url);
+    const path = resolve(publicDirectory, `.${image}`);
+    if (!path.startsWith(`${resolve(publicDirectory)}${sep}`)) throw new Error('Invalid image path');
+    const bytes = await readFile(path);
     const type = image.endsWith('.png') ? 'image/png' : 'image/jpeg';
     content.push({ type: 'image_url', image_url: { url: `data:${type};base64,${bytes.toString('base64')}` } });
   }
@@ -42,7 +41,7 @@ function send(res, status, body) {
 }
 
 // No prompts, responses, or API errors are written to files or console logs.
-export function createExplanationMiddleware({ apiKey, fetchImpl = fetch } = {}) {
+export function createExplanationMiddleware({ apiKey, fetchImpl = fetch, publicDirectory = resolve(process.cwd(), 'public') } = {}) {
   return async (req, res, next) => {
     if (req.url?.split('?')[0] !== '/api/explanation') return next();
     if (req.method !== 'POST') return send(res, 405, { error: 'POST 요청만 지원합니다.' });
@@ -57,15 +56,22 @@ export function createExplanationMiddleware({ apiKey, fetchImpl = fetch } = {}) 
     const abort = () => controller.abort();
     res.on('close', abort);
     try {
-      let body = '';
-      for await (const chunk of req) {
-        body += chunk.toString();
-        if (Buffer.byteLength(body) > 4096) return send(res, 413, { error: '요청 크기가 너무 큽니다.' });
-      }
+      // Vercel may have already consumed the stream and parsed the JSON body.
       let input;
-      try { input = JSON.parse(body); } catch { return send(res, 400, { error: '잘못된 요청입니다.' }); }
+      if (req.body !== undefined) {
+        const body = typeof req.body === 'string' || Buffer.isBuffer(req.body) ? req.body.toString() : JSON.stringify(req.body);
+        if (Buffer.byteLength(body) > 4096) return send(res, 413, { error: '요청 크기가 너무 큽니다.' });
+        try { input = JSON.parse(body); } catch { return send(res, 400, { error: '잘못된 요청입니다.' }); }
+      } else {
+        let body = '';
+        for await (const chunk of req) {
+          body += chunk.toString();
+          if (Buffer.byteLength(body) > 4096) return send(res, 413, { error: '요청 크기가 너무 큽니다.' });
+        }
+        try { input = JSON.parse(body); } catch { return send(res, 400, { error: '잘못된 요청입니다.' }); }
+      }
       if (!input || !Object.hasOwn(datasets, input.quizType) || !Number.isInteger(input.questionId)) return send(res, 400, { error: '문제 정보를 확인해주세요.' });
-      const content = await questionContent(input.quizType, input.questionId);
+      const content = await questionContent(input.quizType, input.questionId, publicDirectory);
       if (!content) return send(res, 404, { error: '문제를 찾을 수 없습니다.' });
       const response = await fetchImpl('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',

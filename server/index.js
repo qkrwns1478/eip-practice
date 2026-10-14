@@ -10,7 +10,7 @@ if (existsSync(resolve(projectRoot, '.env'))) process.loadEnvFile(resolve(projec
 const dist = resolve(projectRoot, 'dist');
 if (!existsSync(resolve(dist, 'index.html'))) throw new Error('먼저 npm run build를 실행해주세요.');
 const types = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml' };
-const api = createExplanationMiddleware({ apiKey: process.env.GROQ_API_KEY });
+const api = createExplanationMiddleware({ apiKey: process.env.GROQ_API_KEY, publicDirectory: resolve(projectRoot, 'public') });
 createServer((req, res) => {
   api(req, res, async () => {
     try {
