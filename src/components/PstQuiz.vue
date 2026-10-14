@@ -64,7 +64,7 @@
             <select v-model="codeQuestionOrder"><option value="random">무작위</option><option value="ordered">순서대로</option></select>
           </label>
         </div>
-        <p class="code-mode-count">선택한 코드 문제 {{ filteredCodeQuestions.length }}개 · 풀이 완료 {{ filteredCodeQuestions.filter(q => solvedQuestions.includes(q.id)).length }}개</p>
+        <p class="code-mode-count">선택한 코드 문제 {{ filteredCodeQuestions.length }}개 · 풀이 완료 {{ completedCodeQuestionCount }}개</p>
         <p v-if="!filteredCodeQuestions.length" class="empty-state">이 회차에는 선택한 언어의 코드 문제가 없습니다. 다른 언어나 회차를 선택하세요.</p>
         <button @click="startCodeQuiz" :disabled="!filteredCodeQuestions.length" class="code-start-button">코드 문제 시작</button>
         <button v-if="practiceSessions.code?.currentQuestionId || (playMode === 'code' && currentQuestion)" @click="resumeCodeQuiz" class="code-resume-button">이어서 풀기</button>
@@ -194,6 +194,7 @@ export default {
       usedQuestions: [],
       bookmarkedQuestions: [],
       solvedQuestions: [],
+      codeSolvedQuestions: [],
       wrongQuestions: [],
       showMode: "quiz",
 
@@ -216,6 +217,9 @@ export default {
     filteredCodeQuestions() {
       const exams = this.selectedCodeExamKey === 'all' ? this.pstExams : this.pstExams.filter(exam => exam.key === this.selectedCodeExamKey);
       return getCodeQuestions(exams.flatMap(exam => exam.questions), this.selectedCodeLanguage);
+    },
+    completedCodeQuestionCount() {
+      return this.filteredCodeQuestions.filter(question => this.codeSolvedQuestions.includes(question.id)).length;
     },
     totalAvailableQuestions() {
       return this.pstData.length;
@@ -456,6 +460,9 @@ export default {
       if (!this.solvedQuestions.includes(this.currentQuestion.id)) {
         this.solvedQuestions.push(this.currentQuestion.id);
       }
+      if (this.playMode === 'code' && !this.codeSolvedQuestions.includes(this.currentQuestion.id)) {
+        this.codeSolvedQuestions.push(this.currentQuestion.id);
+      }
 
       this.saveProgress();
 
@@ -554,6 +561,7 @@ export default {
         selectedCodeLanguage: this.selectedCodeLanguage,
         selectedCodeExamKey: this.selectedCodeExamKey,
         codeQuestionOrder: this.codeQuestionOrder,
+        codeSolvedQuestions: this.codeSolvedQuestions,
         codeSessionIds: this.codeSessionIds
       };
       localStorage.setItem('pstQuiz_progress', JSON.stringify(progress));
@@ -568,6 +576,7 @@ export default {
           this.mockExamSession = progress.mockExamSession || null;
           this.practiceSessions = progress.practiceSessions || {};
           restoreCommonProgress(this, progress);
+          this.codeSolvedQuestions = Array.isArray(progress.codeSolvedQuestions) ? progress.codeSolvedQuestions : [];
           this.selectedExamKey = progress.selectedExamKey || '2026-2';
           this.selectedCodeLanguage = ['all', ...codeLanguages].includes(progress.selectedCodeLanguage) ? progress.selectedCodeLanguage : 'C';
           this.selectedCodeExamKey = progress.selectedCodeExamKey || 'all';
@@ -603,6 +612,7 @@ export default {
           this.totalCount = 0;
           // this.bookmarkedQuestions = [];
           this.solvedQuestions = [];
+          this.codeSolvedQuestions = [];
           this.wrongQuestions = [];
           this.usedQuestions = [];
           this.currentQuestionIndex = 0;
