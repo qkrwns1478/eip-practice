@@ -95,9 +95,9 @@
         <div class="question-header">
           <h3>{{ questionTitle }}</h3>
           <div class="quiz-actions-group">
+            <span class="quiz-info-badge" v-if="currentQuestion">{{ getQuizInfo(currentQuestion.id) }}</span>
             <button v-if="playMode === 'mockExam'" @click="openView('mockExam')" class="skip-button">회차 선택</button>
             <button v-if="['random', 'code'].includes(playMode) && !answered" @click="skipQuestion" class="skip-button">다음 문제</button>
-            <span class="quiz-info-badge" v-if="currentQuestion">{{ getQuizInfo(currentQuestion.id) }}</span>
             <button @click="toggleBookmark" class="bookmark-btn" :class="{ bookmarked: isCurrentQuestionBookmarked }">
               {{ isCurrentQuestionBookmarked ? '⭐' : '☆' }}
             </button>
@@ -351,6 +351,7 @@ export default {
         userAnswer: this.userAnswer,
         answered: this.answered,
         isCorrect: this.isCorrect,
+        results: { ...this.mockExamSessions[exam.key]?.results },
       };
       this.mockExamSessions[exam.key] = this.mockExamSession;
     },
@@ -384,6 +385,7 @@ export default {
 
       this.playMode = 'mockExam';
       this.mockExamQuestions = exam.questions;
+      delete this.mockExamSessions[exam.key];
       this.currentQuestionIndex = 0;
       this.showMode = 'quiz';
       this.setupQuestion(this.mockExamQuestions[0], false);
@@ -492,6 +494,10 @@ export default {
       if (this.playMode === 'code' && !this.codeSolvedQuestions.includes(this.currentQuestion.id)) {
         this.codeSolvedQuestions.push(this.currentQuestion.id);
       }
+      if (this.playMode === 'mockExam') {
+        this.saveMockExamSession();
+        this.mockExamSession.results[this.currentQuestion.id] = this.isCorrect;
+      }
 
       this.saveProgress();
 
@@ -537,6 +543,13 @@ export default {
       }
       if (this.playMode === 'mockExam') {
         if (this.currentQuestionIndex + 1 >= this.mockExamQuestions.length) {
+          const results = this.mockExamSession?.results || {};
+          const total = this.mockExamQuestions.length;
+          const correct = this.mockExamQuestions.filter(question => results[question.id] === true).length;
+          const score = Math.round(correct / total * 100);
+          const missing = this.mockExamQuestions.filter(question => typeof results[question.id] !== 'boolean').length;
+          const verdict = missing ? '판정 불가' : score >= 60 ? '합격' : '불합격';
+          const note = missing ? `이전 버전에서 푼 ${missing}문제는 채점 기록이 없어 정답 수와 점수에 포함되지 않았습니다.` : '';
           delete this.mockExamSessions[this.mockExamSession?.examKey];
           this.mockExamSession = null;
           this.currentQuestion = null;
@@ -545,6 +558,7 @@ export default {
           this.isCorrect = false;
           this.showMode = 'mockExam';
           this.showAlert('응시 완료', '선택한 회차의 모든 문제를 풀었습니다.');
+          this.alertModal.examResult = { total, correct, score, verdict, missing, note };
           this.saveProgress();
           return;
         }
