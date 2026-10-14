@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+.env*
 
 # Temporary browser profiles and other local scratch directories
 .tmp-*/
