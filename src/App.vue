@@ -57,7 +57,9 @@
 
     <main class="main-content">
       <KeywordQuiz v-if="currentTab === 'GeoQuiz'" />
-      <PstQuiz v-if="currentTab === 'PstQuiz'" />
+      <KeepAlive>
+        <PstQuiz v-if="currentTab === 'PstQuiz'" />
+      </KeepAlive>
     </main>
   </div>
 </template>
