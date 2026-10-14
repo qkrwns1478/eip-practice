@@ -163,6 +163,9 @@
             <p>{{ getQuizInfo(id) }}</p>
           </div>
           <span class="retry-badge">재도전</span>
+          <button @click.stop="removeWrongQuestion(id)" class="remove-bookmark-btn" :aria-label="'틀린 문제 삭제: ' + (getQuestionById(id)?.question || '문제')">
+            ✕
+          </button>
         </div>
       </div>
     </div>
@@ -605,6 +608,14 @@ export default {
       const index = this.bookmarkedQuestions.indexOf(id);
       if (index > -1) {
         this.bookmarkedQuestions.splice(index, 1);
+        this.saveProgress();
+      }
+    },
+
+    removeWrongQuestion(id) {
+      const index = this.wrongQuestions.indexOf(id);
+      if (index > -1) {
+        this.wrongQuestions.splice(index, 1);
         this.saveProgress();
       }
     },

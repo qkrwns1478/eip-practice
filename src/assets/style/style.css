@@ -518,7 +518,7 @@ button:focus:not(:focus-visible) {
   transform: scale(1.1);
 }
 
-.retry-badge {
+.wrong-item .retry-badge {
   padding: 8px 16px;
   background: var(--color-warning);
   color: #333333;
@@ -526,6 +526,7 @@ button:focus:not(:focus-visible) {
   font-weight: 600;
   font-size: 14px;
   flex-shrink: 0;
+  margin-right: 10px;
 }
 
 /* 통계 */
