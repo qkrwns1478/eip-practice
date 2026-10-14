@@ -2,14 +2,15 @@
   <div class="quiz-container geo-quiz-layout">
 
     <div class="menu-bar icon-menu-bar">
-      <slot name="mode-selector" />
-      <button @click="openRandomQuiz" aria-label="퀴즈" :class="{ active: showMode === 'quiz' && playMode === 'random' }">
+      <span class="eip-logo" aria-label="EIP" draggable="false">EIP</span>
+     <button @click="openRandomQuiz" aria-label="퀴즈" :class="{ active: showMode === 'quiz' && playMode === 'random' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z" />
         </svg>
         <span class="tooltip-text">퀴즈</span>
       </button>
+      <slot name="mode-selector" />
       <button @click="showMode = 'study'" aria-label="공부 모드" :class="{ active: showMode === 'study' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -33,17 +34,7 @@
           <line x1="6" y1="6" x2="18" y2="18" />
         </svg>
         <span class="tooltip-text">틀린 문제 ({{ wrongQuestions.length }})</span>
-      </button>
-      <button @click="showMode = 'stats'" aria-label="통계" :class="{ active: showMode === 'stats' }">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 20V10" />
-          <path d="M18 20V4" />
-          <path d="M6 20V16" />
-        </svg>
-        <span class="tooltip-text">통계</span>
-      </button>
-      <button @click="resetProgress" aria-label="현재 모드 진행 상황 초기화" class="reset-btn">
+      </button>      <button @click="resetProgress" aria-label="현재 모드 진행 상황 초기화" class="reset-btn">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polyline points="23 4 23 10 17 10" />
@@ -182,37 +173,6 @@
           </div>
           <span class="retry-badge">재도전</span>
         </div>
-      </div>
-    </div>
-
-    <!-- 통계 모드 -->
-    <div v-else-if="showMode === 'stats'" class="stats-content">
-      <h3>학습 통계</h3>
-      <div class="stats-grid">
-        <div class="stat-card">
-          <h4>전체 진행률</h4>
-          <div class="stat-value">{{ progressPercentage.toFixed(1) }}%</div>
-          <p>{{ solvedQuestions.length }} / {{ totalAvailableQuestions }} 문제</p>
-        </div>
-        <div class="stat-card">
-          <h4>정답률</h4>
-          <div class="stat-value">{{ accuracyRate.toFixed(1) }}%</div>
-          <p>{{ correctCount }} / {{ totalCount }} 정답</p>
-        </div>
-        <div class="stat-card">
-          <h4>북마크</h4>
-          <div class="stat-value">{{ bookmarkedQuestions.length }}</div>
-          <p>중요한 문제</p>
-        </div>
-        <div class="stat-card">
-          <h4>틀린 문제</h4>
-          <div class="stat-value">{{ wrongQuestions.length }}</div>
-          <p>복습 필요</p>
-        </div>
-      </div>
-      <div class="last-session">
-        <h4>마지막 학습</h4>
-        <p>{{ lastSessionDate }}</p>
       </div>
     </div>
 

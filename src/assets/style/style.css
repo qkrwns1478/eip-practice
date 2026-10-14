@@ -832,3 +832,17 @@
     width: 100%;
   }
 }
+
+.eip-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0 8px;
+  color: var(--color-primary);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  user-select: none;
+  -webkit-user-drag: none;
+}

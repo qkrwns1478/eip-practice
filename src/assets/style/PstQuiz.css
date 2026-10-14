@@ -55,6 +55,12 @@
   border-color: transparent;
 }
 
+.icon-menu-bar button:hover:not(.active),
+.icon-menu-bar button.active:hover,
+.icon-menu-bar button.reset-btn:hover {
+  transform: none;
+}
+
 .icon-menu-bar button.active {
   background-color: transparent;
   color: #cccccc;
