@@ -105,6 +105,7 @@
               {{ currentQuestion.correctSubCount }} / {{ currentQuestion.subItems.length }} 정답
             </p>
           </div>
+          <button type="button" @click="openExplanation" class="explanation-button">해설</button>
           <button @click="nextQuestion" class="next-button" ref="nextButton">다음 문제</button>
         </div>
       </div>
@@ -157,6 +158,8 @@
     </div>
 
     <!-- 확인 모달 -->
+    <ExplanationModal v-if="showExplanationModal" :text="explanationText" :error="explanationError"
+      :loading="explanationLoading" @close="showExplanationModal = false" @retry="openExplanation" />
     <QuizModals :show-confirm="showConfirmModal" :confirm="confirmModal" :show-alert="showAlertModal"
       :alert="alertModal" @close-confirm="closeConfirmModal" @close-alert="closeAlertModal" />
   </div>
@@ -171,11 +174,14 @@
 import { geoData } from "../assets/geoData";
 import SavedQuestionList from './SavedQuestionList.vue';
 import QuizModals from './QuizModals.vue';
+import ExplanationModal from './ExplanationModal.vue';
+import { quizExplanationMixin } from '../utils/quizExplanation.js';
 import { commonQuizComputed, commonQuizMethods, getCommonProgress, restoreCommonProgress } from '../utils/quizCommon.js';
 
 export default {
   name: "GeoQuiz",
-  components: { SavedQuestionList, QuizModals },
+  components: { SavedQuestionList, QuizModals, ExplanationModal },
+  mixins: [quizExplanationMixin],
   props: {
     questions: { type: Array, default: () => geoData },
     storagePrefix: { type: String, default: 'geoQuiz' },
@@ -323,6 +329,7 @@ export default {
     },
 
     setupQuestion(selectedItem) {
+      this.resetExplanation(selectedItem.id);
       const subItems = this.geoData.filter(item => item.parentId === selectedItem.id);
 
       if (subItems.length > 0) {

@@ -128,6 +128,7 @@
         <div v-if="answered" class="result-section">
           <p v-if="isCorrect" class="correct-result">✓ 정답입니다!</p>
           <p v-else class="wrong-result">✗ 오답입니다. 정답: {{ currentQuestion.answer }}</p>
+          <button type="button" @click="openExplanation" class="explanation-button">해설</button>
           <button @click="nextQuestion" class="next-button" ref="nextButton">다음 문제</button>
         </div>
       </div>
@@ -145,6 +146,8 @@
       <button @click="startQuiz" class="start-button">퀴즈 시작</button>
     </div>
 
+    <ExplanationModal v-if="showExplanationModal" :text="explanationText" :error="explanationError"
+      :loading="explanationLoading" @close="showExplanationModal = false" @retry="openExplanation" />
     <QuizModals :show-confirm="showConfirmModal" :confirm="confirmModal" :show-alert="showAlertModal"
       :alert="alertModal" @close-confirm="closeConfirmModal" @close-alert="closeAlertModal" />
   </div>
@@ -160,12 +163,15 @@ import { pstData, pstExams } from "../assets/pstData";
 import CodeVisualizer from './CodeVisualizer.vue';
 import SavedQuestionList from './SavedQuestionList.vue';
 import QuizModals from './QuizModals.vue';
+import ExplanationModal from './ExplanationModal.vue';
+import { quizExplanationMixin } from '../utils/quizExplanation.js';
 import { codeLanguages, getCodeLanguage, getCodeQuestions } from '../utils/codeQuestions.js';
 import { commonQuizComputed, commonQuizMethods, getCommonProgress, restoreCommonProgress } from '../utils/quizCommon.js';
 
 export default {
   name: "PstQuiz",
-  components: { CodeVisualizer, SavedQuestionList, QuizModals },
+  components: { CodeVisualizer, SavedQuestionList, QuizModals, ExplanationModal },
+  mixins: [quizExplanationMixin],
   data() {
     return {
       pstData: pstData,
@@ -416,6 +422,7 @@ export default {
     },
 
     setupQuestion(selectedItem, markAsUsed = this.playMode === 'random') {
+      this.resetExplanation(selectedItem.id);
       this.currentQuestion = selectedItem;
       if (markAsUsed && !this.usedQuestions.includes(selectedItem.id)) {
         this.usedQuestions.push(selectedItem.id);
