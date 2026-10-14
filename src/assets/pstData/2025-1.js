@@ -15,7 +15,7 @@ TCP (   )은/는 TCP의 3-way 핸드셰이크가 완료된 후에 공격자가 �
     question: "다음은 제약조건과 관련된 문제이다. 괄호안에 알맞는 용어를 보기에 골라 작성하시오.",
     passageOrCode: null,
     options: ["개체, 참조, 도메인"],
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FzQKG3%2FbtsNAiF6b8L%2FAAAAAAAAAAAAAAAAAAAAAEa_W4EUTDLlkXQKJW6z5pdQtR8cuby6AE9Gn06UIVEM%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DbWxVVvPW%252FsJMA2rKIGgpGk9bPs0%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/zQKG3/btsNAiF6b8L/AAAAAAAAAAAAAAAAAAAAAEa_W4EUTDLlkXQKJW6z5pdQtR8cuby6AE9Gn06UIVEM/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=GADgwmkbjj3jkEaRZpYauHIZGbo%3D"
   },
   {
     id: 3,
@@ -80,7 +80,7 @@ TCP (   )은/는 TCP의 3-way 핸드셰이크가 완료된 후에 공격자가 �
     question: "다음은 SQL 문제이다. 아래 두 테이블을 참고하여 보기에 쿼리 실행 결과를 작성하시오.",
     passageOrCode: null,
     options: ["SELECT name, incentive FROM emp, sal WHERE emp.id = sal.id and incentives >= 500"],
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FF7Tnq%2FbtsNzZtANQz%2FAAAAAAAAAAAAAAAAAAAAAK1cx-4kJpaMoUmRFCPQDT5G_pIphsY5oeoaQzKY76x6%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DzObUsPIpNfVaWaVe2Nje9wI%252FbGU%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/F7Tnq/btsNzZtANQz/AAAAAAAAAAAAAAAAAAAAAK1cx-4kJpaMoUmRFCPQDT5G_pIphsY5oeoaQzKY76x6/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=v237yKIpHywK6Y4FL%2Bfu%2FAAcMb4%3D"
   },
   {
     id: 8,
@@ -240,7 +240,7 @@ class Child extends Parent {
 기존 클래스(Adaptee)를 원하는 인터페이스(Target)에 맞게 변환하는 어댑터(Adapter)를 만든다.
 기존 클래스를 감싸서(wrapper) 인터페이스를 변환해주는 역할을 한다.`,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FoCM2H%2FbtsNzMAY2Vl%2FAAAAAAAAAAAAAAAAAAAAAI7nU4pEShdC4QU1bezXWzN8QaWWxsCQJI6lxs7fAj-m%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DZIsfF25Gq33ZthNcfBA6sMOQ42I%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/oCM2H/btsNzMAY2Vl/AAAAAAAAAAAAAAAAAAAAAI7nU4pEShdC4QU1bezXWzN8QaWWxsCQJI6lxs7fAj-m/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=mruEQeQwqgrdJtXOcgoBJQSFRiM%3D"
   },
   {
     id: 15,
@@ -262,7 +262,7 @@ return 1
     return 1;
 }`,
     options: ["1. (    ①    ) 2. (    ②    ) 3. (    ③    ) 4. (    ④    ) 5. (    ⑤    ) 6. (    ⑥    )", "문장 커버리지 순서 1 → 2  → (          ⑦           )"],
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FdK8Uvu%2FbtsNBHY9xSO%2FAAAAAAAAAAAAAAAAAAAAALKBOe-hfTV3FscLa7xdAqX4hNMqJ41TcqTsgB1SHIEc%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DUFtMWaT11HXauGdMXgVIspgc%252BIA%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/dK8Uvu/btsNBHY9xSO/AAAAAAAAAAAAAAAAAAAAALKBOe-hfTV3FscLa7xdAqX4hNMqJ41TcqTsgB1SHIEc/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=bK76ktoAc6Q1P5TYF1vZB6wCqI8%3D"
   },
   {
     id: 16,

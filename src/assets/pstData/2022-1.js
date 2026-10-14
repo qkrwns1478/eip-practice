@@ -54,7 +54,7 @@ public class Main {
     passageOrCode: `SELECT name, score FROM 성적 ( 1 ) BY ( 2 ) ( 3 )
 성적을 내림차순으로 정렬하는 쿼리를 완성하시오.`,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FuEqo5%2FbtrCITDzsQ5%2FAAAAAAAAAAAAAAAAAAAAAGpz6sul64daWvkKDeHLmkGeeTlmJGv8rtI27qb1-rRW%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DZCQwq7G%252FXGe4ZZLAqt1NVaT68k8%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/uEqo5/btrCITDzsQ5/AAAAAAAAAAAAAAAAAAAAAGpz6sul64daWvkKDeHLmkGeeTlmJGv8rtI27qb1-rRW/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=fAiEsaVNFambxTPKOEtImnNg9ig%3D"
   },
   {
     id: 165,
@@ -145,7 +145,7 @@ public class Main {
     question: "다음 보기 중에서 블랙박스 테스트 기법을 3가지 골라 작성하시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FqF3gz%2FbtrCLADst4N%2FAAAAAAAAAAAAAAAAAAAAAPMlILODV_JxRx5zW8aFrSoy4091ZPX6hQX3VcFjaElc%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DobNZTlhXDYKURKwzNU1jcjNfTVs%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/qF3gz/btrCLADst4N/AAAAAAAAAAAAAAAAAAAAAPMlILODV_JxRx5zW8aFrSoy4091ZPX6hQX3VcFjaElc/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=AQAcOFA5BWjaz%2FTXDB55VyrOysM%3D"
   },
   {
     id: 174,
@@ -240,6 +240,6 @@ int main(void) {
     question: "다음은 V모델에서의 테스트 단계에 대한 설명으로 괄호안에 들어갈 답을 작성하시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FdVq2S2%2FbtrNGv5Kkvq%2FAAAAAAAAAAAAAAAAAAAAAECXmeFPRuCyFDLTLjhAHYUrMmgrJWfrNoBQ6swcHJHK%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3D1n90rCbH2it3KHTFygoqdjjthPI%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/bNLeA3/btrCMbi8wE3/AAAAAAAAAAAAAAAAAAAAACS_CgMqjt6zFAMVDj9LSQ5zH_5R4-V_n31j6OaRDPf8/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=xZkGbg3ogiaoVPRZF37tMxr%2FRH4%3D"
   },
 ];

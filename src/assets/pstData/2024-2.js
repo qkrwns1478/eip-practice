@@ -64,7 +64,7 @@ UPDATE 사원   [      ④     ]   부서  =  '퇴사'  WHERE 사원번호  = 32
     question: "다음 릴레이션의 Cardinality와 Degree를 작성하시오.",
     passageOrCode: null,
     options: ["Cardinality : (  ①  )", "Degree : (  ②  )"],
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2F9GCnk%2FbtsIQHjwfX4%2FAAAAAAAAAAAAAAAAAAAAAFcwOwpSbNpVcvUGl9r3CTTjPEncjPAQEPGf6rQv7RxE%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3Dh7Ea%252Fde%252F1PCQOb3rpub9ZzkEZTo%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/9GCnk/btsIQHjwfX4/AAAAAAAAAAAAAAAAAAAAAFcwOwpSbNpVcvUGl9r3CTTjPEncjPAQEPGf6rQv7RxE/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=q%2BGLlXPZakyM5YJmkhhhUtyvIyQ%3D"
   },
   {
     id: 65,
@@ -141,7 +141,7 @@ print(out)`,
     question: "아래 그림을 바탕으로 RIP을 구성하여 최단 경로 비용을 계산하여 흐름에 맞게 작성하시오. (A에서 시작)",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbDn5o2%2FbtsIQLTXSHe%2FAAAAAAAAAAAAAAAAAAAAAJFzRUUsEI7beM5FTIMGSH1FCvW-dE-ni6ipmIyST9YZ%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DEIX5pwnfm6OQ4oak5kcHqCafiWU%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/bDn5o2/btsIQLTXSHe/AAAAAAAAAAAAAAAAAAAAAJFzRUUsEI7beM5FTIMGSH1FCvW-dE-ni6ipmIyST9YZ/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=24rnW70c%2BmrnHS2D3bZtpwpQtGE%3D"
   },
   {
     id: 72,

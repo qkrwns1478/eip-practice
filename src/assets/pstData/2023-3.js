@@ -282,7 +282,7 @@ print(num1 + " + " + num2 + " = " + num3)`,
     question: "다음은 판매와 관련된 다이어그램이다. 해당 다이어그램의 명칭을 쓰시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FG17fg%2FbtsDs2rLh1k%2FAAAAAAAAAAAAAAAAAAAAAEzsNevCGXIAmmZEVFohw79sXzdlfZnUxEWidCJMTCRJ%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3D4rqV0XZEfWAw70LrvH8%252FLBlO3v4%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/G17fg/btsDs2rLh1k/AAAAAAAAAAAAAAAAAAAAAEzsNevCGXIAmmZEVFohw79sXzdlfZnUxEWidCJMTCRJ/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=Pmkg8jVqzf0tF109DMhSuLzDqGQ%3D"
   },
   {
     id: 156,
@@ -317,7 +317,7 @@ print(num1 + " + " + num2 + " = " + num3)`,
       "SaaS",
       "IaaS"
     ],
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbgV3Dv%2FbtsDxjzXlXL%2FAAAAAAAAAAAAAAAAAAAAAO1vPFE8OwX5WjtRdf3rKwQojSeV57tJwEDkKca4r2_i%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DcK4Iygs3smzKLzCDMsKo9fQFRCg%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/bgV3Dv/btsDxjzXlXL/AAAAAAAAAAAAAAAAAAAAAO1vPFE8OwX5WjtRdf3rKwQojSeV57tJwEDkKca4r2_i/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=mAZ1bwlGwHCIUzbAVNGqbZTxlug%3D"
   },
   {
     id: 158,

@@ -3,40 +3,72 @@
 [Vue 3](https://vuejs.org/)와 [Vite](https://vitejs.dev/)를 사용하여 구축한 정보처리기사 실기 대비용 퀴즈 애플리케이션입니다.
 
 ## 자료 출처
-* [정보처리기사 실기 족보 1탄](https://chobopark.tistory.com/193)
-* [정보처리기사 실기 족보 2탄](https://chobopark.tistory.com/197)
-* [정보처리기사 실기 기출문제 2022년 1회](https://chobopark.tistory.com/241)
-* [정보처리기사 실기 기출문제 2022년 2회](https://chobopark.tistory.com/423)
-* [정보처리기사 실기 기출문제 2022년 3회](https://chobopark.tistory.com/424)
-* [정보처리기사 실기 기출문제 2023년 1회](https://chobopark.tistory.com/372)
-* [정보처리기사 실기 기출문제 2023년 2회](https://chobopark.tistory.com/420)
-* [정보처리기사 실기 기출문제 2023년 3회](https://chobopark.tistory.com/453)
-* [정보처리기사 실기 기출문제 2024년 1회](https://chobopark.tistory.com/476)
-* [정보처리기사 실기 기출문제 2024년 2회](https://chobopark.tistory.com/483)
-* [정보처리기사 실기 기출문제 2024년 3회](https://chobopark.tistory.com/495)
-* [정보처리기사 실기 기출문제 2025년 1회](https://chobopark.tistory.com/540)
-* [정보처리기사 실기 기출문제 2025년 2회](https://chobopark.tistory.com/554)
-* [정보처리기사 실기 기출문제 2025년 3회](https://chobopark.tistory.com/558)
-* [정보처리기사 실기 기출문제 2026년 1회](https://chobopark.tistory.com/561)
-* [정보처리기사 실기 기출문제 2026년 2회](https://chobopark.tistory.com/562)
+- [[2026년 대비] 핵심 키워드만 암기하면 쉽게 기억되는 키워드 찾기 130문제](https://www.sinagong.co.kr/pds/001001002/past-exams)
+- [정보처리기사 실기 족보 1탄](https://chobopark.tistory.com/193)
+- [정보처리기사 실기 족보 2탄](https://chobopark.tistory.com/197)
+- [정보처리기사 실기 기출문제 2020년 1회](https://chobopark.tistory.com/196)
+- [정보처리기사 실기 기출문제 2020년 2회](https://chobopark.tistory.com/195)
+- [정보처리기사 실기 기출문제 2020년 3회](https://chobopark.tistory.com/194)
+- [정보처리기사 실기 기출문제 2020년 4회](https://chobopark.tistory.com/192)
+- [정보처리기사 실기 기출문제 2021년 1회](https://chobopark.tistory.com/191)
+- [정보처리기사 실기 기출문제 2021년 2회](https://chobopark.tistory.com/210)
+- [정보처리기사 실기 기출문제 2021년 3회](https://chobopark.tistory.com/217)
+- [정보처리기사 실기 기출문제 2022년 1회](https://chobopark.tistory.com/271)
+- [정보처리기사 실기 기출문제 2022년 2회](https://chobopark.tistory.com/423)
+- [정보처리기사 실기 기출문제 2022년 3회](https://chobopark.tistory.com/424)
+- [정보처리기사 실기 기출문제 2023년 1회](https://chobopark.tistory.com/372)
+- [정보처리기사 실기 기출문제 2023년 2회](https://chobopark.tistory.com/420)
+- [정보처리기사 실기 기출문제 2023년 3회](https://chobopark.tistory.com/453)
+- [정보처리기사 실기 기출문제 2024년 1회](https://chobopark.tistory.com/476)
+- [정보처리기사 실기 기출문제 2024년 2회](https://chobopark.tistory.com/483)
+- [정보처리기사 실기 기출문제 2024년 3회](https://chobopark.tistory.com/495)
+- [정보처리기사 실기 기출문제 2025년 1회](https://chobopark.tistory.com/540)
+- [정보처리기사 실기 기출문제 2025년 2회](https://chobopark.tistory.com/554)
+- [정보처리기사 실기 기출문제 2025년 3회](https://chobopark.tistory.com/558)
+- [정보처리기사 실기 기출문제 2026년 1회](https://chobopark.tistory.com/561)
+- [정보처리기사 실기 기출문제 2026년 2회](https://chobopark.tistory.com/562)
 
 ## 주요 기능
 
-* **듀얼 퀴즈 모드**: 사이드바 내비게이션을 통해 **족보퀴즈**와 **기출문제** 두 가지 모드를 선택할 수 있습니다.
-* **랜덤 퀴즈**: 각 모드(`geoData.js`, `pstData.js`)에 정의된 문제 은행에서 랜덤으로 문제를 출제합니다.
-* **다양한 학습 모드**
-  * **퀴즈**: 새로운 문제를 풉니다.
-  * **북마크**: 중요하다고 표시한 문제들만 모아서 봅니다.
-  * **틀린 문제**: 이전에 틀렸던 문제들만 다시 풀어볼 수 있습니다.
-  * **통계**: 전체 진행률, 정답률, 북마크 및 틀린 문제 개수를 시각적으로 확인합니다.
-* **진행 상황 저장**: 모든 학습 진행 상황(점수, 푼 문제, 북마크, 틀린 문제)이 퀴즈 모드별로 브라우저의 Local Storage에 자동으로 저장됩니다.
-* **초기화**: 모든 학습 기록을 초기화할 수 있습니다.
+- **키워드 퀴즈**
+  - 정보처리기사 실기 핵심 개념을 단답형 문제로 학습할 수 있습니다.
+  - 문제를 풀기 전에 내용을 확인할 수 있는 공부 모드를 제공합니다.
+
+- **족보 퀴즈**
+  - 자주 출제되는 개념을 중심으로 반복 학습할 수 있습니다.
+
+- **기출문제**
+  - 2020년부터 2026년까지의 정보처리기사 실기 기출문제를 회차별로 풀 수 있습니다.
+  - 전체 문제를 무작위로 풀거나 원하는 시험 회차를 선택하여 모의고사 형태로 풀 수 있습니다.
+
+- **코드 문제**
+  - C, Java, Python, SQL 관련 기출문제만 따로 모아서 학습할 수 있습니다.
+  - 언어와 시험 회차를 선택할 수 있으며, 무작위 또는 기출 순서로 문제를 풀 수 있습니다.
+  - 일부 C, Java, Python 문제는 정답 확인 후 코드의 실행 과정을 단계별로 확인할 수 있습니다.
+
+- **오답 및 북마크**
+  - 틀린 문제를 따로 모아 다시 풀 수 있습니다.
+  - 다시 확인하고 싶은 문제를 북마크할 수 있습니다.
+
+- **AI 문제 해설**
+  - 정답 또는 오답 확인 후 `해설` 버튼을 누르면 별도 모달에서 AI 해설을 확인할 수 있습니다.
+  - 생성된 해설은 다음 문제로 넘어가기 전까지 유지됩니다. 북마크 또는 틀린 문제의 해설은 학습 기록에 함께 저장되어 복습 시 다시 확인할 수 있습니다.
+  - 북마크와 틀린 문제 목록에서 모두 제거하면 저장된 해설도 삭제됩니다. 그 외 문제의 해설은 메모리에만 유지하며 다음 문제로 넘어가면 사라집니다.
+
+- **학습 통계**
+  - 풀이 진행률과 정답률을 확인할 수 있습니다.
+
+- **학습 기록 저장**
+  - 브라우저에 학습 진행 상황이 저장되어 새로고침 후에도 이어서 학습할 수 있습니다.
+
+- **다크 모드**
+  - 라이트 모드와 다크 모드를 전환할 수 있으며 선택한 설정이 유지됩니다.
 
 ## 스크린샷
 
 | 족보퀴즈 | 기출문제 | 다크모드 |
 |:---:|:---:|:---:|
-| <img src="./public/images/screenshot_1.jpg"> | <img src="./public/images/screenshot_2.jpg"> | <img src="./public/images/screenshot_3.jpg"> |
+| <img src="./public/images/screenshot_1.jpg" alt="라이트 모드 족보퀴즈 화면"> | <img src="./public/images/screenshot_2.jpg" alt="라이트 모드 2026년 2회 기출문제 화면"> | <img src="./public/images/screenshot_3.jpg" alt="VS Code 스타일 다크 모드 기출문제 화면"> |
 
 ## 기술 스택
 
@@ -44,23 +76,29 @@
 [![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)](https://vitejs.dev/)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/ko/docs/Web/JavaScript)
 
-## 프로젝트 구조
-
-* `index.html`: 애플리케이션의 진입점 HTML 파일
-* `src/main.js`: Vue 앱 인스턴스를 생성하고 마운트하는 메인 스크립트
-* `src/App.vue`: 사이드바 내비게이션을 관리하며, `GeoQuiz`와 `PstQuiz` 컴포넌트를 동적으로 렌더링하는 루트 컴포넌트
-* `src/components/GeoQuiz.vue`: **족보퀴즈**의 로직과 UI를 포함하는 컴포넌트
-* `src/assets/geoData.js`: **족보퀴즈** 문제와 답을 정의한 데이터 파일
-* `src/components/PstQuiz.vue`: **기출문제**의 로직과 UI를 포함하는 컴포넌트
-* `src/assets/pstData.js`: **기출문제** 문제 데이터셋 목록을 정의한 인덱스 파일
-* `src/assets/pstData/*.js`: **기출문제** 문제와 답을 정의한 데이터 파일
-* `src/assets/style/style.css`: 퀴즈 컴포넌트에서 공통으로 사용하는 메인 스타일시트
-* `src/assets/style/GeoQuiz.css`: `GeoQuiz` 컴포넌트에서 사용하는 스타일시트
-* `src/assets/style/PstQuiz.css`: `PstQuiz` 컴포넌트에서 사용하는 스타일시트
-
 ## 실행 방법
+
+Node.js 22.18 이상을 사용합니다. 프로젝트 루트의 `.env`에 Groq API 키를 설정합니다.
+
+```dotenv
+GROQ_API_KEY=발급받은_API_키
+```
+
+API 키는 서버에서만 사용합니다. `.env` 변경 후 서버를 다시 시작해주세요.
 
 ```bash
 npm install
 npm run dev
 ```
+
+배포용 서버는 다음과 같이 실행합니다.
+
+```bash
+npm run build
+npm start
+```
+
+기본 주소는 `http://127.0.0.1:3000`이며 `HOST`와 `PORT` 환경변수로 변경할 수 있습니다. 정적 파일만 호스팅할 경우 `/api/explanation`을 실행하는 Node 서버로 연결해야 합니다.
+
+- 검증은 `npm test`, 배포용 빌드는 `npm run build`로 실행합니다.
+- Windows PowerShell 실행 정책으로 `npm`을 실행할 수 없는 경우 `npm.cmd`를 사용합니다.

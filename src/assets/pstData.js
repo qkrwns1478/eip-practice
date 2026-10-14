@@ -12,6 +12,13 @@ import { pstData_2022_2 } from './pstData/2022-2.js';
 import { pstData_2022_3 } from './pstData/2022-3.js';
 import { pstData_2026_1 } from './pstData/2026-1.js';
 import { pstData_2026_2 } from './pstData/2026-2.js';
+import { pstData_2021_1 } from './pstData/2021-1.js';
+import { pstData_2021_2 } from './pstData/2021-2.js';
+import { pstData_2021_3 } from './pstData/2021-3.js';
+import { pstData_2020_1 } from './pstData/2020-1.js';
+import { pstData_2020_2 } from './pstData/2020-2.js';
+import { pstData_2020_3 } from './pstData/2020-3.js';
+import { pstData_2020_4 } from './pstData/2020-4.js';
 
 export const pstData = [
   ...pstData_2025_1,
@@ -28,10 +35,24 @@ export const pstData = [
   ...pstData_2022_3,
   ...pstData_2026_1,
   ...pstData_2026_2,
+  ...pstData_2021_1,
+  ...pstData_2021_2,
+  ...pstData_2021_3,
+  ...pstData_2020_1,
+  ...pstData_2020_2,
+  ...pstData_2020_3,
+  ...pstData_2020_4,
 ];
 
 // Source-exam groups are kept separately so ordered practice does not rely on IDs.
 export const pstExams = [
+  { key: '2020-1', year: '2020', round: 1, questions: pstData_2020_1 },
+  { key: '2020-2', year: '2020', round: 2, questions: pstData_2020_2 },
+  { key: '2020-3', year: '2020', round: 3, questions: pstData_2020_3 },
+  { key: '2020-4', year: '2020', round: 4, questions: pstData_2020_4 },
+  { key: '2021-1', year: '2021', round: 1, questions: pstData_2021_1 },
+  { key: '2021-2', year: '2021', round: 2, questions: pstData_2021_2 },
+  { key: '2021-3', year: '2021', round: 3, questions: pstData_2021_3 },
   { key: '2022-1', year: '2022', round: 1, questions: pstData_2022_1 },
   { key: '2022-2', year: '2022', round: 2, questions: pstData_2022_2 },
   { key: '2022-3', year: '2022', round: 3, questions: pstData_2022_3 },

@@ -32,7 +32,7 @@ export const pstData_2022_2 = [
 FROM 제품
 WHERE 단가 > ( ) (SELECT 단가 FROM 제품 WHERE 제조사='H')`,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FbsS2lh%2FbtsCX4ru0Xg%2FAAAAAAAAAAAAAAAAAAAAAOcgsnx9SfGMIWdDsv3pjyb3vUhghOgI5BFzcIgt3Vkb%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3D1XXJbcbg80iRutfvP9hsVEg0sNw%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/bsS2lh/btsCX4ru0Xg/AAAAAAAAAAAAAAAAAAAAAOcgsnx9SfGMIWdDsv3pjyb3vUhghOgI5BFzcIgt3Vkb/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=%2BL5gpdGzzUzF5J9KD9x4BGKFNAg%3D"
   },
   {
     id: 184,
@@ -42,7 +42,7 @@ WHERE 단가 > ( ) (SELECT 단가 FROM 제품 WHERE 제조사='H')`,
 FROM TABLE
 WHERE col1 in(2,3) or col2 in(3,5);`,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FtgfeI%2FbtsCZgyM9H0%2FAAAAAAAAAAAAAAAAAAAAAAfaSaiHsttAJUuyxzzjIurwV8RwcfTgRK8zF1yNeFdi%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3Dwx%252BwnDusiitrj4woQIJdw0bNRI8%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/tgfeI/btsCZgyM9H0/AAAAAAAAAAAAAAAAAAAAAAfaSaiHsttAJUuyxzzjIurwV8RwcfTgRK8zF1yNeFdi/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=vQ8X8yTK2Pvbha7r%2BZ4uHkYAhQY%3D"
   },
   {
     id: 185,
@@ -141,7 +141,7 @@ int main() {
     question: "다음 테이블에서 πTTL(employee)에 대한 연산 결과 값을 작성하시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FciEqnk%2FbtsC5YDmqrh%2FAAAAAAAAAAAAAAAAAAAAANWPC8whsCRtZTb-RB-J7RHvuEfPLxoxXgJ1I-APFJh1%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DEnnDNF%252FCS%252B6vAFCMXInqhFburpI%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/ciEqnk/btsC5YDmqrh/AAAAAAAAAAAAAAAAAAAAANWPC8whsCRtZTb-RB-J7RHvuEfPLxoxXgJ1I-APFJh1/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=UlnGeh5mI6jvFNa1PChA6Pnggas%3D"
   },
   {
     id: 193,
@@ -246,7 +246,7 @@ public static void main(String[] args) {
 2. 성적은 학과만 알아도 식별이 가능하므로, 이 경우에는 성적 속성은 기본키에 ( ) Functional Dependency이다.
 3. 릴레이션에서 X, Y, Z라는 3 개의 속성이 있을 때 X→Y, Y→Z 이란 종속 관계가 있을 경우, X→Z가 성립될 경우`,
     options: ["ㄱ. Hybrid", "ㄴ. Multi Valued", "ㄷ. Transitive", "ㄹ. Full", "ㅁ. Defined", "ㅂ. Natural", "ㅅ. Relational", "ㅇ. Partial"],
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FdwxbKs%2FbtsCVHKbX1G%2FAAAAAAAAAAAAAAAAAAAAAHpCevhbn5bkhzNeFabt-jk3O783zzgyvzFhP7_jj8cj%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DrzzwmHq3ZFruYd3TIycGbD11jGc%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/dwxbKs/btsCVHKbX1G/AAAAAAAAAAAAAAAAAAAAAHpCevhbn5bkhzNeFabt-jk3O783zzgyvzFhP7_jj8cj/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=s4iPkkLngwtQo1d50Oq%2BSfPwq7Y%3D"
   },
   {
     id: 199,
@@ -264,6 +264,6 @@ public static void main(String[] args) {
     question: "다음 모듈 F에 대한 Fan-in과 Fan-out을 작성하시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2F7rUn8%2FbtsC2xTZYee%2FAAAAAAAAAAAAAAAAAAAAAJHQ82vln75ifQ37NX2AnUI06OIwV9ReHhjfS-_HA0iL%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3Dux67MHR4Ub4qldz0t91HiVcwszk%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/7rUn8/btsC2xTZYee/AAAAAAAAAAAAAAAAAAAAAJHQ82vln75ifQ37NX2AnUI06OIwV9ReHhjfS-_HA0iL/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=BsPmSkBFCRwwZCruYHp%2BjFY8UrY%3D"
   },
 ];

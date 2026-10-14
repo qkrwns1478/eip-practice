@@ -9,15 +9,21 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --color-primary: #667eea;
-  --color-primary-dark: #5568d3;
-  --color-primary-light: #f0f3ff;
+  --color-primary: #007acc;
+  --color-primary-text: var(--color-primary);
+  --color-primary-rgb: 0, 122, 204;
+  --color-primary-dark: #0062a3;
+  --color-primary-light: #e8f4fc;
   --color-secondary: #764ba2;
   --color-text: #333333;
   --color-text-light: #666666;
   --color-border: #e0e0e0;
   --color-background: #f4f7f6;
   --color-white: #ffffff;
+  --color-sidebar: var(--color-white);
+  --color-button: #f9f9f9;
+  --color-sub-item: #fdfdfd;
+  --color-hover: #f8f9fa;
   --color-tooltip-bg: #333333;
   --color-white-for-text: #ffffff;
   --color-success: #28a745;
@@ -34,17 +40,27 @@
 }
 
 :root.dark-mode {
-  --color-primary-light: #2a2d4b;
-  --color-text: #f0f0f0;
-  --color-text-light: #a0a0a0;
-  --color-border: #3a3a3a;
-  --color-background: #1a1a1a;
-  --color-white: #242424;
-  /* --color-white-for-text: #ffffff; */
-  --color-disabled: #555;
-  --color-disabled-bg: #333;
-  --color-success-light: #1a3a2a;
-  --color-danger-light: #3a1a2a;
+  color-scheme: dark;
+  --color-primary: #007acc;
+  --color-primary-text: #4fc1ff;
+  --color-primary-rgb: 0, 122, 204;
+  --color-primary-dark: #0062a3;
+  --color-primary-light: #094771;
+  --color-secondary: #0e639c;
+  --color-text: #cccccc;
+  --color-text-light: #9d9d9d;
+  --color-border: #3c3c3c;
+  --color-background: #1e1e1e;
+  --color-white: #252526;
+  --color-sidebar: #333333;
+  --color-button: #3c3c3c;
+  --color-sub-item: #252526;
+  --color-hover: #3c3c3c;
+  --color-tooltip-bg: #252526;
+  --color-disabled: #3c3c3c;
+  --color-disabled-bg: #2d2d2d;
+  --color-success-light: #203525;
+  --color-danger-light: #3c2525;
 
   --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.2);
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -73,15 +89,10 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #f9f9f9;
+  background-color: var(--color-button);
   color: var(--color-text);
   cursor: pointer;
   transition: border-color 0.25s, background-color 0.25s, transform 0.2s, color 0.25s;
-}
-
-:root.dark-mode button {
-  background-color: #333;
-  color: var(--color-text);
 }
 
 button:hover {
@@ -95,9 +106,14 @@ button:focus-visible {
 }
 a {
   font-weight: 500;
-  color: var(--color-primary);
+  color: var(--color-primary-text);
   text-decoration: inherit;
 }
 a:hover {
   color: var(--color-primary-dark);
+}
+
+:root.dark-mode a:hover {
+  color: var(--color-primary-text);
+  text-decoration: underline;
 }

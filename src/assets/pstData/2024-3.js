@@ -60,7 +60,7 @@ WHERE p.name IN (
     )
 );`,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2F9Duij%2FbtsKhmXLACx%2FAAAAAAAAAAAAAAAAAAAAAJ7Z6wb65tBG8qfWhrB_xN_Eay6h24r_fPFYzm7NtBE5%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3Dc9ex%252Bt0wsElYV%252B8cX%252FLSYEoTnzc%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/9Duij/btsKhmXLACx/AAAAAAAAAAAAAAAAAAAAAJ7Z6wb65tBG8qfWhrB_xN_Eay6h24r_fPFYzm7NtBE5/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=py3M8gPVgARfSsFupUcEtpPeFbA%3D"
   },
   {
     id: 84,
@@ -122,7 +122,7 @@ int main() {
     question: "다음은 무결성제약조건에 대한 문제이다. 아래 표에서 어떠한 ( ) 무결성을 위반하였는지 작성하시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fnh0RX%2FbtsKgJl3Fa7%2FAAAAAAAAAAAAAAAAAAAAAG3F7y15SpGBFn7EpGA8Tqt3MwIPtZOIhTFksxToLV5O%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DiVQiTmsCOVF3H2bSlzQ49q967sI%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/nh0RX/btsKgJl3Fa7/AAAAAAAAAAAAAAAAAAAAAG3F7y15SpGBFn7EpGA8Tqt3MwIPtZOIhTFksxToLV5O/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=V%2BW%2BojQHr%2FfmY3aHWY0uWDRO%2BKw%3D"
   },
   {
     id: 89,
@@ -136,7 +136,7 @@ int main() {
       "authority : 사용자 정보, 호스트명, 포트 번호",
       "fragment : 특정 문서 내의 위치"
     ],
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fbge1Ni%2FbtsKfy62Ji6%2FAAAAAAAAAAAAAAAAAAAAADDVvxyjlpIU2PB6-m4-7z3CDSaXrwMa09a2ffodtExB%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3DrDc0%252FQJUeLIoNStrQKEFXICNBQ0%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/bge1Ni/btsKfy62Ji6/AAAAAAAAAAAAAAAAAAAAADDVvxyjlpIU2PB6-m4-7z3CDSaXrwMa09a2ffodtExB/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=RyPEmctNOCJOEayHLKNGz115EJg%3D"
   },
   {
     id: 90,
@@ -251,7 +251,7 @@ int main() {
       "ㄴ. 연관",
       "ㄷ. 일반화"
     ],
-    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fuev6c%2FbtsKheTOKch%2FAAAAAAAAAAAAAAAAAAAAAEwYju5DTzHQzGaTpqTmpYyFCvpFpBfnZJ4Y4VLYPDnh%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1764514799%26allow_ip%3D%26allow_referer%3D%26signature%3D7guFnyr5C6RXpPE9TIyJ5iZILwE%253D"
+    imageUrl: "https://blog.kakaocdn.net/dna/uev6c/btsKheTOKch/AAAAAAAAAAAAAAAAAAAAAEwYju5DTzHQzGaTpqTmpYyFCvpFpBfnZJ4Y4VLYPDnh/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=2QHkQSNRAh6vHLwjuuSKBw8Uye4%3D"
   },
   {
     id: 95,
