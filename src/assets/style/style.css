@@ -853,7 +853,7 @@ button:focus:not(:focus-visible) {
 .eip-logo:hover {
   color: var(--color-primary-text);
 }
-.main-content button:hover:not(:disabled):not(.icon-menu-bar button) {
+.main-content button:hover:not(:disabled):not(.icon-menu-bar button):not(.bookmark-btn) {
   transform: none !important;
   box-shadow: none !important;
   filter: brightness(0.94);
