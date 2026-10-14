@@ -1,3 +1,5 @@
+import { syncSavedExplanations } from './quizExplanation.js';
+
 export const commonQuizComputed = {
   progressPercentage() {
     if (this.totalAvailableQuestions === 0) return 0;
@@ -87,6 +89,7 @@ export function getCommonProgress(quiz) {
     bookmarkedQuestions: quiz.bookmarkedQuestions,
     solvedQuestions: quiz.solvedQuestions,
     wrongQuestions: quiz.wrongQuestions,
+    savedExplanations: syncSavedExplanations(quiz),
     usedQuestions: quiz.usedQuestions,
     currentQuestionIndex: quiz.currentQuestionIndex,
     currentQuestion: quiz.currentQuestion,
@@ -110,6 +113,13 @@ export function restoreCommonProgress(quiz, progress) {
   quiz.bookmarkedQuestions = ids(progress.bookmarkedQuestions);
   quiz.solvedQuestions = ids(progress.solvedQuestions);
   quiz.wrongQuestions = ids(progress.wrongQuestions);
+  const explanations = progress.savedExplanations;
+  quiz.savedExplanations = {};
+  if (explanations && typeof explanations === 'object' && !Array.isArray(explanations)) {
+    for (const id of [...quiz.bookmarkedQuestions, ...quiz.wrongQuestions]) {
+      if (typeof explanations[id] === 'string' && explanations[id].trim()) quiz.savedExplanations[id] = explanations[id];
+    }
+  }
   quiz.usedQuestions = ids(progress.usedQuestions);
   quiz.currentQuestionIndex = count(progress.currentQuestionIndex);
   quiz.currentQuestion = progress.currentQuestion || null;
@@ -119,4 +129,5 @@ export function restoreCommonProgress(quiz, progress) {
   quiz.userAnswer = typeof progress.userAnswer === 'string' ? progress.userAnswer : '';
   quiz.answered = progress.answered === true;
   quiz.isCorrect = progress.isCorrect === true;
+  quiz.resetExplanation();
 }
