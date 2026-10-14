@@ -67,6 +67,10 @@
   font-size: 14px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
+button:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
 
 .menu-bar {
   display: flex;
@@ -106,7 +110,6 @@
   margin-left: auto;
   border-color: var(--color-danger);
   color: var(--color-danger);
-  background: var(--color-white);
 }
 
 .menu-bar .reset-btn.active,
@@ -788,8 +791,7 @@
   .score-board span {
     padding: 6px 12px;
   }
-
-  .menu-bar {
+.menu-bar {
     /* flex-direction: column; */
     justify-content: center;
   }
@@ -845,4 +847,9 @@
   letter-spacing: 0.04em;
   user-select: none;
   -webkit-user-drag: none;
+}
+.main-content button:hover:not(:disabled):not(.icon-menu-bar button) {
+  transform: none !important;
+  box-shadow: none !important;
+  filter: brightness(0.94);
 }

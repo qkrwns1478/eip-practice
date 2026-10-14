@@ -75,13 +75,16 @@
       <div class="mockExam-picker">
         <h3>모의고사</h3>
         <div class="mockExam-filters">
-          <label for="pst-exam-select">기출 회차
-            <select id="pst-exam-select" v-model="selectedExamKey">
-              <option v-for="exam in pstExams" :key="exam.key" :value="exam.key">
-                {{ exam.year }}년 {{ exam.round }}회
-              </option>
-            </select>
-          </label>
+          <section v-for="group in examsByYear" :key="group.year" class="mock-exam-year-group">
+            <h4>{{ group.year }}년</h4>
+            <div class="mock-exam-grid" role="group" :aria-label="String(group.year)">
+              <button v-for="exam in group.exams" :key="exam.key" type="button"
+                @click="selectedExamKey = exam.key" :aria-pressed="selectedExamKey === exam.key"
+                :class="{ selected: selectedExamKey === exam.key }">
+                {{ exam.round }}회
+              </button>
+            </div>
+          </section>
         </div>
         <button @click="startMockExamQuiz" class="mockExam-start-button">응시 시작</button>
       </div>
@@ -238,6 +241,14 @@ export default {
     };
   },
   computed: {
+    examsByYear() {
+      const groups = new Map();
+      this.pstExams.forEach(exam => {
+        if (!groups.has(exam.year)) groups.set(exam.year, []);
+        groups.get(exam.year).push(exam);
+      });
+      return Array.from(groups, ([year, exams]) => ({ year, exams }));
+    },
     filteredCodeQuestions() {
       const exams = this.selectedCodeExamKey === 'all' ? this.pstExams : this.pstExams.filter(exam => exam.key === this.selectedCodeExamKey);
       return getCodeQuestions(exams.flatMap(exam => exam.questions), this.selectedCodeLanguage);
