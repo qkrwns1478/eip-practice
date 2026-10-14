@@ -1,8 +1,8 @@
 export const pstData_2026_2 = [
   {
     id: 261,
-    answer: "ㄱ. 동치분할 (Equivalence Partitioning)",
-    alts: ["동치분할 (Equivalence Partitioning)", "동치분할", "Equivalence Partitioning"],
+    answer: "ㄱ",
+    alts: ["ㄱ. 동치분할 (Equivalence Partitioning)", "동치분할 (Equivalence Partitioning)", "동치분할", "Equivalence Partitioning"],
     question: "다음은 블랙박스 테스트 기법에 대한 설명이다. 괄호 (   ) 안에 들어갈 말을 보기에서 골라 쓰시오.",
     passageOrCode: `(   )은 프로그램의 입력 조건을 유효한 값과 유효하지 않은 값의 영역으로 나누고, 각 영역을 대표할 수 있는 값을 선정하여 테스트 케이스를 설계하는 명세 기반(블랙박스) 테스트 기법이다.
  
@@ -57,8 +57,8 @@ public class Main {
   },
   {
     id: 263,
-    answer: "ㅁ. 내용결합도 (Content Coupling)",
-    alts: ["내용결합도 (Content Coupling)", "내용결합도", "Content Coupling"],
+    answer: "ㅁ",
+    alts: ["ㅁ. 내용결합도 (Content Coupling)", "내용결합도 (Content Coupling)", "내용결합도", "Content Coupling"],
     question: "다음은 소프트웨어 모듈 간의 결합도(Coupling)에 대한 설명이다. 괄호 안에 들어갈 말을 보기에서 골라 기호로 쓰시오.",
     passageOrCode: `( )는 한 모듈이 다른 모듈 내부에 있는 변수나 기능을 직접 참조하거나 사용하는 경우에 발생하는 결합도로, 결합도 종류 중 결합 강도가 가장 높은 형태이다.`,
     options: [

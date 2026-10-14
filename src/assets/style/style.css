@@ -847,6 +847,10 @@ button:focus:not(:focus-visible) {
   letter-spacing: 0.04em;
   user-select: none;
   -webkit-user-drag: none;
+  transition: all 0.2s ease;
+}
+.eip-logo:hover {
+  color: var(--color-primary-text);
 }
 .main-content button:hover:not(:disabled):not(.icon-menu-bar button) {
   transform: none !important;

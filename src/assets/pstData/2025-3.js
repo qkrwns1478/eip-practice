@@ -341,7 +341,7 @@ public class Main {
   },
   {
     id: 239,
-    answer: "MAC RBAC DAC",
+    answer: "ㄱ ㄹ ㅁ",
     alt: "테스트 조건 테스트 데이터 예상 결과",
     question: "다음은 테스트케이스의 구성요소에 대한 설명이다. 괄호 ( ) 안에 들어갈 알맞는 보기를 고르시오.",
     passageOrCode: null,
