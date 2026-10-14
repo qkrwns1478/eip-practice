@@ -21,7 +21,7 @@
         </svg>
         <span class="tooltip-text">모의고사</span>
       </button>
-      <button @click="showMode = 'bookmarks'" :class="{ active: showMode === 'bookmarks' }">
+      <button @click="openView('bookmarks')" :class="{ active: showMode === 'bookmarks' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polygon
@@ -29,7 +29,7 @@
         </svg>
         <span class="tooltip-text">북마크 ({{ bookmarkedQuestions.length }})</span>
       </button>
-      <button @click="showMode = 'wrong'" :class="{ active: showMode === 'wrong' }">
+      <button @click="openView('wrong')" :class="{ active: showMode === 'wrong' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18" />
@@ -86,7 +86,7 @@
             </div>
           </section>
         </div>
-        <button @click="startMockExamQuiz" class="mockExam-start-button">{{ mockExamSession?.examKey === selectedExamKey ? '이어서 응시' : '응시 시작' }}</button>
+        <button @click="startMockExamQuiz" class="mockExam-start-button">{{ mockExamSessions[selectedExamKey] ? '이어서 응시' : '응시 시작' }}</button>
       </div>
     </div>
 
@@ -95,7 +95,7 @@
         <div class="question-header">
           <h3>{{ questionTitle }}</h3>
           <div class="quiz-actions-group">
-            <button v-if="playMode === 'mockExam'" @click="showMode = 'mockExam'" class="skip-button">회차 선택</button>
+            <button v-if="playMode === 'mockExam'" @click="openView('mockExam')" class="skip-button">회차 선택</button>
             <button v-if="['random', 'code'].includes(playMode) && !answered" @click="skipQuestion" class="skip-button">다음 문제</button>
             <span class="quiz-info-badge" v-if="currentQuestion">{{ getQuizInfo(currentQuestion.id) }}</span>
             <button @click="toggleBookmark" class="bookmark-btn" :class="{ bookmarked: isCurrentQuestionBookmarked }">
@@ -179,6 +179,7 @@ export default {
       selectedExamKey: '2026-2',
       mockExamQuestions: [],
       mockExamSession: null,
+      mockExamSessions: {},
       practiceSessions: {},
       codeLanguages,
       selectedCodeLanguage: 'C',
@@ -234,17 +235,33 @@ export default {
   },
   mounted() {
     this.loadProgress();
-    this.openRandomQuiz();
+    if (this.showMode === 'quiz' && !this.currentQuestion) this.openRandomQuiz();
+  },
+  watch: {
+    userAnswer() { this.saveProgress(); },
+    showMode() { this.saveProgress(); },
+    selectedExamKey() { this.saveProgress(); },
+    selectedCodeLanguage() { this.saveProgress(); },
+    selectedCodeExamKey() { this.saveProgress(); },
+    codeQuestionOrder() { this.saveProgress(); },
+  },
+  beforeUnmount() {
+    this.saveProgress();
   },
   methods: {
     ...commonQuizMethods,
     getCodeLanguage,
     codeLanguageCount(language) { return getCodeQuestions(this.pstData, language).length; },
-    openCodeMode() { this.showMode = 'codePicker'; },
+    openView(view) { this.saveCurrentSession(); this.showMode = view; this.saveProgress(); },
+    openCodeMode() { this.openView('codePicker'); },
     saveCurrentSession() {
       this.saveMockExamSession();
       if (this.playMode === 'mockExam') return;
       const key = this.playMode === 'review' ? this.reviewSource : this.playMode;
+      if (this.playMode === 'review' && !(key === 'bookmarks' ? this.bookmarkedQuestions : this.wrongQuestions).includes(this.currentQuestion?.id)) {
+        delete this.practiceSessions[key];
+        return;
+      }
       this.practiceSessions[key] = {
         currentQuestionId: this.currentQuestion?.id || null,
         currentQuestionIndex: this.currentQuestionIndex,
@@ -258,7 +275,13 @@ export default {
     restorePracticeSession(key) {
       const session = this.practiceSessions[key];
       const question = this.getQuestionById(session?.currentQuestionId);
-      if (!question) return false;
+      if (!question || !Number.isInteger(session.currentQuestionIndex) || session.currentQuestionIndex < 0) return false;
+      if (key === 'code' && (!Array.isArray(session.codeSessionIds) ||
+        session.codeSessionIds[session.currentQuestionIndex] !== question.id ||
+        !session.codeSessionIds.every(id => getCodeLanguage(this.getQuestionById(id))))) return false;
+      if (['bookmarks', 'wrong'].includes(key) && (!Array.isArray(session.reviewSessionIds) ||
+        session.reviewSessionIds[session.currentQuestionIndex] !== question.id ||
+        !(key === 'bookmarks' ? this.bookmarkedQuestions : this.wrongQuestions).includes(question.id))) return false;
       this.playMode = ['bookmarks', 'wrong'].includes(key) ? 'review' : key;
       if (this.playMode === 'review') this.reviewSource = key;
       this.currentQuestion = question;
@@ -329,16 +352,18 @@ export default {
         answered: this.answered,
         isCorrect: this.isCorrect,
       };
+      this.mockExamSessions[exam.key] = this.mockExamSession;
     },
 
     resumeMockExam(examKey = this.mockExamSession?.examKey) {
-      const session = this.mockExamSession;
-      if (!session || session.examKey !== examKey) return false;
+      const session = this.mockExamSessions[examKey];
+      if (!session || session.examKey !== examKey || !Number.isInteger(session.currentQuestionIndex) || session.currentQuestionIndex < 0) return false;
       const exam = this.pstExams.find(item => item.key === session.examKey);
       const question = exam?.questions[session.currentQuestionIndex];
       if (!question) { this.mockExamSession = null; return false; }
       this.saveCurrentSession();
       this.playMode = 'mockExam';
+      this.mockExamSession = session;
       this.selectedExamKey = exam.key;
       this.mockExamQuestions = exam.questions;
       this.currentQuestionIndex = session.currentQuestionIndex;
@@ -372,6 +397,11 @@ export default {
 
       if (availableQuestions.length === 0) {
         this.showAlert('완료', '모든 문제를 풀었습니다.');
+        this.currentQuestion = null;
+        this.currentQuestionIndex = 0;
+        this.userAnswer = '';
+        this.answered = false;
+        this.isCorrect = false;
         this.usedQuestions = [];
         this.saveProgress();
         return;
@@ -392,8 +422,7 @@ export default {
       this.answered = false;
       this.isCorrect = false;
 
-      if (this.currentQuestionIndex > 1)
-        this.saveProgress();
+      this.saveProgress();
 
       this.$nextTick(() => {
         if (this.$refs.quizContent) {
@@ -406,7 +435,7 @@ export default {
     },
 
     handleEnter(event) {
-      if (this.answered) return;
+      if (this.answered || !this.currentQuestion) return;
       if (event.shiftKey) {
         return;
       }
@@ -415,7 +444,7 @@ export default {
     },
 
     checkAnswer() {
-      if (this.answered) return;
+      if (this.answered || !this.currentQuestion) return;
 
       this.answered = true;
       this.totalCount++;
@@ -486,6 +515,7 @@ export default {
     },
 
     nextQuestion() {
+      if (!this.currentQuestion) return;
       if (this.playMode === 'review') {
         this.nextReviewQuestion();
         return;
@@ -495,6 +525,7 @@ export default {
           this.currentQuestion = null;
           this.userAnswer = '';
           this.answered = false;
+          this.isCorrect = false;
           this.showMode = 'codePicker';
           this.showAlert('코드 문제 완료', `선택한 코드 문제 ${this.codeSessionIds.length}개를 모두 확인했습니다.`);
         } else {
@@ -506,10 +537,12 @@ export default {
       }
       if (this.playMode === 'mockExam') {
         if (this.currentQuestionIndex + 1 >= this.mockExamQuestions.length) {
+          delete this.mockExamSessions[this.mockExamSession?.examKey];
           this.mockExamSession = null;
           this.currentQuestion = null;
           this.userAnswer = '';
           this.answered = false;
+          this.isCorrect = false;
           this.showMode = 'mockExam';
           this.showAlert('응시 완료', '선택한 회차의 모든 문제를 풀었습니다.');
           this.saveProgress();
@@ -557,6 +590,8 @@ export default {
         ...getCommonProgress(this),
         practiceSessions: this.practiceSessions,
         mockExamSession: this.mockExamSession,
+        mockExamSessions: this.mockExamSessions,
+        showMode: this.showMode,
         selectedExamKey: this.selectedExamKey,
         selectedCodeLanguage: this.selectedCodeLanguage,
         selectedCodeExamKey: this.selectedCodeExamKey,
@@ -574,7 +609,9 @@ export default {
         try {
           const progress = JSON.parse(saved);
           this.mockExamSession = progress.mockExamSession || null;
-          this.practiceSessions = progress.practiceSessions || {};
+          this.mockExamSessions = progress.mockExamSessions && typeof progress.mockExamSessions === 'object' ? progress.mockExamSessions : {};
+          if (this.mockExamSession && !this.mockExamSessions[this.mockExamSession.examKey]) this.mockExamSessions[this.mockExamSession.examKey] = this.mockExamSession;
+          this.practiceSessions = progress.practiceSessions && typeof progress.practiceSessions === 'object' && !Array.isArray(progress.practiceSessions) ? progress.practiceSessions : {};
           restoreCommonProgress(this, progress);
           this.codeSolvedQuestions = Array.isArray(progress.codeSolvedQuestions) ? progress.codeSolvedQuestions : [];
           this.selectedExamKey = progress.selectedExamKey || '2026-2';
@@ -582,16 +619,32 @@ export default {
           this.selectedCodeExamKey = progress.selectedCodeExamKey || 'all';
           this.codeQuestionOrder = progress.codeQuestionOrder === 'ordered' ? 'ordered' : 'random';
           this.codeSessionIds = Array.isArray(progress.codeSessionIds) ? progress.codeSessionIds : [];
+          this.showMode = ['quiz', 'codePicker', 'mockExam', 'bookmarks', 'wrong'].includes(progress.showMode) ? progress.showMode : 'quiz';
+          this.currentQuestion = this.getQuestionById(this.currentQuestion?.id) || null;
           if (this.playMode === 'code') {
             const validSession = this.codeSessionIds.length && this.codeSessionIds.every(id => getCodeLanguage(this.getQuestionById(id)));
             const question = this.getQuestionById(this.codeSessionIds[this.currentQuestionIndex]);
             if (validSession && question && this.currentQuestion?.id === question.id) this.currentQuestion = question;
-            else { this.currentQuestion = null; this.showMode = 'codePicker'; }
+            else { this.currentQuestion = null; if (this.showMode === 'quiz') this.showMode = 'codePicker'; }
           }
           if (this.playMode === 'mockExam') {
-            const exam = this.pstExams.find(item => item.key === this.selectedExamKey);
-            if (exam) this.mockExamQuestions = exam.questions;
-            else this.playMode = 'random';
+            const exam = this.pstExams.find(item => item.questions.some(question => question.id === this.currentQuestion?.id));
+            if (exam) {
+              this.mockExamQuestions = exam.questions;
+              if (this.showMode === 'quiz') this.selectedExamKey = exam.key;
+            }
+            else { this.currentQuestion = null; if (this.showMode === 'quiz') this.showMode = 'mockExam'; }
+          }
+          if (this.playMode === 'review' && (!this.currentQuestion ||
+            this.reviewSessionIds[this.currentQuestionIndex] !== this.currentQuestion.id ||
+            !(this.reviewSource === 'bookmarks' ? this.bookmarkedQuestions : this.wrongQuestions).includes(this.currentQuestion.id))) {
+            this.currentQuestion = null;
+            if (this.showMode === 'quiz') this.showMode = this.reviewSource;
+          }
+          if (this.currentQuestion && (!Number.isInteger(this.currentQuestionIndex) || this.currentQuestionIndex < 0 ||
+            (this.playMode === 'mockExam' && this.mockExamQuestions[this.currentQuestionIndex]?.id !== this.currentQuestion.id))) {
+            this.currentQuestion = null;
+            this.showMode = this.playMode === 'mockExam' ? 'mockExam' : 'quiz';
           }
         } catch (e) {
           console.error('Failed to load progress:', e);
@@ -621,6 +674,7 @@ export default {
           this.reviewSessionIds = [];
           this.mockExamQuestions = [];
           this.mockExamSession = null;
+          this.mockExamSessions = {};
           this.practiceSessions = {};
           this.codeSessionIds = [];
           this.answered = false;

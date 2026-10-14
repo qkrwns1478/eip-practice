@@ -25,7 +25,7 @@ export default {
     const savedMode = localStorage.getItem('keyword_selectedMode');
     return {
       selectedMode: savedMode === 'geo' ? 'geo' : 'keyword',
-      activeView: 'quiz',
+      activeView: null,
       keywordData,
       geoData
     };

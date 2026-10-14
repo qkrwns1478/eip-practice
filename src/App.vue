@@ -56,7 +56,9 @@
     </nav>
 
     <main class="main-content">
-      <KeywordQuiz v-if="currentTab === 'GeoQuiz'" />
+      <KeepAlive>
+        <KeywordQuiz v-if="currentTab === 'GeoQuiz'" />
+      </KeepAlive>
       <KeepAlive>
         <PstQuiz v-if="currentTab === 'PstQuiz'" />
       </KeepAlive>
@@ -76,7 +78,7 @@ export default {
   },
   data() {
     return {
-      currentTab: 'GeoQuiz',
+      currentTab: localStorage.getItem('app_currentTab') === 'PstQuiz' ? 'PstQuiz' : 'GeoQuiz',
       isDarkMode: false
     };
   },
@@ -86,6 +88,9 @@ export default {
     }
   },
   watch: {
+    currentTab(value) {
+      localStorage.setItem('app_currentTab', value);
+    },
     isDarkMode(newValue) {
       if (newValue) {
         document.documentElement.classList.add('dark-mode');

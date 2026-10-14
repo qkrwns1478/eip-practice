@@ -179,7 +179,7 @@ export default {
   props: {
     questions: { type: Array, default: () => geoData },
     storagePrefix: { type: String, default: 'geoQuiz' },
-    initialView: { type: String, default: 'quiz' },
+    initialView: { type: String, default: null },
     questionStudy: { type: Boolean, default: false }
   },
   data() {
@@ -201,6 +201,7 @@ export default {
       playMode: "random",
       reviewSource: 'wrong',
       reviewSessionIds: [],
+      practiceSessions: {},
 
       showConfirmModal: false,
       confirmModal: {
@@ -241,26 +242,61 @@ export default {
       this.generateQuestion();
     }
   },
+  watch: {
+    userAnswer() { this.saveProgress(); },
+    showMode() { this.saveProgress(); },
+    currentQuestion: { deep: true, handler() { this.saveProgress(); } },
+  },
   beforeUnmount() {
-    if (this.currentQuestion) this.saveProgress();
+    this.saveProgress();
   },
   methods: {
     ...commonQuizMethods,
+    saveCurrentSession() {
+      const key = this.playMode === 'review' ? this.reviewSource : 'random';
+      if (this.playMode === 'review' && !(key === 'bookmarks' ? this.bookmarkedQuestions : this.wrongQuestions).includes(this.currentQuestion?.id)) {
+        delete this.practiceSessions[key];
+        return;
+      }
+      this.practiceSessions[key] = {
+        currentQuestion: this.currentQuestion ? JSON.parse(JSON.stringify(this.currentQuestion)) : null,
+        currentQuestionIndex: this.currentQuestionIndex,
+        userAnswer: this.userAnswer,
+        answered: this.answered,
+        isCorrect: this.isCorrect,
+        reviewSessionIds: [...this.reviewSessionIds],
+      };
+    },
+    restorePracticeSession(key) {
+      const session = this.practiceSessions[key];
+      if (!session?.currentQuestion || !this.getQuestionById(session.currentQuestion.id) ||
+        !Number.isInteger(session.currentQuestionIndex) || session.currentQuestionIndex < 0 || !Array.isArray(session.reviewSessionIds)) return false;
+      if (key !== 'random' && (session.reviewSessionIds[session.currentQuestionIndex] !== session.currentQuestion.id ||
+        !(key === 'bookmarks' ? this.bookmarkedQuestions : this.wrongQuestions).includes(session.currentQuestion.id))) return false;
+      this.playMode = key === 'random' ? 'random' : 'review';
+      if (this.playMode === 'review') this.reviewSource = key;
+      this.currentQuestion = JSON.parse(JSON.stringify(session.currentQuestion));
+      this.currentQuestionIndex = session.currentQuestionIndex;
+      this.userAnswer = session.userAnswer;
+      this.answered = session.answered;
+      this.isCorrect = session.isCorrect;
+      this.reviewSessionIds = [...session.reviewSessionIds];
+      this.showMode = 'quiz';
+      return true;
+    },
 
     startQuiz() {
-      this.showMode = 'quiz';
-      this.playMode = 'random';
-      if (!this.currentQuestion) {
-        this.generateQuestion();
-      }
+      this.openRandomQuiz();
     },
 
     openRandomQuiz() {
-      const wasReview = this.playMode === 'review';
+      this.saveCurrentSession();
+      if (this.restorePracticeSession('random')) { this.saveProgress(); return; }
       this.playMode = 'random';
       this.showMode = 'quiz';
-      if (wasReview) this.currentQuestion = null;
-      if (!this.currentQuestion) this.generateQuestion();
+      this.currentQuestion = null;
+      this.currentQuestionIndex = 0;
+      this.generateQuestion();
     },
 
     generateQuestion() {
@@ -271,6 +307,10 @@ export default {
       if (availableQuestions.length === 0) {
         this.showAlert('완료', '모든 문제를 풀었습니다.');
         this.currentQuestion = null;
+        this.currentQuestionIndex = 0;
+        this.userAnswer = '';
+        this.answered = false;
+        this.isCorrect = false;
         this.usedQuestions = [];
         this.saveProgress();
         return;
@@ -339,7 +379,7 @@ export default {
     },
 
     checkAnswer() {
-      if (this.answered) return;
+      if (this.answered || !this.currentQuestion) return;
 
       this.isCorrect = this.matchesAnswer(this.currentQuestion, this.userAnswer);
 
@@ -373,8 +413,8 @@ export default {
     },
 
     checkSubAnswer(index) {
-      const item = this.currentQuestion.subItems[index];
-      if (item.answered) return;
+      const item = this.currentQuestion?.subItems?.[index];
+      if (!item || item.answered) return;
 
       item.isCorrect = this.matchesAnswer(item, item.userAnswer);
 
@@ -458,6 +498,7 @@ export default {
     },
 
     nextQuestion() {
+      if (!this.currentQuestion) return;
       if (this.playMode === 'review') {
         this.nextReviewQuestion();
         return;
@@ -479,6 +520,10 @@ export default {
     startReviewQuestion(id, source) {
       const question = this.getQuestionById(id);
       if (!question) return;
+      this.saveCurrentSession();
+      if (this.practiceSessions[source]?.currentQuestion?.id === id && this.restorePracticeSession(source)) {
+        this.saveProgress(); return;
+      }
       const ids = source === 'bookmarks' ? this.bookmarkedQuestions : this.wrongQuestions;
       this.reviewSessionIds = ids.filter(item => this.getQuestionById(item));
       if (!this.reviewSessionIds.includes(id)) this.reviewSessionIds = [id];
@@ -490,8 +535,11 @@ export default {
     },
 
     saveProgress() {
+      this.saveCurrentSession();
       const progress = {
-        ...getCommonProgress(this)
+        ...getCommonProgress(this),
+        practiceSessions: this.practiceSessions,
+        showMode: this.showMode,
       };
 
       localStorage.setItem(`${this.storagePrefix}_progress`, JSON.stringify(progress));
@@ -504,6 +552,13 @@ export default {
         try {
           const progress = JSON.parse(saved);
           restoreCommonProgress(this, progress);
+          if (!['random', 'review'].includes(this.playMode)) { this.playMode = 'random'; this.currentQuestion = null; }
+          this.practiceSessions = progress.practiceSessions && typeof progress.practiceSessions === 'object' && !Array.isArray(progress.practiceSessions) ? progress.practiceSessions : {};
+          this.showMode = this.initialView || (['quiz', 'study', 'bookmarks', 'wrong', 'stats'].includes(progress.showMode) ? progress.showMode : 'quiz');
+          if (this.currentQuestion && !this.getQuestionById(this.currentQuestion.id)) this.currentQuestion = null;
+          if (this.playMode === 'review' && this.currentQuestion &&
+            (this.reviewSessionIds[this.currentQuestionIndex] !== this.currentQuestion.id ||
+            !(this.reviewSource === 'bookmarks' ? this.bookmarkedQuestions : this.wrongQuestions).includes(this.currentQuestion.id))) this.currentQuestion = null;
           if (this.playMode === 'review' && !this.currentQuestion && this.showMode === 'quiz') this.showMode = this.reviewSource;
         } catch (e) {
           console.error('Failed to load progress:', e);
@@ -530,6 +585,7 @@ export default {
           this.currentQuestion = null;
           this.playMode = 'random';
           this.reviewSessionIds = [];
+          this.practiceSessions = {};
           this.answered = false;
           this.isCorrect = false;
           this.userAnswer = '';

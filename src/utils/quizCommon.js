@@ -41,6 +41,7 @@ export const commonQuizMethods = {
     const index = this.bookmarkedQuestions.indexOf(id);
     if (index > -1) {
       this.bookmarkedQuestions.splice(index, 1);
+      this.discardReviewSession('bookmarks', id);
       this.saveProgress();
     }
   },
@@ -48,8 +49,13 @@ export const commonQuizMethods = {
     const index = this.wrongQuestions.indexOf(id);
     if (index > -1) {
       this.wrongQuestions.splice(index, 1);
+      this.discardReviewSession('wrong', id);
       this.saveProgress();
     }
+  },
+  discardReviewSession(source, id) {
+    const session = this.practiceSessions?.[source];
+    if ((session?.currentQuestionId ?? session?.currentQuestion?.id) === id) delete this.practiceSessions[source];
   },
   startBookmarkedQuestion(id) { this.startReviewQuestion(id, 'bookmarks'); },
   startWrongQuestion(id) { this.startReviewQuestion(id, 'wrong'); },
@@ -95,19 +101,22 @@ export function getCommonProgress(quiz) {
 }
 
 export function restoreCommonProgress(quiz, progress) {
-  quiz.correctCount = progress.correctCount || 0;
-  quiz.wrongCount = progress.wrongCount || 0;
-  quiz.totalCount = progress.totalCount || 0;
-  quiz.bookmarkedQuestions = progress.bookmarkedQuestions || [];
-  quiz.solvedQuestions = progress.solvedQuestions || [];
-  quiz.wrongQuestions = progress.wrongQuestions || [];
-  quiz.usedQuestions = progress.usedQuestions || [];
-  quiz.currentQuestionIndex = progress.currentQuestionIndex || 0;
+  if (!progress || typeof progress !== 'object' || Array.isArray(progress)) throw new Error('Invalid quiz progress');
+  const count = value => Number.isInteger(value) && value >= 0 ? value : 0;
+  const ids = value => Array.isArray(value) ? [...new Set(value.filter(id => id != null && quiz.getQuestionById(id)))] : [];
+  quiz.correctCount = count(progress.correctCount);
+  quiz.wrongCount = count(progress.wrongCount);
+  quiz.totalCount = count(progress.totalCount);
+  quiz.bookmarkedQuestions = ids(progress.bookmarkedQuestions);
+  quiz.solvedQuestions = ids(progress.solvedQuestions);
+  quiz.wrongQuestions = ids(progress.wrongQuestions);
+  quiz.usedQuestions = ids(progress.usedQuestions);
+  quiz.currentQuestionIndex = count(progress.currentQuestionIndex);
   quiz.currentQuestion = progress.currentQuestion || null;
-  quiz.playMode = progress.playMode || 'random';
+  quiz.playMode = ['random', 'review', 'code', 'mockExam'].includes(progress.playMode) ? progress.playMode : 'random';
   quiz.reviewSource = progress.reviewSource === 'bookmarks' ? 'bookmarks' : 'wrong';
   quiz.reviewSessionIds = Array.isArray(progress.reviewSessionIds) ? progress.reviewSessionIds : [];
-  quiz.userAnswer = progress.userAnswer || '';
-  quiz.answered = progress.answered || false;
-  quiz.isCorrect = progress.isCorrect || false;
+  quiz.userAnswer = typeof progress.userAnswer === 'string' ? progress.userAnswer : '';
+  quiz.answered = progress.answered === true;
+  quiz.isCorrect = progress.isCorrect === true;
 }
