@@ -841,14 +841,11 @@ button:focus:not(:focus-visible) {
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  padding: 0 8px;
-  color: var(--color-primary);
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
   user-select: none;
   -webkit-user-drag: none;
-  transition: all 0.2s ease;
 }
 
 .explanation-button {
@@ -860,9 +857,6 @@ button:focus:not(:focus-visible) {
   color: var(--color-primary-text);
   font: inherit;
   cursor: pointer;
-}
-.eip-logo:hover {
-  color: var(--color-primary-text);
 }
 .main-content button:hover:not(:disabled):not(.icon-menu-bar button):not(.bookmark-btn) {
   transform: none !important;

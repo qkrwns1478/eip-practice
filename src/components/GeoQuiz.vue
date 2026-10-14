@@ -2,7 +2,7 @@
   <div class="quiz-container geo-quiz-layout">
 
     <div class="menu-bar icon-menu-bar">
-      <span class="eip-logo" aria-label="EIP" draggable="false">EIP</span>
+      <img class="eip-logo" src="/logo.png" alt="EIP" draggable="false" />
       <button @click="openRandomQuiz" aria-label="퀴즈" :class="{ active: showMode === 'quiz' && playMode === 'random' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
