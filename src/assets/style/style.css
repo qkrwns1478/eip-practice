@@ -713,12 +713,12 @@ button:focus:not(:focus-visible) {
 
 .alert-modal {
   text-align: center;
-  border-top-color: var(--color-success);
+  border-top-color: var(--color-primary-text);
 }
 
 .alert-modal h3 {
   text-align: center;
-  color: var(--color-success);
+  color: var(--color-primary-text);
 }
 
 .alert-modal .modal-actions {
