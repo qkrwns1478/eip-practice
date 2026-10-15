@@ -1,6 +1,6 @@
 // 2022년 1회
 export const pstData_2022_1 = [
-{
+  {
     id: 161,
     answer: "0",
     question: "아래 설명에 맞는 RAID 단계를 숫자로 작성하시오.",
@@ -187,7 +187,6 @@ int main() {
   {
     id: 176,
     answer: "ISMS",
-    alt: "Information Security Management System",
     question: "다음 설명에 대한 답을 영어 약자로 작성하시오.",
     passageOrCode: "정보보호 관리체계의 영문 약자",
     options: null,

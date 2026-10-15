@@ -1,6 +1,6 @@
 // 2022년 3회
 export const pstData_2022_3 = [
-{
+  {
     id: 201,
     answer: `1 1 3 2
 3 4 5 3

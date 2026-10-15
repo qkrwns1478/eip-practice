@@ -1,6 +1,6 @@
 // 2024년 1회
 export const pstData_2024_1 = [
-{
+  {
     id: 41,
     answer: "4",
     question: "다음 Java 코드에서 알맞는 출력 값을 작성하시오.",
@@ -17,11 +17,11 @@ export const pstData_2024_1 = [
     }
     
     public void count() {
-         count++; 
+        count++; 
     }
     
     public int getCount() {
-         return count; 
+        return count; 
     }
 }
  
@@ -41,7 +41,7 @@ public class main {
     }
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 42,
@@ -61,16 +61,17 @@ int main() {
     printf("%d", v2+v3);
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 43,
     answer: "ㄱ ㄴ ㄹ ㄷ",
     alt: "기능 교환 시간 우연",
-    question: "다음 응집도와 관련해서 보기에서 응집도가 높은 순으로 나열하시오.",
+    question:
+      "다음 응집도와 관련해서 보기에서 응집도가 높은 순으로 나열하시오.",
     passageOrCode: null,
     options: ["ㄱ. 기능", "ㄴ. 교환", "ㄷ. 우연", "ㄹ. 시간"],
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 44,
@@ -104,23 +105,31 @@ int main(int argc, char* argv[]){
         printf("%c",str[i]);
     }
  
-    printf("\
-");
+    printf("\\n");
  
     return 0;
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 45,
     answer: "192.168.35.72 129.200.8.249 192.168.36.249",
-    question: "아래 그림에서의 네트워크에서 라우터을 통한 할당 가능한 2번, 4번, 5번의 IP를 작성하시오.",
+    question:
+      "아래 그림에서의 네트워크에서 라우터을 통한 할당 가능한 2번, 4번, 5번의 IP를 작성하시오.",
     passageOrCode: `1) 192.168.35.3/24
 3) 129.200.10.16/22
 6) 192.168.36.24/24`,
-    options: ["192.168.35.0", "192.168.35.72", "192.168.36.0", "192.168.36.249", "129.200.8.0", "129.200.8.249"],
-    imageUrl: "https://blog.kakaocdn.net/dna/bHTbEI/btsHqLsBYPd/AAAAAAAAAAAAAAAAAAAAAIMm2bQrfA7pDuPPzWrNJY_wzyMU_mYXW-zf3w4iVs4z/img.jpg?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=tOfy1Rxm0UBE%2Fc%2BHlrN5supoTmA%3D"
+    options: [
+      "192.168.35.0",
+      "192.168.35.72",
+      "192.168.36.0",
+      "192.168.36.249",
+      "129.200.8.0",
+      "129.200.8.249",
+    ],
+    imageUrl:
+      "https://blog.kakaocdn.net/dna/bHTbEI/btsHqLsBYPd/AAAAAAAAAAAAAAAAAAAAAIMm2bQrfA7pDuPPzWrNJY_wzyMU_mYXW-zf3w4iVs4z/img.jpg?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=tOfy1Rxm0UBE%2Fc%2BHlrN5supoTmA%3D",
   },
   {
     id: 46,
@@ -134,17 +143,18 @@ carrot	기초토익	P004
 orange	영어회화	P003
 orange	기초토익	P004`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 47,
     answer: "OSPF",
-    question: "아래의 내용에서 설명하는 네트워크 용어를 영문 약자로 작성하시오.",
+    question:
+      "아래의 내용에서 설명하는 네트워크 용어를 영문 약자로 작성하시오.",
     passageOrCode: `1. 대표적인 링크 상태 라우팅 프로토콜이다. 이것은 인터넷에서 연결된 링크의 상태를 감시하여 최적의 경로를 선택한다는 것이다.
 2. 단일 자율 시스템 내에서 라우팅 정보를 배포하는 데 사용되는 내부 게이트웨이 프로토콜이다.
 3. 모든 대상에 도달하기 위한 최단 경로를 구축하고 계산하며 최단 경로는 Dijkstra 알고리즘을 사용하여 계산된다.`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 48,
@@ -154,15 +164,16 @@ orange	기초토익	P004`,
 (2) 조건이 정확하게 '=' 등호로 일치하는 결과를 반환한다. 
 (3) ( (2) ) 조인에서 조인에 참여한 속성이 두 번 나오지 않도록 중복된 속성을 제거한 결과를 반환한다.`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 49,
     answer: "6 6",
-    question: "다음은 운영체제 페이지 순서를 참고하여 할당된 프레임의 수가 3개일 때 LRU와 LFU 알고리즘의 페이지 부재 횟수를 각각 작성하시오.",
+    question:
+      "다음은 운영체제 페이지 순서를 참고하여 할당된 프레임의 수가 3개일 때 LRU와 LFU 알고리즘의 페이지 부재 횟수를 각각 작성하시오.",
     passageOrCode: "페이지 참조 순서 : 1, 2, 3, 1, 2, 4, 1, 2, 5, 7",
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 50,
@@ -201,7 +212,7 @@ class Main {
     }
 }`,
     options: ["실행 순서 : 5 → ( ) → ( ) → ( ) → ( ) → ( )"],
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 51,
@@ -251,7 +262,7 @@ int main(){
     return 0;
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 52,
@@ -263,14 +274,15 @@ for i in a:
     str = str + i[1]
 print(str)`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 53,
     answer: `B
 a
 b`,
-    question: "아래 보기의 SQL 문장과 테이블을 참고하여 출력 값을 표로 작성하시오.",
+    question:
+      "아래 보기의 SQL 문장과 테이블을 참고하여 출력 값을 표로 작성하시오.",
     passageOrCode: `SELECT
     B
 FROM
@@ -278,18 +290,28 @@ FROM
 WHERE
     C IN (SELECT C FROM R2 WHERE D="k");`,
     options: null,
-    imageUrl: "https://blog.kakaocdn.net/dna/cdGyt7/btsHrT44l4V/AAAAAAAAAAAAAAAAAAAAAJ7pvKDZrvZliNMonxEJjJWyOPXgzfu0vTF8HJGlC8Gr/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=SmkWLqUPI67KVg0JqLvg27XVgnE%3D"
+    imageUrl:
+      "https://blog.kakaocdn.net/dna/cdGyt7/btsHrT44l4V/AAAAAAAAAAAAAAAAAAAAAJ7pvKDZrvZliNMonxEJjJWyOPXgzfu0vTF8HJGlC8Gr/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=SmkWLqUPI67KVg0JqLvg27XVgnE%3D",
   },
   {
     id: 54,
     answer: "ㄹ",
     alt: "변경 조건/결정 커버리지",
-    question: "아래는 애플리케이션 테스트 관리에 대한 내용이다. 설명하는 답을 보기에서 골라 작성하시오.",
+    question:
+      "아래는 애플리케이션 테스트 관리에 대한 내용이다. 설명하는 답을 보기에서 골라 작성하시오.",
     passageOrCode: `1. 모든 분기와 조건의 조합을 고려하나 모든 조합을 테스트하는 대신에 테스트가 필요한 중요한 조합을 찾아내는데에 중점을 둔다. 
 2. 특정 조건을 수행할 때 다른 조건과는 상관없이 전체 결과에 영향을 미치는 조건만을 테스트한다. 
 3. 각각의 파라미터는 적어도 한 번은 최종 결과에 영향을 주어야 한다.`,
-    options: ["ㄱ. 구문 커버리지", "ㄴ. 결정 커버리지", "ㄷ. 조건 커버리지", "ㄹ. 변경 조건/결정 커버리지", "ㅁ.다중 조건 커버리지", "ㅂ.경로 커버리지", "ㅅ.조건/결정 커버리지"],
-    imageUrl: null
+    options: [
+      "ㄱ. 구문 커버리지",
+      "ㄴ. 결정 커버리지",
+      "ㄷ. 조건 커버리지",
+      "ㄹ. 변경 조건/결정 커버리지",
+      "ㅁ.다중 조건 커버리지",
+      "ㅂ.경로 커버리지",
+      "ㅅ.조건/결정 커버리지",
+    ],
+    imageUrl: null,
   },
   {
     id: 55,
@@ -299,8 +321,16 @@ WHERE
     passageOrCode: `인터넷 공격자의 존재를 숨기면서 이 공격자에게 시스템에 대한 무제한 접근 권한을 부여하는 악성 프로그램이다.
 해커가 자신의 존재를 숨기면서 허가되지 않은 컴퓨터나 소프트웨어에 접근할 수 있도록 설계된 도구이다.
 일반적으로 펌웨어, 가상화 계층 등의 다양한 시스템 영역에서 작동하며, 운영체제의 시스템콜을 해킹하여 악성코드의 실행여부를 숨겨 안티바이러스 탐지를 우회할 수 있다.`,
-    options: ["ㄱ.Worm", "ㄴ.Trojan horse", "ㄷ.Backdoor", "ㄹ.Virus", "ㅁ.Ransomware", "ㅂ.Spyware", "ㅅ.Rootkit"],
-    imageUrl: null
+    options: [
+      "ㄱ.Worm",
+      "ㄴ.Trojan horse",
+      "ㄷ.Backdoor",
+      "ㄹ.Virus",
+      "ㅁ.Ransomware",
+      "ㅂ.Spyware",
+      "ㅅ.Rootkit",
+    ],
+    imageUrl: null,
   },
   {
     id: 56,
@@ -338,7 +368,7 @@ public class main {
     }
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 57,
@@ -349,8 +379,16 @@ public class main {
 2. 시스템에 직접 침투하는 것뿐 아니라 표적 내부직원들이 이용하는 다양한 단말을 대상으로 한다.
 3. 한가지 기술만이 아닌 Zero-day 취약점, 악성코드 등 다양한 보안 위협 공격 기술을 사용한다.
 4. 일반적으로 공격은 침투, 검색, 수집 및 유출의 4단계로 실행되며, 각 단계별로 다양한 공격 기술을 사용한다.`,
-    options: ["ㄱ.사회공학 기법", "ㄴ.Adware", "ㄷ.MITM", "ㄹ.XDR", "ㅁ.Replace attack", "ㅂ.key logger attack", "ㅅ.APT"],
-    imageUrl: null
+    options: [
+      "ㄱ.사회공학 기법",
+      "ㄴ.Adware",
+      "ㄷ.MITM",
+      "ㄹ.XDR",
+      "ㅁ.Replace attack",
+      "ㅂ.key logger attack",
+      "ㅅ.APT",
+    ],
+    imageUrl: null,
   },
   {
     id: 58,
@@ -365,7 +403,8 @@ WHERE
 AND 
     SAL >= 3000 OR EMPNO = 200`,
     options: null,
-    imageUrl: "https://blog.kakaocdn.net/dna/dR34LK/btsHqjES9Ot/AAAAAAAAAAAAAAAAAAAAAF89NFObm5YWW0w5qpXaAW3PMG8OFFO8H7eBSDJRlOnx/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=dhaq7qNe5WD82z8%2FlxLQ3P5Z7wo%3D"
+    imageUrl:
+      "https://blog.kakaocdn.net/dna/dR34LK/btsHqjES9Ot/AAAAAAAAAAAAAAAAAAAAAF89NFObm5YWW0w5qpXaAW3PMG8OFFO8H7eBSDJRlOnx/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=dhaq7qNe5WD82z8%2FlxLQ3P5Z7wo%3D",
   },
   {
     id: 59,
@@ -397,7 +436,7 @@ int main(){
     return 0;
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 60,
@@ -408,6 +447,6 @@ int main(){
 관련성 있는 여러 종류의 객체를 일관된 방식으로 생성하는 경우에 유용하다.
 kit라고도 불린다.`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
 ];

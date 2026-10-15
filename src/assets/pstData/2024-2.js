@@ -1,6 +1,6 @@
 // 2024년 2회
 export const pstData_2024_2 = [
-{
+  {
     id: 61,
     answer: "NNN",
     question: "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
@@ -30,6 +30,7 @@ export const pstData_2024_2 = [
   {
     id: 62,
     answer: "반정규화",
+    alts: ["비정규화", "역정규화", "Denormalization", "De-normalization"],
     question: "다음 문제에서 설명하는 용어를 작성하시오.",
     passageOrCode: "데이터를 중복시켜 성능을 향상시키기 위한 기법으로 데이터를 중복 저장하거나 테이블을 합치는 등으로 성능을 향상시키지만 데이터 무결성이 저하될 수 있는 기법",
     options: null,

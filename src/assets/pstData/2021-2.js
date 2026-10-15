@@ -131,8 +131,10 @@ print(result)`,
     id: 315,
     answer: "기능 모델링 동적 모델링 객체 모델링",
     alts: ["기능 동적 객체", "Function Modeling Dynamic Modeling Object Modeling", "Functional Modeling Dynamic Modeling Object Modeling"],
-    question: "럼바우 모델링을 순서대로 쓰시오.",
-    passageOrCode: `① DFD ② 상태도 ③ 객체 관계`,
+    question: "럼바우 데이터 모델링에 관한 설명으로써, 보기에 해당하는 답안을 작성하시오.",
+    passageOrCode: `1. 입력값이 출력값일 때 ex) 자료 흐름도(DFD)
+2. 시간에 따라 변하는 것 ex) 상태 다이어그램(상태도)
+3. 객체들 간의 관계를 정의 ex) ER다이어그램(ERD)`,
     options: null,
     imageUrl: null
   },

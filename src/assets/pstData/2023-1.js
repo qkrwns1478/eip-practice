@@ -1,6 +1,6 @@
 // 2023년 1회
 export const pstData_2023_1 = [
-{
+  {
     id: 101,
     answer: `10
 11
@@ -39,14 +39,10 @@ int main() {
     char a[] = "Art";
     char* p = NULL;
     p = a;
-    printf("%s\
-", a);
-    printf("%c\
-", *p);
-    printf("%c\
-", *a);
-    printf("%s\
-", p);
+    printf("%s\\n", a);
+    printf("%c\\n", *p);
+    printf("%c\\n", *a);
+    printf("%s\\n", p);
     for (int i = 0; a[i] != '\\0'; i++)
         printf("%c", a[i]);
 }`,
@@ -87,13 +83,16 @@ int main() {
     id: 105,
     answer: "가상 회선 방식 데이터그램 방식",
     question: "보기의 통신 기술(회선교환/데이터그램) 중 가장 적합한 답을 표에 맞게 작성하시오.",
-    passageOrCode: `(   )	 - 회선교환 방식과 데이터그램 방식의 장점을 결합한 통신 기술이다.
- - 처음 패킷으로 최적의 경로를 고정하고 경로가 고정되면 그 다음은 패킷으로 나누어 고속으로 전송할 수 있다.
- - 통신기술에는 ATM이 있으며, 정해진 시간 안이나 다량의 데이터를 연속으로 보낼 때 적합하다.
-(   )	 - 패킷교환 방식으로 동작하면서 IP 주소를 사용하는 인터넷을 의미한다.
- - 각 전송패킷을 미리 정해진 경로 없이 독립적으로 처리하여 교환하는 방식이다
- - 특정 교환기의 고장 시 모든 패킷을 잃어버리는 가상회선과 달리, 그 경로를 피해서 전송할 수 있으므로 더욱 신뢰가 가능하다.
- - 짧은 메시지의 패킷들을 전송할 때 효과적이고 재정렬 기능이 필요하다.`,
+    passageOrCode: `1. (   )
+- 회선교환 방식과 데이터그램 방식의 장점을 결합한 통신 기술이다.
+- 처음 패킷으로 최적의 경로를 고정하고 경로가 고정되면 그 다음은 패킷으로 나누어 고속으로 전송할 수 있다.
+- 통신기술에는 ATM이 있으며, 정해진 시간 안이나 다량의 데이터를 연속으로 보낼 때 적합하다.
+
+2. (   )
+- 패킷교환 방식으로 동작하면서 IP 주소를 사용하는 인터넷을 의미한다.
+- 각 전송패킷을 미리 정해진 경로 없이 독립적으로 처리하여 교환하는 방식이다
+- 특정 교환기의 고장 시 모든 패킷을 잃어버리는 가상회선과 달리, 그 경로를 피해서 전송할 수 있으므로 더욱 신뢰가 가능하다.
+- 짧은 메시지의 패킷들을 전송할 때 효과적이고 재정렬 기능이 필요하다.`,
     options: ["회선 교환 방식", "데이터그램 방식", "가상 회선 방식", "메시지 교환 방식"],
     imageUrl: null
   },
@@ -112,9 +111,9 @@ IPsec을 함께 사용하면 PPTP보다 훨씬 안전하지만 보안보다 익�
     answer: "SSH",
     alt: "Secure SHell",
     question: "다음 괄호안에 알맞는 용어를 작성하시오. (네트워크 상의 다른 컴퓨터에 원격 로그인/파일 복사 등)",
-    passageOrCode: `( ) 네트워크 상의 다른 컴퓨터에 로그인하거나 원격 시스템에서 명령을 실행하고 다른 시스템으로 파일을 복사할 수 있도록 해주는 응용 프로그램 또는 그 프로토콜을 가리킨다.
-( ) 보안 접속을 통한 rsh, rcp, rlogin, rexec, telnet, ftp 등을 제공하며, IP spoofing(IP스푸핑) 방지 기능을 제공한다.
-( ) 기본적으로 포트는 22번이다.`,
+    passageOrCode: `- 네트워크 상의 다른 컴퓨터에 로그인하거나 원격 시스템에서 명령을 실행하고 다른 시스템으로 파일을 복사할 수 있도록 해주는 응용 프로그램 또는 그 프로토콜을 가리킨다.
+- 보안 접속을 통한 rsh, rcp, rlogin, rexec, telnet, ftp 등을 제공하며, IP spoofing(IP스푸핑) 방지 기능을 제공한다.
+- 기본적으로 포트는 22번이다.`,
     options: null,
     imageUrl: null
   },
@@ -211,7 +210,7 @@ int main() {
     answer: "delete from 학생 where 이름 = '민수'",
     question: "[학생] 테이블에서 학생 이름이 '민수'인 튜플을 삭제하는 쿼리를 작성하시오.",
     passageOrCode: `조건:
-- 컬럼의 값이 문자열일 경우 작은 따움표 (' ')를 표시하시오.
+- 컬럼의 값이 문자열일 경우 작은 따옴표 (' ')를 표시하시오.
 - SQL 마지막에 세미콜론(;)은 표기하지 않아도 관계 없습니다.`,
     options: null,
     imageUrl: "https://blog.kakaocdn.net/dna/JZEvh/btscyYpYNA0/AAAAAAAAAAAAAAAAAAAAAPxWiytZLXl_AvnAjvyPyHPozz5tQhVgioT4mr6BVOPN/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=M254pbiaF9iFC1%2BH7j961Liy84Y%3D"
