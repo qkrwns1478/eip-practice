@@ -1,5 +1,12 @@
 import { markRaw } from 'vue';
 
+function answerContext(quiz) {
+  const subItems = quiz.currentQuestion?.subItems;
+  return JSON.stringify(subItems?.length
+    ? { subAnswers: subItems.map(item => ({ userAnswer: item.userAnswer, isCorrect: item.isCorrect })) }
+    : { userAnswer: quiz.userAnswer, isCorrect: quiz.isCorrect });
+}
+
 // Only explanations belonging to bookmarks/wrong questions enter saved progress.
 export function syncSavedExplanations(quiz) {
   const ids = new Set([...quiz.bookmarkedQuestions, ...quiz.wrongQuestions]);
@@ -8,7 +15,10 @@ export function syncSavedExplanations(quiz) {
     if (!storedIds.has(id)) delete quiz.savedExplanations[id];
   }
   if (ids.has(quiz.explanationQuestionId) && quiz.explanationText) {
-    quiz.savedExplanations[quiz.explanationQuestionId] = quiz.explanationText;
+    quiz.savedExplanations[quiz.explanationQuestionId] = {
+      text: quiz.explanationText,
+      context: quiz.explanationAnswerContext,
+    };
   }
   return { ...quiz.savedExplanations };
 }
@@ -18,6 +28,7 @@ export const quizExplanationMixin = {
     return {
       savedExplanations: {},
       explanationQuestionId: null,
+      explanationAnswerContext: null,
       explanationText: '',
       explanationError: '',
       explanationLoading: false,
@@ -39,13 +50,21 @@ export const quizExplanationMixin = {
       this.explanationController?.abort();
       this.explanationController = null;
       this.explanationQuestionId = id ?? null;
-      this.explanationText = this.savedExplanations[id] || '';
+      this.explanationAnswerContext = null;
+      this.explanationText = '';
       this.explanationError = '';
       this.explanationLoading = false;
       this.showExplanationModal = false;
     },
     async openExplanation() {
       if (!this.answered || !this.currentQuestion) return;
+      const context = answerContext(this);
+      if (this.explanationQuestionId !== this.currentQuestion.id || this.explanationAnswerContext !== context) {
+        this.resetExplanation();
+        this.explanationAnswerContext = context;
+        const saved = this.savedExplanations[this.currentQuestion.id];
+        if (saved?.context === context) this.explanationText = saved.text;
+      }
       this.showExplanationModal = true;
       if (this.explanationText || this.explanationLoading) return;
       const id = this.currentQuestion.id;
@@ -58,7 +77,7 @@ export const quizExplanationMixin = {
         const response = await fetch('/api/explanation', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ quizType: this.storagePrefix, questionId: id }),
+          body: JSON.stringify({ quizType: this.storagePrefix, questionId: id, ...JSON.parse(context) }),
           signal: controller.signal,
         });
         const result = await response.json().catch(() => ({}));

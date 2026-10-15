@@ -117,7 +117,10 @@ export function restoreCommonProgress(quiz, progress) {
   quiz.savedExplanations = {};
   if (explanations && typeof explanations === 'object' && !Array.isArray(explanations)) {
     for (const id of [...quiz.bookmarkedQuestions, ...quiz.wrongQuestions]) {
-      if (typeof explanations[id] === 'string' && explanations[id].trim()) quiz.savedExplanations[id] = explanations[id];
+      const saved = explanations[id];
+      if (typeof saved?.text === 'string' && saved.text.trim() && typeof saved.context === 'string') {
+        quiz.savedExplanations[id] = { text: saved.text, context: saved.context };
+      }
     }
   }
   quiz.usedQuestions = ids(progress.usedQuestions);
