@@ -12,7 +12,7 @@
             <p role="alert">{{ error }}</p>
             <button type="button" class="confirm-btn" @click="$emit('retry')">다시 시도</button>
           </template>
-          <div v-else class="explanation-text">{{ text }}</div>
+          <div v-else class="explanation-text" v-html="renderedText"></div>
         </div>
         <footer class="modal-actions">
           <button type="button" class="confirm-btn" @click="$emit('close')">닫기</button>
@@ -23,6 +23,8 @@
 </template>
 
 <script>
+import { renderMarkdown } from '../utils/markdown.js';
+
 export default {
   name: 'ExplanationModal',
   props: {
@@ -31,6 +33,9 @@ export default {
     loading: { type: Boolean, default: false },
   },
   emits: ['close', 'retry'],
+  computed: {
+    renderedText() { return renderMarkdown(this.text); },
+  },
   mounted() {
     this.previousFocus = document.activeElement;
     this.$refs.dialog.focus();
@@ -40,7 +45,7 @@ export default {
   },
   methods: {
     trapFocus(event) {
-      const buttons = [...this.$refs.dialog.querySelectorAll('button:not(:disabled)')];
+      const buttons = [...this.$refs.dialog.querySelectorAll('button:not(:disabled), a[href]')];
       const first = buttons[0];
       const last = buttons.at(-1);
       if (event.shiftKey && (document.activeElement === first || document.activeElement === this.$refs.dialog)) {
@@ -68,6 +73,22 @@ export default {
 .explanation-header h3 { margin: 0; }
 .explanation-header button { background: transparent; border: 0; color: var(--color-text); font-size: 28px; cursor: pointer; }
 .explanation-body { overflow-y: auto; margin: 24px 0; min-height: 100px; }
-.explanation-text { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.8; font-size: 15px; }
+.explanation-text { overflow-wrap: anywhere; line-height: 1.8; font-size: 15px; }
+.explanation-text :deep(> :first-child) { margin-top: 0; }
+.explanation-text :deep(> :last-child) { margin-bottom: 0; }
+.explanation-text :deep(h1), .explanation-text :deep(h2), .explanation-text :deep(h3),
+.explanation-text :deep(h4), .explanation-text :deep(h5), .explanation-text :deep(h6) {
+  margin: 1.4em 0 0.6em; line-height: 1.4; font-size: 1.15em;
+}
+.explanation-text :deep(p) { margin: 0.8em 0; }
+.explanation-text :deep(ul), .explanation-text :deep(ol) { padding-left: 1.6em; }
+.explanation-text :deep(code) { font-family: monospace; background: var(--color-background); padding: 0.15em 0.35em; border-radius: 4px; }
+.explanation-text :deep(pre) { overflow-x: auto; padding: 14px; background: var(--color-background); border-radius: 6px; white-space: pre; }
+.explanation-text :deep(pre code) { padding: 0; background: transparent; }
+.explanation-text :deep(table) { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; }
+.explanation-text :deep(th), .explanation-text :deep(td) { border: 1px solid var(--color-border); padding: 8px 12px; }
+.explanation-text :deep(blockquote) { margin: 1em 0; padding-left: 16px; border-left: 3px solid var(--color-border); }
+.explanation-text :deep(a) { color: var(--color-primary); text-decoration: underline; }
+.explanation-text :deep(img) { max-width: 100%; height: auto; }
 .modal-actions { margin-top: 0; }
 </style>
