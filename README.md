@@ -51,7 +51,7 @@
   - 다시 확인하고 싶은 문제를 북마크할 수 있습니다.
 
 - **AI 문제 해설**
-  - 정답 또는 오답 확인 후 `해설` 버튼을 누르면 별도 모달에서 AI 해설을 확인할 수 있습니다.
+  - 정답 또는 오답 확인 후 **해설** 버튼을 누르면 AI 해설을 확인할 수 있습니다.
   - 생성된 해설은 다음 문제로 넘어가기 전까지 유지됩니다. 북마크 또는 틀린 문제의 해설은 학습 기록에 함께 저장되어 복습 시 다시 확인할 수 있습니다.
   - 북마크와 틀린 문제 목록에서 모두 제거하면 저장된 해설도 삭제됩니다. 그 외 문제의 해설은 메모리에만 유지하며 다음 문제로 넘어가면 사라집니다.
 
@@ -78,13 +78,13 @@
 
 ## 실행 방법
 
-Node.js 22.18 이상을 사용합니다. 프로젝트 루트의 `.env`에 Groq API 키를 설정합니다.
+프로젝트 루트의 `.env`에 Groq API 키를 설정합니다.
 
 ```dotenv
 GROQ_API_KEY=발급받은_API_키
 ```
 
-API 키는 서버에서만 사용합니다. `.env` 변경 후 서버를 다시 시작해주세요.
+개발용 서버는 다음과 같이 실행합니다.
 
 ```bash
 npm install
@@ -99,14 +99,3 @@ npm start
 ```
 
 기본 주소는 `http://127.0.0.1:3000`이며 `HOST`와 `PORT` 환경변수로 변경할 수 있습니다. 정적 파일만 호스팅할 경우 `/api/explanation`을 실행하는 Node 서버로 연결해야 합니다.
-
-### Vercel 배포
-
-- 프로젝트 루트를 Vercel의 Root Directory로 지정합니다. Framework Preset은 `Vite`, Build Command는 `npm run build`, Output Directory는 `dist`입니다.
-- `api/explanation.js`가 `/api/explanation` 요청을 처리하는 Vercel 함수로 배포됩니다. `npm start`는 별도 Node 서버 실행용이며 Vercel에서는 사용하지 않습니다.
-- Vercel 프로젝트의 Environment Variables에 `GROQ_API_KEY`를 설정하고 사용하는 환경(Production / Preview)에 적용한 뒤 재배포합니다. 환경변수 변경은 기존 배포에 자동 반영되지 않습니다.
-- 함수의 최대 실행 시간은 `vercel.json`에서 120초로 설정하며, Fluid compute 사용을 권장합니다. 키워드 문제 이미지는 함수에 함께 포함됩니다.
-- 배포 후 `/api/explanation` 주소를 브라우저로 열었을 때 `POST 요청만 지원합니다.`라는 JSON 응답이 나오면 API 함수가 연결된 상태입니다. 실제 해설은 앱에서 채점 후 확인합니다.
-
-- 검증은 `npm test`, 배포용 빌드는 `npm run build`로 실행합니다.
-- Windows PowerShell 실행 정책으로 `npm`을 실행할 수 없는 경우 `npm.cmd`를 사용합니다.
