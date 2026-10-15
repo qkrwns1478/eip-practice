@@ -4,9 +4,9 @@
     :storage-prefix="selectedMode === 'keyword' ? 'keywordQuiz' : 'geoQuiz'"
     :initial-view="activeView" :question-study="selectedMode === 'keyword'">
     <template #mode-selector>
-      <button type="button" class="keyword-mode-button" aria-label="키워드 / 족보퀴즈 모드 전환"
+      <button type="button" class="keyword-mode-button" aria-label="핵심개념 / 족보퀴즈 모드 전환"
         @click="selectMode(selectedMode === 'keyword' ? 'geo' : 'keyword')">
-        <span v-if="selectedMode === 'keyword'">키워드</span>
+        <span v-if="selectedMode === 'keyword'">핵심개념</span>
         <span v-else>족보퀴즈</span>
       </button>
     </template>
