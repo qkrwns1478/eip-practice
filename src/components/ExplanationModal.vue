@@ -14,9 +14,6 @@
           </template>
           <div v-else class="explanation-text" v-html="renderedText"></div>
         </div>
-        <footer class="modal-actions">
-          <button type="button" class="confirm-btn" @click="$emit('close')">닫기</button>
-        </footer>
       </section>
     </div>
   </Teleport>
@@ -71,7 +68,19 @@ export default {
 }
 .explanation-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .explanation-header h3 { margin: 0; }
-.explanation-header button { background: transparent; border: 0; color: var(--color-text); font-size: 28px; cursor: pointer; }
+.explanation-header button {
+  background: transparent;
+  border: 0;
+  color: var(--color-text);
+  font-size: 28px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.explanation-header button:hover,
+.explanation-header button:focus-visible {
+  color: var(--color-primary);
+  transform: none;
+}
 .explanation-body { overflow-y: auto; margin: 24px 0; min-height: 100px; }
 .explanation-text { overflow-wrap: anywhere; line-height: 1.8; font-size: 15px; }
 .explanation-text :deep(> :first-child) { margin-top: 0; }
@@ -90,5 +99,4 @@ export default {
 .explanation-text :deep(blockquote) { margin: 1em 0; padding-left: 16px; border-left: 3px solid var(--color-border); }
 .explanation-text :deep(a) { color: var(--color-primary); text-decoration: underline; }
 .explanation-text :deep(img) { max-width: 100%; height: auto; }
-.modal-actions { margin-top: 0; }
 </style>

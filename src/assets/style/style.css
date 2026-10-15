@@ -457,7 +457,6 @@ button:focus:not(:focus-visible) {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  max-height: 700px;
   overflow-y: auto;
 }
 
