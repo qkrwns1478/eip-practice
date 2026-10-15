@@ -105,8 +105,10 @@
               {{ currentQuestion.correctSubCount }} / {{ currentQuestion.subItems.length }} 정답
             </p>
           </div>
-          <button type="button" @click="openExplanation" class="explanation-button">해설</button>
-          <button @click="nextQuestion" class="next-button" ref="nextButton">다음 문제</button>
+          <div class="result-actions">
+            <button type="button" @click="openExplanation" class="result-action-button">해설</button>
+            <button @click="nextQuestion" class="result-action-button" ref="nextButton">다음 문제</button>
+          </div>
         </div>
       </div>
     </div>

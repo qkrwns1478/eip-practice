@@ -128,8 +128,10 @@
         <div v-if="answered" class="result-section">
           <p v-if="isCorrect" class="correct-result">✓ 정답입니다!</p>
           <p v-else class="wrong-result">✗ 오답입니다. 정답: {{ currentQuestion.answer }}</p>
-          <button type="button" @click="openExplanation" class="explanation-button">해설</button>
-          <button @click="nextQuestion" class="next-button" ref="nextButton">다음 문제</button>
+          <div class="result-actions">
+            <button type="button" @click="openExplanation" class="result-action-button">해설</button>
+            <button @click="nextQuestion" class="result-action-button" ref="nextButton">다음 문제</button>
+          </div>
         </div>
       </div>
     </div>
