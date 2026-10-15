@@ -19,21 +19,21 @@
         </svg>
         <span class="tooltip-text">공부 모드</span>
       </button>
-      <button @click="showMode = 'bookmarks'" aria-label="북마크" :class="{ active: showMode === 'bookmarks' }">
+      <button @click="showMode = 'bookmarks'" aria-label="북마크" class="menu-count-button" :class="{ active: showMode === 'bookmarks' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <polygon
             points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
         </svg>
-        <span class="tooltip-text">북마크 ({{ bookmarkedQuestions.length }})</span>
+        <span class="tooltip-text">북마크 <span class="menu-count-badge">{{ bookmarkedQuestions.length }}</span></span>
       </button>
-      <button @click="showMode = 'wrong'" aria-label="틀린 문제" :class="{ active: showMode === 'wrong' }">
+      <button @click="showMode = 'wrong'" aria-label="틀린 문제" class="menu-count-button" :class="{ active: showMode === 'wrong' }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="18" y1="6" x2="6" y2="18" />
           <line x1="6" y1="6" x2="18" y2="18" />
         </svg>
-        <span class="tooltip-text">틀린 문제 ({{ wrongQuestions.length }})</span>
+        <span class="tooltip-text">틀린 문제 <span class="menu-count-badge">{{ wrongQuestions.length }}</span></span>
       </button>
       <button @click="resetProgress" aria-label="현재 모드 진행 상황 초기화" class="reset-btn">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"

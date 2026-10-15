@@ -106,6 +106,28 @@
   display: none;
 }
 
+.icon-menu-bar button.menu-count-button .tooltip-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.icon-menu-bar .menu-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1;
+}
+
 
 .pst-quiz-layout .quiz-content,
 .pst-quiz-layout .bookmarks-content,
