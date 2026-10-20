@@ -1,4 +1,4 @@
-# 정보처리기사 실기 퀴즈 앱 (EIP Practice)
+# EIPractice
 
 [Vue 3](https://vuejs.org/)와 [Vite](https://vitejs.dev/)를 사용하여 구축한 정보처리기사 실기 대비용 퀴즈 애플리케이션입니다.
 
