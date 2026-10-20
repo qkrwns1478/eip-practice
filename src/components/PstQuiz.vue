@@ -99,7 +99,7 @@
             <button v-if="playMode === 'mockExam'" @click="openView('mockExam')" class="skip-button">회차 선택</button>
             <button v-if="['random', 'code'].includes(playMode) && !answered" @click="skipQuestion" class="skip-button">다음 문제</button>
             <button @click="toggleBookmark" class="bookmark-btn" :class="{ bookmarked: isCurrentQuestionBookmarked }">
-              {{ isCurrentQuestionBookmarked ? '⭐' : '☆' }}
+              {{ isCurrentQuestionBookmarked ? '★' : '☆' }}
             </button>
           </div>
         </div>
@@ -138,11 +138,13 @@
 
     <SavedQuestionList v-else-if="showMode === 'bookmarks'" type="bookmarks" :ids="bookmarkedQuestions"
       :get-question="getQuestionById" title-key="question" :subtitle-for-id="getQuizInfo"
-      :saved-explanations="savedExplanations" @select="startBookmarkedQuestion" @remove="removeBookmark" />
+      :saved-explanations="savedExplanations" :saved-answers="savedAnswers"
+      :exporting="notesExporting" :export-status="notesExportStatus" @export="generate => exportNotes('bookmarks', generate)" @select="startBookmarkedQuestion" @remove="removeBookmark" />
 
     <SavedQuestionList v-else-if="showMode === 'wrong'" type="wrong" :ids="wrongQuestions"
       :get-question="getQuestionById" title-key="question" :subtitle-for-id="getQuizInfo"
-      :saved-explanations="savedExplanations" @select="startWrongQuestion" @remove="removeWrongQuestion" />
+      :saved-explanations="savedExplanations" :saved-answers="savedAnswers"
+      :exporting="notesExporting" :export-status="notesExportStatus" @export="generate => exportNotes('wrong', generate)" @select="startWrongQuestion" @remove="removeWrongQuestion" />
 
     <div v-else-if="!currentQuestion && showMode === 'quiz'" class="no-question">
       <button @click="startQuiz" class="start-button">퀴즈 시작</button>
@@ -167,13 +169,14 @@ import SavedQuestionList from './SavedQuestionList.vue';
 import QuizModals from './QuizModals.vue';
 import ExplanationModal from './ExplanationModal.vue';
 import { quizExplanationMixin } from '../utils/quizExplanation.js';
+import { quizNotesMixin } from '../utils/quizNotes.js';
 import { codeLanguages, getCodeLanguage, getCodeQuestions } from '../utils/codeQuestions.js';
 import { commonQuizComputed, commonQuizMethods, getCommonProgress, restoreCommonProgress } from '../utils/quizCommon.js';
 
 export default {
   name: "PstQuiz",
   components: { CodeVisualizer, SavedQuestionList, QuizModals, ExplanationModal },
-  mixins: [quizExplanationMixin],
+  mixins: [quizExplanationMixin, quizNotesMixin],
   data() {
     return {
       pstData: pstData,

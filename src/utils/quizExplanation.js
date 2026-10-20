@@ -7,6 +7,19 @@ function answerContext(quiz) {
     : { userAnswer: quiz.userAnswer, isCorrect: quiz.isCorrect });
 }
 
+export async function requestExplanation(quizType, questionId, input, signal) {
+  const response = await fetch('/api/explanation', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ quizType, questionId, ...input }),
+    signal,
+  });
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) throw new Error(result.error || '해설을 생성하지 못했습니다. 잠시 후 다시 시도해주세요.');
+  if (typeof result.explanation !== 'string' || !result.explanation.trim()) throw new Error('해설 응답이 비어 있습니다. 다시 시도해주세요.');
+  return result.explanation;
+}
+
 // Only explanations belonging to bookmarks/wrong questions enter saved progress.
 export function syncSavedExplanations(quiz) {
   const ids = new Set([...quiz.bookmarkedQuestions, ...quiz.wrongQuestions]);
@@ -14,7 +27,7 @@ export function syncSavedExplanations(quiz) {
   for (const id of Object.keys(quiz.savedExplanations)) {
     if (!storedIds.has(id)) delete quiz.savedExplanations[id];
   }
-  if (ids.has(quiz.explanationQuestionId) && quiz.explanationText) {
+  if (ids.has(quiz.explanationQuestionId) && quiz.explanationText && quiz.explanationAnswerContext === answerContext(quiz)) {
     quiz.savedExplanations[quiz.explanationQuestionId] = {
       text: quiz.explanationText,
       context: quiz.explanationAnswerContext,
@@ -74,17 +87,9 @@ export const quizExplanationMixin = {
       this.explanationLoading = true;
       this.explanationError = '';
       try {
-        const response = await fetch('/api/explanation', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ quizType: this.storagePrefix, questionId: id, ...JSON.parse(context) }),
-          signal: controller.signal,
-        });
-        const result = await response.json().catch(() => ({}));
-        if (!response.ok) throw new Error(result.error || '해설을 생성하지 못했습니다. 잠시 후 다시 시도해주세요.');
-        if (typeof result.explanation !== 'string' || !result.explanation.trim()) throw new Error('해설 응답이 비어 있습니다. 다시 시도해주세요.');
+        const explanation = await requestExplanation(this.storagePrefix, id, JSON.parse(context), controller.signal);
         if (this.explanationController !== controller || this.currentQuestion?.id !== id) return;
-        this.explanationText = result.explanation;
+        this.explanationText = explanation;
         this.saveProgress();
       } catch (error) {
         if (!controller.signal.aborted && this.explanationController === controller) {

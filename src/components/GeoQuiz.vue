@@ -54,7 +54,7 @@
           <div class="question-actions-group">
             <button v-if="isRandomQuiz && !answered" @click="skipQuestion" class="skip-button">다음 문제</button>
             <button @click="toggleBookmark" class="bookmark-btn" :class="{ bookmarked: isCurrentQuestionBookmarked }">
-              {{ isCurrentQuestionBookmarked ? '⭐' : '☆' }}
+              {{ isCurrentQuestionBookmarked ? '★' : '☆' }}
             </button>
           </div>
         </div>
@@ -147,12 +147,14 @@
     <!-- 북마크 모드 -->
     <SavedQuestionList v-else-if="showMode === 'bookmarks'" type="bookmarks" :ids="bookmarkedQuestions"
       :get-question="getQuestionById" title-key="keyword" subtitle-key="desc"
-      :saved-explanations="savedExplanations" @select="startBookmarkedQuestion" @remove="removeBookmark" />
+      :saved-explanations="savedExplanations" :saved-answers="savedAnswers"
+      :exporting="notesExporting" :export-status="notesExportStatus" @export="generate => exportNotes('bookmarks', generate)" @select="startBookmarkedQuestion" @remove="removeBookmark" />
 
     <!-- 틀린 문제 모드 -->
     <SavedQuestionList v-else-if="showMode === 'wrong'" type="wrong" :ids="wrongQuestions"
       :get-question="getQuestionById" title-key="keyword" subtitle-key="desc"
-      :saved-explanations="savedExplanations" @select="startWrongQuestion" @remove="removeWrongQuestion" />
+      :saved-explanations="savedExplanations" :saved-answers="savedAnswers"
+      :exporting="notesExporting" :export-status="notesExportStatus" @export="generate => exportNotes('wrong', generate)" @select="startWrongQuestion" @remove="removeWrongQuestion" />
 
     <!-- 시작 화면 -->
     <div v-else-if="!currentQuestion && showMode === 'quiz'" class="no-question">
@@ -178,12 +180,13 @@ import SavedQuestionList from './SavedQuestionList.vue';
 import QuizModals from './QuizModals.vue';
 import ExplanationModal from './ExplanationModal.vue';
 import { quizExplanationMixin } from '../utils/quizExplanation.js';
+import { quizNotesMixin } from '../utils/quizNotes.js';
 import { commonQuizComputed, commonQuizMethods, getCommonProgress, restoreCommonProgress } from '../utils/quizCommon.js';
 
 export default {
   name: "GeoQuiz",
   components: { SavedQuestionList, QuizModals, ExplanationModal },
-  mixins: [quizExplanationMixin],
+  mixins: [quizExplanationMixin, quizNotesMixin],
   props: {
     questions: { type: Array, default: () => geoData },
     storagePrefix: { type: String, default: 'geoQuiz' },
@@ -457,6 +460,8 @@ export default {
       }
 
       this.totalCount++;
+
+      this.saveProgress();
 
       const allAnswered = this.currentQuestion.subItems.every(item => item.answered);
       if (allAnswered) {

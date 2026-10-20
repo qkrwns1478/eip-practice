@@ -1,4 +1,5 @@
 import { syncSavedExplanations } from './quizExplanation.js';
+import { syncSavedAnswers } from './quizNotes.js';
 
 export const commonQuizComputed = {
   progressPercentage() {
@@ -89,6 +90,7 @@ export function getCommonProgress(quiz) {
     bookmarkedQuestions: quiz.bookmarkedQuestions,
     solvedQuestions: quiz.solvedQuestions,
     wrongQuestions: quiz.wrongQuestions,
+    savedAnswers: syncSavedAnswers(quiz),
     savedExplanations: syncSavedExplanations(quiz),
     usedQuestions: quiz.usedQuestions,
     currentQuestionIndex: quiz.currentQuestionIndex,
@@ -113,6 +115,18 @@ export function restoreCommonProgress(quiz, progress) {
   quiz.bookmarkedQuestions = ids(progress.bookmarkedQuestions);
   quiz.solvedQuestions = ids(progress.solvedQuestions);
   quiz.wrongQuestions = ids(progress.wrongQuestions);
+  quiz.savedAnswers = {};
+  const validAnswer = answer => answer && typeof answer.userAnswer === 'string' && typeof answer.isCorrect === 'boolean';
+  for (const id of [...quiz.bookmarkedQuestions, ...quiz.wrongQuestions]) {
+    const saved = progress.savedAnswers?.[id];
+    if (Array.isArray(saved?.subAnswers) && saved.subAnswers.every(validAnswer)) {
+      quiz.savedAnswers[id] = { subAnswers: saved.subAnswers.map(item => ({
+        userAnswer: item.userAnswer, isCorrect: item.isCorrect, answered: item.answered !== false,
+      })) };
+    } else if (validAnswer(saved)) {
+      quiz.savedAnswers[id] = { userAnswer: saved.userAnswer, isCorrect: saved.isCorrect };
+    }
+  }
   const explanations = progress.savedExplanations;
   quiz.savedExplanations = {};
   if (explanations && typeof explanations === 'object' && !Array.isArray(explanations)) {
