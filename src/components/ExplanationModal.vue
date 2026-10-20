@@ -7,7 +7,9 @@
           <button type="button" aria-label="해설 닫기" @click="$emit('close')">×</button>
         </header>
         <div class="explanation-body" :aria-busy="loading" aria-live="polite">
-          <p v-if="loading" role="status">해설을 생성하고 있습니다. 잠시만 기다려 주세요…</p>
+          <div v-if="loading" class="explanation-spinner" role="status" aria-label="해설을 생성하고 있습니다">
+            <span class="spinner" aria-hidden="true"></span>
+          </div>
           <template v-else-if="error">
             <p role="alert">{{ error }}</p>
             <button type="button" class="confirm-btn" @click="$emit('retry')">다시 시도</button>
@@ -82,6 +84,16 @@ export default {
   transform: none;
 }
 .explanation-body { overflow-y: auto; margin: 24px 0; min-height: 100px; }
+.explanation-spinner { min-height: 100px; display: flex; align-items: center; justify-content: center; }
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 4px solid var(--color-border);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: explanation-spin 0.8s linear infinite;
+}
+@keyframes explanation-spin { to { transform: rotate(360deg); } }
 .explanation-text { overflow-wrap: anywhere; line-height: 1.8; font-size: 15px; }
 .explanation-text :deep(> :first-child) { margin-top: 0; }
 .explanation-text :deep(> :last-child) { margin-bottom: 0; }
