@@ -138,11 +138,11 @@
 
     <SavedQuestionList v-else-if="showMode === 'bookmarks'" type="bookmarks" :ids="bookmarkedQuestions"
       :get-question="getQuestionById" title-key="question" :subtitle-for-id="getQuizInfo"
-      @select="startBookmarkedQuestion" @remove="removeBookmark" />
+      :saved-explanations="savedExplanations" @select="startBookmarkedQuestion" @remove="removeBookmark" />
 
     <SavedQuestionList v-else-if="showMode === 'wrong'" type="wrong" :ids="wrongQuestions"
       :get-question="getQuestionById" title-key="question" :subtitle-for-id="getQuizInfo"
-      @select="startWrongQuestion" @remove="removeWrongQuestion" />
+      :saved-explanations="savedExplanations" @select="startWrongQuestion" @remove="removeWrongQuestion" />
 
     <div v-else-if="!currentQuestion && showMode === 'quiz'" class="no-question">
       <button @click="startQuiz" class="start-button">퀴즈 시작</button>

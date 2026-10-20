@@ -147,12 +147,12 @@
     <!-- 북마크 모드 -->
     <SavedQuestionList v-else-if="showMode === 'bookmarks'" type="bookmarks" :ids="bookmarkedQuestions"
       :get-question="getQuestionById" title-key="keyword" subtitle-key="desc"
-      @select="startBookmarkedQuestion" @remove="removeBookmark" />
+      :saved-explanations="savedExplanations" @select="startBookmarkedQuestion" @remove="removeBookmark" />
 
     <!-- 틀린 문제 모드 -->
     <SavedQuestionList v-else-if="showMode === 'wrong'" type="wrong" :ids="wrongQuestions"
       :get-question="getQuestionById" title-key="keyword" subtitle-key="desc"
-      @select="startWrongQuestion" @remove="removeWrongQuestion" />
+      :saved-explanations="savedExplanations" @select="startWrongQuestion" @remove="removeWrongQuestion" />
 
     <!-- 시작 화면 -->
     <div v-else-if="!currentQuestion && showMode === 'quiz'" class="no-question">
