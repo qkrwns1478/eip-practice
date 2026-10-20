@@ -1,4 +1,3 @@
-// 2023년 3회
 export const pstData_2023_3 = [
   {
     id: 141,
@@ -135,7 +134,7 @@ T1: 3, 1, 4
 T2: 2, 4, 3
 
 [쿼리]
-SELECT * FROM T1 UNION SELECT * FROM T2`,
+SELECT * FROM T1 UNION SELECT * FROM T2 ORDER BY A DESC;`,
     options: null,
     imageUrl: null,
   },
@@ -189,16 +188,11 @@ O`,
     passageOrCode: `#include <stdio.h>
 int main() {
     char* p = "KOREA";
-    printf("%s\
-", p);
-    printf("%s\
-", p + 1);
-    printf("%c\
-", *p);
-    printf("%c\
-", *(p + 3));
-    printf("%c\
-", *p + 4);
+    printf("%s\\n", p);
+    printf("%s\\n", p + 1);
+    printf("%c\\n", *p);
+    printf("%c\\n", *(p + 3));
+    printf("%c\\n", *p + 4);
 }`,
     options: null,
     imageUrl: null,
@@ -244,7 +238,7 @@ public class main {
     id: 153,
     answer: "7",
     question:
-      "다음 자바 코드를 실행할 경우 에러가 발생이 된다. 에러가 발생하는 라인명을 작성하시오.",
+      "다음 자바 코드를 실행할 경우 에러가 발생이 된다. 에러가 발생하는 라인 번호를 작성하시오.",
     passageOrCode: `class Person {
     private String name;
     public Person(String val) {
@@ -345,6 +339,7 @@ print(num1 + " + " + num2 + " = " + num3)`,
   {
     id: 159,
     answer: "ㄷ ㄴ ㄱ ㄹ",
+    alts: ["ㄷ. ⋈ ㄴ. π ㄱ. σ ㄹ. ÷", "⋈ π σ ÷"],
     question:
       "다음은 관계 대수에 대한 내용이다. 보기에 알맞는 기호를 작성하시오.",
     passageOrCode: `1. join : ( 1 )

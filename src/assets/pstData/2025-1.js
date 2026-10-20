@@ -1,4 +1,3 @@
-// 2025년 1회
 export const pstData_2025_1 = [
   {
     id: 1,
@@ -25,17 +24,17 @@ TCP (   )은/는 TCP의 3-way 핸드셰이크가 완료된 후에 공격자가 �
     answer: "CRC",
     question:
       "아래의 내용에서 설명 글의 괄호안의 용어를 영문 약자로 작성하시오.",
-    passageOrCode: `(        ) 은/는 3글자의 영어 약자로 이루어진 오류 기법으로 데이터를 전송하거나 저장할 때 데이터의 오류를 감지하는 데 사용되는 오류 검출 코드이다.
-(        ) 은/는 데이터에 체크섬을 추가하여 데이터를 전송하거나 저장한 후, 수신 또는 읽을 때 이 체크섬을 다시 계산하여 데이터가 변경되었는지 확인하는 기법이다.
-(        ) 은/는 데이터 전송의 안정성을 높이는 데 중요한 역할을 한다.
-데이터는 이진수(0과 1)로 표현되며 정해진 다항식(x³ + x + 1)을 기반으로 데이터를 2진수 나눗셈하고나머지를 (       ) 값으로 삼는다.`,
+    passageOrCode: `- (        ) 은/는 3글자의 영어 약자로 이루어진 오류 기법으로 데이터를 전송하거나 저장할 때 데이터의 오류를 감지하는 데 사용되는 오류 검출 코드이다.
+- (        ) 은/는 데이터에 체크섬을 추가하여 데이터를 전송하거나 저장한 후, 수신 또는 읽을 때 이 체크섬을 다시 계산하여 데이터가 변경되었는지 확인하는 기법이다.
+- (        ) 은/는 데이터 전송의 안정성을 높이는 데 중요한 역할을 한다.
+- 데이터는 이진수(0과 1)로 표현되며 정해진 다항식(x³ + x + 1)을 기반으로 데이터를 2진수 나눗셈하고 나머지를 (       ) 값으로 삼는다.`,
     options: null,
     imageUrl: null,
   },
   {
     id: 4,
     answer: "ㄹ",
-    alt: "스캐어 웨어",
+    alts: ["스캐어 웨어", "ㄹ. 스캐어 웨어"],
     question:
       "다음은 악성코드 관련된 문제이다. 아래 내용을 확인하여 보기에 골라 작성하시오.",
     passageOrCode: `사용자가 원치 않는 소프트웨어를 구매하도록 조작하기 위해 사회 공학을 사용하여 충격, 불안 또는 위협에 대한 인식을 유발하는 악성 소프트웨어의 한 형태이다.
@@ -93,24 +92,22 @@ TCP (   )은/는 TCP의 3-way 핸드셰이크가 완료된 후에 공격자가 �
     id: 7,
     answer: `name incentives
 이순신 1000`,
-    question:
-      "다음은 SQL 문제이다. 아래 두 테이블을 참고하여 보기에 쿼리 실행 결과를 작성하시오.",
-    passageOrCode: null,
-    options: [
-      "SELECT name, incentive FROM emp, sal WHERE emp.id = sal.id and incentives >= 500",
-    ],
-    imageUrl:
-      "https://blog.kakaocdn.net/dna/F7Tnq/btsNzZtANQz/AAAAAAAAAAAAAAAAAAAAAK1cx-4kJpaMoUmRFCPQDT5G_pIphsY5oeoaQzKY76x6/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=v237yKIpHywK6Y4FL%2Bfu%2FAAcMb4%3D",
+    question: "다음은 SQL 문제이다. 아래 두 테이블을 참고하여 보기에 쿼리 실행 결과를 작성하시오.",
+    passageOrCode: `SELECT name, incentive FROM emp, sal WHERE emp.id = sal.id and incentives >= 500`,
+    options: null,
+    imageUrl: "https://blog.kakaocdn.net/dna/F7Tnq/btsNzZtANQz/AAAAAAAAAAAAAAAAAAAAAK1cx-4kJpaMoUmRFCPQDT5G_pIphsY5oeoaQzKY76x6/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=v237yKIpHywK6Y4FL%2Bfu%2FAAcMb4%3D",
   },
   {
     id: 8,
     answer: "ㄷ ㅁ ㅅ ㄱ",
-    alt: "degree cardinality foreign domain",
-    question:
-      "아래는 데이터베이스에 관련된 설명이다. 알맞는 용어를 보기에서 골라 괄호를 작성하시오.",
+    alts: [
+      "degree cardinality foreign domain",
+      "ㄷ. degree ㅁ. cardinality ㅅ. foreign ㄱ. domain",
+    ],
+    question: "아래는 데이터베이스에 관련된 설명이다. 알맞는 용어를 보기에서 골라 기호를 작성하시오.",
     passageOrCode: `1. 릴레이션에서 속성의 개수를 의미 : ( 1 )
 2. 릴레이션에서 튜플의 개수를 의미 : ( 2 )
-3. 한 릴레이션의 속상이 다른 릴레이션의 기본 키를 참조할 때, 참조하는 속성을 의미 : ( 3 )
+3. 한 릴레이션의 속성이 다른 릴레이션의 기본 키를 참조할 때, 참조하는 속성을 의미 : ( 3 )
 4. 특정 속성에 대해 입력될 수 있는 값의 유형이나 범위를 의미하고 무결성을 보장하는 기준 : ( 4 )`,
     options: [
       "ㄱ. domain",
@@ -126,9 +123,8 @@ TCP (   )은/는 TCP의 3-way 핸드셰이크가 완료된 후에 공격자가 �
   {
     id: 9,
     answer: "ㄱ ㄴ ㄷ ㄹ ㅁ",
-    alt: "ㄱㄴㄷㄻ",
-    question:
-      "IP 주소가 192.168.35.10, 서브넷 255.255.252.0인 PC에서 브로드캐스팅으로 다른 IP로 정보를 전달한다고 할 때 수신할 수 있는 알맞는 IP를 보기에서 골라 모두 작성하시오.",
+    alts: ["ㄱㄴㄷㄻ", "ㄱㄴㄷㄹㅁ"],
+    question: "IP 주소가 192.168.35.10, 서브넷 255.255.252.0인 PC에서 브로드캐스팅으로 다른 IP로 정보를 전달한다고 할 때 수신할 수 있는 알맞는 IP를 보기에서 골라 모두 작성하시오. (기호만 순서대로)",
     passageOrCode: null,
     options: [
       "ㄱ. 192.168.34.1",
@@ -153,8 +149,7 @@ int main(){
     int i, temp, temp2;
  
     c = 'C';
-    printf("%d\
-", Data[3]-Data[1]);
+    printf("%d\\n", Data[3]-Data[1]);
  
     for(i=0;i<5;++i){
         if(Data[i]>c)
@@ -284,9 +279,9 @@ class Child extends Parent {
     answer: "Adapter",
     question:
       "아래는 디자인 패턴에 대한 설명이다. 알맞는 답을 보기에 골라 작성하시오.",
-    passageOrCode: `서로 다른 인터페이스를 가진 클래스들을 연결해 사용 가능하게 한다.
-기존 클래스(Adaptee)를 원하는 인터페이스(Target)에 맞게 변환하는 어댑터(Adapter)를 만든다.
-기존 클래스를 감싸서(wrapper) 인터페이스를 변환해주는 역할을 한다.`,
+    passageOrCode: `- 서로 다른 인터페이스를 가진 클래스들을 연결해 사용 가능하게 한다.
+- 기존 클래스(Adaptee)를 원하는 인터페이스(Target)에 맞게 변환하는 어댑터(Adapter)를 만든다.
+- 기존 클래스를 감싸서(wrapper) 인터페이스를 변환해주는 역할을 한다.`,
     options: null,
     imageUrl:
       "https://blog.kakaocdn.net/dna/oCM2H/btsNzMAY2Vl/AAAAAAAAAAAAAAAAAAAAAI7nU4pEShdC4QU1bezXWzN8QaWWxsCQJI6lxs7fAj-m/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=mruEQeQwqgrdJtXOcgoBJQSFRiM%3D",
@@ -313,7 +308,7 @@ return 1
 }`,
     options: [
       "1. (    ①    ) 2. (    ②    ) 3. (    ③    ) 4. (    ④    ) 5. (    ⑤    ) 6. (    ⑥    )",
-      "문장 커버리지 순서 1 → 2  → (          ⑦           )",
+      "문장 커버리지 순서 1 → 2 → (          ⑦           ) (' → '로 구분)",
     ],
     imageUrl:
       "https://blog.kakaocdn.net/dna/dK8Uvu/btsNBHY9xSO/AAAAAAAAAAAAAAAAAAAAALKBOe-hfTV3FscLa7xdAqX4hNMqJ41TcqTsgB1SHIEc/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=bK76ktoAc6Q1P5TYF1vZB6wCqI8%3D",

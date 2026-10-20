@@ -1,8 +1,7 @@
-// 2024년 3회
 export const pstData_2024_3 = [
   {
     id: 81,
-    answer: "OOAAA",
+    answer: "YYAAA",
     question:
       "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `public class Main {
@@ -10,7 +9,7 @@ export const pstData_2024_3 = [
     static void func(String[] s, int size) {
         for (int i = 1; i < size; i++) {
             if (s[i - 1].equals(s[i])) {
-                System.out.print("O");
+                System.out.print("Y");
             } else {
                 System.out.print("N");
             }
@@ -78,24 +77,23 @@ WHERE p.name IN (
   {
     id: 85,
     answer: "스머프",
-    alt: "스머핑 Smurf Smurfing",
-    question:
-      "다음은 네트워크 취약점에 대한 문제이다. 아래 내용을 보고 알맞는 용어를 작성하시오.",
-    passageOrCode: `- IP나 ICMP의 특성을 악용하여 엄청난 양의 데이터를 한 사이트에 집중적으로 보냄으로써 네트워크의 일부를 불능 상태로 만드는 공격이다.
-- 여러 호스트가 특정 대상에게 다량의 ICMP Echo Reply 를 보내게 하여 서비스거부(DoS)를 유발시키는 보안공격이다.
-- 공격 대상 호스트는 다량으로 유입되는 패킷으로 인해 서비스 불능 상태에 빠진다.`,
+    alts: ["스머핑", "Smurf", "Smurfing"],
+    question: "다음은 네트워크 취약점에 대한 문제이다. 아래 내용을 보고 알맞는 용어를 작성하시오.",
+    passageOrCode: `IP나 ICMP의 특성을 악용하여 엄청난 양의 데이터를 한 사이트에 집중적으로 보냄으로써 네트워크의 일부를 불능 상태로 만드는 공격이다.
+여러 호스트가 특정 대상에게 다량의 ICMP Echo Reply 를 보내게 하여 서비스거부(DoS)를 유발시키는 보안공격이다.
+공격 대상 호스트는 다량으로 유입되는 패킷으로 인해 서비스 불능 상태에 빠진다.`,
     options: null,
     imageUrl: null,
   },
   {
     id: 86,
     answer: "행위",
-    alt: "행동 Behavioral",
-    question:
-      "다음은 GoF 디자인 패턴과 관련된 문제이다. 괄호안에 알맞는 용어를 작성하시오.",
-    passageOrCode: `( ) 패턴은 클래스나 객체들이 서로 상호작용하는 방법이나 책임 분배 방법을 정의하는 패턴이다.
-( ) 패턴은 객체들 간의 통신 방법을 정의하고 알고리즘을 캡슐화하여 객체 간의 결합도를 낮춘다.
-( ) 패턴은 Chain of Responsibility나 Command 또는 Observer 패턴이 있다.`,
+    alts: ["행동", "Behavioral"],
+    question: "다음은 GoF 디자인 패턴과 관련된 문제이다. 괄호 안에 알맞는 용어를 작성하시오.",
+    passageOrCode: `(   ) 패턴
+- 클래스나 객체들이 서로 상호작용하는 방법이나 책임 분배 방법을 정의하는 패턴이다.
+- 객체들 간의 통신 방법을 정의하고 알고리즘을 캡슐화하여 객체 간의 결합도를 낮춘다.
+- Chain of Responsibility나 Command 또는 Observer 패턴이 있다.`,
     options: null,
     imageUrl: null,
   },
@@ -126,10 +124,10 @@ int main() {
   {
     id: 88,
     answer: "개체",
-    alt: "Entity",
+    alts: ["Entity", "엔티티"],
     question:
-      "다음은 무결성제약조건에 대한 문제이다. 아래 표에서 어떠한 ( ) 무결성을 위반하였는지 작성하시오.",
-    passageOrCode: null,
+      "다음은 무결성 제약조건에 대한 문제이다. 아래 표에서 어떠한 무결성을 위반하였는지 작성하시오.",
+    passageOrCode: "(   ) 제약조건",
     options: null,
     imageUrl:
       "https://blog.kakaocdn.net/dna/nh0RX/btsKgJl3Fa7/AAAAAAAAAAAAAAAAAAAAAG3F7y15SpGBFn7EpGA8Tqt3MwIPtZOIhTFksxToLV5O/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=V%2BW%2BojQHr%2FfmY3aHWY0uWDRO%2BKw%3D",
@@ -241,7 +239,7 @@ int main() {
     answer: "ㅂ ㄹ ㄱ",
     alt: "문장 분기 조건",
     question:
-      "다음은 테스트 커버리지에 대한 문제이다. 아래 내용에 알맞는 답을 보기에서 골라 작성하시오.",
+      "다음은 테스트 커버리지에 대한 문제이다. 아래 내용에 알맞는 답을 보기에서 골라 각각 작성하시오.",
     passageOrCode: `1. 테스트를 통해 프로그램의 모든 문장을 최소한 한 번씩 실행했는지를 측정
 2. 프로그램 내의 모든 분기(조건문)의 각 분기를 최소한 한 번씩 실행했는지를 측정
 3. 복합 조건 내의 각 개별 조건이 참과 거짓으로 평가되는 경우를 모두 테스트했는지를 측정`,

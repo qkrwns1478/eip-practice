@@ -1,8 +1,8 @@
-// 2023년 2회
 export const pstData_2023_2 = [
   {
     id: 121,
     answer: "n[(i+1) % 5]",
+    alts: ["n[(i+1)%5]", "n[(i + 1) % 5]", "n[(i + 1)%5"],
     question: "다음은 C언어 코드 문제이다. 조건에 따라 괄호안에 알맞은 코드를 작성하시오.",
     passageOrCode: `int main(void) {
     int n[5];
@@ -56,7 +56,6 @@ export const pstData_2023_2 = [
 #include<stdlib.h>
 char n[30];
 char *test() {
-  printf("입력하세요 : ");
   gets(n);
   return n;
 }
@@ -67,10 +66,8 @@ int main() {
   test1 = test();
   test2 = test();
   test3 = test();
-  printf("%s\
-",test1);
-  printf("%s\
-",test2);
+  printf("%s\\n",test1);
+  printf("%s\\n",test2);
   printf("%s",test3);
 }`,
     options: ["입력값은 홍길동, 김철수, 박영희 순서로 주어진다."],
@@ -78,19 +75,12 @@ int main() {
   },
   {
     id: 124,
-    answer: `INSTER INTO 학생(학번,이름,학년,전공,전화번호)
-VALUES(9830287,'뉴진스',3,'경영학개론','010-1234-1234');`,
-    question: "아래 보기 조건에 맞게 SQL문을 작성하시오.",
-    passageOrCode: `CREATE TABLE 학생 (
-      학번 int,
-      이름 varchar(20),
-      학년 int,
-      전공 varchar(30),
-      전화번호 varchar(20)
-    );`,
-    options: [`학번	이름	학년	전공	전화번호
-9830287	뉴진스	3	경영학개론	010-1234-1234`, "문자열일 경우 작은따음표를 사용할 것"],
-    imageUrl: null
+    answer: `INSERT INTO 학생 VALUES(9816021, '한국산', 3, '경영학개론', '050-1234-1234');`,
+    alt: `INSERT INTO 학생 VALUES(9816021, '한국산', 3, '경영학개론', '050-1234-1234')`,
+    question: "다음 <학생> 테이블에 (9816021, '한국산', 3, '경영학개론',  '050-1234-1234')인 데이터를 삽입하고자 한다. <처리조건>을 참고하여 적합한 SQL문을 작성하시오.",
+    passageOrCode: null,
+    options: null,
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fsz9UL%2FbtsFPeX1I4F%2FAAAAAAAAAAAAAAAAAAAAAH0VWhcSVQUcwf8a6jnutpye931GrfHeZhr18rV8N437%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1793458799%26allow_ip%3D%26allow_referer%3D%26signature%3DLPROh1mlKRPgdk9F2EYsmGz4h3g%253D",
   },
   {
     id: 125,
@@ -145,6 +135,7 @@ int main(){
   {
     id: 128,
     answer: "템퍼프루핑",
+    alts: ["템퍼 프루핑", "tamper-proofing", "tamper proofing"],
     question: "다음 내용에 알맞는 답을 작성하시오.",
     passageOrCode: `소프트웨어에서 워터마크 삭제등과 같이 소프트웨어가 불법으로 변경(unauthorized modifications)되었을 경우, 그 소프트웨어가 정상 수행되지 않게 하는 기법이다.
 소프트웨어 변조 공격을 방어하기 위해 프로그램에 변조검증코드(tamper-proofing code)를 삽입하는 것도 한 방법으로
@@ -276,12 +267,12 @@ int main(int argc, char const *argv[]){
 false
 true
 true`,
-    question: "다음은 자바에 대한 문제이다. 알맞은 출력값을 작성하시오.",
+    question: "다음은 Java코드에 대한 문제이다. 알맞은 출력값을 작성하시오.",
     passageOrCode: `public class Main {
     public static void main(String[] args) {
-        String str1 = "Programming";
-        String str2 = "Programming";
-        String str3 = new String("Programming");
+        String str1 = "munsik";
+        String str2 = "munsik";
+        String str3 = new String("munsik");
         println(str1 == str2)
         println(str1 == str3)
         println(str1.equals(str3))

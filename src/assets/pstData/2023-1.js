@@ -1,4 +1,3 @@
-// 2023년 1회
 export const pstData_2023_1 = [
   {
     id: 101,
@@ -82,7 +81,7 @@ int main() {
   {
     id: 105,
     answer: "가상 회선 방식 데이터그램 방식",
-    question: "보기의 통신 기술(회선교환/데이터그램) 중 가장 적합한 답을 표에 맞게 작성하시오.",
+    question: "보기의 통신 기술 중 가장 적합한 답을 표에 맞게 작성하시오.",
     passageOrCode: `1. (   )
 - 회선교환 방식과 데이터그램 방식의 장점을 결합한 통신 기술이다.
 - 처음 패킷으로 최적의 경로를 고정하고 경로가 고정되면 그 다음은 패킷으로 나누어 고속으로 전송할 수 있다.
@@ -110,7 +109,7 @@ IPsec을 함께 사용하면 PPTP보다 훨씬 안전하지만 보안보다 익�
     id: 107,
     answer: "SSH",
     alt: "Secure SHell",
-    question: "다음 괄호안에 알맞는 용어를 작성하시오. (네트워크 상의 다른 컴퓨터에 원격 로그인/파일 복사 등)",
+    question: "다음 괄호안에 알맞는 용어를 작성하시오.",
     passageOrCode: `- 네트워크 상의 다른 컴퓨터에 로그인하거나 원격 시스템에서 명령을 실행하고 다른 시스템으로 파일을 복사할 수 있도록 해주는 응용 프로그램 또는 그 프로토콜을 가리킨다.
 - 보안 접속을 통한 rsh, rcp, rlogin, rexec, telnet, ftp 등을 제공하며, IP spoofing(IP스푸핑) 방지 기능을 제공한다.
 - 기본적으로 포트는 22번이다.`,
@@ -183,7 +182,7 @@ int main() {
 - 객체를 정교하게 제어해야 하거나 객체 참조가 필요한 경우 사용한다.
 - 분리된 객체를 위임함으로써 대리 작업을 중간 단계에 삽입할 수도 있으며 분리된 객체를 동적으로 연결함으로써 객체의 실행 시점을 관리할 수도 있다.`,
     options: null,
-    imageUrl: null
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fbyfj0t%2FbtsnqTyczWd%2FAAAAAAAAAAAAAAAAAAAAAJBladwROcVET-LSnQeQ3TFs-nXb866ls51loZPWXxtx%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1793458799%26allow_ip%3D%26allow_referer%3D%26signature%3DmxCZkFjYIoayBAjUVnY%252BgoSYR2g%253D"
   },
   {
     id: 112,
@@ -208,6 +207,7 @@ int main() {
   {
     id: 113,
     answer: "delete from 학생 where 이름 = '민수'",
+    alt: "DELETE FROM 학생 WHERE 이름 = '민수';",
     question: "[학생] 테이블에서 학생 이름이 '민수'인 튜플을 삭제하는 쿼리를 작성하시오.",
     passageOrCode: `조건:
 - 컬럼의 값이 문자열일 경우 작은 따옴표 (' ')를 표시하시오.
@@ -263,6 +263,11 @@ print(a)`,
   {
     id: 116,
     answer: "SELECT 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수 FROM 성적 GROUP BY 과목이름 HAVING AVG(점수) >= 90",
+    alts: [
+      "SELECT 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수 FROM 성적 GROUP BY 과목이름 HAVING AVG(점수) >= 90;",
+      "SELECT 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수 FROM 성적 GROUP BY 과목이름 HAVING (SUM(점수) / COUNT(점수)) >= 90",
+      "SELECT 과목이름, MIN(점수) AS 최소점수, MAX(점수) AS 최대점수 FROM 성적 GROUP BY 과목이름 HAVING (SUM(점수) / COUNT(점수)) >= 90;",
+    ],
     question: "다음 성적 테이블에서 과목별 점수의 평균이 90점 이상인 '과목이름', '최소점수', '최대점수' 를 검색하고자 한다. [조건]을 참고하여 적합한 SQL문을 작성하시오.",
     passageOrCode: `조건:
 - where사용하지 말하야 한다.
@@ -311,8 +316,8 @@ public class Main {
     passageOrCode: `(   1   ) 스키마
 - 사용자나 응용 프로그래머가 개인의 입장에서 필요한 데이터베이스의 논리적 구조를 정의한다.
 - 전체 데이터베이스의 한 논리적인 부분으로 볼 수 있기 때문에 서브 스키마라고도 한다.
-- 하나의 데이터베이스 시스템에는 여러 개의 외부 스키마가 존재할 수 있다.
-- 하나의 외부 스키마를 여러개의 응용 프로그램 혹은 사용자가 공유할 수 있다.
+- 하나의 데이터베이스 시스템에는 여러 개의 (   1   ) 스키마가 존재할 수 있다.
+- 하나의 (   1   ) 스키마를 여러개의 응용 프로그램 혹은 사용자가 공유할 수 있다.
 
 (   2   ) 스키마
 - 데이터베이스의 전체적인 논리적 구조로, 모든 응용 프로그램이나 사용자들이 필요로 하는 데이터를 종합한 조직 전체의 데이터베이스로 하나만 존재한다.

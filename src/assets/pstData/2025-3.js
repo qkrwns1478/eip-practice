@@ -1,4 +1,3 @@
-// 2025년 3회
 export const pstData_2025_3 = [
   {
     id: 221,
@@ -19,18 +18,12 @@ export const pstData_2025_3 = [
     id: 222,
     answer: "ㅇ",
     alt: "조건",
-    question: "다음은 소프트웨어 테스트 기법 중 하나에 대한 설명이다.",
-    passageOrCode: `소프트웨어 테스트의 구조 기반(화이트박스) 기법 중 하나로,
-결정 포인트(Decision Point) 내에 존재하는 모든 개별 조건식(Atomic Condition) 을 대상으로 하는 커버리지 기준이 있다.
- 
-하나의 결정문(예: if (A && B) 또는 if (X > 10 || Y == 0)) 안에는
-여러 개의 조건식이 포함될 수 있는데 이 커버리지는
-각각의 조건식이 True와 False 두 가지 경우를 모두 한 번 이상 만족하도록
-테스트 케이스를 설계해야 한다.
- 
-즉, 모든 개별 조건이 두 방향의 결과를 거쳐야 “커버되었다”고 판단하지만
-그렇다고 해서 전체 결정식(Decision Expression) 의 결과(True/False)가
-모두 수행된다고 보장하지는 않는다.`,
+    question: "다음은 소프트웨어 테스트 기법 중 하나에 대한 설명이다. 설명에 가장 부합한 커버리지의 기호를 쓰시오.",
+    passageOrCode: `소프트웨어 테스트의 구조 기반(화이트박스) 기법 중 하나로, 결정 포인트(Decision Point) 내에 존재하는 모든 개별 조건식(Atomic Condition) 을 대상으로 하는 커버리지 기준이 있다.
+
+하나의 결정문(예: if (A && B) 또는 if (X > 10 || Y == 0)) 안에는 여러 개의 조건식이 포함될 수 있는데 이 커버리지는 각각의 조건식이 True와 False 두 가지 경우를 모두 한 번 이상 만족하도록 테스트 케이스를 설계해야 한다.
+
+즉, 모든 개별 조건이 두 방향의 결과를 거쳐야 “커버되었다”고 판단하지만 그렇다고 해서 전체 결정식(Decision Expression) 의 결과(True/False)가 모두 수행된다고 보장하지는 않는다.`,
     options: [
       "ㄱ. 경로(Path)",
       "ㄴ. 결정(Decision)",
@@ -64,9 +57,9 @@ export const pstData_2025_3 = [
       "다음은 오류검출 방식을 설명하는 내용이다. 설명의 빈칸 (①)~(⑤) 에 들어갈 알맞은 용어를 <보기>에서 고르시오.",
     passageOrCode: `(①) 코드는 전송 데이터에 여러 개의 검사 비트를 추가하여 오류를 검출하고 수정까지 가능한 방법이다.
 이 코드는 재전송 없이 수신 측에서 자체 수정하는 (②) 방식에 속한다.
- 
+
 이에 반해 오류 발생 시 송신 측에 재전송을 요구하는 방식은 (③)이라 하며, 여기에 포함되는 대표적 검출 기법으로 (④) 검사와 (⑤) 검사가 있다.
- 
+
 (④) 검사는 데이터 블록 끝에 1비트 검사 비트를 추가하여 오류를 검출한다.
 (⑤) 검사는 송신측과 수신측이 동일한 특정 다항식을 사용하여 오류를 검출한다.`,
     options: [
@@ -113,7 +106,7 @@ int main(void) {
     char str[] = "REPUBLICOFKOREA";
     int a = 0;
  
-    while (str[a] != '\0')
+    while (str[a] != '\\0')
         ++a;
  
     putchar(str[a - 2]);
@@ -212,30 +205,6 @@ print(result)`,
     imageUrl: null,
   },
   {
-    id: 234,
-    answer: "15 5 10 3 18 5 9 2",
-    question:
-      "다음은 파이썬에 대한 문제이다. 아래 코드를 확인하여 출력값에 알맞는 값을 작성하시오.",
-    passageOrCode: `data = [
-    [3, 5, 2, 4, 1],
-    [4, 5, 1],
-    [4, 4, 1, 5, 4],
-    [4, 5]
-]
- 
-result = {}
- 
-for index, lis in enumerate(data):
-    list_sum = sum(lis)
-    list_len = len(lis)
- 
-    result[index] = (list_sum, list_len)
- 
-print(result)`,
-    options: ["출력 값: {0: (①, ②), 1: (③, ④), 2: (⑤, ⑥), 3: (⑦, ⑧)}"],
-    imageUrl: null,
-  },
-  {
     id: 230,
     answer: "4",
     question:
@@ -306,15 +275,29 @@ public class Main {
     imageUrl: null,
   },
   {
-    id: 235,
+    id: 234,
     answer: `A
 a1`,
-    question:
-      "다음 아래의 테이블을 확인하여 R%S의 결과를 테이블 형태로 기재하시오.",
+    question: "다음 아래의 테이블을 확인하여 R%S의 결과를 테이블 형태로 기재하시오.",
     passageOrCode: null,
     options: null,
-    imageUrl:
-      "https://blog.kakaocdn.net/dna/nQ3eR/dJMcai2Jn1f/AAAAAAAAAAAAAAAAAAAAAELHm-w1OFo4fvfDFdSFQJ2TgYLyEdMLMu72VQKV9sEE/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=XzYy98cT4SNMwizVYRpD5HXR4A0%3D",
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FnQ3eR%2FdJMcai2Jn1f%2FAAAAAAAAAAAAAAAAAAAAAELHm-w1OFo4fvfDFdSFQJ2TgYLyEdMLMu72VQKV9sEE%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1793458799%26allow_ip%3D%26allow_referer%3D%26signature%3DXzYy98cT4SNMwizVYRpD5HXR4A0%253D",
+  },
+  {
+    id: 235,
+    answer: "0",
+    question: "다음은 C코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    passageOrCode: `#include <stdio.h>
+int main() {
+    int x=7, y=4, z;
+    z = y%3<3 ? 2 : 1;
+    z = z & z >> 1;
+    z = x>5 && z<=3 ? z*x : z/x;
+    printf("%d", z);
+    return 0;
+}`,
+    options: null,
+    imageUrl: null
   },
   {
     id: 236,
