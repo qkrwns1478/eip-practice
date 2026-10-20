@@ -25,8 +25,14 @@
           }">{{ alert.examResult.verdict }}</strong>
         </div>
         <dl class="exam-result-details">
-          <div><dt>맞힌 문제</dt><dd><strong>{{ alert.examResult.correct }}</strong> / {{ alert.examResult.total }}문제</dd></div>
-          <div><dt>합격 기준</dt><dd>60점 이상</dd></div>
+          <div>
+            <dt>맞힌 문제</dt>
+            <dd><strong>{{ alert.examResult.correct }}</strong> / {{ alert.examResult.total }}문제</dd>
+          </div>
+          <div>
+            <dt>합격 기준</dt>
+            <dd>60점 이상</dd>
+          </div>
         </dl>
         <p v-if="alert.examResult.note" class="exam-result-note">{{ alert.examResult.note }}</p>
       </div>
@@ -91,7 +97,7 @@ export default {
   font-variant-numeric: tabular-nums;
 }
 
-.exam-result-score div > span {
+.exam-result-score div>span {
   font-size: 14px;
   color: var(--color-text-light);
 }
@@ -101,23 +107,33 @@ export default {
   white-space: nowrap;
 }
 
-.exam-result-verdict.is-pass { color: var(--color-success); }
-.exam-result-verdict.is-fail { color: var(--color-danger); }
+.exam-result-verdict.is-pass {
+  color: var(--color-success);
+}
+
+.exam-result-verdict.is-fail {
+  color: var(--color-danger);
+}
 
 .exam-result-details {
   margin: 18px 0 0;
   font-size: 14px;
 }
 
-.exam-result-details > div {
+.exam-result-details>div {
   display: flex;
   justify-content: space-between;
   gap: 16px;
   margin-top: 12px;
 }
 
-.exam-result-details dt { color: var(--color-text-light); }
-.exam-result-details dd { margin: 0; }
+.exam-result-details dt {
+  color: var(--color-text-light);
+}
+
+.exam-result-details dd {
+  margin: 0;
+}
 
 .exam-result .exam-result-note {
   margin: 18px 0 0;
