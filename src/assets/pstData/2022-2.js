@@ -6,7 +6,7 @@ export const pstData_2022_2 = [
     question: "다음은 관계 데이터 모델에 대한 설명이다. 괄호안에 들어가는 용어를 작성하시오.",
     passageOrCode: `( )은 /는 관계 데이터의 연산을 표현하는 방법으로, 원하는 정보를 정의할 때는 계산 수식을 사용한다.
 수학의 predicate calculus에 기반을 두고 있으며, 관계 데이터 모델의 제안자인 codd가 수학에 가까운 기반을 두고 특별히 관계 데이터베이스를 위해 제안하여 탄생하였다.
-( ) /은/는 원하는 정보가 무엇이라는 것만 정의하는 비절차적 특성을 지니며, 튜블 ( )와/과 도메인 ( ) 이/가 있다.`,
+( ) /은/는 원하는 정보가 무엇이라는 것만 정의하는 비절차적 특성을 지니며, 튜플 ( )와/과 도메인 ( ) 이/가 있다.`,
     options: null,
     imageUrl: null
   },
@@ -14,8 +14,8 @@ export const pstData_2022_2 = [
     id: 182,
     answer: "IDEA SKIPJACK",
     question: "다음은 대칭 키 알고리즘에 대한 설명이다. 해당 설명에 맞는 용어를 보기에 골라 작성하시오.",
-    passageOrCode: `1. Xuejia Lai와 James Messey 가 만든 알고리즘으로 PES(Proposed Encryption Standard)에서 IPES(Improved PES)로 변경되었다가, 1991년에 제작된 블록 암호 알고리즘으로 현재 국제 데이터 암호화 알고리즘으로 사용되고 있다. 64비트 블록을 128비트의 key를 이용하여 8개의 라운드로 구성되어 있다.
-2. 미국의 NSA에서 개발한 Clipper 칩에 내장되는 블록 알고리즘이다. 전화기와 같은 음성을 암호화 하는데 주로 사용되며 64비트 입출력에 80비트의 키 총 32라운드를 가진다.`,
+    passageOrCode: `1. (    ): Xuejia Lai와 James Messey 가 만든 알고리즘으로 PES(Proposed Encryption Standard)에서 IPES(Improved PES)로 변경되었다가, 1991년에 제작된 블록 암호 알고리즘으로 현재 국제 데이터 암호화 알고리즘으로 사용되고 있다. 64비트 블록을 128비트의 key를 이용하여 8개의 라운드로 구성되어 있다.
+2. (    ): 미국의 NSA에서 개발한 Clipper 칩에 내장되는 블록 알고리즘이다. 전화기와 같은 음성을 암호화 하는데 주로 사용되며 64비트 입출력에 80비트의 키 총 32라운드를 가진다.`,
     options: [
       "IDEA",
       "SKIPJACK",
@@ -242,8 +242,8 @@ public static void main(String[] args) {
     answer: "ㄹ ㅇ ㄷ",
     alt: "Full Partial Transitive",
     question: "다음은 함수 종속성에 대한 설명이다. 해당 문제에 대한 알맞는 답을 보기에서 골라 작성하시오.",
-    passageOrCode: `1. 성적은 {학생,학과}에 대해서 ( ) Functional Dependency이다.
-2. 성적은 학과만 알아도 식별이 가능하므로, 이 경우에는 성적 속성은 기본키에 ( ) Functional Dependency이다.
+    passageOrCode: `1. 성적은 {학생,학과}에 대해서 (    ) Functional Dependency이다.
+2. 성적은 학과만 알아도 식별이 가능하므로, 이 경우에는 성적 속성은 기본키에 (    ) Functional Dependency이다.
 3. 릴레이션에서 X, Y, Z라는 3 개의 속성이 있을 때 X→Y, Y→Z 이란 종속 관계가 있을 경우, X→Z가 성립될 경우`,
     options: ["ㄱ. Hybrid", "ㄴ. Multi Valued", "ㄷ. Transitive", "ㄹ. Full", "ㅁ. Defined", "ㅂ. Natural", "ㅅ. Relational", "ㅇ. Partial"],
     imageUrl: "https://blog.kakaocdn.net/dna/dwxbKs/btsCVHKbX1G/AAAAAAAAAAAAAAAAAAAAAHpCevhbn5bkhzNeFabt-jk3O783zzgyvzFhP7_jj8cj/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=s4iPkkLngwtQo1d50Oq%2BSfPwq7Y%3D"
@@ -252,9 +252,9 @@ public static void main(String[] args) {
     id: 199,
     answer: "HTTP Hypertext HTML",
     question: "다음 설명에 대한 알맞는 답을 보기에서 고르시오.",
-    passageOrCode: `1. 인터넷에서, 웹 서버와 사용자의 인터넷 브라우저 사이에 문서를 전송하기 위해 사용되는 통신 규약을 말한다. 인터넷에서 하이퍼텍스트(hypertext) 문서를 교환하기 위하여 사용되는 통신규약이다. 이 규약에 맞춰 개발해서 서로 정보를 교환할 수 있게 되었다.
-2. 문자, 그래픽, 음성 및 영상을 하나의 연상 거미집(Web of Association)과 같이 서로 연결시켜, 제시된 순서에 관계없이 이용자가 관련된 정보를 검색할 수 있도록 하는 정보 제공 방법이다. 즉, 한 페이지에서 링크된 순서에 상관없이 사용자들이 원하는 정보에 쉽게 접근하는 방식을 말한다.
-3. 웹 페이지 표시를 위해 개발된 지배적인 마크업 언어다. 또한, 제목, 단락, 목록 등과 같은 본문을 위한 구조적 의미를 나타내는 것뿐만 아니라 링크, 인용과 그 밖의 항목으로 구조적 문서를 만들 수 있는 방법을 제공한다.`,
+    passageOrCode: `1. (    ): 인터넷에서, 웹 서버와 사용자의 인터넷 브라우저 사이에 문서를 전송하기 위해 사용되는 통신 규약을 말한다. 인터넷에서 하이퍼텍스트(hypertext) 문서를 교환하기 위하여 사용되는 통신규약이다. 이 규약에 맞춰 개발해서 서로 정보를 교환할 수 있게 되었다.
+2. (    ): 문자, 그래픽, 음성 및 영상을 하나의 연상 거미집(Web of Association)과 같이 서로 연결시켜, 제시된 순서에 관계없이 이용자가 관련된 정보를 검색할 수 있도록 하는 정보 제공 방법이다. 즉, 한 페이지에서 링크된 순서에 상관없이 사용자들이 원하는 정보에 쉽게 접근하는 방식을 말한다.
+3. (    ): 웹 페이지 표시를 위해 개발된 지배적인 마크업 언어다. 또한, 제목, 단락, 목록 등과 같은 본문을 위한 구조적 의미를 나타내는 것뿐만 아니라 링크, 인용과 그 밖의 항목으로 구조적 문서를 만들 수 있는 방법을 제공한다.`,
     options: ["UDDI", "XML", "WSDL", "Hypertext", "DHTML", "HTML", "SOAP", "HTTP"],
     imageUrl: null
   },

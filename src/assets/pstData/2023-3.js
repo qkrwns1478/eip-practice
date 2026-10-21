@@ -305,7 +305,7 @@ print(num1 + " + " + num2 + " = " + num3)`,
     options: [
       "ㄱ.Equivalence Partitioning",
       "ㄴ.Statement Coverage",
-      "ㄷ.Boundary Value Analy",
+      "ㄷ.Boundary Value Analysis",
       "ㄹ.Branch Coverage",
       "ㅁ.Error Guessing",
       "ㅂ.Condition Coverage",

@@ -39,14 +39,15 @@ int calculate(w, h, j, i) {
   },
   {
     id: 202,
-    answer: "U - X π ⋈",
+    answer: "ㄷ ㄴ ㅇ ㅂ ㅅ",
+    alts: ["ㄷ. ∪ ㄴ. - ㅇ. × ㅂ. π ㅅ. ⋈", "∪ - × π ⋈"],
     question: "아래 예시를 보고 관계 대수에 대한 기호를 작성하시오.",
     passageOrCode: `1. 합집합: A () B
 2. 차집합: A () B
 3. 카티션 프로덕트: A () B
 4. 프로젝트: A () B
 5. 조인: A () B`,
-    options: null,
+    options: ["ㄱ. +", "ㄴ. -", "ㄷ. ∪", "ㄹ. ∩", "ㅁ. σ", "ㅂ. π", "ㅅ. ⋈", "ㅇ. ×", "ㅈ. ÷"],
     imageUrl: null
   },
   {
@@ -231,10 +232,10 @@ printf("%d", el);`,
     id: 218,
     answer: "ㄴ ㄷ ㄱ ㄹ ㅁ",
     alt: "실선 관계집합 점선 관계집합의속성 개체집합",
-    question: "다음은 E-R다이어그램에 관한 설명이다. 괄호 안에 알맞는 답을 작성하시오.",
+    question: "다음 E-R 다이어그램을 참고하여 괄호(①~⑤)의 설명에 적합한 요소를 찾아 기호(ㄱ~ㅁ)로 쓰시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://blog.kakaocdn.net/dna/tLYA3/btsC4KeezeX/AAAAAAAAAAAAAAAAAAAAAG7YB91wu6Cls8kiwkbB6Ni5df0SysazYiNsMSZ9c0p6/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=F%2BgDMsIfPA5rvGTPhb7pddkdmE8%3D"
+    imageUrl: "https://blog.kakaocdn.net/dna/eiLWsb/btslErbJVEX/AAAAAAAAAAAAAAAAAAAAAFngEXTHjtHZkiGo_oUbhdJmW_5vKTO0qrOe1fyvzpnT/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=eAA%2BczjXMJ0Uh43j%2F0HgDn5ldmM%3D"
   },
   {
     id: 219,
@@ -243,7 +244,7 @@ printf("%d", el);`,
     passageOrCode: `public class Main {
     static int[] MakeArray() {
         int[] tempArr = new int[4];
-        for (int i = 0; i < tempArr.Length; i++) {
+        for (int i = 0; i < tempArr.length; i++) {
             tempArr[i] = i;
         }
         return tempArr;
@@ -251,7 +252,7 @@ printf("%d", el);`,
     public static void main(String[] args) {
         int[] intArr;
         intArr = MakeArray();
-        for (int i = 0; i < intArr.Length; i++)
+        for (int i = 0; i < intArr.length; i++)
             System.out.print(intArr[i]);
     }
 }`,

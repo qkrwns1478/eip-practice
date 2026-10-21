@@ -15,8 +15,8 @@ export const pstData_2022_1 = [
     answer: "ㅁ ㄴ",
     alt: "redo undo",
     question: "다음 설명을 확인하여 해당하는 항목을 보기에서 찾아 적으시오.",
-    passageOrCode: `1. 오류가 발생하기 전까지의 사항을 로그(log)로 기록해 놓고, 이전 상태로 되돌아간 후, 실패가 발생하기 전까지의 과정을 그대로 따라가는 현상
-2. 작업을 취소하여 트랜잭션을 이전 상태로 되돌리는 것`,
+    passageOrCode: `1. (    ): 오류가 발생하기 전까지의 사항을 로그(log)로 기록해 놓고, 이전 상태로 되돌아간 후, 실패가 발생하기 전까지의 과정을 그대로 따라가는 현상
+2. (    ): 작업을 취소하여 트랜잭션을 이전 상태로 되돌리는 것`,
     options: ["ㄱ. ROLLBACK", "ㄴ. UNDO", "ㄷ. LOG", "ㄹ. COMMIT", "ㅁ. REDO", "ㅂ. RECOVERY", "ㅅ. BACKUP", "ㅇ. CHECK"],
     imageUrl: null
   },
@@ -68,7 +68,7 @@ public class Main {
   {
     id: 166,
     answer: "a= 20 b= 2",
-    question: "다음은 파이썬 코드에서 출력되는 a와 b의 값을 작성하시오.",
+    question: "다음은 파이썬 코드의 출력 결과를 작성하시오.",
     passageOrCode: `def exam(num1, num2=2):
     print('a=', num1, 'b=', num2)
 
@@ -107,8 +107,8 @@ exam(20)`,
     id: 170,
     answer: "ㄱ ㅁ",
     question: "다음은 분석도구에 대한 설명으로 보기에 알맞는 기호를 작성하시오.",
-    passageOrCode: `1. 소스 코드의 실행 없이, 코드의 의미를 분석해 결함을 찾아내는 원시적 코드 분석 기법
-2. 소스 코드를 실행하여 프로그램 동작이나 반응을 추적하고 코드에 존재하는 메모리 누수, 스레드 결함 등을 분석`,
+    passageOrCode: `1. (    ): 소스 코드의 실행 없이, 코드의 의미를 분석해 결함을 찾아내는 원시적 코드 분석 기법
+2. (    ): 소스 코드를 실행하여 프로그램 동작이나 반응을 추적하고 코드에 존재하는 메모리 누수, 스레드 결함 등을 분석`,
     options: ["ㄱ. static Analysis", "ㄴ. Running Analysis", "ㄷ. Test Execution", "ㄹ. Performance", "ㅁ. Dynamic Analysis", "ㅂ. Test Control", "ㅅ. Test Harness", "ㅇ. Test Monitoring"],
     imageUrl: null
   },
