@@ -2,16 +2,16 @@ export const pstData_2026_2 = [
   {
     id: 261,
     answer: "ㄱ",
-    alts: ["ㄱ. 동치분할 (Equivalence Partitioning)", "동치분할 (Equivalence Partitioning)", "동치분할", "Equivalence Partitioning"],
-    question: "다음은 블랙박스 테스트 기법에 대한 설명이다. 괄호 (   ) 안에 들어갈 말을 보기에서 골라 쓰시오.",
+    alts: ["동치분할", "ㄱ. 동치분할"],
+    question: "다음은 블랙박스 테스트 기법에 대한 설명이다. 괄호 안에 들어갈 말을 보기에서 골라 기호로 쓰시오.",
     passageOrCode: `(   )은 프로그램의 입력 조건을 유효한 값과 유효하지 않은 값의 영역으로 나누고, 각 영역을 대표할 수 있는 값을 선정하여 테스트 케이스를 설계하는 명세 기반(블랙박스) 테스트 기법이다.
- 
+
 위 표에서 테스트 값으로 60을 입력하였을 때, 예상 결과와 실제 결과가 모두 등급 D로 일치하였다. 이는 (   ) 기법을 적용하여 각 등급 구간의 대표값을 테스트한 사례이다.`,
     options: [
-      "ㄱ. 동치분할 (Equivalence Partitioning)",
-      "ㄴ. 경계값분석 (Boundary Value Analysis)",
-      "ㄷ. 결정테이블 테스트 (Decision Table Testing)",
-      "ㄹ. 상태전이 테스트 (State Transition Testing)",
+      "ㄱ. 동치분할",
+      "ㄴ. 경계값분석",
+      "ㄷ. 결정테이블 테스트",
+      "ㄹ. 상태전이 테스트",
     ],
     imageUrl: "https://blog.kakaocdn.net/dna/cs8zYV/dJMcag7j8qX/AAAAAAAAAAAAAAAAAAAAAM1CaaVDMUc3j9v1W9_UIS5HyLYdBwSPYCSTOevXvrmT/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=b12Aaeub1iUd0UF1bZVEyA2T0nU%3D"
   },
@@ -21,30 +21,30 @@ export const pstData_2026_2 = [
     question: "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `class A {
     private int a;
- 
+
     public A(int a) {
         this.a = a;
     }
- 
+
     void print() {
         System.out.print(a + "a");
     }
 }
- 
+
 class B extends A {
     private int b;
- 
+
     B(int a, int b) {
         super(a);
         this.b = b;
     }
- 
+
     void print() {
         super.print();
         System.out.print(b + "b");
     }
 }
- 
+
 public class Main {
     public static void main(String[] args) {
         B obj = new B(10, 20);
@@ -58,16 +58,16 @@ public class Main {
   {
     id: 263,
     answer: "ㅁ",
-    alts: ["ㅁ. 내용결합도 (Content Coupling)", "내용결합도 (Content Coupling)", "내용결합도", "Content Coupling"],
+    alts: ["ㅁ. 내용결합도", "내용결합도"],
     question: "다음은 소프트웨어 모듈 간의 결합도(Coupling)에 대한 설명이다. 괄호 안에 들어갈 말을 보기에서 골라 기호로 쓰시오.",
     passageOrCode: `( )는 한 모듈이 다른 모듈 내부에 있는 변수나 기능을 직접 참조하거나 사용하는 경우에 발생하는 결합도로, 결합도 종류 중 결합 강도가 가장 높은 형태이다.`,
     options: [
-      "ㄱ. 자료결합도 (Data Coupling)",
-      "ㄴ. 스탬프결합도 (Stamp Coupling)",
-      "ㄷ. 제어결합도 (Control Coupling)",
-      "ㄹ. 외부결합도 (External Coupling)",
-      "ㅁ. 내용결합도 (Content Coupling)",
-      "ㅂ. 공통결합도 (Common Coupling)",
+      "ㄱ. 자료결합도",
+      "ㄴ. 스탬프결합도",
+      "ㄷ. 제어결합도",
+      "ㄹ. 외부결합도",
+      "ㅁ. 내용결합도",
+      "ㅂ. 공통결합도",
     ],
     imageUrl: null
   },
@@ -76,7 +76,7 @@ public class Main {
     answer: "OSPF",
     alt: "Open Shortest Path First",
     question: "다음은 라우팅 프로토콜에 대한 설명이다. 괄호 안에 들어갈 알맞은 용어를 쓰시오.",
-    passageOrCode: `( )는 링크 상태(Link State) 알고리즘을 사용하는 대표적인 내부 라우팅 프로토콜(IGP)이다. 다익스트라(Dijkstra) 알고리즘을 이용하여 최단 경로를 탐색하며, 대규모 네트워크에 적합하고 멀티캐스트를 지원한다.`,
+    passageOrCode: `(    )는 링크 상태(Link State) 알고리즘을 사용하는 대표적인 내부 라우팅 프로토콜(IGP)이다. 다익스트라(Dijkstra) 알고리즘을 이용하여 최단 경로를 탐색하며, 대규모 네트워크에 적합하고 멀티캐스트를 지원한다.`,
     options: null,
     imageUrl: null
   },
@@ -91,14 +91,14 @@ public class Main {
         "PAR": "Paris",
         "TKY": "Tokyo"
     }
- 
+
 tmpdict = LocationDict()
 str01 = ""
 for key, location in tmpdict.locations.items():
     keyk = key[-1]
     locationk = location[0]
     str01 += keyk + locationk
- 
+
 print(str01, end="")
 `,
     options: null,
@@ -123,30 +123,30 @@ print(e)
     answer: "12",
     question: "다음은 C언어 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `#include <stdio.h>
- 
+
 typedef struct N {
     int v;
     struct N* a;
     struct N* b;
 } N;
- 
+
 int c = 0;
 int ans = 0;
- 
+
 void pst(N *n) {
     if (!n) return;
     pst(n->a);
     pst(n->b);
     if (++c == 3) ans = n->v;
 }
- 
+
 int main() {
     N ne = {35, 0, 0};
     N nd = {64, 0, 0};
     N nc = {53, 0, 0};
     N nb = {12, &ne, &nc};
     N na = {21, &nb, &nd};
- 
+
     pst(&na);
     printf("%d\\n", ans);
     return 0;
@@ -170,27 +170,27 @@ int main() {
     alt: "1. 50 2. 50 3. 2 4. 8",
     question: "다음은 C언어 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `#include <stdio.h>
- 
+
 void fn1(int* i) { *i = 50; }
 void fn2(int i) { i = 60; }
- 
+
 void fn34(int* p) {
     printf("3. %d\\n", *p);
     printf("4. %d\\n", *(p + 3));
 }
- 
+
 int main() {
     int i = 30;
     int list[] = {2, 4, 6, 8, 10};
- 
+
     fn1(&i);
     printf("1. %d\\n", i);
- 
+
     fn2(i);
     printf("2. %d\\n", i);
- 
+
     fn34(list);
- 
+
     return 0;
 }
 `,
@@ -200,25 +200,30 @@ int main() {
   {
     id: 270,
     answer: "192.168.35.72 129.200.8.249 192.168.36.249",
-    alt: "2. 192.168.35.72 4. 129.200.8.249 5. 192.168.36.249",
-    question: "다음은 네트워크 A, B, C에 속한 호스트의 IP 주소 목록이다. 괄호 안에 들어갈 수 있는 IP 주소를 각각 하나씩 쓰시오.",
+    question: "다음 구성도에서 네트워크 A, B, C에 연결된 두 장비는 각각 같은 네트워크에 속해야 한다. 빈칸 ②, ④, ⑤에 할당할 수 있는 IP 주소를 보기에서 골라 순서대로 쓰시오.",
     passageOrCode: null,
-    options: null,
-    imageUrl: "https://blog.kakaocdn.net/dna/cBrkGy/dJMcabZlxM4/AAAAAAAAAAAAAAAAAAAAAK25-IeVuinOb3t586IVwhdnyju1Rx1u0i649P00UC17/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=Q8jfXXt%2FJUOXueHT%2F84LQekFgu4%3D"
+    options: [
+      "192.168.35.72",
+      "129.200.8.249",
+      "192.168.35.0",
+      "129.200.8.0",
+      "192.168.36.249",
+      "192.168.36.0"
+  ],
+    imageUrl: "https://grandlife.co.kr/wp-content/uploads/2026/07/image20261004-112310-1536x541.png"
   },
   {
     id: 271,
     answer: "추상 팩토리",
     alt: "Abstract Factory",
     question: "다음은 GoF(Gang of Four) 디자인 패턴에 대한 설명이다. 괄호 안에 들어갈 알맞은 용어를 쓰시오.",
-    passageOrCode: `( )는 서로 관련 있는 여러 객체(제품군)를 생성하기 위한 인터페이스를 제공하는 생성 패턴으로, Kit이라고도 불린다. 이 패턴을 사용하면 구체적인 클래스를 지정하지 않고도 연관된 제품군 전체를 한 번에 변경할 수 있다.`,
+    passageOrCode: `(    )는 서로 관련 있는 여러 객체(제품군)를 생성하기 위한 인터페이스를 제공하는 생성 패턴으로, Kit이라고도 불린다. 이 패턴을 사용하면 구체적인 클래스를 지정하지 않고도 연관된 제품군 전체를 한 번에 변경할 수 있다.`,
     options: null,
     imageUrl: null
   },
   {
     id: 272,
     answer: "이% DESC",
-    alt: "1. 이% 2. DESC",
     question: "다음 <학생> 테이블에서 성이 '이'씨인 학생의 정보를 조회하되, 학번을 기준으로 내림차순 정렬하여 출력하고자 한다. SQL문의 괄호 안에 들어갈 알맞은 내용을 각각 쓰시오.",
     passageOrCode: null,
     options: null,
@@ -248,28 +253,28 @@ int main() {
     int a;
     private int b;
     protected int c;
- 
+
     void set(int aa, int bb, int cc) {
         a = aa;
         b = bb;
         c = cc;
     }
- 
+
     int hap() { return a + b + c; }
 }
- 
+
 class B extends A {
     public int hap() { return a * c; }
 }
- 
+
 public class Main {
     public static void main(String[] args) {
         A aaa = new A();
         B bbb = new B();
- 
+
         aaa.set(1, 5, 3);
         bbb.set(10, 30, 50);
- 
+
         System.out.print(aaa.hap() + bbb.hap());
     }
 }
@@ -282,10 +287,10 @@ public class Main {
     answer: "28",
     question: "다음은 IP 주소 서브네팅(Subnetting)에 대한 설명이다. 물음에 답하시오.",
     passageOrCode: `10.0.0.0/27 네트워크를 동일한 크기의 2개 서브넷으로 분할하였다.
- 
+
 - 첫 번째 서브넷: 10.0.0.0 ~ 10.0.0.15
 - 두 번째 서브넷: 10.0.0.16 ~ 10.0.0.31
- 
+
 이때 10.0.0.1이 속한 서브넷의 프리픽스 길이(비트 수)를 구하시오.`,
     options: null,
     imageUrl: null
@@ -296,9 +301,9 @@ public class Main {
     alt: "Hash",
     question: "다음 설명에 해당하는 보안 기술 용어를 쓰시오.",
     passageOrCode: `입력값의 길이와 상관없이 항상 정해진 길이의 결과값을 만들어내는 암호 기술이 있다.
- 
+
 이 기술은 단방향성을 가지고 있어 결과값만으로는 원래의 입력값을 알아낼 수 없으며, 서로 다른 두 입력값이 같은 결과값을 만들어내는 경우가 최대한 발생하지 않도록 설계되어야 한다.
- 
+
 이러한 성질을 가진 암호 기술을 무엇이라 하는가?`,
     options: null,
     imageUrl: null
@@ -308,12 +313,12 @@ public class Main {
     answer: "1",
     question: "다음은 C언어 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `#include <stdio.h>
- 
+
 int c(int n) {
     if (n <= 1) return n;
     return c(n - 1) + c(n - 3);
 }
- 
+
 int main() {
     printf("%d", c(5));
     return 0;

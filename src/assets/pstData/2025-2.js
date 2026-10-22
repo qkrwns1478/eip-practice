@@ -5,12 +5,12 @@ export const pstData_2025_2 = [
     alt: "색인",
     question:
       "다음은 파일 구조와 관련된 설명이다. 설명을 읽고 괄호 안에 들어갈 가장 알맞은 용어를 작성하시오.",
-    passageOrCode: `데이터베이스의 물리 설계 시, 레코드에 접근하는 방법은 순차 접근 방법, [   ] 방법, 해싱 방법 등이 있다.
-이 중 [   ] 방법은 레코드의 키 값과 포인터를 쌍으로 묶어 저장하며 검색 시 키 값을 기준으로 빠르게 탐색할 수 있도록 설계되어 있다.
+    passageOrCode: `데이터베이스의 물리 설계 시, 레코드에 접근하는 방법은 순차 접근 방법, (    ) 방법, 해싱 방법 등이 있다.
+이 중 (    ) 방법은 레코드의 키 값과 포인터를 쌍으로 묶어 저장하며 검색 시 키 값을 기준으로 빠르게 탐색할 수 있도록 설계되어 있다.
 이 방식은 검색 속도가 빠르며 <키 값, 포인터> 쌍으로 구성된 자료 구조를 사용하여 해당 키가 가리키는 주소를 통해 원하는 레코드를 직접 찾을 수 있다.
 
 - 순차 접근: 레코드를 처음부터 하나씩 검사
-- [   ] 접근: 키-값 쌍으로 구성되어 빠르게 검색
+- (    ) 접근: 키-값 쌍으로 구성되어 빠르게 검색
 - 해싱 접근: 해시 함수를 이용해 직접 주소 계산 후 접근`,
     options: null,
     imageUrl: null,
@@ -18,13 +18,9 @@ export const pstData_2025_2 = [
   {
     id: 22,
     answer: "ㄷ",
-    alt: "Attribute",
-    question:
-      "다음은 데이터베이스 릴레이션의 구성 요소 중 하나에 대한 설명이다. 설명을 읽고 보기에서 알맞은 기호를 골라 작성하시오.",
-    passageOrCode: `릴레이션(Relation)에서 열(Column)을 의미하며 데이터 항목의 속성(Attribute) 또는 특성을 나타낸다.
-각 열은 고유한 이름을 가지며 특정 도메인(Domain)에서 정의된 값을 갖는다.
-예를 들어 "학생" 릴레이션에서 학번, 이름, 전공 등은 각각 하나의 열이며 이 열들은 학생의 고유한 속성을 나타낸다.
-이 개념은 파일 구조에서의 필드(Field)에 해당하며 릴레이션에서 행(Row, Tuple)의 구성 요소가 된다.`,
+    alts: ["Attribute", "ㄷ. Attribute"],
+    question: "파일 구조상 데이터 항목 또는 데이터 필드에 해당하는 관계 데이터 모델 요소를 보기에서 골라 기호로 쓰시오.",
+    passageOrCode: null,
     options: [
       "ㄱ. Cardinality",
       "ㄴ. Domain",
@@ -51,9 +47,9 @@ export const pstData_2025_2 = [
     id: 24,
     answer: "SJF SRT",
     question:
-      "스케줄링 알고리즘에 관한 다음 설명을 읽고 (1)과 (2)에 알맞은 스케줄링 알고리즘의 명칭을 각각 쓰시오.",
-    passageOrCode: `- (1): CPU burst 시간이 짧은 프로세스를 우선적으로 처리하는 스케줄링 방식이다. "Shortest Next CPU Burst"라고도 불리며 선점형 또는 비선점형으로 구현될 수 있다.
-- (2): 위의 스케줄링 방식을 선점형으로 구현한 형태로 실행 중인 프로세스보다 더 짧은 burst 시간을 가진 프로세스가 도착하면 현재 CPU를 선점한다.`,
+      "스케줄링 알고리즘에 관한 다음 설명을 읽고 괄호 안에 알맞은 스케줄링 알고리즘의 명칭을 각각 쓰시오.",
+    passageOrCode: `- (  1  ): CPU burst 시간이 짧은 프로세스를 우선적으로 처리하는 스케줄링 방식이다. "Shortest Next CPU Burst"라고도 불리며 선점형 또는 비선점형으로 구현될 수 있다.
+- (  2  ): (  1  ) 스케줄링 방식을 선점형으로 구현한 형태로 실행 중인 프로세스보다 더 짧은 burst 시간을 가진 프로세스가 도착하면 현재 CPU를 선점한다.`,
     options: null,
     imageUrl: null,
   },
@@ -82,12 +78,9 @@ export const pstData_2025_2 = [
   {
     id: 26,
     answer: "128 62",
-    question:
-      "다음은 IP 주소와 서브넷 마스크에 관한 문제이다. 주어진 정보를 참고하여 괄호 안에 들어갈 알맞은 값을 쓰시오.",
-    passageOrCode: `호스트의 IP 주소가 223.13.234.132이고 서브넷 마스크가 255.255.255.192일 때 다음 물음에 답하시오.
-- 이 호스트가 속한 네트워크 주소는 223.13.234.(   )이다.
-- 이 네트워크에서 사용 가능한 호스트 수는 (   )개이다.
-(단, 네트워크 주소와 브로드캐스트 주소는 제외한다.)`,
+    question: "호스트의 IP 주소가 223.13.234.132이고 서브넷 마스크가 255.255.255.192일 때 다음 물음에 답하시오.",
+    passageOrCode: `- 이 호스트가 속한 네트워크 주소는 223.13.234.(  1  )이다.
+- 이 네트워크에서 사용 가능한 호스트 수는 (  2  )개이다.`,
     options: null,
     imageUrl: null,
   },
@@ -105,23 +98,21 @@ export const pstData_2025_2 = [
   {
     id: 28,
     answer: "AJAX",
-    question:
-      "다음은 웹 데이터 교환 방식에 관한 문제이다. 아래 설명을 읽고 괄호 안에 들어갈 알맞은 용어를 작성하시오.",
-    passageOrCode: `(   )은/는 웹 페이지 전체를 다시 불러오지 않고 JavaScript와 XML(또는 JSON)을 이용하여 일부 콘텐츠만 비동기적으로 갱신할 수 있는 기술이다.
-(   )은/는 HTML만으로는 구현하기 어려운 동적인 기능들을 가능하게 하여 사용자가 웹 페이지와 보다 자유롭게 상호작용할 수 있도록 해주는 웹 개발 기법이다.`,
+    question: "다음은 웹 데이터 교환 방식에 관한 문제이다. 아래 설명을 읽고 괄호 안에 들어갈 알맞은 용어를 작성하시오.",
+    passageOrCode: `(    )은/는 웹 페이지 전체를 다시 불러오지 않고 JavaScript와 XML(또는 JSON)을 이용하여 일부 콘텐츠만 비동기적으로 갱신할 수 있는 기술이다.
+(    )은/는 HTML만으로는 구현하기 어려운 동적인 기능들을 가능하게 하여 사용자가 웹 페이지와 보다 자유롭게 상호작용할 수 있도록 해주는 웹 개발 기법이다.`,
     options: null,
     imageUrl: null,
   },
   {
     id: 29,
     answer: "19",
-    question:
-      "다음은 Java언어의 문제이다. 아래 코드를 보고 알맞는 출력값을 작성하시오.",
+    question: "다음은 Java언어의 문제이다. 아래 코드를 보고 알맞는 출력값을 작성하시오.",
     passageOrCode: `public class Main {
     static interface F {
         int apply(int x) throws Exception;
     }
- 
+
     public static int run(F f) {
         try {
             return f.apply(3);
@@ -129,16 +120,16 @@ export const pstData_2025_2 = [
             return 7;
         }
     }
- 
+
     public static void main(String[] args) {
- 
+
         F f = (x) -> {
             if (x > 2) {
                 throw new Exception();
             }
             return x * 2;
         };
- 
+
         System.out.print(run(f) + run((int n) -> n + 9));
     }
 }`,
@@ -148,26 +139,22 @@ export const pstData_2025_2 = [
   {
     id: 30,
     answer: "5P",
-    question:
-      "다음은 Java언어의 문제이다. 아래 코드를 보고 알맞는 출력값을 작성하시오.",
+    question: "다음은 Java언어의 문제이다. 아래 코드를 보고 알맞는 출력값을 작성하시오.",
     passageOrCode: `public class Main{
     public static class Parent {
         public int x(int i) { return i + 2; }
         public static String id() { return "P";}
-        
     }
- 
+
     public static class Child extends Parent {
         public int x(int i) { return i + 3; }
         public String x(String s) { return s + "R"; }
         public static String id() { return "C"; }
-        
     }
- 
+
     public static void main(String[] args) {
         Parent ref = new Child();
         System.out.println(ref.x(2) + ref.id());
-        
     }
 }`,
     options: null,
@@ -175,46 +162,48 @@ export const pstData_2025_2 = [
   },
   {
     id: 31,
-    answer: "1234561 124567",
-    alt: "1234567 124561",
-    question: "다음 아래 제어 흐름 그래프가 분기 커버리지를 만족하기 위한 테스팅 순서를 쓰시오. (각 단계는 공백 없이, 여러 순서를 쓰는 경우 공백으로 구분하세요.)",
+    answer: `1 2 3 4 5 6 1
+1 2 4 5 6 7`,
+    alt: `1 2 3 4 5 6 7
+1 2 4 5 6 1`,
+    question: "다음 아래 제어 흐름 그래프가 분기 커버리지를 만족하기 위한 테스팅 순서를 쓰시오. (각 단계는 공백으로, 여러 순서를 쓰는 경우 줄바꿈으로 구분하세요.)",
     passageOrCode: null,
     options: null,
     imageUrl: "https://blog.kakaocdn.net/dna/ontAh/btsPr5j39Go/AAAAAAAAAAAAAAAAAAAAAF7OOTxRSmoqRdz_y53RaHGui4wnxMDfWWDkzR0IAnjI/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=Id%2FxlH2bQg3mYGV7esS%2BWViijZY%3D",
   },
   {
     id: 32,
-    answer: "2 그리고 3",
+    answer: "2 3",
     question: "다음은 C언어의 문제이다. 아래 코드를 보고 알맞는 출력값을 작성하시오.",
     passageOrCode: `#include <stdio.h>
 #define SIZE 3
- 
+
 typedef struct {
     int a[SIZE];
     int front;
     int rear;
 } Queue;
- 
+
 void enq(Queue* q, int val){
     q->a[q->rear] = val; 
     q->rear = (q->rear + 1) % SIZE;
 }
- 
+
 int deq(Queue* q) {
     int val = q->a[q->front];
     q->front = (q->front + 1) % SIZE;
     return val;
 }
- 
+
 int main() {
     Queue q = {{0}, 0, 0};
- 
+
     enq(&q,1); enq(&q,2); deq(&q); enq(&q, 3);
-    
+
     int first = deq(&q);
     int second = deq(&q);
-    printf("%d 그리고 %d", first, second);
-    
+    printf("%d %d", first, second);
+
     return 0;
 }`,
     options: null,
@@ -223,9 +212,8 @@ int main() {
   {
     id: 33,
     answer: "11.75ms",
-    alts: ["11.75", "11.75 ms"],
-    question:
-      "라운드로빈(RR) 방식을 이용하고 아래 내용을 참고하여 평균 대기시간을 구하시오.",
+    alt: "11.75",
+    question: "라운드로빈(RR) 방식을 이용하고 아래 내용을 참고하여 평균 대기시간을 구하시오.",
     passageOrCode: `운영체제에서 라운드로빈(Round Robin, RR) 스케줄링은 각 프로세스에 동일한 시간 할당량(타임 퀀텀)을 순차적으로 부여하며 CPU를 할당하는 방식이다.
 
 다음은 4개의 프로세스가 서로 다른 시간에 도착하며 각기 다른 실행 시간을 가지는 상황이다. 이때 시간 할당량은 4ms이고 컨텍스트 스위칭 시간은 무시한다고 가정한다.
