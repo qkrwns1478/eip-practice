@@ -6,6 +6,8 @@
         {{ type === 'bookmarks' ? '핵심정리' : '오답노트' }} MD 저장
       </button>
     </div>
+    <WeaknessAnalysis v-if="type === 'wrong' && ids.length && quizType" :quiz-type="quizType" :ids="ids"
+      :saved-answers="savedAnswers" :label-for-id="analysisLabel" @select="$emit('select', $event)" />
     <p v-if="exporting" role="status" aria-live="polite">{{ exportStatus }}</p>
     <div v-if="ids.length === 0" class="empty-state">
       <p>{{ type === 'bookmarks' ? '북마크한 문제가 없습니다.' : '틀린 문제가 없습니다.' }}</p>
@@ -43,15 +45,17 @@
 
 <script>
 import ExplanationModal from './ExplanationModal.vue';
+import WeaknessAnalysis from './WeaknessAnalysis.vue';
 import { answerLabel } from '../utils/quizNotes.js';
 
 export default {
   name: 'SavedQuestionList',
-  components: { ExplanationModal },
+  components: { ExplanationModal, WeaknessAnalysis },
   data() {
     return { selectedExplanation: '', showGeneratePrompt: false };
   },
   props: {
+    quizType: { type: String, default: '' },
     type: { type: String, required: true },
     ids: { type: Array, required: true },
     getQuestion: { type: Function, required: true },
@@ -67,6 +71,11 @@ export default {
     missingCount() { return this.ids.filter(id => this.getQuestion(id) && !this.savedExplanations[id]?.text).length; },
   },
   methods: {
+    analysisLabel(id) {
+      if (this.subtitleForId) return this.subtitleForId(id);
+      const question = this.getQuestion(id);
+      return question?.[this.titleKey] || question?.desc || '문제';
+    },
     answerLabel,
     requestExport() {
       if (this.exporting) return;

@@ -4,6 +4,9 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "functions": {
+    "api/analysis.js": {
+      "maxDuration": 120
+    },
     "api/explanation.js": {
       "maxDuration": 120,
       "includeFiles": "public/images/keyword/**"

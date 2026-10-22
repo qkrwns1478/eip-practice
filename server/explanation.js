@@ -3,6 +3,7 @@ import { resolve, sep } from 'node:path';
 import { pstData } from '../src/assets/pstData.js';
 import { geoData } from '../src/assets/geoData.js';
 import { keywordData } from '../src/assets/keywordData.js';
+import { prepareAnalysis } from './analysis.js';
 
 export const GROQ_MODEL = 'openai/gpt-oss-120b';
 export const GROQ_VISION_MODEL = 'qwen/qwen3.8-27b';
@@ -84,7 +85,10 @@ function send(res, status, body) {
 // No prompts, responses, or API errors are written to files or console logs.
 export function createExplanationMiddleware({ apiKey, fetchImpl = fetch, publicDirectory = resolve(process.cwd(), 'public') } = {}) {
   return async (req, res, next) => {
-    if (req.url?.split('?')[0] !== '/api/explanation') return next();
+    const path = req.url?.split('?')[0];
+    if (!['/api/explanation', '/api/analysis'].includes(path)) return next();
+    const analyzing = path === '/api/analysis';
+    const bodyLimit = analyzing ? 160_000 : 4096;
     if (req.method !== 'POST') return send(res, 405, { error: 'POST 요청만 지원합니다.' });
     if (req.headers.origin) {
       try {
@@ -101,30 +105,39 @@ export function createExplanationMiddleware({ apiKey, fetchImpl = fetch, publicD
       let input;
       if (req.body !== undefined) {
         const body = typeof req.body === 'string' || Buffer.isBuffer(req.body) ? req.body.toString() : JSON.stringify(req.body);
-        if (Buffer.byteLength(body) > 4096) return send(res, 413, { error: '요청 크기가 너무 큽니다.' });
+        if (Buffer.byteLength(body) > bodyLimit) return send(res, 413, { error: '요청 크기가 너무 큽니다.' });
         try { input = JSON.parse(body); } catch { return send(res, 400, { error: '잘못된 요청입니다.' }); }
       } else {
         let body = '';
         for await (const chunk of req) {
           body += chunk.toString();
-          if (Buffer.byteLength(body) > 4096) return send(res, 413, { error: '요청 크기가 너무 큽니다.' });
+          if (Buffer.byteLength(body) > bodyLimit) return send(res, 413, { error: '요청 크기가 너무 큽니다.' });
         }
         try { input = JSON.parse(body); } catch { return send(res, 400, { error: '잘못된 요청입니다.' }); }
       }
-      if (!input || !Object.hasOwn(datasets, input.quizType) || !Number.isInteger(input.questionId)) return send(res, 400, { error: '문제 정보를 확인해주세요.' });
-      const validAnswer = answer => answer && typeof answer.userAnswer === 'string' && typeof answer.isCorrect === 'boolean';
-      const children = datasets[input.quizType].filter(row => row.parentId === input.questionId);
-      if (children.length
-        ? !Array.isArray(input.subAnswers) || input.subAnswers.length !== children.length || !input.subAnswers.every(validAnswer)
-        : !validAnswer(input)) return send(res, 400, { error: '사용자 답안과 채점 결과를 확인해주세요.' });
-      const question = await questionContent(input.quizType, input.questionId, input, publicDirectory);
-      if (!question) return send(res, 404, { error: '문제를 찾을 수 없습니다.' });
-      const { content, hasImage } = question;
-      const messages = [
-        { role: 'system', content: EXPLANATION_SYSTEM_PROMPT },
-        { role: 'system', content: EXPLANATION_TEMPLATE },
-        { role: 'user', content },
-      ];
+      let messages;
+      let hasImage = false;
+      if (analyzing) {
+        const analysis = prepareAnalysis(input, datasets);
+        if (analysis.error) return send(res, 400, { error: analysis.error });
+        messages = analysis.messages;
+      } else {
+        if (!input || !Object.hasOwn(datasets, input.quizType) || !Number.isInteger(input.questionId)) return send(res, 400, { error: '문제 정보를 확인해주세요.' });
+        const validAnswer = answer => answer && typeof answer.userAnswer === 'string' && typeof answer.isCorrect === 'boolean';
+        const children = datasets[input.quizType].filter(row => row.parentId === input.questionId);
+        if (children.length
+          ? !Array.isArray(input.subAnswers) || input.subAnswers.length !== children.length || !input.subAnswers.every(validAnswer)
+          : !validAnswer(input)) return send(res, 400, { error: '사용자 답안과 채점 결과를 확인해주세요.' });
+        const question = await questionContent(input.quizType, input.questionId, input, publicDirectory);
+        if (!question) return send(res, 404, { error: '문제를 찾을 수 없습니다.' });
+        const { content } = question;
+        hasImage = question.hasImage;
+        messages = [
+          { role: 'system', content: EXPLANATION_SYSTEM_PROMPT },
+          { role: 'system', content: EXPLANATION_TEMPLATE },
+          { role: 'user', content },
+        ];
+      }
       controller.signal.throwIfAborted();
       if (res.destroyed) return;
       const response = await fetchImpl('https://api.groq.com/openai/v1/chat/completions', {
@@ -143,18 +156,18 @@ export function createExplanationMiddleware({ apiKey, fetchImpl = fetch, publicD
       if (!response.ok) {
         const error = response.status === 429 ? '요청 한도를 초과했습니다. 잠시 후 다시 시도해주세요.'
           : [401, 403].includes(response.status) ? '접근 권한을 확인해주세요.'
-          : '해설을 생성하지 못했습니다. 잠시 후 다시 시도해주세요.';
+          : `${analyzing ? '분석' : '해설'}을 생성하지 못했습니다. 잠시 후 다시 시도해주세요.`;
         return send(res, response.status === 429 ? 429 : 502, { error });
       }
       const result = await response.json();
       const choice = result.choices?.[0];
       const text = choice?.message?.content;
       // Only final content is shown; reasoning and incomplete/tool responses are excluded.
-      if (choice?.finish_reason !== 'stop' || typeof text !== 'string' || !text.trim()) return send(res, 502, { error: '완전한 해설을 받지 못했습니다. 다시 시도해주세요.' });
+      if (choice?.finish_reason !== 'stop' || typeof text !== 'string' || !text.trim()) return send(res, 502, { error: `완전한 ${analyzing ? '분석' : '해설'}을 받지 못했습니다. 다시 시도해주세요.` });
       const explanation = text.trim();
-      if (!res.destroyed) send(res, 200, { explanation });
+      if (!res.destroyed) send(res, 200, analyzing ? { analysis: explanation } : { explanation });
     } catch {
-      if (!res.destroyed) send(res, controller.signal.aborted ? 504 : 502, { error: controller.signal.aborted ? '해설 생성 시간이 초과되었습니다. 다시 시도해주세요.' : '해설 서비스에 연결하지 못했습니다. 잠시 후 다시 시도해주세요.' });
+      if (!res.destroyed) send(res, controller.signal.aborted ? 504 : 502, { error: controller.signal.aborted ? 'AI 응답 시간이 초과되었습니다. 다시 시도해주세요.' : 'AI 서비스에 연결하지 못했습니다. 잠시 후 다시 시도해주세요.' });
     } finally {
       clearTimeout(timeout);
       res.off('close', abort);

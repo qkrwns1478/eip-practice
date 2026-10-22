@@ -4,18 +4,21 @@
       <section ref="dialog" class="modal-content explanation-modal" role="dialog" aria-modal="true"
         aria-labelledby="explanation-title" tabindex="-1">
         <header class="explanation-header">
-          <h3 id="explanation-title">문제 해설</h3>
-          <button type="button" aria-label="해설 닫기" @click="$emit('close')">×</button>
+          <h3 id="explanation-title">{{ title }}</h3>
+          <button type="button" :aria-label="`${title} 닫기`" @click="$emit('close')">×</button>
         </header>
         <div class="explanation-body" :aria-busy="loading" aria-live="polite">
-          <div v-if="loading" class="explanation-spinner" role="status" aria-label="해설을 생성하고 있습니다">
+          <div v-if="loading" class="explanation-spinner" role="status" :aria-label="`${title} 생성 중`">
             <span class="spinner" aria-hidden="true"></span>
           </div>
           <template v-else-if="error">
             <p role="alert">{{ error }}</p>
             <button type="button" class="confirm-btn" @click="$emit('retry')">다시 시도</button>
           </template>
-          <div v-else class="explanation-text" v-html="renderedText"></div>
+          <template v-else>
+            <div class="explanation-text" v-html="renderedText"></div>
+            <slot />
+          </template>
         </div>
       </section>
     </div>
@@ -28,6 +31,7 @@ import { renderMarkdown } from '../utils/markdown.js';
 export default {
   name: 'ExplanationModal',
   props: {
+    title: { type: String, default: '문제 해설' },
     text: { type: String, default: '' },
     error: { type: String, default: '' },
     loading: { type: Boolean, default: false },

@@ -141,7 +141,7 @@
       :saved-explanations="savedExplanations" :saved-answers="savedAnswers"
       :exporting="notesExporting" :export-status="notesExportStatus" @export="generate => exportNotes('bookmarks', generate)" @select="startBookmarkedQuestion" @remove="removeBookmark" />
 
-    <SavedQuestionList v-else-if="showMode === 'wrong'" type="wrong" :ids="wrongQuestions"
+    <SavedQuestionList v-else-if="showMode === 'wrong'" type="wrong" :ids="wrongQuestions" :quiz-type="storagePrefix"
       :get-question="getQuestionById" title-key="question" :subtitle-for-id="getQuizInfo"
       :saved-explanations="savedExplanations" :saved-answers="savedAnswers"
       :exporting="notesExporting" :export-status="notesExportStatus" @export="generate => exportNotes('wrong', generate)" @select="startWrongQuestion" @remove="removeWrongQuestion" />
