@@ -526,7 +526,7 @@ export default {
     },
 
     checkAnswer() {
-      if (this.answered || !this.currentQuestion) return;
+      if (this.answered || !this.currentQuestion || !this.userAnswer.trim()) return;
 
       this.answered = true;
       this.totalCount++;

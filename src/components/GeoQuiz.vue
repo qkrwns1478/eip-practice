@@ -394,7 +394,7 @@ export default {
     },
 
     checkAnswer() {
-      if (this.answered || !this.currentQuestion) return;
+      if (this.answered || !this.currentQuestion || !this.userAnswer.trim()) return;
 
       this.isCorrect = this.matchesAnswer(this.currentQuestion, this.userAnswer);
 
@@ -429,7 +429,7 @@ export default {
 
     checkSubAnswer(index) {
       const item = this.currentQuestion?.subItems?.[index];
-      if (!item || item.answered) return;
+      if (!item || item.answered || !item.userAnswer.trim()) return;
 
       item.isCorrect = this.matchesAnswer(item, item.userAnswer);
 
