@@ -1,24 +1,26 @@
 <template>
-  <section class="learning-recommendations">
-    <div class="recommendation-heading">
-      <h3>학습 추천</h3>
-      <button type="button" :disabled="loading || !hasHistory" @click="load">추천 새로고침</button>
+  <section class="learning-recommendations study-page">
+    <div class="study-page-inner">
+      <div class="study-page-heading">
+        <h3>학습 추천</h3>
+        <button type="button" :disabled="loading || !hasHistory" @click="load">추천 새로고침</button>
+      </div>
+      <p class="study-page-description">틀린 문제와 유사한 미풀이 문제를 먼저 추천하고, 북마크한 관심 주제도 함께 고려합니다.</p>
+      <p v-if="feedback" class="study-message study-feedback" role="status">{{ feedback }}</p>
+      <p v-if="!hasHistory" class="study-empty-state">기출문제를 풀거나 북마크하면 맞춤 추천을 받을 수 있습니다.</p>
+      <p v-else-if="loading" class="study-message" role="status">학습 기록에 맞는 문제를 찾고 있습니다.</p>
+      <template v-else-if="error">
+        <p class="study-message study-error" role="alert">{{ error }}</p>
+        <button type="button" @click="load">다시 시도</button>
+      </template>
+      <template v-else>
+        <p v-if="limited" class="recommendation-note">최근 추가된 오답 최대 20개와 북마크 최대 10개를 기준으로 추천합니다.</p>
+        <SimilarQuestions v-if="references.length" :key="generation" :references="references"
+          :normalize-answer="normalizeAnswer" title="추천 미풀이 문제" practice-note="답안을 확인하면 풀이 결과가 학습 기록에 저장됩니다."
+          :reason-labels="reasonLabels" @answered="recordAnswer" />
+        <p v-else class="study-empty-state">현재 기록과 유사한 미풀이 문제를 찾지 못했습니다. 다른 문제를 풀거나 관심 문제를 북마크해 보세요.</p>
+      </template>
     </div>
-    <p>틀린 문제와 유사한 미풀이 문제를 먼저 추천하고, 북마크한 관심 주제도 함께 고려합니다.</p>
-    <p v-if="feedback" role="status">{{ feedback }}</p>
-    <p v-if="!hasHistory">기출문제를 풀거나 북마크하면 맞춤 추천을 받을 수 있습니다.</p>
-    <p v-else-if="loading" role="status">학습 기록에 맞는 문제를 찾고 있습니다.</p>
-    <template v-else-if="error">
-      <p role="alert">{{ error }}</p>
-      <button type="button" @click="load">다시 시도</button>
-    </template>
-    <template v-else>
-      <p v-if="limited">최근 추가된 오답 최대 20개와 북마크 최대 10개를 기준으로 추천합니다.</p>
-      <SimilarQuestions v-if="references.length" :key="generation" :references="references" :normalize-answer="normalizeAnswer"
-        title="추천 미풀이 문제" practice-note="답안을 확인하면 풀이 결과가 학습 기록에 저장됩니다."
-        :reason-labels="reasonLabels" @answered="recordAnswer" />
-      <p v-else>현재 기록과 유사한 미풀이 문제를 찾지 못했습니다. 학습을 더 진행하거나 임베딩 파일을 확인해주세요.</p>
-    </template>
   </section>
 </template>
 
@@ -27,6 +29,7 @@ import { markRaw } from 'vue';
 import SimilarQuestions from './SimilarQuestions.vue';
 import { sanitizeRelatedQuestions } from '../utils/quizExplanation.js';
 import { recommendationInput } from '../utils/learningRecommendations.js';
+import '../assets/style/StudyPages.css';
 
 export default {
   name: 'LearningRecommendations',
@@ -90,11 +93,14 @@ export default {
 </script>
 
 <style scoped>
-.learning-recommendations { flex: 1; min-height: 0; overflow-y: auto; box-sizing: border-box; padding: 30px; text-align: left; color: var(--color-text); }
-.recommendation-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-h3 { margin: 0; }
-p { line-height: 1.7; }
-button { border: 1px solid var(--color-border); border-radius: 5px; padding: 9px 14px; color: var(--color-text); background: var(--color-background); cursor: pointer; }
-button:disabled { opacity: 0.5; cursor: default; }
-@media (max-width: 600px) { .learning-recommendations { padding: 20px; } .recommendation-heading { flex-wrap: wrap; } }
+.recommendation-note {
+  font-size: 13px;
+  color: var(--color-text-light);
+}
+
+.learning-recommendations :deep(.similar-questions) {
+  margin-top: 26px;
+  padding-top: 0;
+  border-top: none;
+}
 </style>
