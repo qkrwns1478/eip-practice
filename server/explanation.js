@@ -5,7 +5,9 @@ import { geoData } from '../src/assets/geoData.js';
 import { keywordData } from '../src/assets/keywordData.js';
 import { prepareAnalysis } from './analysis.js';
 import { searchSimilarQuestions } from './rag/search.js';
-import { buildRelatedContext, RAG_SYSTEM_PROMPT } from './rag/context.js';
+import { buildRelatedContext, RAG_SYSTEM_PROMPT, VERIFICATION_SYSTEM_PROMPT, parseVerification } from './rag/context.js';
+import { createRecommendationMiddleware } from './rag/recommendations.js';
+import { createStudyMiddleware } from './rag/study.js';
 
 export const GROQ_MODEL = 'openai/gpt-oss-120b';
 export const GROQ_VISION_MODEL = 'qwen/qwen3.8-27b';
@@ -84,10 +86,40 @@ function send(res, status, body) {
   res.end(JSON.stringify(body));
 }
 
+// The reviewer sees the current question only, without retrieved material or a generated explanation.
+async function verifyQuestion({ apiKey, fetchImpl, content, hasImage, signal }) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 20_000);
+  try {
+    const response = await fetchImpl('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' },
+      signal: AbortSignal.any([signal, controller.signal]),
+      body: JSON.stringify({
+        model: hasImage ? GROQ_VISION_MODEL : GROQ_MODEL,
+        ...(hasImage ? { reasoning_format: 'hidden' } : { include_reasoning: false }),
+        reasoning_effort: 'medium', stream: false, max_completion_tokens: 1536,
+        messages: [{ role: 'system', content: VERIFICATION_SYSTEM_PROMPT }, { role: 'user', content }],
+      }),
+    });
+    if (!response.ok) throw new Error('Verification service unavailable');
+    const result = await response.json();
+    const choice = result.choices?.[0];
+    if (choice?.finish_reason !== 'stop' || typeof choice.message?.content !== 'string') throw new Error('Incomplete verification');
+    return parseVerification(choice.message.content);
+  } catch {
+    return { status: 'unavailable', limitations: '별도 정답·개념 검토를 완료하지 못했습니다. 검증 완료로 표현하지 마세요.' };
+  } finally { clearTimeout(timeout); }
+}
+
 // No prompts, responses, or API errors are written to files or console logs.
 export function createExplanationMiddleware({ apiKey, fetchImpl = fetch, publicDirectory = resolve(process.cwd(), 'public'), search = searchSimilarQuestions } = {}) {
+  const recommend = createRecommendationMiddleware({ search });
+  const study = createStudyMiddleware({ apiKey, fetchImpl, model: GROQ_MODEL });
   return async (req, res, next) => {
     const path = req.url?.split('?')[0];
+    if (path === '/api/recommendations') return recommend(req, res, next);
+    if (['/api/tutor', '/api/trends'].includes(path)) return study(req, res, next);
     if (!['/api/explanation', '/api/analysis'].includes(path)) return next();
     const analyzing = path === '/api/analysis';
     const bodyLimit = analyzing ? 160_000 : 4096;
@@ -142,16 +174,22 @@ export function createExplanationMiddleware({ apiKey, fetchImpl = fetch, publicD
         ];
         if (input.quizType === 'pstQuiz') {
           relatedQuestions = [];
+          let ragContent;
           try {
             const source = pstData.find(row => row.id === input.questionId);
             const results = await search(source, { k: 5, excludeQuestionId: source.id, signal: controller.signal });
             const related = buildRelatedContext(results, source.id);
             if (related.content) {
               messages.splice(2, 0, { role: 'system', content: RAG_SYSTEM_PROMPT });
-              messages.push({ role: 'user', content: related.content });
+              ragContent = related.content;
               relatedQuestions = related.recommendations;
             }
           } catch { /* Retrieval failures must not interrupt the existing Groq explanation. */ }
+          if (ragContent) {
+            const review = await verifyQuestion({ apiKey, fetchImpl, content, hasImage, signal: controller.signal });
+            messages.push({ role: 'user', content: `별도 정답·개념 검토 결과(JSON, 확정적 증명이 아닌 참고 검토):\n${JSON.stringify(review)}` });
+            messages.push({ role: 'user', content: ragContent });
+          }
         }
       }
       controller.signal.throwIfAborted();

@@ -36,10 +36,11 @@ export function createSearchService({ env = process.env, catalog = questionCatal
       if (!vector) return [];
       const excludeId = options.excludeId || current.id;
       const excludeQuestionId = options.excludeQuestionId ?? current.metadata.questionId;
+      const excluded = new Set(Array.isArray(options.excludeQuestionIds) ? options.excludeQuestionIds : []);
       const candidates = [];
       for (const [id, row] of usable) {
         const record = catalog.records.get(id);
-        if (id === current.id || id === excludeId || record.metadata.questionId === excludeQuestionId) continue;
+        if (id === current.id || id === excludeId || record.metadata.questionId === excludeQuestionId || excluded.has(record.metadata.questionId)) continue;
         if (options.year !== undefined && record.metadata.year !== Number(options.year)) continue;
         if (options.round !== undefined && record.metadata.round !== Number(options.round)) continue;
         if (record.metadata.questionType !== current.metadata.questionType || record.metadata.language !== current.metadata.language) continue;

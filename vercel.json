@@ -4,6 +4,13 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "functions": {
+    "api/tutor.js": {
+      "maxDuration": 120
+    },
+    "api/recommendations.js": {
+      "maxDuration": 30,
+      "includeFiles": "server/rag/data/**"
+    },
     "api/analysis.js": {
       "maxDuration": 120
     },
