@@ -1,8 +1,11 @@
 # EIPractice
 
-[Vue 3](https://vuejs.org/)와 [Vite](https://vitejs.dev/)를 사용하여 구축한 정보처리기사 실기 대비용 퀴즈 애플리케이션입니다.
+정보처리기사 실기 대비용 퀴즈 애플리케이션입니다.
 
 ## 자료 출처
+
+기출문제의 경우 복원문제를 활용했습니다.
+
 - [[2026년 대비] 핵심 키워드만 암기하면 쉽게 기억되는 키워드 찾기 130문제](https://www.sinagong.co.kr/pds/001001002/past-exams)
 - [정보처리기사 실기 족보 1탄](https://chobopark.tistory.com/193)
 - [정보처리기사 실기 족보 2탄](https://chobopark.tistory.com/197)
@@ -32,7 +35,7 @@
 
 | 족보퀴즈 | 기출문제 | 다크모드 |
 |:---:|:---:|:---:|
-| <img src="./public/images/screenshot_1.jpg" alt="라이트 모드 족보퀴즈 화면"> | <img src="./public/images/screenshot_2.jpg" alt="라이트 모드 2026년 2회 기출문제 화면"> | <img src="./public/images/screenshot_3.jpg" alt="VS Code 스타일 다크 모드 기출문제 화면"> |
+| <img src="./public/images/screenshot_1.jpg" alt="라이트 모드 족보퀴즈 화면"> | <img src="./public/images/screenshot_2.jpg" alt="라이트 모드 2026년 2회 기출문제 화면"> | <img src="./public/images/screenshot_3.jpg" alt="다크 모드 기출문제 화면"> |
 
 ## 기술 스택
 
