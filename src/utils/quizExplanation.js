@@ -1,8 +1,14 @@
 import { markRaw } from 'vue';
+import { pstQuestionContext } from './pstAnswers.js';
+
+export function explanationContext(quiz, input, question = quiz.currentQuestion) {
+  return JSON.stringify(quiz.storagePrefix === 'pstQuiz'
+    ? { ...input, questionContext: pstQuestionContext(question) } : input);
+}
 
 function answerContext(quiz) {
   const subItems = quiz.currentQuestion?.subItems;
-  return JSON.stringify(subItems?.length
+  return explanationContext(quiz, subItems?.length
     ? { subAnswers: subItems.map(item => ({ userAnswer: item.userAnswer, isCorrect: item.isCorrect })) }
     : { userAnswer: quiz.userAnswer, isCorrect: quiz.isCorrect });
 }

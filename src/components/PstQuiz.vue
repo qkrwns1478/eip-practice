@@ -202,6 +202,7 @@ import ExamStudy from './ExamStudy.vue';
 import { quizExplanationMixin } from '../utils/quizExplanation.js';
 import { quizNotesMixin } from '../utils/quizNotes.js';
 import { quizBackupMixin } from '../utils/quizBackup.js';
+import { normalizePstAnswer, gradePstAnswer, reconcilePstAnswers, regradeMockExam } from '../utils/pstAnswers.js';
 import { codeLanguages, getCodeLanguage, getCodeQuestions } from '../utils/codeQuestions.js';
 import { commonQuizComputed, commonQuizMethods, getCommonProgress, restoreCommonProgress } from '../utils/quizCommon.js';
 
@@ -345,7 +346,7 @@ export default {
       this.currentQuestionIndex = session.currentQuestionIndex;
       this.userAnswer = session.userAnswer;
       this.answered = session.answered;
-      this.isCorrect = session.isCorrect;
+      this.isCorrect = this.answered ? gradePstAnswer(question, this.userAnswer) : false;
       if (key === 'code') this.codeSessionIds = [...session.codeSessionIds];
       if (this.playMode === 'review') this.reviewSessionIds = [...session.reviewSessionIds];
       this.showMode = 'quiz';
@@ -409,7 +410,9 @@ export default {
         answered: this.answered,
         isCorrect: this.isCorrect,
         results: { ...this.mockExamSessions[exam.key]?.results },
+        answers: { ...this.mockExamSessions[exam.key]?.answers },
       };
+      regradeMockExam(this.mockExamSession, exam);
       this.mockExamSessions[exam.key] = this.mockExamSession;
     },
 
@@ -428,7 +431,7 @@ export default {
       this.currentQuestion = question;
       this.userAnswer = session.userAnswer;
       this.answered = session.answered;
-      this.isCorrect = session.isCorrect;
+      this.isCorrect = this.answered ? gradePstAnswer(question, this.userAnswer) : false;
       this.showMode = 'quiz';
       this.saveProgress();
       return true;
@@ -528,33 +531,7 @@ export default {
       this.answered = true;
       this.totalCount++;
 
-      const question = this.currentQuestion;
-      const answer = question.answer;
-      const altAnswer = question.alt;
-      const altAnswers = question.alts || [];
-
-      let requiresLineBreak = answer.includes('\n') || (altAnswer && altAnswer.includes('\n'));
-      if (!requiresLineBreak && altAnswers.length > 0) {
-        requiresLineBreak = altAnswers.some(a => a && a.includes('\n'));
-      }
-
-      const normalizedUserAnswer = this.normalizeString(this.userAnswer, requiresLineBreak);
-      const normalizedAnswer = this.normalizeString(answer, requiresLineBreak);
-      this.isCorrect = (normalizedUserAnswer === normalizedAnswer);
-
-      if (!this.isCorrect && altAnswer) {
-        const normalizedAlt = this.normalizeString(altAnswer, requiresLineBreak);
-        if (normalizedUserAnswer === normalizedAlt) {
-          this.isCorrect = true;
-        }
-      }
-
-      if (!this.isCorrect && altAnswers.length > 0) {
-        this.isCorrect = altAnswers.some(alt => {
-          const normalizedAlt = this.normalizeString(alt, requiresLineBreak);
-          return normalizedUserAnswer === normalizedAlt;
-        });
-      }
+      this.isCorrect = gradePstAnswer(this.getQuestionById(this.currentQuestion.id), this.userAnswer);
 
       if (this.isCorrect) {
         this.correctCount++;
@@ -586,16 +563,7 @@ export default {
       });
     },
 
-    normalizeString(str, preserveLineBreaks = false) {
-      if (!str) return '';
-      let normalized = str.toLowerCase();
-      if (preserveLineBreaks) {
-        normalized = normalized.trim().replace(/[()[\]{}]/g, '');
-      } else {
-        normalized = normalized.replace(/\s+/g, '').replace(/[()[\]{}]/g, '').trim();
-      }
-      return normalized;
-    },
+    normalizeString: normalizePstAnswer,
 
     nextQuestion() {
       if (!this.currentQuestion) return;
@@ -619,14 +587,23 @@ export default {
         return;
       }
       if (this.playMode === 'mockExam') {
-        if (this.currentQuestionIndex + 1 >= this.mockExamQuestions.length) {
+        this.saveProgress();
+        const nextIndex = this.mockExamQuestions.findIndex((question, index) =>
+          index > this.currentQuestionIndex && typeof this.mockExamSession?.results[question.id] !== 'boolean');
+        if (nextIndex === -1) {
           const results = this.mockExamSession?.results || {};
           const total = this.mockExamQuestions.length;
           const correct = this.mockExamQuestions.filter(question => results[question.id] === true).length;
           const score = Math.round(correct / total * 100);
           const missing = this.mockExamQuestions.filter(question => typeof results[question.id] !== 'boolean').length;
-          const verdict = missing ? '판정 불가' : score >= 60 ? '합격' : '불합격';
-          const note = missing ? `이전 버전에서 푼 ${missing}문제는 채점 기록이 없어 정답 수와 점수에 포함되지 않았습니다.` : '';
+          if (missing) {
+            this.currentQuestionIndex = this.mockExamQuestions.findIndex(question => typeof results[question.id] !== 'boolean');
+            this.setupQuestion(this.mockExamQuestions[this.currentQuestionIndex], false);
+            this.showAlert('미채점 문제 확인', `이전 응시 기록에 답안이 없는 ${missing}문제를 다시 풀면 최종 결과를 확인할 수 있습니다.`);
+            return;
+          }
+          const verdict = score >= 60 ? '합격' : '불합격';
+          const note = '';
           delete this.mockExamSessions[this.mockExamSession?.examKey];
           this.mockExamSession = null;
           this.currentQuestion = null;
@@ -639,7 +616,7 @@ export default {
           this.saveProgress();
           return;
         }
-        this.currentQuestionIndex++;
+        this.currentQuestionIndex = nextIndex;
         this.setupQuestion(this.mockExamQuestions[this.currentQuestionIndex], false);
         this.saveProgress();
         return;
@@ -676,6 +653,7 @@ export default {
       this.saveProgress();
     },
     saveProgress() {
+      reconcilePstAnswers(this);
       this.saveCurrentSession();
       const progress = {
         ...getCommonProgress(this),
@@ -737,6 +715,7 @@ export default {
             this.currentQuestion = null;
             this.showMode = this.playMode === 'mockExam' ? 'mockExam' : 'quiz';
           }
+          this.saveProgress();
         } catch (e) {
           console.error('Failed to load progress:', e);
         }

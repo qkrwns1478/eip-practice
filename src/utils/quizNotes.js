@@ -1,4 +1,4 @@
-import { requestExplanation } from './quizExplanation.js';
+import { requestExplanation, explanationContext } from './quizExplanation.js';
 
 export function currentAnswer(quiz) {
   const items = quiz.currentQuestion?.subItems;
@@ -105,7 +105,7 @@ export const quizNotesMixin = {
             })) } : { userAnswer: saved?.userAnswer || '', isCorrect: saved?.isCorrect === true };
             try {
               const text = await requestExplanation(this.storagePrefix, question.id, input);
-              const explanation = { text, context: JSON.stringify(input) };
+              const explanation = { text, context: explanationContext(this, input, question) };
               explanations[question.id] = explanation;
               if ([...this.bookmarkedQuestions, ...this.wrongQuestions].includes(question.id) &&
                 JSON.stringify(this.savedAnswers[question.id]) === JSON.stringify(answers[question.id])) {
