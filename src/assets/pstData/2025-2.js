@@ -230,24 +230,24 @@ int main() {
   },
   {
     id: 34,
-    answer: "5 그리고 6",
+    answer: "5 6",
     question:
       "다음은 C언어의 문제이다. 아래 코드를 보고 알맞는 출력값을 작성하시오. ",
     passageOrCode: `#include <stdio.h>
- 
+
 struct dat {
     int x;
     int y;
 };
- 
+
 int main() {
     struct dat a[] = {{1, 2}, {3, 4}, {5, 6}};
     struct dat* ptr = a;
     struct dat** pptr = &ptr;
- 
+
     (*pptr)[1] = (*pptr)[2];
-    printf("%d 그리고 %d", a[1].x, a[1].y);
- 
+    printf("%d %d", a[1].x, a[1].y);
+
     return 0;
 }`,
     options: null,
@@ -287,17 +287,17 @@ int main() {
       "다음은 C언어의 문제이다. 아래 코드를 보고 알맞는 출력값을 작성하시오. ",
     passageOrCode: `#include <stdio.h>
 #include <stdlib.h>
- 
+
 struct node {
     int p;
     struct node* n;
 };
- 
+
 int main() {
     struct node a = {1, NULL};
     struct node b = {2, NULL};
     struct node c = {3, NULL};
- 
+
     a.n = &b; b.n = &c; c.n = NULL;
     c.n = &a; a.n = &b; b.n = NULL;
     struct node* head = &c;
@@ -329,12 +329,12 @@ print(len(s & set(dst.values())))`,
       "다음은 C언어의 문제이다. 아래 코드를 보고 알맞는 출력값을 작성하시오.",
     passageOrCode: `#include <stdio.h>
 #include <stdlib.h>
- 
+
 struct node {
     char c;
     struct node* p;
 };
- 
+
 struct node* func(char* s) {
     struct node* h = NULL, *n;
     
@@ -347,7 +347,7 @@ struct node* func(char* s) {
     
     return h;
 }
- 
+
 int main() {
     struct node* n = func("BEST");
     
