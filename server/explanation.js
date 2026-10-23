@@ -66,8 +66,8 @@ async function questionContent(quizType, questionId, input, publicDirectory) {
   let url;
   if (image.startsWith('https://')) {
     url = image;
-  } else if (image.startsWith('/images/')) {
-    const path = resolve(publicDirectory, `.${image}`);
+  } else if (image.startsWith('/images/') || image.startsWith('images/')) {
+    const path = resolve(publicDirectory, image.startsWith('/') ? `.${image}` : image);
     if (!path.startsWith(`${resolve(publicDirectory)}${sep}`)) throw new Error('Invalid image path');
     const bytes = await readFile(path);
     const type = image.endsWith('.png') ? 'image/png' : 'image/jpeg';
@@ -178,7 +178,8 @@ export function createExplanationMiddleware({ apiKey, fetchImpl = fetch, publicD
           try {
             const source = pstData.find(row => row.id === input.questionId);
             const results = await search(source, { k: 5, excludeQuestionId: source.id, signal: controller.signal });
-            const related = buildRelatedContext(results, source.id);
+            const related = buildRelatedContext(results, source.id,
+              hasImage ? { maxCharacters: 6000, maxReferences: 3 } : undefined);
             if (related.content) {
               messages.splice(2, 0, { role: 'system', content: RAG_SYSTEM_PROMPT });
               ragContent = related.content;
@@ -186,7 +187,11 @@ export function createExplanationMiddleware({ apiKey, fetchImpl = fetch, publicD
             }
           } catch { /* Retrieval failures must not interrupt the existing Groq explanation. */ }
           if (ragContent) {
-            const review = await verifyQuestion({ apiKey, fetchImpl, content, hasImage, signal: controller.signal });
+            // Sending the image twice consumes the vision model's request/token budget
+            // before the explanation. Keep the image in the explanation request only.
+            const review = hasImage
+              ? { status: 'unavailable', limitations: '이미지 문제는 요청 한도 부담을 줄이기 위해 별도 정답·개념 검토를 생략했습니다. 정확성을 별도로 검증했다고 주장하지 마세요.' }
+              : await verifyQuestion({ apiKey, fetchImpl, content, hasImage, signal: controller.signal });
             messages.push({ role: 'user', content: `별도 정답·개념 검토 결과(JSON, 확정적 증명이 아닌 참고 검토):\n${JSON.stringify(review)}` });
             messages.push({ role: 'user', content: ragContent });
           }
