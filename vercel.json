@@ -9,7 +9,7 @@
     },
     "api/explanation.js": {
       "maxDuration": 120,
-      "includeFiles": "public/images/keyword/**"
+      "includeFiles": "{public/images/keyword/**,server/rag/data/**}"
     }
   }
 }

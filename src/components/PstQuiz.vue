@@ -151,7 +151,10 @@
     </div>
 
     <ExplanationModal v-if="showExplanationModal" :text="explanationText" :error="explanationError"
-      :loading="explanationLoading" @close="showExplanationModal = false" @retry="openExplanation" />
+      :loading="explanationLoading" @close="showExplanationModal = false" @retry="openExplanation">
+      <SimilarQuestions :references="explanationRelatedQuestions" :current-question-id="currentQuestion?.id"
+        :normalize-answer="normalizeString" />
+    </ExplanationModal>
     <QuizModals :show-confirm="showConfirmModal" :confirm="confirmModal" :show-alert="showAlertModal"
       :alert="alertModal" @close-confirm="closeConfirmModal" @close-alert="closeAlertModal" />
   </div>
@@ -168,6 +171,7 @@ import CodeVisualizer from './CodeVisualizer.vue';
 import SavedQuestionList from './SavedQuestionList.vue';
 import QuizModals from './QuizModals.vue';
 import ExplanationModal from './ExplanationModal.vue';
+import SimilarQuestions from './SimilarQuestions.vue';
 import { quizExplanationMixin } from '../utils/quizExplanation.js';
 import { quizNotesMixin } from '../utils/quizNotes.js';
 import { codeLanguages, getCodeLanguage, getCodeQuestions } from '../utils/codeQuestions.js';
@@ -175,7 +179,7 @@ import { commonQuizComputed, commonQuizMethods, getCommonProgress, restoreCommon
 
 export default {
   name: "PstQuiz",
-  components: { CodeVisualizer, SavedQuestionList, QuizModals, ExplanationModal },
+  components: { CodeVisualizer, SavedQuestionList, QuizModals, ExplanationModal, SimilarQuestions },
   mixins: [quizExplanationMixin, quizNotesMixin],
   data() {
     return {

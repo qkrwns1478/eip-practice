@@ -4,6 +4,8 @@ import { pstData } from '../src/assets/pstData.js';
 import { geoData } from '../src/assets/geoData.js';
 import { keywordData } from '../src/assets/keywordData.js';
 import { prepareAnalysis } from './analysis.js';
+import { searchSimilarQuestions } from './rag/search.js';
+import { buildRelatedContext, RAG_SYSTEM_PROMPT } from './rag/context.js';
 
 export const GROQ_MODEL = 'openai/gpt-oss-120b';
 export const GROQ_VISION_MODEL = 'qwen/qwen3.8-27b';
@@ -83,7 +85,7 @@ function send(res, status, body) {
 }
 
 // No prompts, responses, or API errors are written to files or console logs.
-export function createExplanationMiddleware({ apiKey, fetchImpl = fetch, publicDirectory = resolve(process.cwd(), 'public') } = {}) {
+export function createExplanationMiddleware({ apiKey, fetchImpl = fetch, publicDirectory = resolve(process.cwd(), 'public'), search = searchSimilarQuestions } = {}) {
   return async (req, res, next) => {
     const path = req.url?.split('?')[0];
     if (!['/api/explanation', '/api/analysis'].includes(path)) return next();
@@ -117,6 +119,7 @@ export function createExplanationMiddleware({ apiKey, fetchImpl = fetch, publicD
       }
       let messages;
       let hasImage = false;
+      let relatedQuestions;
       if (analyzing) {
         const analysis = prepareAnalysis(input, datasets);
         if (analysis.error) return send(res, 400, { error: analysis.error });
@@ -137,6 +140,19 @@ export function createExplanationMiddleware({ apiKey, fetchImpl = fetch, publicD
           { role: 'system', content: EXPLANATION_TEMPLATE },
           { role: 'user', content },
         ];
+        if (input.quizType === 'pstQuiz') {
+          relatedQuestions = [];
+          try {
+            const source = pstData.find(row => row.id === input.questionId);
+            const results = await search(source, { k: 5, excludeQuestionId: source.id, signal: controller.signal });
+            const related = buildRelatedContext(results, source.id);
+            if (related.content) {
+              messages.splice(2, 0, { role: 'system', content: RAG_SYSTEM_PROMPT });
+              messages.push({ role: 'user', content: related.content });
+              relatedQuestions = related.recommendations;
+            }
+          } catch { /* Retrieval failures must not interrupt the existing Groq explanation. */ }
+        }
       }
       controller.signal.throwIfAborted();
       if (res.destroyed) return;
@@ -165,7 +181,8 @@ export function createExplanationMiddleware({ apiKey, fetchImpl = fetch, publicD
       // Only final content is shown; reasoning and incomplete/tool responses are excluded.
       if (choice?.finish_reason !== 'stop' || typeof text !== 'string' || !text.trim()) return send(res, 502, { error: `완전한 ${analyzing ? '분석' : '해설'}을 받지 못했습니다. 다시 시도해주세요.` });
       const explanation = text.trim();
-      if (!res.destroyed) send(res, 200, analyzing ? { analysis: explanation } : { explanation });
+      if (!res.destroyed) send(res, 200, analyzing ? { analysis: explanation }
+        : { explanation, ...(relatedQuestions ? { relatedQuestions } : {}) });
     } catch {
       if (!res.destroyed) send(res, controller.signal.aborted ? 504 : 502, { error: controller.signal.aborted ? 'AI 응답 시간이 초과되었습니다. 다시 시도해주세요.' : 'AI 서비스에 연결하지 못했습니다. 잠시 후 다시 시도해주세요.' });
     } finally {
