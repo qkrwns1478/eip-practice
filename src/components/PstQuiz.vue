@@ -108,6 +108,7 @@
           </section>
         </div>
         <button @click="startMockExamQuiz" class="mockExam-start-button">{{ mockExamSessions[selectedExamKey] ? '이어서 응시' : '응시 시작' }}</button>
+        <button v-if="mockExamSessions[selectedExamKey]" @click="resetMockExam(selectedExamKey)" class="skip-button">선택한 모의고사 초기화</button>
       </div>
     </div>
 
@@ -118,6 +119,7 @@
           <div class="quiz-actions-group">
             <span class="quiz-info-badge" v-if="currentQuestion">{{ getQuizInfo(currentQuestion.id) }}</span>
             <button v-if="playMode === 'mockExam'" @click="openView('mockExam')" class="skip-button">회차 선택</button>
+            <button v-if="playMode === 'mockExam'" @click="resetMockExam(mockExamSession?.examKey)" class="skip-button">현재 모의고사 초기화</button>
             <button v-if="['random', 'code'].includes(playMode) && !answered" @click="skipQuestion" class="skip-button">다음 문제</button>
             <button @click="toggleBookmark" class="bookmark-btn" :class="{ bookmarked: isCurrentQuestionBookmarked }">
               {{ isCurrentQuestionBookmarked ? '★' : '☆' }}
@@ -160,12 +162,14 @@
     <SavedQuestionList v-else-if="showMode === 'bookmarks'" type="bookmarks" :ids="bookmarkedQuestions"
       :get-question="getQuestionById" title-key="question" :subtitle-for-id="getQuizInfo"
       :saved-explanations="savedExplanations" :saved-answers="savedAnswers"
-      :exporting="notesExporting" :export-status="notesExportStatus" @export="generate => exportNotes('bookmarks', generate)" @select="startBookmarkedQuestion" @remove="removeBookmark" />
+      :exporting="notesExporting" :export-status="notesExportStatus" :importing="backupImporting" @export-json="exportSavedJson('bookmarks')" @import-json="file => importSavedJson('bookmarks', file)"
+      @export="generate => exportNotes('bookmarks', generate)" @select="startBookmarkedQuestion" @remove="removeBookmark" />
 
     <SavedQuestionList v-else-if="showMode === 'wrong'" type="wrong" :ids="wrongQuestions" :quiz-type="storagePrefix"
       :get-question="getQuestionById" title-key="question" :subtitle-for-id="getQuizInfo"
       :saved-explanations="savedExplanations" :saved-answers="savedAnswers"
-      :exporting="notesExporting" :export-status="notesExportStatus" @export="generate => exportNotes('wrong', generate)" @select="startWrongQuestion" @remove="removeWrongQuestion" />
+      :exporting="notesExporting" :export-status="notesExportStatus" :importing="backupImporting" @export-json="exportSavedJson('wrong')" @import-json="file => importSavedJson('wrong', file)"
+      @export="generate => exportNotes('wrong', generate)" @select="startWrongQuestion" @remove="removeWrongQuestion" />
 
     <div v-else-if="!currentQuestion && showMode === 'quiz'" class="no-question">
       <button @click="startQuiz" class="start-button">퀴즈 시작</button>
@@ -197,13 +201,14 @@ import LearningRecommendations from './LearningRecommendations.vue';
 import ExamStudy from './ExamStudy.vue';
 import { quizExplanationMixin } from '../utils/quizExplanation.js';
 import { quizNotesMixin } from '../utils/quizNotes.js';
+import { quizBackupMixin } from '../utils/quizBackup.js';
 import { codeLanguages, getCodeLanguage, getCodeQuestions } from '../utils/codeQuestions.js';
 import { commonQuizComputed, commonQuizMethods, getCommonProgress, restoreCommonProgress } from '../utils/quizCommon.js';
 
 export default {
   name: "PstQuiz",
   components: { CodeVisualizer, SavedQuestionList, QuizModals, ExplanationModal, SimilarQuestions, LearningRecommendations, ExamStudy },
-  mixins: [quizExplanationMixin, quizNotesMixin],
+  mixins: [quizExplanationMixin, quizNotesMixin, quizBackupMixin],
   data() {
     return {
       pstData: pstData,
@@ -427,6 +432,25 @@ export default {
       this.showMode = 'quiz';
       this.saveProgress();
       return true;
+    },
+
+    resetMockExam(examKey) {
+      const exam = this.pstExams.find(item => item.key === examKey);
+      if (!exam?.questions.length) return;
+      this.showConfirm('모의고사 초기화',
+        `${exam.year}년 ${exam.round}회 응시 진행을 초기화하고 첫 문제부터 다시 시작할까요? 북마크, 틀린 문제, 누적 학습 기록과 다른 회차의 진행은 유지됩니다.`,
+        () => {
+          this.saveProgress();
+          delete this.mockExamSessions[exam.key];
+          this.mockExamSession = null;
+          this.playMode = 'mockExam';
+          this.selectedExamKey = exam.key;
+          this.mockExamQuestions = exam.questions;
+          this.currentQuestionIndex = 0;
+          this.showMode = 'quiz';
+          this.setupQuestion(exam.questions[0], false);
+          this.closeConfirmModal();
+        });
     },
 
     startMockExamQuiz() {

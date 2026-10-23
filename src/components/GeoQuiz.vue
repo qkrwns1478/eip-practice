@@ -148,13 +148,15 @@
     <SavedQuestionList v-else-if="showMode === 'bookmarks'" type="bookmarks" :ids="bookmarkedQuestions"
       :get-question="getQuestionById" title-key="keyword" subtitle-key="desc"
       :saved-explanations="savedExplanations" :saved-answers="savedAnswers"
-      :exporting="notesExporting" :export-status="notesExportStatus" @export="generate => exportNotes('bookmarks', generate)" @select="startBookmarkedQuestion" @remove="removeBookmark" />
+      :exporting="notesExporting" :export-status="notesExportStatus" :importing="backupImporting" @export-json="exportSavedJson('bookmarks')" @import-json="file => importSavedJson('bookmarks', file)"
+      @export="generate => exportNotes('bookmarks', generate)" @select="startBookmarkedQuestion" @remove="removeBookmark" />
 
     <!-- 틀린 문제 모드 -->
     <SavedQuestionList v-else-if="showMode === 'wrong'" type="wrong" :ids="wrongQuestions" :quiz-type="storagePrefix"
       :get-question="getQuestionById" title-key="keyword" subtitle-key="desc"
       :saved-explanations="savedExplanations" :saved-answers="savedAnswers"
-      :exporting="notesExporting" :export-status="notesExportStatus" @export="generate => exportNotes('wrong', generate)" @select="startWrongQuestion" @remove="removeWrongQuestion" />
+      :exporting="notesExporting" :export-status="notesExportStatus" :importing="backupImporting" @export-json="exportSavedJson('wrong')" @import-json="file => importSavedJson('wrong', file)"
+      @export="generate => exportNotes('wrong', generate)" @select="startWrongQuestion" @remove="removeWrongQuestion" />
 
     <!-- 시작 화면 -->
     <div v-else-if="!currentQuestion && showMode === 'quiz'" class="no-question">
@@ -181,12 +183,13 @@ import QuizModals from './QuizModals.vue';
 import ExplanationModal from './ExplanationModal.vue';
 import { quizExplanationMixin } from '../utils/quizExplanation.js';
 import { quizNotesMixin } from '../utils/quizNotes.js';
+import { quizBackupMixin } from '../utils/quizBackup.js';
 import { commonQuizComputed, commonQuizMethods, getCommonProgress, restoreCommonProgress } from '../utils/quizCommon.js';
 
 export default {
   name: "GeoQuiz",
   components: { SavedQuestionList, QuizModals, ExplanationModal },
-  mixins: [quizExplanationMixin, quizNotesMixin],
+  mixins: [quizExplanationMixin, quizNotesMixin, quizBackupMixin],
   props: {
     questions: { type: Array, default: () => geoData },
     storagePrefix: { type: String, default: 'geoQuiz' },
