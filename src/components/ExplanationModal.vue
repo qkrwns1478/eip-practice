@@ -49,7 +49,8 @@ export default {
   },
   methods: {
     trapFocus(event) {
-      const buttons = [...this.$refs.dialog.querySelectorAll('button:not(:disabled), a[href]')];
+      const buttons = [...this.$refs.dialog.querySelectorAll('button:not(:disabled), a[href], summary, textarea:not(:disabled), input:not(:disabled), select:not(:disabled)')]
+        .filter(element => element.getClientRects().length > 0);
       const first = buttons[0];
       const last = buttons.at(-1);
       if (event.shiftKey && (document.activeElement === first || document.activeElement === this.$refs.dialog)) {

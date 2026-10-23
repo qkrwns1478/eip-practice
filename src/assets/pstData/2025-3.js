@@ -2,15 +2,12 @@ export const pstData_2025_3 = [
   {
     id: 221,
     answer: "패키지",
-    question:
-      "다음은 UML (    ) 다이어그램이다. 아래 내용을 보고 다이어그램의 관계를 확인하여 명칭을 작성하시오.",
-    passageOrCode: `(   ) 다이어그램이란
-시스템을 폴더 모양의 (   ) 단위로 구분하여 구성 요소 간의 관계를 표현하는 UML 구조 다이어그램이다.
-하나의 (   ) 안에는 여러 클래스나 하위 (   ) 가 포함될 수 있으며,
-(   ) 간에는 «import», «access», «merge» 등의 관계를 통해 의존성(Dependency) 을 표현한다.
+    question: "다음은 UML (    ) 다이어그램이다. 아래 내용을 보고 다이어그램의 관계를 확인하여 명칭을 작성하시오.",
+    passageOrCode: `(    ) 다이어그램이란 시스템을 폴더 모양의 (    ) 단위로 구분하여 구성 요소 간의 관계를 표현하는 UML 구조 다이어그램이다.
 
-이 다이어그램은 코드의 실제 구조(폴더 구조)와 비슷하게 표현되기 때문에
-소프트웨어의 모듈화, 재사용성, 의존 관계를 시각적으로 설계할 때 자주 사용된다`,
+하나의 (    ) 안에는 여러 클래스나 하위 (    )이/가 포함될 수 있으며, (    ) 간에는 «import», «access», «merge» 등의 관계를 통해 의존성(Dependency)을 표현한다.
+
+이 다이어그램은 코드의 실제 구조(폴더 구조)와 비슷하게 표현되기 때문에 소프트웨어의 모듈화, 재사용성, 의존 관계를 시각적으로 설계할 때 자주 사용된다.`,
     options: null,
     imageUrl: null,
   },
@@ -40,12 +37,11 @@ export const pstData_2025_3 = [
   {
     id: 223,
     answer: "pwd ls cd cp",
-    question:
-      "다음은 유닉스(Unix) 또는 리눅스(Linux) 환경에서 자주 사용하는 기본 명령어에 대한 설명이다. 각 설명에 맞는 명령어를 보기에서 골라 연결하시오.",
-    passageOrCode: `1. 현재 작업 중인 디렉터리의 경로를 출력한다. (   )
-2. 디렉터리의 내용(파일 및 하위 디렉터리)을 목록으로 표시한다. (   )
-3. 다른 디렉터리로 이동한다. (   )
-4. 파일을 복사한다. (   )`,
+    question: "다음은 유닉스(Unix) 또는 리눅스(Linux) 환경에서 자주 사용하는 기본 명령어에 대한 설명이다. 각 설명에 맞는 명령어를 보기에서 골라 연결하시오.",
+    passageOrCode: `- (  1  ): 현재 작업 중인 디렉터리의 경로를 출력한다.
+- (  2  ): 디렉터리의 내용(파일 및 하위 디렉터리)을 목록으로 표시한다.
+- (  3  ): 다른 디렉터리로 이동한다.
+- (  4  ): 파일을 복사한다.`,
     options: ["ls, cd, cp, pwd"],
     imageUrl: null,
   },
@@ -53,15 +49,14 @@ export const pstData_2025_3 = [
     id: 224,
     answer: "ㅇ ㄴ ㄷ ㅁ ㄱ",
     alt: "Hamming FEC BEC Parity CRC",
-    question:
-      "다음은 오류검출 방식을 설명하는 내용이다. 설명의 빈칸 (①)~(⑤) 에 들어갈 알맞은 용어를 <보기>에서 고르시오.",
-    passageOrCode: `(①) 코드는 전송 데이터에 여러 개의 검사 비트를 추가하여 오류를 검출하고 수정까지 가능한 방법이다.
-이 코드는 재전송 없이 수신 측에서 자체 수정하는 (②) 방식에 속한다.
+    question: "다음은 오류검출 방식을 설명하는 내용이다. 설명의 빈칸에 들어갈 알맞은 용어를 보기에서 고르시오.",
+    passageOrCode: `(  1  ) 코드는 전송 데이터에 여러 개의 검사 비트를 추가하여 오류를 검출하고 수정까지 가능한 방법이다.
+이 코드는 재전송 없이 수신 측에서 자체 수정하는 (  2  ) 방식에 속한다.
 
-이에 반해 오류 발생 시 송신 측에 재전송을 요구하는 방식은 (③)이라 하며, 여기에 포함되는 대표적 검출 기법으로 (④) 검사와 (⑤) 검사가 있다.
+이에 반해 오류 발생 시 송신 측에 재전송을 요구하는 방식은 (  3  )이라 하며, 여기에 포함되는 대표적 검출 기법으로 (  4  ) 검사와 (  5  ) 검사가 있다.
 
-(④) 검사는 데이터 블록 끝에 1비트 검사 비트를 추가하여 오류를 검출한다.
-(⑤) 검사는 송신측과 수신측이 동일한 특정 다항식을 사용하여 오류를 검출한다.`,
+(  4  ) 검사는 데이터 블록 끝에 1비트 검사 비트를 추가하여 오류를 검출한다.
+(  5  ) 검사는 송신측과 수신측이 동일한 특정 다항식을 사용하여 오류를 검출한다.`,
     options: [
       "ㄱ. CRC",
       "ㄴ. FEC",
@@ -80,12 +75,12 @@ export const pstData_2025_3 = [
     question:
       "다음은 C코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `#include <stdio.h>
- 
+
 struct Test {
     int i;
     const char *g;
 };
- 
+
 int main() {
     struct Test test[] = {{1, "AB"}, {2, "DC"}, {3, "EB"}}; 
     struct Test *p = &test[1]; 
@@ -98,17 +93,16 @@ int main() {
   {
     id: 226,
     answer: "E",
-    question:
-      "다음은 C코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    question: "다음은 C코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `#include <stdio.h>
- 
+
 int main(void) {
     char str[] = "REPUBLICOFKOREA";
     int a = 0;
- 
+
     while (str[a] != '\\0')
         ++a;
- 
+
     putchar(str[a - 2]);
     return 0;
 }`,
@@ -118,33 +112,32 @@ int main(void) {
   {
     id: 227,
     answer: "187",
-    question:
-      "다음은 C코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    question: "다음은 C코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `#include <stdio.h>
- 
+
 struct Node {
     struct Node* next;
     unsigned int x;
 };
- 
+
 int main() {
     struct Node t1 = { 0, 5u };
     struct Node t2 = { 0, 7u };
     struct Node t3 = { 0, 11u };
- 
+
     t3.next = &t2;
     t2.next = &t1;
- 
+
     struct Node* curr = &t3;
     int sum = 0;
- 
+
     while (curr) {
         sum = sum * 3 + curr->x;
         curr = curr->next;
     }
- 
+
     sum = (sum ^ 42u) + 100u;
- 
+
     printf("%u", sum);
 }`,
     options: null,

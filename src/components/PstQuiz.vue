@@ -11,7 +11,7 @@
       </button>
       <button @click="openCodeMode" :class="{ active: showMode === 'codePicker' || (showMode === 'quiz' && playMode === 'code') }" aria-label="코드 문제 모드" title="코드 문제 모드">
         <span aria-hidden="true" class="code-menu-symbol">&lt;/&gt;</span>
-        <span class="tooltip-text">코드 문제</span>
+        <span class="tooltip-text">코드문제</span>
       </button>
       <button @click="openMockExamMode" :class="{ active: showMode === 'mockExam' || (showMode === 'quiz' && playMode === 'mockExam') }">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -37,6 +37,21 @@
         </svg>
         <span class="tooltip-text">틀린 문제 <span class="menu-count-badge">{{ wrongQuestions.length }}</span></span>
       </button>
+      <button @click="openView('tutor')" :class="{ active: showMode === 'tutor' }" aria-label="AI 튜터" title="AI 튜터">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5Z" /></svg>
+        <span class="tooltip-text">AI 튜터</span>
+      </button>
+      <button @click="openView('trends')" :class="{ active: showMode === 'trends' }" aria-label="출제 경향" title="출제 경향">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M8 16v-5M13 16V7M18 16v-8" /></svg>
+        <span class="tooltip-text">출제 경향</span>
+      </button>
+      <button @click="openView('recommendations')" :class="{ active: showMode === 'recommendations' }" aria-label="학습 추천" title="학습 추천">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-3-5.6 3 1.1-6.2L3 9.6l6.2-.9Z" />
+          <path d="m10 12 1.5 1.5L15 10" />
+        </svg>
+        <span class="tooltip-text">학습 추천</span>
+      </button>
       <button @click="resetProgress" class="reset-btn">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -48,7 +63,13 @@
       </button>
     </div>
 
-    <div v-if="showMode === 'codePicker'" class="code-mode-content">
+    <ExamStudy v-if="['tutor', 'trends'].includes(showMode)" :key="showMode" :mode="showMode" />
+    <LearningRecommendations v-else-if="showMode === 'recommendations'" :wrong-questions="wrongQuestions"
+      :bookmarked-questions="bookmarkedQuestions" :solved-questions="solvedQuestions" :saved-answers="savedAnswers"
+      :current-question-id="currentQuestion?.id" :normalize-answer="normalizeString" :label-for-id="getQuizInfo"
+      :get-question="getQuestionById" @answered="recordRecommendedAnswer" />
+
+    <div v-else-if="showMode === 'codePicker'" class="code-mode-content">
       <div class="code-mode-picker">
         <h3>코드 문제</h3>
         <div class="code-language-options" role="group" aria-label="문제 언어">
@@ -151,7 +172,10 @@
     </div>
 
     <ExplanationModal v-if="showExplanationModal" :text="explanationText" :error="explanationError"
-      :loading="explanationLoading" @close="showExplanationModal = false" @retry="openExplanation" />
+      :loading="explanationLoading" @close="showExplanationModal = false" @retry="openExplanation">
+      <SimilarQuestions :references="explanationRelatedQuestions" :current-question-id="currentQuestion?.id"
+        :normalize-answer="normalizeString" />
+    </ExplanationModal>
     <QuizModals :show-confirm="showConfirmModal" :confirm="confirmModal" :show-alert="showAlertModal"
       :alert="alertModal" @close-confirm="closeConfirmModal" @close-alert="closeAlertModal" />
   </div>
@@ -168,6 +192,9 @@ import CodeVisualizer from './CodeVisualizer.vue';
 import SavedQuestionList from './SavedQuestionList.vue';
 import QuizModals from './QuizModals.vue';
 import ExplanationModal from './ExplanationModal.vue';
+import SimilarQuestions from './SimilarQuestions.vue';
+import LearningRecommendations from './LearningRecommendations.vue';
+import ExamStudy from './ExamStudy.vue';
 import { quizExplanationMixin } from '../utils/quizExplanation.js';
 import { quizNotesMixin } from '../utils/quizNotes.js';
 import { codeLanguages, getCodeLanguage, getCodeQuestions } from '../utils/codeQuestions.js';
@@ -175,7 +202,7 @@ import { commonQuizComputed, commonQuizMethods, getCommonProgress, restoreCommon
 
 export default {
   name: "PstQuiz",
-  components: { CodeVisualizer, SavedQuestionList, QuizModals, ExplanationModal },
+  components: { CodeVisualizer, SavedQuestionList, QuizModals, ExplanationModal, SimilarQuestions, LearningRecommendations, ExamStudy },
   mixins: [quizExplanationMixin, quizNotesMixin],
   data() {
     return {
@@ -261,6 +288,20 @@ export default {
   },
   methods: {
     ...commonQuizMethods,
+    recordRecommendedAnswer({ questionId, userAnswer, isCorrect }) {
+      if (!this.getQuestionById(questionId) || this.solvedQuestions.includes(questionId) ||
+        questionId === this.currentQuestion?.id || typeof userAnswer !== 'string' || typeof isCorrect !== 'boolean') return;
+      this.totalCount++;
+      if (isCorrect) this.correctCount++;
+      else {
+        this.wrongCount++;
+        if (!this.wrongQuestions.includes(questionId)) this.wrongQuestions.push(questionId);
+      }
+      this.solvedQuestions.push(questionId);
+      if (!isCorrect || this.bookmarkedQuestions.includes(questionId)) this.savedAnswers[questionId] = { userAnswer, isCorrect };
+      delete this.savedExplanations[questionId];
+      this.saveProgress();
+    },
     getCodeLanguage,
     codeLanguageCount(language) { return getCodeQuestions(this.pstData, language).length; },
     openView(view) { this.saveCurrentSession(); this.showMode = view; this.saveProgress(); },
@@ -645,7 +686,7 @@ export default {
           this.selectedCodeExamKey = progress.selectedCodeExamKey || 'all';
           this.codeQuestionOrder = progress.codeQuestionOrder === 'ordered' ? 'ordered' : 'random';
           this.codeSessionIds = Array.isArray(progress.codeSessionIds) ? progress.codeSessionIds : [];
-          this.showMode = ['quiz', 'codePicker', 'mockExam', 'bookmarks', 'wrong'].includes(progress.showMode) ? progress.showMode : 'quiz';
+          this.showMode = ['quiz', 'codePicker', 'mockExam', 'bookmarks', 'wrong', 'recommendations', 'tutor', 'trends'].includes(progress.showMode) ? progress.showMode : 'quiz';
           this.currentQuestion = this.getQuestionById(this.currentQuestion?.id) || null;
           if (this.playMode === 'code') {
             const validSession = this.codeSessionIds.length && this.codeSessionIds.every(id => getCodeLanguage(this.getQuestionById(id)));

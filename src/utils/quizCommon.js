@@ -1,4 +1,4 @@
-import { syncSavedExplanations } from './quizExplanation.js';
+import { syncSavedExplanations, sanitizeRelatedQuestions } from './quizExplanation.js';
 import { syncSavedAnswers } from './quizNotes.js';
 
 export const commonQuizComputed = {
@@ -133,7 +133,8 @@ export function restoreCommonProgress(quiz, progress) {
     for (const id of [...quiz.bookmarkedQuestions, ...quiz.wrongQuestions]) {
       const saved = explanations[id];
       if (typeof saved?.text === 'string' && saved.text.trim() && typeof saved.context === 'string') {
-        quiz.savedExplanations[id] = { text: saved.text, context: saved.context };
+        quiz.savedExplanations[id] = { text: saved.text, context: saved.context,
+          relatedQuestions: sanitizeRelatedQuestions(saved.relatedQuestions) };
       }
     }
   }
