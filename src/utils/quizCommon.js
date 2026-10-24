@@ -2,6 +2,19 @@ import { syncSavedExplanations, sanitizeRelatedQuestions } from "./quizExplanati
 import { syncSavedAnswers } from "./quizNotes.js";
 
 export const commonQuizComputed = {
+  canRemoveCorrectWrongQuestion() {
+    const question = this.currentQuestion;
+    return (
+      this.playMode === "review" &&
+      this.reviewSource === "wrong" &&
+      this.answered &&
+      question &&
+      this.wrongQuestions.includes(question.id) &&
+      (question.isMultiple
+        ? question.subItems.every((item) => item.answered && item.isCorrect)
+        : this.isCorrect)
+    );
+  },
   progressPercentage() {
     if (this.totalAvailableQuestions === 0) return 0;
     return (this.solvedQuestions.length / this.totalAvailableQuestions) * 100;
@@ -59,6 +72,13 @@ export const commonQuizMethods = {
       this.discardReviewSession("wrong", id);
       this.saveProgress();
     }
+  },
+  removeCorrectWrongQuestionAndNext() {
+    if (!this.canRemoveCorrectWrongQuestion) return;
+    const id = this.currentQuestion.id;
+    this.wrongQuestions.splice(this.wrongQuestions.indexOf(id), 1);
+    this.discardReviewSession("wrong", id);
+    this.nextReviewQuestion();
   },
   discardReviewSession(source, id) {
     const session = this.practiceSessions?.[source];

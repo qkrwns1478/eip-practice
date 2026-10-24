@@ -193,6 +193,12 @@
           <div class="result-actions">
             <button type="button" @click="openExplanation" class="result-action-button">해설</button>
             <button @click="nextQuestion" class="result-action-button" ref="nextButton">다음 문제</button>
+            <button
+              v-if="canRemoveCorrectWrongQuestion"
+              type="button"
+              @click="removeCorrectWrongQuestionAndNext"
+              class="result-action-button"
+            >삭제 후 다음</button>
           </div>
         </div>
       </div>
