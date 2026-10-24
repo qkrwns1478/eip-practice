@@ -4,8 +4,9 @@ export function analysisInput(quizType, ids, savedAnswers) {
   return {
     quizType,
     totalWrongCount: ids.length,
-    questions: ids.slice(-ANALYSIS_LIMIT).map(questionId => ({
-      questionId, answer: savedAnswers[questionId] || null,
+    questions: ids.slice(-ANALYSIS_LIMIT).map((questionId) => ({
+      questionId,
+      answer: savedAnswers[questionId] || null,
     })),
   };
 }

@@ -35,7 +35,9 @@
   background: var(--color-white-for-text);
   color: var(--color-primary-dark);
   border-radius: 6px;
-  transition: background-color 160ms ease, color 160ms ease;
+  transition:
+    background-color 160ms ease,
+    color 160ms ease;
 }
 
 .progress-bar {
@@ -49,12 +51,7 @@
 
 .progress-fill {
   height: 100%;
-  background: rgba(
-    255,
-    255,
-    255,
-    0.6
-  );
+  background: rgba(255, 255, 255, 0.6);
   transition: width 180ms ease-out;
 }
 
@@ -133,7 +130,9 @@ button:focus:not(:focus-visible) {
   min-height: 500px;
   overflow-y: auto;
   border: 1px solid var(--color-border);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .question-header {
@@ -198,7 +197,9 @@ button:focus:not(:focus-visible) {
   margin-bottom: 20px;
   /* min-height: 100px; */
   text-align: left;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .main-keyword {
@@ -263,7 +264,11 @@ button:focus:not(:focus-visible) {
   font-size: 16px;
   border: 1px solid var(--color-border);
   border-radius: 8px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease,
+    background-color 0.3s ease,
+    color 0.3s ease;
   background-color: var(--color-white);
   color: var(--color-text);
 }
@@ -380,7 +385,6 @@ button:focus:not(:focus-visible) {
   transform: translateY(-3px);
   box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.4);
 }
-
 
 .skip-button {
   display: block;
@@ -555,19 +559,19 @@ button:focus:not(:focus-visible) {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  transition: border-color 160ms ease, background-color 160ms ease;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease;
 }
 
 :root.dark-mode .stat-card {
   background: var(--color-white);
 }
 
-
 .stat-card:hover {
   border-color: var(--color-primary);
   background: var(--color-primary-light);
 }
-
 
 .stat-card h4 {
   margin: 0 0 15px 0;
@@ -594,7 +598,9 @@ button:focus:not(:focus-visible) {
   text-align: center;
   min-height: 80px;
   border: 1px solid var(--color-border);
-  transition: background-color 0.3s ease, border-color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 .last-session h4 {
@@ -712,7 +718,6 @@ button:focus:not(:focus-visible) {
   background: var(--color-background);
 }
 
-
 .cancel-btn:hover {
   background: var(--color-hover);
   transform: translateY(-2px);
@@ -799,7 +804,7 @@ button:focus:not(:focus-visible) {
   .score-board span {
     padding: 6px 12px;
   }
-.menu-bar {
+  .menu-bar {
     /* flex-direction: column; */
     justify-content: center;
   }
@@ -837,7 +842,7 @@ button:focus:not(:focus-visible) {
     flex-direction: column;
     gap: 10px;
   }
-  
+
   .modal-actions button {
     width: 100%;
   }

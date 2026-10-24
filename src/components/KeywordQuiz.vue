@@ -1,11 +1,19 @@
 <template>
-  <GeoQuiz ref="quiz" :key="selectedMode"
+  <GeoQuiz
+    ref="quiz"
+    :key="selectedMode"
     :questions="selectedMode === 'keyword' ? keywordData : geoData"
     :storage-prefix="selectedMode === 'keyword' ? 'keywordQuiz' : 'geoQuiz'"
-    :initial-view="activeView" :question-study="selectedMode === 'keyword'">
+    :initial-view="activeView"
+    :question-study="selectedMode === 'keyword'"
+  >
     <template #mode-selector>
-      <button type="button" class="keyword-mode-button" aria-label="핵심개념 / 족보퀴즈 모드 전환"
-        @click="selectMode(selectedMode === 'keyword' ? 'geo' : 'keyword')">
+      <button
+        type="button"
+        class="keyword-mode-button"
+        aria-label="핵심개념 / 족보퀴즈 모드 전환"
+        @click="selectMode(selectedMode === 'keyword' ? 'geo' : 'keyword')"
+      >
         <span v-if="selectedMode === 'keyword'">핵심개념</span>
         <span v-else>족보퀴즈</span>
       </button>
@@ -14,29 +22,29 @@
 </template>
 
 <script>
-import GeoQuiz from './GeoQuiz.vue';
-import { geoData } from '../assets/geoData.js';
-import { keywordData } from '../assets/keywordData.js';
+import GeoQuiz from "./GeoQuiz.vue";
+import { geoData } from "../assets/geoData.js";
+import { keywordData } from "../assets/keywordData.js";
 
 export default {
-  name: 'KeywordQuiz',
+  name: "KeywordQuiz",
   components: { GeoQuiz },
   data() {
-    const savedMode = localStorage.getItem('keyword_selectedMode');
+    const savedMode = localStorage.getItem("keyword_selectedMode");
     return {
-      selectedMode: savedMode === 'geo' ? 'geo' : 'keyword',
+      selectedMode: savedMode === "geo" ? "geo" : "keyword",
       activeView: null,
       keywordData,
-      geoData
+      geoData,
     };
   },
   methods: {
     selectMode(mode) {
       this.activeView = this.$refs.quiz.showMode;
       this.selectedMode = mode;
-      localStorage.setItem('keyword_selectedMode', mode);
-    }
-  }
+      localStorage.setItem("keyword_selectedMode", mode);
+    },
+  },
 };
 </script>
 

@@ -1,43 +1,86 @@
 <template>
   <div :class="type === 'bookmarks' ? 'bookmarks-content' : 'wrong-content'">
     <div class="saved-list-header">
-      <h3>{{ type === 'bookmarks' ? '북마크한 문제' : '틀린 문제' }}</h3>
+      <h3>{{ type === "bookmarks" ? "북마크한 문제" : "틀린 문제" }}</h3>
       <div class="saved-list-actions">
-        <button v-if="ids.length" type="button" class="notes-export-btn" :disabled="exporting || importing" @click="requestExport">
-          {{ type === 'bookmarks' ? '핵심정리' : '오답노트' }} MD 저장
+        <button
+          v-if="ids.length"
+          type="button"
+          class="notes-export-btn"
+          :disabled="exporting || importing"
+          @click="requestExport"
+        >
+          {{ type === "bookmarks" ? "핵심정리" : "오답노트" }} MD 저장
         </button>
-        <button type="button" class="notes-export-btn" :disabled="!ids.length || exporting || importing"
-          @click="$emit('export-json')">JSON 내보내기</button>
-        <button type="button" class="notes-export-btn" :disabled="exporting || importing"
-          @click="$refs.jsonFile.click()">{{ importing ? '불러오는 중…' : 'JSON 불러오기' }}</button>
-        <input ref="jsonFile" type="file" accept=".json,application/json" hidden @change="importJson">
+        <button
+          type="button"
+          class="notes-export-btn"
+          :disabled="!ids.length || exporting || importing"
+          @click="$emit('export-json')"
+        >
+          JSON 내보내기
+        </button>
+        <button
+          type="button"
+          class="notes-export-btn"
+          :disabled="exporting || importing"
+          @click="$refs.jsonFile.click()"
+        >
+          {{ importing ? "불러오는 중…" : "JSON 불러오기" }}
+        </button>
+        <input ref="jsonFile" type="file" accept=".json,application/json" hidden @change="importJson" />
       </div>
     </div>
-    <p class="backup-help">JSON 불러오기는 이 퀴즈의 같은 목록에 병합합니다. 기존 문제와 답안은 유지됩니다.</p>
-    <WeaknessAnalysis v-if="type === 'wrong' && ids.length && quizType" :quiz-type="quizType" :ids="ids"
-      :saved-answers="savedAnswers" :label-for-id="analysisLabel" @select="$emit('select', $event)" />
+    <WeaknessAnalysis
+      v-if="type === 'wrong' && ids.length && quizType"
+      :quiz-type="quizType"
+      :ids="ids"
+      :saved-answers="savedAnswers"
+      :label-for-id="analysisLabel"
+      @select="$emit('select', $event)"
+    />
     <p v-if="exporting" role="status" aria-live="polite">{{ exportStatus }}</p>
     <div v-if="ids.length === 0" class="empty-state">
-      <p>{{ type === 'bookmarks' ? '북마크한 문제가 없습니다.' : '틀린 문제가 없습니다.' }}</p>
+      <p>{{ type === "bookmarks" ? "북마크한 문제가 없습니다." : "틀린 문제가 없습니다." }}</p>
     </div>
     <div v-else :class="type === 'bookmarks' ? 'bookmark-list' : 'wrong-list'">
-      <div v-for="id in ids" :key="id" :class="type === 'bookmarks' ? 'bookmark-item' : 'wrong-item'"
-        @click="$emit('select', id)">
+      <div
+        v-for="id in ids"
+        :key="id"
+        :class="type === 'bookmarks' ? 'bookmark-item' : 'wrong-item'"
+        @click="$emit('select', id)"
+      >
         <div :class="type === 'bookmarks' ? 'bookmark-info' : 'wrong-info'">
-          <h4>{{ getQuestion(id)?.[titleKey] || '문제' }}</h4>
-          <p>{{ subtitleForId ? subtitleForId(id) : getQuestion(id)?.[subtitleKey] || '' }}</p>
+          <h4>{{ getQuestion(id)?.[titleKey] || "문제" }}</h4>
+          <p>{{ subtitleForId ? subtitleForId(id) : getQuestion(id)?.[subtitleKey] || "" }}</p>
           <p class="saved-answer">내 답안: {{ answerLabel(savedAnswers[id]) }}</p>
         </div>
-        <button v-if="savedExplanations[id]?.text" type="button" class="saved-explanation-btn"
+        <button
+          v-if="savedExplanations[id]?.text"
+          type="button"
+          class="saved-explanation-btn"
           :aria-label="`저장된 해설 보기: ${getQuestion(id)?.[titleKey] || '문제'}`"
-          @click.stop="selectedExplanation = savedExplanations[id].text">해설</button>
-        <button type="button" class="remove-bookmark-btn"
+          @click.stop="selectedExplanation = savedExplanations[id].text"
+        >
+          해설
+        </button>
+        <button
+          type="button"
+          class="remove-bookmark-btn"
           :aria-label="`${type === 'bookmarks' ? '북마크' : '틀린 문제'} 삭제: ${getQuestion(id)?.[titleKey] || '문제'}`"
-          @click.stop="$emit('remove', id)">✕</button>
+          @click.stop="$emit('remove', id)"
+        >
+          ✕
+        </button>
       </div>
     </div>
     <ExplanationModal v-if="selectedExplanation" :text="selectedExplanation" @close="selectedExplanation = ''" />
-    <div v-if="showGeneratePrompt" class="modal-overlay" @click.self="showGeneratePrompt = false" @keydown.esc="showGeneratePrompt = false">
+    <div
+      v-if="showGeneratePrompt"
+      class="modal-overlay"
+      @click.self="showGeneratePrompt = false"
+      @keydown.esc="showGeneratePrompt = false"
+    >
       <section class="modal-content" role="dialog" aria-modal="true" aria-labelledby="notes-prompt-title">
         <h3 id="notes-prompt-title">해설 생성</h3>
         <p>해설이 없는 문제가 {{ missingCount }}개 있습니다. AI 해설을 생성한 뒤 저장할까요?</p>
@@ -52,56 +95,58 @@
 </template>
 
 <script>
-import ExplanationModal from './ExplanationModal.vue';
-import WeaknessAnalysis from './WeaknessAnalysis.vue';
-import { answerLabel } from '../utils/quizNotes.js';
+import ExplanationModal from "./ExplanationModal.vue";
+import WeaknessAnalysis from "./WeaknessAnalysis.vue";
+import { answerLabel } from "../utils/quizNotes.js";
 
 export default {
-  name: 'SavedQuestionList',
+  name: "SavedQuestionList",
   components: { ExplanationModal, WeaknessAnalysis },
   data() {
-    return { selectedExplanation: '', showGeneratePrompt: false };
+    return { selectedExplanation: "", showGeneratePrompt: false };
   },
   props: {
-    quizType: { type: String, default: '' },
+    quizType: { type: String, default: "" },
     type: { type: String, required: true },
     ids: { type: Array, required: true },
     getQuestion: { type: Function, required: true },
     titleKey: { type: String, required: true },
-    subtitleKey: { type: String, default: '' },
+    subtitleKey: { type: String, default: "" },
     subtitleForId: { type: Function, default: null },
     savedExplanations: { type: Object, default: () => ({}) },
     savedAnswers: { type: Object, default: () => ({}) },
     exporting: { type: Boolean, default: false },
     importing: { type: Boolean, default: false },
-    exportStatus: { type: String, default: '' }
+    exportStatus: { type: String, default: "" },
   },
   computed: {
-    missingCount() { return this.ids.filter(id => this.getQuestion(id) && !this.savedExplanations[id]?.text).length; },
+    missingCount() {
+      return this.ids.filter((id) => this.getQuestion(id) && !this.savedExplanations[id]?.text).length;
+    },
   },
   methods: {
     importJson(event) {
       const file = event.target.files?.[0];
-      if (file) this.$emit('import-json', file);
-      event.target.value = '';
+      if (file) this.$emit("import-json", file);
+      event.target.value = "";
     },
     analysisLabel(id) {
       if (this.subtitleForId) return this.subtitleForId(id);
       const question = this.getQuestion(id);
-      return question?.[this.titleKey] || question?.desc || '문제';
+      return question?.[this.titleKey] || question?.desc || "문제";
     },
     answerLabel,
     requestExport() {
       if (this.exporting) return;
       if (this.missingCount) this.showGeneratePrompt = true;
-      else this.$emit('export', false);
+      else this.$emit("export", false);
     },
     confirmExport(generate) {
       this.showGeneratePrompt = false;
-      this.$emit('export', generate);
+      this.$emit("export", generate);
     },
   },
-  emits: ['select', 'remove', 'export', 'export-json', 'import-json']
+  emits: ["select", "remove", "export", "export-json", "import-json"],
 };
 </script>
 
@@ -114,9 +159,19 @@ export default {
   gap: 12px;
   margin-bottom: 20px;
 }
-.saved-list-header h3 { margin: 0; height: auto; }
-.saved-list-actions { display: flex; flex-wrap: wrap; gap: 8px; }
-.backup-help { font-size: 0.9em; margin-bottom: 16px; }
+.saved-list-header h3 {
+  margin: 0;
+  height: auto;
+}
+.saved-list-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.backup-help {
+  font-size: 0.9em;
+  margin-bottom: 16px;
+}
 .notes-export-btn {
   flex-shrink: 0;
   padding: 10px 16px;
@@ -126,9 +181,17 @@ export default {
   color: var(--color-white-for-text);
   cursor: pointer;
 }
-.notes-export-btn:disabled { opacity: 0.6; cursor: wait; }
-.saved-answer { white-space: pre-wrap; overflow-wrap: anywhere; }
-.modal-actions { flex-wrap: wrap; }
+.notes-export-btn:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+.saved-answer {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.modal-actions {
+  flex-wrap: wrap;
+}
 
 .saved-explanation-btn {
   flex-shrink: 0;
@@ -142,7 +205,6 @@ export default {
 }
 
 @media (max-width: 600px) {
-
   .bookmark-item,
   .wrong-item {
     flex-wrap: wrap;

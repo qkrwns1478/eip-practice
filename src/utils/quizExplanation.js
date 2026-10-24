@@ -1,16 +1,20 @@
-import { markRaw } from 'vue';
-import { pstQuestionContext } from './pstAnswers.js';
+import { markRaw } from "vue";
+import { pstQuestionContext } from "./pstAnswers.js";
 
 export function explanationContext(quiz, input, question = quiz.currentQuestion) {
-  return JSON.stringify(quiz.storagePrefix === 'pstQuiz'
-    ? { ...input, questionContext: pstQuestionContext(question) } : input);
+  return JSON.stringify(
+    quiz.storagePrefix === "pstQuiz" ? { ...input, questionContext: pstQuestionContext(question) } : input,
+  );
 }
 
 function answerContext(quiz) {
   const subItems = quiz.currentQuestion?.subItems;
-  return explanationContext(quiz, subItems?.length
-    ? { subAnswers: subItems.map(item => ({ userAnswer: item.userAnswer, isCorrect: item.isCorrect })) }
-    : { userAnswer: quiz.userAnswer, isCorrect: quiz.isCorrect });
+  return explanationContext(
+    quiz,
+    subItems?.length
+      ? { subAnswers: subItems.map((item) => ({ userAnswer: item.userAnswer, isCorrect: item.isCorrect })) }
+      : { userAnswer: quiz.userAnswer, isCorrect: quiz.isCorrect },
+  );
 }
 
 export function sanitizeRelatedQuestions(value) {
@@ -18,12 +22,21 @@ export function sanitizeRelatedQuestions(value) {
   const seen = new Set();
   const references = [];
   for (const row of value) {
-    if (!row || !Number.isInteger(row.questionId) || typeof row.examKey !== 'string' ||
-      !/^\d{4}-\d+$/.test(row.examKey) || row.id !== `${row.examKey}:${row.questionId}` || seen.has(row.id)) continue;
+    if (
+      !row ||
+      !Number.isInteger(row.questionId) ||
+      typeof row.examKey !== "string" ||
+      !/^\d{4}-\d+$/.test(row.examKey) ||
+      row.id !== `${row.examKey}:${row.questionId}` ||
+      seen.has(row.id)
+    )
+      continue;
     seen.add(row.id);
     references.push({
-      id: row.id, questionId: row.questionId, examKey: row.examKey,
-      topic: typeof row.topic === 'string' ? row.topic.slice(0, 80) : '관련 개념',
+      id: row.id,
+      questionId: row.questionId,
+      examKey: row.examKey,
+      topic: typeof row.topic === "string" ? row.topic.slice(0, 80) : "관련 개념",
     });
     if (references.length === 3) break;
   }
@@ -31,15 +44,16 @@ export function sanitizeRelatedQuestions(value) {
 }
 
 export async function requestExplanationResult(quizType, questionId, input, signal) {
-  const response = await fetch('/api/explanation', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+  const response = await fetch("/api/explanation", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ quizType, questionId, ...input }),
     signal,
   });
   const result = await response.json().catch(() => ({}));
-  if (!response.ok) throw new Error(result.error || '해설을 생성하지 못했습니다. 잠시 후 다시 시도해주세요.');
-  if (typeof result.explanation !== 'string' || !result.explanation.trim()) throw new Error('해설 응답이 비어 있습니다. 다시 시도해주세요.');
+  if (!response.ok) throw new Error(result.error || "해설을 생성하지 못했습니다. 잠시 후 다시 시도해주세요.");
+  if (typeof result.explanation !== "string" || !result.explanation.trim())
+    throw new Error("해설 응답이 비어 있습니다. 다시 시도해주세요.");
   return { explanation: result.explanation, relatedQuestions: sanitizeRelatedQuestions(result.relatedQuestions) };
 }
 
@@ -55,7 +69,11 @@ export function syncSavedExplanations(quiz) {
   for (const id of Object.keys(quiz.savedExplanations)) {
     if (!storedIds.has(id)) delete quiz.savedExplanations[id];
   }
-  if (ids.has(quiz.explanationQuestionId) && quiz.explanationText && quiz.explanationAnswerContext === answerContext(quiz)) {
+  if (
+    ids.has(quiz.explanationQuestionId) &&
+    quiz.explanationText &&
+    quiz.explanationAnswerContext === answerContext(quiz)
+  ) {
     quiz.savedExplanations[quiz.explanationQuestionId] = {
       text: quiz.explanationText,
       context: quiz.explanationAnswerContext,
@@ -71,32 +89,40 @@ export const quizExplanationMixin = {
       savedExplanations: {},
       explanationQuestionId: null,
       explanationAnswerContext: null,
-      explanationText: '',
+      explanationText: "",
       explanationRelatedQuestions: [],
-      explanationError: '',
+      explanationError: "",
       explanationLoading: false,
       showExplanationModal: false,
       explanationController: null,
     };
   },
   watch: {
-    'currentQuestion.id': {
-      flush: 'sync',
-      handler(id) { this.resetExplanation(id); },
+    "currentQuestion.id": {
+      flush: "sync",
+      handler(id) {
+        this.resetExplanation(id);
+      },
     },
-    showMode() { this.showExplanationModal = false; },
+    showMode() {
+      this.showExplanationModal = false;
+    },
   },
-  deactivated() { this.showExplanationModal = false; },
-  beforeUnmount() { this.explanationController?.abort(); },
+  deactivated() {
+    this.showExplanationModal = false;
+  },
+  beforeUnmount() {
+    this.explanationController?.abort();
+  },
   methods: {
     resetExplanation(id = this.currentQuestion?.id) {
       this.explanationController?.abort();
       this.explanationController = null;
       this.explanationQuestionId = id ?? null;
       this.explanationAnswerContext = null;
-      this.explanationText = '';
+      this.explanationText = "";
       this.explanationRelatedQuestions = [];
-      this.explanationError = '';
+      this.explanationError = "";
       this.explanationLoading = false;
       this.showExplanationModal = false;
     },
@@ -119,7 +145,7 @@ export const quizExplanationMixin = {
       this.explanationController = controller;
       this.explanationQuestionId = id;
       this.explanationLoading = true;
-      this.explanationError = '';
+      this.explanationError = "";
       try {
         const result = await requestExplanationResult(this.storagePrefix, id, JSON.parse(context), controller.signal);
         if (this.explanationController !== controller || this.currentQuestion?.id !== id) return;
@@ -128,7 +154,7 @@ export const quizExplanationMixin = {
         this.saveProgress();
       } catch (error) {
         if (!controller.signal.aborted && this.explanationController === controller) {
-          this.explanationError = error.message || '해설을 불러오지 못했습니다.';
+          this.explanationError = error.message || "해설을 불러오지 못했습니다.";
         }
       } finally {
         if (this.explanationController === controller) {

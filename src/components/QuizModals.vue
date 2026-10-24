@@ -16,18 +16,27 @@
       <div v-if="alert.examResult" class="exam-result">
         <div class="exam-result-score-row">
           <div class="exam-result-score">
-            <span class="exam-result-label">{{ alert.examResult.missing ? '기록된 점수' : '총점' }}</span>
-            <div><strong>{{ alert.examResult.score }}</strong><span> / 100점</span></div>
+            <span class="exam-result-label">{{ alert.examResult.missing ? "기록된 점수" : "총점" }}</span>
+            <div>
+              <strong>{{ alert.examResult.score }}</strong
+              ><span> / 100점</span>
+            </div>
           </div>
-          <strong class="exam-result-verdict" :class="{
-            'is-pass': !alert.examResult.missing && alert.examResult.score >= 60,
-            'is-fail': !alert.examResult.missing && alert.examResult.score < 60
-          }">{{ alert.examResult.verdict }}</strong>
+          <strong
+            class="exam-result-verdict"
+            :class="{
+              'is-pass': !alert.examResult.missing && alert.examResult.score >= 60,
+              'is-fail': !alert.examResult.missing && alert.examResult.score < 60,
+            }"
+            >{{ alert.examResult.verdict }}</strong
+          >
         </div>
         <dl class="exam-result-details">
           <div>
             <dt>맞힌 문제</dt>
-            <dd><strong>{{ alert.examResult.correct }}</strong> / {{ alert.examResult.total }}문제</dd>
+            <dd>
+              <strong>{{ alert.examResult.correct }}</strong> / {{ alert.examResult.total }}문제
+            </dd>
           </div>
           <div>
             <dt>합격 기준</dt>
@@ -45,14 +54,14 @@
 
 <script>
 export default {
-  name: 'QuizModals',
+  name: "QuizModals",
   props: {
     showConfirm: { type: Boolean, required: true },
     confirm: { type: Object, required: true },
     showAlert: { type: Boolean, required: true },
-    alert: { type: Object, required: true }
+    alert: { type: Object, required: true },
   },
-  emits: ['close-confirm', 'close-alert']
+  emits: ["close-confirm", "close-alert"],
 };
 </script>
 
@@ -97,7 +106,7 @@ export default {
   font-variant-numeric: tabular-nums;
 }
 
-.exam-result-score div>span {
+.exam-result-score div > span {
   font-size: 14px;
   color: var(--color-text-light);
 }
@@ -120,7 +129,7 @@ export default {
   font-size: 14px;
 }
 
-.exam-result-details>div {
+.exam-result-details > div {
   display: flex;
   justify-content: space-between;
   gap: 16px;

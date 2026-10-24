@@ -1,8 +1,14 @@
 <template>
   <Teleport to="body">
     <div class="modal-overlay" @click.self="$emit('close')" @keydown.esc.stop="$emit('close')" @keydown.tab="trapFocus">
-      <section ref="dialog" class="modal-content explanation-modal" role="dialog" aria-modal="true"
-        aria-labelledby="explanation-title" tabindex="-1">
+      <section
+        ref="dialog"
+        class="modal-content explanation-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="explanation-title"
+        tabindex="-1"
+      >
         <header class="explanation-header">
           <h3 id="explanation-title">{{ title }}</h3>
           <button type="button" :aria-label="`${title} 닫기`" @click="$emit('close')">×</button>
@@ -26,19 +32,21 @@
 </template>
 
 <script>
-import { renderMarkdown } from '../utils/markdown.js';
+import { renderMarkdown } from "../utils/markdown.js";
 
 export default {
-  name: 'ExplanationModal',
+  name: "ExplanationModal",
   props: {
-    title: { type: String, default: '문제 해설' },
-    text: { type: String, default: '' },
-    error: { type: String, default: '' },
+    title: { type: String, default: "문제 해설" },
+    text: { type: String, default: "" },
+    error: { type: String, default: "" },
     loading: { type: Boolean, default: false },
   },
-  emits: ['close', 'retry'],
+  emits: ["close", "retry"],
   computed: {
-    renderedText() { return renderMarkdown(this.text); },
+    renderedText() {
+      return renderMarkdown(this.text);
+    },
   },
   mounted() {
     this.previousFocus = document.activeElement;
@@ -49,14 +57,19 @@ export default {
   },
   methods: {
     trapFocus(event) {
-      const buttons = [...this.$refs.dialog.querySelectorAll('button:not(:disabled), a[href], summary, textarea:not(:disabled), input:not(:disabled), select:not(:disabled)')]
-        .filter(element => element.getClientRects().length > 0);
+      const buttons = [
+        ...this.$refs.dialog.querySelectorAll(
+          "button:not(:disabled), a[href], summary, textarea:not(:disabled), input:not(:disabled), select:not(:disabled)",
+        ),
+      ].filter((element) => element.getClientRects().length > 0);
       const first = buttons[0];
       const last = buttons.at(-1);
       if (event.shiftKey && (document.activeElement === first || document.activeElement === this.$refs.dialog)) {
-        event.preventDefault(); last?.focus();
+        event.preventDefault();
+        last?.focus();
       } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault(); first?.focus();
+        event.preventDefault();
+        first?.focus();
       }
     },
   },
