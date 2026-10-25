@@ -1,24 +1,23 @@
-// 2024년 2회
 export const pstData_2024_2 = [
-{
+  {
     id: 61,
     answer: "NNN",
     question: "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `class Main {
     public static void main(String[] args) {
-        int[] a = new int[]{1, 2, 3, 4};
-        int[] b = new int[]{1, 2, 3, 4};
-        int[] c = new int[]{1, 2, 3};
-        
+        int[] a = new int[] {1, 2, 3, 4};
+        int[] b = new int[] {1, 2, 3, 4};
+        int[] c = new int[] {1, 2, 3};
+
         check(a, b);
         check(a, c); 
         check(b, c); 
     }
- 
+
     public static void check(int[] a, int[] b) {
         if (a==b) {
-            System.out.print("O");
-        }else{
+            System.out.print("Y");
+        } else{
             System.out.print("N");
         }
         
@@ -30,6 +29,7 @@ export const pstData_2024_2 = [
   {
     id: 62,
     answer: "반정규화",
+    alts: ["비정규화", "역정규화", "Denormalization", "De-normalization"],
     question: "다음 문제에서 설명하는 용어를 작성하시오.",
     passageOrCode: "데이터를 중복시켜 성능을 향상시키기 위한 기법으로 데이터를 중복 저장하거나 테이블을 합치는 등으로 성능을 향상시키지만 데이터 무결성이 저하될 수 있는 기법",
     options: null,
@@ -43,18 +43,18 @@ export const pstData_2024_2 = [
 사원 [사원번호(PK), 이름, 나이, 부서]
 부서 [사원번호(PK), 이름, 주소, 나이]
 
-신입 사원이 들어와서 사원 테이블에 추가
-INSERT INTO 사원 (사원번호, 이름, 주소, 부서)   [      ①     ] (32431, '정실기', '서울', '영업');
+# 신입 사원이 들어와서 사원 테이블에 추가
+INSERT INTO 사원 (사원번호, 이름, 주소, 부서) (  1  ) (32431, '정실기', '서울', '영업');
 
-위에 신입사원을 검색하면서 부서 테이블에 추가
+# 위에 신입사원을 검색하면서 부서 테이블에 추가
 INSERT INTO 부서 (사원번호, 이름, 나이, 부서)
-[    ②     ] 사원번호, 이름, 나이, 23 FROM 사원 WHERE 이름 = '정실기';
+(  2  ) 사원번호, 이름, 나이, 23 FROM 사원 WHERE 이름 = '정실기';
 
-전체 사원 테이블 조회
-SELECT  *   [    ③   ]   사원;
+# 전체 사원 테이블 조회
+SELECT * (  3  ) 사원;
 
-퇴사로 인해 부서에 해당하는 값을 '퇴사'로 변경
-UPDATE 사원   [      ④     ]   부서  =  '퇴사'  WHERE 사원번호  = 32431;`,
+# 퇴사로 인해 부서에 해당하는 값을 '퇴사'로 변경
+UPDATE 사원 (  4  ) 부서 = '퇴사' WHERE 사원번호 = 32431;`,
     options: null,
     imageUrl: null
   },
@@ -63,7 +63,7 @@ UPDATE 사원   [      ④     ]   부서  =  '퇴사'  WHERE 사원번호  = 32
     answer: "5 4",
     question: "다음 릴레이션의 Cardinality와 Degree를 작성하시오.",
     passageOrCode: null,
-    options: ["Cardinality : (  ①  )", "Degree : (  ②  )"],
+    options: ["Cardinality : (  1  )", "Degree : (  2  )"],
     imageUrl: "https://blog.kakaocdn.net/dna/9GCnk/btsIQHjwfX4/AAAAAAAAAAAAAAAAAAAAAFcwOwpSbNpVcvUGl9r3CTTjPEncjPAQEPGf6rQv7RxE/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=q%2BGLlXPZakyM5YJmkhhhUtyvIyQ%3D"
   },
   {
@@ -83,15 +83,15 @@ UPDATE 사원   [      ④     ]   부서  =  '퇴사'  WHERE 사원번호  = 32
     passageOrCode: `def fnCalculation(x,y):
     result = 0;
     for i in range(len(x)):
-     temp = x[i:i+len(y)] 
-     if temp == y:
-       result += 1;
+      temp = x[i:i+len(y)] 
+      if temp == y:
+        result += 1;
     return result
- 
+
 a = "abdcabcabca"
 p1 = "ab";
 p2 = "ca";
- 
+
 out = f"ab{fnCalculation(a,p1)}ca{fnCalculation(a,p2)}"
 print(out)`,
     options: null,
@@ -110,8 +110,10 @@ print(out)`,
   {
     id: 68,
     answer: "가상회선 데이터그램",
-    question: "패킷 교환 방식 중에 ①연결형 교환 방식과 ②비연결형 교환 방식에 해당하는 방식을 작성하시오.",
-    passageOrCode: null,
+    alt: "가상회선 방식 데이터그램 방식",
+    question: "다음 패킷 교환방식에 대한 설명으로 알맞은 용어를 쓰시오.",
+    passageOrCode: `- (  1  ): 연결형 교환 방식으로, 정보 전송 전에 제어 패킷에 의해 가상 경로를 설정하여 목적지 호스트에 미리 연결 후 통신한다. 가상 경로를 미리 설정하여 송신 측에서 전송한 순서와 수신 측에 도착한 순서가 동일하며, 정해진 시간 내 또는 다량의 데이터를 연속으로 전송할 때 적합한 방식이다.
+- (  2  ): 비연결형 교환 방식으로, 가상 경로를 설정하지 않고 헤더에 붙여서 개별적으로 전달한다. 패킷을 수신한 라우터는 순간마다 최적의 경로를 선택하여 전송하므로, 패킷은 서로 다른 경로로 전송될 수 있다. 이 방식은 송신 측에서 전송한 순서와 수신 측에 도착한 순서가 다를 수 있으며, 짧은 메시지의 일시적인 전송에 적합한 방식이다.`,
     options: null,
     imageUrl: null
   },
@@ -129,15 +131,16 @@ print(out)`,
     id: 70,
     answer: "Iterator",
     question: "아래는 디자인 패턴에 관한 설명이다. 아래 설명을 읽고 보기에서 알맞는 용어를 작성하시오.",
-    passageOrCode: `- 컬렉션 객체의 내부 구조를 노출하지 않고 순차적으로 접근할 수 있게 하는 패턴이다. 
-- 이 패턴은 객체의 내부 표현 방식에 독립적으로 요소에 접근할 수 있도록 해준다
-- 반복 프로세스를 캡슐화하여 클라이언트 코드에서는 컬렉션의 구체적인 구현에 종속되지 않도록 한다.`,
+    passageOrCode: `컬렉션 객체의 내부 구조를 노출하지 않고 순차적으로 접근할 수 있게 하는 패턴이다. 
+이 패턴은 객체의 내부 표현 방식에 독립적으로 요소에 접근할 수 있도록 해준다
+반복 프로세스를 캡슐화하여 클라이언트 코드에서는 컬렉션의 구체적인 구현에 종속되지 않도록 한다.`,
     options: ["Singleton", "Adapter", "Iterator", "Factory Method", "Bridge", "Visitor", "Abstract Factory", "Composite", "Observer"],
     imageUrl: null
   },
   {
     id: 71,
     answer: "A D C F",
+    alt: "ADCF",
     question: "아래 그림을 바탕으로 RIP을 구성하여 최단 경로 비용을 계산하여 흐름에 맞게 작성하시오. (A에서 시작)",
     passageOrCode: null,
     options: null,
@@ -236,9 +239,10 @@ int main() {
     answer: "Control",
     alt: "제어",
     question: "아래는 소프트웨어 설계에 대한 내용이다. 내용을 읽고 괄호안에 알맞는 답을 작성하시오.",
-    passageOrCode: `- 어떤 모듈이 다른 모듈 내부의 논리적인 흐름을 제어하기 위해, 제어를 통신하거나 제어 요소를 전달하는 결합도이다.
+    passageOrCode: `(              ) Coupling
+- 어떤 모듈이 다른 모듈 내부의 논리적인 흐름을 제어하기 위해, 제어를 통신하거나 제어 요소를 전달하는 결합도이다.
 - 한 모듈이 다른 모듈의 상세한 처리 절차를 알고 있어 이를 통제하는 경우나 처리 기능이 두 모듈에 분리되어 설계된 경우에 발생한다.`,
-    options: ["(              ) Coupling"],
+    options: null,
     imageUrl: null
   },
   {
@@ -319,8 +323,7 @@ int main() {
     a.n2 = &b;
     b.n2 = &c;
  
-    printf("%d\
-", head->n2->n1);
+    printf("%d\\n", head->n2->n1);
  
     return 0;
 }`,

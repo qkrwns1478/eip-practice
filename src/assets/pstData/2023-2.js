@@ -1,8 +1,8 @@
-// 2023년 2회
 export const pstData_2023_2 = [
-{
+  {
     id: 121,
     answer: "n[(i+1) % 5]",
+    alts: ["n[(i+1)%5]", "n[(i + 1) % 5]", "n[(i + 1)%5"],
     question: "다음은 C언어 코드 문제이다. 조건에 따라 괄호안에 알맞은 코드를 작성하시오.",
     passageOrCode: `int main(void) {
     int n[5];
@@ -56,7 +56,6 @@ export const pstData_2023_2 = [
 #include<stdlib.h>
 char n[30];
 char *test() {
-  printf("입력하세요 : ");
   gets(n);
   return n;
 }
@@ -67,10 +66,8 @@ int main() {
   test1 = test();
   test2 = test();
   test3 = test();
-  printf("%s\
-",test1);
-  printf("%s\
-",test2);
+  printf("%s\\n",test1);
+  printf("%s\\n",test2);
   printf("%s",test3);
 }`,
     options: ["입력값은 홍길동, 김철수, 박영희 순서로 주어진다."],
@@ -78,19 +75,12 @@ int main() {
   },
   {
     id: 124,
-    answer: `INSTER INTO 학생(학번,이름,학년,전공,전화번호)
-VALUES(9830287,'뉴진스',3,'경영학개론','010-1234-1234');`,
-    question: "아래 보기 조건에 맞게 SQL문을 작성하시오.",
-    passageOrCode: `CREATE TABLE 학생 (
-      학번 int,
-      이름 varchar(20),
-      학년 int,
-      전공 varchar(30),
-      전화번호 varchar(20)
-    );`,
-    options: [`학번	이름	학년	전공	전화번호
-9830287	뉴진스	3	경영학개론	010-1234-1234`, "문자열일 경우 작은따음표를 사용할 것"],
-    imageUrl: null
+    answer: `INSERT INTO 학생 VALUES(9816021, '한국산', 3, '경영학개론', '050-1234-1234');`,
+    alt: `INSERT INTO 학생 VALUES(9816021, '한국산', 3, '경영학개론', '050-1234-1234')`,
+    question: "다음 <학생> 테이블에 (9816021, '한국산', 3, '경영학개론',  '050-1234-1234')인 데이터를 삽입하고자 한다. <처리조건>을 참고하여 적합한 SQL문을 작성하시오.",
+    passageOrCode: null,
+    options: null,
+    imageUrl: "https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2Fsz9UL%2FbtsFPeX1I4F%2FAAAAAAAAAAAAAAAAAAAAAH0VWhcSVQUcwf8a6jnutpye931GrfHeZhr18rV8N437%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1793458799%26allow_ip%3D%26allow_referer%3D%26signature%3DLPROh1mlKRPgdk9F2EYsmGz4h3g%253D",
   },
   {
     id: 125,
@@ -145,6 +135,7 @@ int main(){
   {
     id: 128,
     answer: "템퍼프루핑",
+    alts: ["템퍼 프루핑", "tamper-proofing", "tamper proofing"],
     question: "다음 내용에 알맞는 답을 작성하시오.",
     passageOrCode: `소프트웨어에서 워터마크 삭제등과 같이 소프트웨어가 불법으로 변경(unauthorized modifications)되었을 경우, 그 소프트웨어가 정상 수행되지 않게 하는 기법이다.
 소프트웨어 변조 공격을 방어하기 위해 프로그램에 변조검증코드(tamper-proofing code)를 삽입하는 것도 한 방법으로
@@ -159,35 +150,35 @@ int main(){
     question: "다음은 C언어 문제이다. 알맞은 출력값을 작성하시오.",
     passageOrCode: `#include <stdio.h>
 #define MAX_SIZE 10
- 
+
 int isWhat[MAX_SIZE];
 int point= -1;
- 
+
 int isEmpty() {
     if (point == -1) return 1;
     return 0;
 }
- 
+
 int isFull() {
     if (point == 10) return 1;
     return 0;
 }
- 
+
 void into(int num) {
     if (point >= 10) printf("Full");
     else isWhat[++point] = num;
 }
- 
+
 int take() {
     if (isEmpty() == 1) printf("Empty");
     else return isWhat[point--];
     return 0;
 }
- 
+
 int main(int argc, char const *argv[]){
     int e;
     into(5); into(2);
- 
+
     while(!isEmpty()){
         printf("%d", take());
         into(4); into(1); printf("%d", take());
@@ -227,20 +218,20 @@ int main(int argc, char const *argv[]){
   },
   {
     id: 132,
-    answer: "hamming FEC BEC parity CRC",
+    answer: "Hamming FEC BEC Parity CRC",
     question: "다음 내용에서 설명하는 문제에 대해 보기에 알맞는 답을 골라 작성하시오.",
-    passageOrCode: `( 1 ) Code는 데이터 전송시 1 비트의 에러를 정정할 수 있는, 오류정정부호의 일종으로 미국의 Bell 연구소의 Hamming에 의해 고안되었다. 선형블록부호 및 순회부호에 속에 속한다.
-( 2 ) 은/는 송신측이 전송할 문자나 프레임에 부가적 정보(Redundancy)를 첨가하여 전송하고 수신측이 이 부가적 정보를 이용하여 에러검출 및 에러정정을 하는 방식이다.
-( 3 ) 은/는 데이터 전송 과정에서 오류가 발생하면 송신 측에 재전송을 요구하는 방식이다. 오류를 검출하는 방법은 Parity검사와 CRC, 블록 합 검사 등이 있다.
-( 4 ) 은/는 데이터가 저장장치 내의 한 장소에서 다른 장소로 이동되거나, 컴퓨터들간에 전송될 때, 데이터가 유실 또는 손상되었는지 여부를 점검하는 기술과 관련된 용어이다.
-( 5 ) 은/는 네트워크 등을 통하여 데이터를 전송할 때 전송된 데이터에 오류가 있는지를 확인하기 위한 체크값을 결정하는 방식을 말한다.`,
+    passageOrCode: `- (  1  ) Code는 데이터 전송시 1 비트의 에러를 정정할 수 있는, 오류정정부호의 일종으로 선형블록부호 및 순회부호에 속에 속한다.
+- (  2  ) 은/는 송신측이 전송할 문자나 프레임에 부가적 정보(Redundancy)를 첨가하여 전송하고 수신측이 이 부가적 정보를 이용하여 에러검출 및 에러정정을 하는 방식이다.
+- (  3  ) 은/는 데이터 전송 과정에서 오류가 발생하면 송신 측에 재전송을 요구하는 방식이다. 오류를 검출하는 방법은 (  4  ) 검사와 (  5  ), 블록 합 검사 등이 있다.
+- (  4  ) 은/는 데이터가 저장장치 내의 한 장소에서 다른 장소로 이동되거나, 컴퓨터들간에 전송될 때, 데이터가 유실 또는 손상되었는지 여부를 점검하는 기술과 관련된 용어이다.
+- (  5  ) 은/는 네트워크 등을 통하여 데이터를 전송할 때 전송된 데이터에 오류가 있는지를 확인하기 위한 체크값을 결정하는 방식을 말한다.`,
     options: [
       "EAC",
       "FEC",
-      "hamming",
+      "Hamming",
       "CRC",
       "PDS",
-      "parity",
+      "Parity",
       "BEC"
     ],
     imageUrl: null
@@ -250,11 +241,11 @@ int main(int argc, char const *argv[]){
     answer: "ㄷ ㄴ ㅂ ㅊ ㅋ",
     alt: "정보 감독 비번호 비동기균형 비동기응답",
     question: "다음은 HDLC 프로토콜에 대한 설명이다. 보기 안에 알맞는 답을 골라 작성하시오.",
-    passageOrCode: `( 1 ) 프레임은 Seq, Next, P/F의 필드를 가진다. 또한 맨 처음 비트를 0으로 가진다. Seq는 송신용 순서번호를 가지고 있다. Next는 응답용 순서번호를 가진다. P/F는 P가 1로 설정된 경우 주국에서 종국에 데이터 전송을 허용하는 것을 의미하고 F가 1로 설정된 경우 종국에서 주국으로 데이터 전송을 하는 것을 의미한다.
-( 2 ) 프레임은 맨 앞의 필드가 1로 되어 있어 정보 프레임이 아니라는 것을 나타내고 다음 비트가 0이 나와있다. Type의 경우에는 2비트를 가지고 있어 4가지의 종류로 나누어진다. 데이터를 보내는 역할이 아니라 응답의 기능을 수행하므로 Seq에 대한 값은 필요가 없고 다음 프레임을 요구하는 Next만 존재한다.
-( 3 ) 프레임은 순서 번호가 없는 프레임을 의미한다. 첫 번째 비트와 두 번째 비트가 모두 1로 설정되어 있다. 여러 종류를 가지고 있는데 Type의 2비트와 Modifier의 3비트를 합쳐 5비트를 통해 종류를 나눈다.
-( 4 ) 은/는 두 호스트 모두 혼합국으로 동작한다. 양쪽에서 명령과 응답을 전송할 수 있다.
-( 5 ) 은/는 불균형 모드로 주국의 허락 없이 종국에서 데이터를 전송할 수 있다.`,
+    passageOrCode: `- (  1  ) 프레임은 Seq, Next, P/F의 필드를 가진다. 또한 맨 처음 비트를 0으로 가진다. Seq는 송신용 순서번호를 가지고 있다. Next는 응답용 순서번호를 가진다. P/F는 P가 1로 설정된 경우 주국에서 종국에 데이터 전송을 허용하는 것을 의미하고 F가 1로 설정된 경우 종국에서 주국으로 데이터 전송을 하는 것을 의미한다.
+- (  2  ) 프레임은 맨 앞의 필드가 1로 되어 있어 정보 프레임이 아니라는 것을 나타내고 다음 비트가 0이 나와있다. Type의 경우에는 2비트를 가지고 있어 4가지의 종류로 나누어진다. 데이터를 보내는 역할이 아니라 응답의 기능을 수행하므로 Seq에 대한 값은 필요가 없고 다음 프레임을 요구하는 Next만 존재한다.
+- (  3  ) 프레임은 순서 번호가 없는 프레임을 의미한다. 첫 번째 비트와 두 번째 비트가 모두 1로 설정되어 있다. 여러 종류를 가지고 있는데 Type의 2비트와 Modifier의 3비트를 합쳐 5비트를 통해 종류를 나눈다.
+- (  4  ) 은/는 두 호스트 모두 혼합국으로 동작한다. 양쪽에서 명령과 응답을 전송할 수 있다.
+- (  5  ) 은/는 불균형 모드로 주국의 허락 없이 종국에서 데이터를 전송할 수 있다.`,
     options: [
       "ㄱ. 연결제어",
       "ㄴ. 감독",
@@ -276,12 +267,12 @@ int main(int argc, char const *argv[]){
 false
 true
 true`,
-    question: "다음은 자바에 대한 문제이다. 알맞은 출력값을 작성하시오.",
+    question: "다음은 Java코드에 대한 문제이다. 알맞은 출력값을 작성하시오.",
     passageOrCode: `public class Main {
     public static void main(String[] args) {
-        String str1 = "Programming";
-        String str2 = "Programming";
-        String str3 = new String("Programming");
+        String str1 = "munsik";
+        String str2 = "munsik";
+        String str3 = new String("munsik");
         println(str1 == str2)
         println(str1 == str3)
         println(str1.equals(str3))

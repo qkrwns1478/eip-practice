@@ -3,19 +3,37 @@
     <nav class="sidebar">
       <ul>
         <li>
-          <button @click="currentTab = 'GeoQuiz'" :class="{ active: currentTab === 'GeoQuiz' }" aria-label="키워드">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <button @click="currentTab = 'GeoQuiz'" :class="{ active: currentTab === 'GeoQuiz' }" aria-label="핵심개념">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
               <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
             </svg>
-            <span class="tooltip-text">키워드</span>
+            <span class="tooltip-text">핵심개념</span>
           </button>
         </li>
         <li>
           <button @click="currentTab = 'PstQuiz'" :class="{ active: currentTab === 'PstQuiz' }">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
               <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
               <polyline points="14 2 14 8 20 8" />
               <line x1="16" y1="13" x2="8" y2="13" />
@@ -29,11 +47,24 @@
 
       <ul class="sidebar-bottom">
         <li>
-          <button @click="toggleDarkMode" class="dark-mode-toggle"
-            :aria-label="isDarkMode ? '라이트 모드로 전환' : '다크 모드로 전환'">
-            <svg v-if="!isDarkMode" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="feather feather-sun">
+          <button
+            @click="toggleDarkMode"
+            class="dark-mode-toggle"
+            :aria-label="isDarkMode ? '라이트 모드로 전환' : '다크 모드로 전환'"
+          >
+            <svg
+              v-if="!isDarkMode"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-sun"
+            >
               <circle cx="12" cy="12" r="5" />
               <line x1="12" y1="1" x2="12" y2="3" />
               <line x1="12" y1="21" x2="12" y2="23" />
@@ -44,12 +75,22 @@
               <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
               <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
             </svg>
-            <svg v-else xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-              class="feather feather-moon">
+            <svg
+              v-else
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="feather feather-moon"
+            >
               <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
             </svg>
-            <span class="tooltip-text">{{ isDarkMode ? '다크 모드' : '라이트 모드' }}</span>
+            <span class="tooltip-text">{{ isDarkMode ? "다크 모드" : "라이트 모드" }}</span>
           </button>
         </li>
       </ul>
@@ -67,49 +108,49 @@
 </template>
 
 <script>
-import KeywordQuiz from './components/KeywordQuiz.vue';
-import PstQuiz from './components/PstQuiz.vue';
+import KeywordQuiz from "./components/KeywordQuiz.vue";
+import PstQuiz from "./components/PstQuiz.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     KeywordQuiz,
-    PstQuiz
+    PstQuiz,
   },
   data() {
     return {
-      currentTab: localStorage.getItem('app_currentTab') === 'PstQuiz' ? 'PstQuiz' : 'GeoQuiz',
-      isDarkMode: false
+      currentTab: localStorage.getItem("app_currentTab") === "PstQuiz" ? "PstQuiz" : "GeoQuiz",
+      isDarkMode: false,
     };
   },
   methods: {
     toggleDarkMode() {
       this.isDarkMode = !this.isDarkMode;
-    }
+    },
   },
   watch: {
     currentTab(value) {
-      localStorage.setItem('app_currentTab', value);
+      localStorage.setItem("app_currentTab", value);
     },
     isDarkMode(newValue) {
       if (newValue) {
-        document.documentElement.classList.add('dark-mode');
-        localStorage.setItem('darkMode', 'enabled');
+        document.documentElement.classList.add("dark-mode");
+        localStorage.setItem("darkMode", "enabled");
       } else {
-        document.documentElement.classList.remove('dark-mode');
-        localStorage.setItem('darkMode', 'disabled');
+        document.documentElement.classList.remove("dark-mode");
+        localStorage.setItem("darkMode", "disabled");
       }
-    }
+    },
   },
   mounted() {
-    const savedMode = localStorage.getItem('darkMode');
-    if (savedMode === 'enabled') {
+    const savedMode = localStorage.getItem("darkMode");
+    if (savedMode === "enabled") {
       this.isDarkMode = true;
     } else {
       this.isDarkMode = false;
     }
-  }
-}
+  },
+};
 </script>
 
 <style>
@@ -166,7 +207,9 @@ export default {
   border-radius: 5px;
   background: transparent;
   color: var(--chrome-muted);
-  transition: background-color 120ms, color 120ms;
+  transition:
+    background-color 120ms,
+    color 120ms;
 }
 
 .sidebar button:hover {
@@ -226,5 +269,4 @@ export default {
   position: relative;
   z-index: 1;
 }
-
 </style>

@@ -1,8 +1,11 @@
-# 정보처리기사 실기 퀴즈 앱 (EIP Practice)
+# EIPractice
 
-[Vue 3](https://vuejs.org/)와 [Vite](https://vitejs.dev/)를 사용하여 구축한 정보처리기사 실기 대비용 퀴즈 애플리케이션입니다.
+정보처리기사 실기 대비용 퀴즈 애플리케이션입니다.
 
 ## 자료 출처
+
+기출문제의 경우 복원문제를 활용했습니다.
+
 - [[2026년 대비] 핵심 키워드만 암기하면 쉽게 기억되는 키워드 찾기 130문제](https://www.sinagong.co.kr/pds/001001002/past-exams)
 - [정보처리기사 실기 족보 1탄](https://chobopark.tistory.com/193)
 - [정보처리기사 실기 족보 2탄](https://chobopark.tistory.com/197)
@@ -11,8 +14,8 @@
 - [정보처리기사 실기 기출문제 2020년 3회](https://chobopark.tistory.com/194)
 - [정보처리기사 실기 기출문제 2020년 4회](https://chobopark.tistory.com/192)
 - [정보처리기사 실기 기출문제 2021년 1회](https://chobopark.tistory.com/191)
-- [정보처리기사 실기 기출문제 2021년 2회](https://chobopark.tistory.com/210)
-- [정보처리기사 실기 기출문제 2021년 3회](https://chobopark.tistory.com/217)
+- [정보처리기사 실기 기출문제 2021년 2회](https://sssinga.tistory.com/entry/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-2021%EB%85%84-2%ED%9A%8C-%EA%B8%B0%EC%B6%9C%EB%AC%B8%EC%A0%9C-%EB%B3%B5%EC%9B%90-%EB%B0%8F-%EB%8B%B5%ED%95%B4%EC%84%A4)
+- [정보처리기사 실기 기출문제 2021년 3회](https://sssinga.tistory.com/entry/%EC%A0%95%EB%B3%B4%EC%B2%98%EB%A6%AC%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-2021%EB%85%84-3%ED%9A%8C-%EA%B8%B0%EC%B6%9C%EB%AC%B8%EC%A0%9C-%EB%B3%B5%EC%9B%90-%EB%B0%8F-%EB%8B%B5%ED%95%B4%EC%84%A4)
 - [정보처리기사 실기 기출문제 2022년 1회](https://chobopark.tistory.com/271)
 - [정보처리기사 실기 기출문제 2022년 2회](https://chobopark.tistory.com/423)
 - [정보처리기사 실기 기출문제 2022년 3회](https://chobopark.tistory.com/424)
@@ -28,47 +31,11 @@
 - [정보처리기사 실기 기출문제 2026년 1회](https://chobopark.tistory.com/561)
 - [정보처리기사 실기 기출문제 2026년 2회](https://chobopark.tistory.com/562)
 
-## 주요 기능
-
-- **키워드 퀴즈**
-  - 정보처리기사 실기 핵심 개념을 단답형 문제로 학습할 수 있습니다.
-  - 문제를 풀기 전에 내용을 확인할 수 있는 공부 모드를 제공합니다.
-
-- **족보 퀴즈**
-  - 자주 출제되는 개념을 중심으로 반복 학습할 수 있습니다.
-
-- **기출문제**
-  - 2020년부터 2026년까지의 정보처리기사 실기 기출문제를 회차별로 풀 수 있습니다.
-  - 전체 문제를 무작위로 풀거나 원하는 시험 회차를 선택하여 모의고사 형태로 풀 수 있습니다.
-
-- **코드 문제**
-  - C, Java, Python, SQL 관련 기출문제만 따로 모아서 학습할 수 있습니다.
-  - 언어와 시험 회차를 선택할 수 있으며, 무작위 또는 기출 순서로 문제를 풀 수 있습니다.
-  - 일부 C, Java, Python 문제는 정답 확인 후 코드의 실행 과정을 단계별로 확인할 수 있습니다.
-
-- **오답 및 북마크**
-  - 틀린 문제를 따로 모아 다시 풀 수 있습니다.
-  - 다시 확인하고 싶은 문제를 북마크할 수 있습니다.
-
-- **AI 문제 해설**
-  - 정답 또는 오답 확인 후 `해설` 버튼을 누르면 별도 모달에서 AI 해설을 확인할 수 있습니다.
-  - 생성된 해설은 다음 문제로 넘어가기 전까지 유지됩니다. 북마크 또는 틀린 문제의 해설은 학습 기록에 함께 저장되어 복습 시 다시 확인할 수 있습니다.
-  - 북마크와 틀린 문제 목록에서 모두 제거하면 저장된 해설도 삭제됩니다. 그 외 문제의 해설은 메모리에만 유지하며 다음 문제로 넘어가면 사라집니다.
-
-- **학습 통계**
-  - 풀이 진행률과 정답률을 확인할 수 있습니다.
-
-- **학습 기록 저장**
-  - 브라우저에 학습 진행 상황이 저장되어 새로고침 후에도 이어서 학습할 수 있습니다.
-
-- **다크 모드**
-  - 라이트 모드와 다크 모드를 전환할 수 있으며 선택한 설정이 유지됩니다.
-
 ## 스크린샷
 
 | 족보퀴즈 | 기출문제 | 다크모드 |
 |:---:|:---:|:---:|
-| <img src="./public/images/screenshot_1.jpg" alt="라이트 모드 족보퀴즈 화면"> | <img src="./public/images/screenshot_2.jpg" alt="라이트 모드 2026년 2회 기출문제 화면"> | <img src="./public/images/screenshot_3.jpg" alt="VS Code 스타일 다크 모드 기출문제 화면"> |
+| <img src="./public/images/screenshot_1.jpg" alt="라이트 모드 족보퀴즈 화면"> | <img src="./public/images/screenshot_2.jpg" alt="라이트 모드 2026년 2회 기출문제 화면"> | <img src="./public/images/screenshot_3.jpg" alt="다크 모드 기출문제 화면"> |
 
 ## 기술 스택
 
@@ -78,13 +45,13 @@
 
 ## 실행 방법
 
-Node.js 22.18 이상을 사용합니다. 프로젝트 루트의 `.env`에 Groq API 키를 설정합니다.
+프로젝트 루트의 `.env`에 Groq API 키를 설정합니다.
 
 ```dotenv
 GROQ_API_KEY=발급받은_API_키
 ```
 
-API 키는 서버에서만 사용합니다. `.env` 변경 후 서버를 다시 시작해주세요.
+개발용 서버는 다음과 같이 실행합니다.
 
 ```bash
 npm install
@@ -98,15 +65,4 @@ npm run build
 npm start
 ```
 
-기본 주소는 `http://127.0.0.1:3000`이며 `HOST`와 `PORT` 환경변수로 변경할 수 있습니다. 정적 파일만 호스팅할 경우 `/api/explanation`을 실행하는 Node 서버로 연결해야 합니다.
-
-### Vercel 배포
-
-- 프로젝트 루트를 Vercel의 Root Directory로 지정합니다. Framework Preset은 `Vite`, Build Command는 `npm run build`, Output Directory는 `dist`입니다.
-- `api/explanation.js`가 `/api/explanation` 요청을 처리하는 Vercel 함수로 배포됩니다. `npm start`는 별도 Node 서버 실행용이며 Vercel에서는 사용하지 않습니다.
-- Vercel 프로젝트의 Environment Variables에 `GROQ_API_KEY`를 설정하고 사용하는 환경(Production / Preview)에 적용한 뒤 재배포합니다. 환경변수 변경은 기존 배포에 자동 반영되지 않습니다.
-- 함수의 최대 실행 시간은 `vercel.json`에서 120초로 설정하며, Fluid compute 사용을 권장합니다. 키워드 문제 이미지는 함수에 함께 포함됩니다.
-- 배포 후 `/api/explanation` 주소를 브라우저로 열었을 때 `POST 요청만 지원합니다.`라는 JSON 응답이 나오면 API 함수가 연결된 상태입니다. 실제 해설은 앱에서 채점 후 확인합니다.
-
-- 검증은 `npm test`, 배포용 빌드는 `npm run build`로 실행합니다.
-- Windows PowerShell 실행 정책으로 `npm`을 실행할 수 없는 경우 `npm.cmd`를 사용합니다.
+기본 주소는 `http://127.0.0.1:3000`이며 `HOST`와 `PORT` 환경변수로 변경할 수 있습니다. 정적 파일만 호스팅할 경우 API를 실행하는 Node 서버로 연결해야 합니다.

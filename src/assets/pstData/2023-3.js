@@ -1,6 +1,5 @@
-// 2023년 3회
 export const pstData_2023_3 = [
-{
+  {
     id: 141,
     answer: "BDCDD",
     question: "다음은 Java 코드이다. 올바른 출력 결과를 작성하시오.",
@@ -32,7 +31,7 @@ class B extends A {
     }
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 142,
@@ -55,17 +54,18 @@ class B extends A {
       "ㅅ.Autentication",
       "ㅇ. OAuth",
       "ㅈ.Cookie",
-      "ㅊ.Refresh Token"
+      "ㅊ.Refresh Token",
     ],
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 143,
     answer: "chmod 751",
-    question: "리눅스(Linux)에서 사용자에게 읽기/쓰기/실행 권한을 부여하고, 그룹에게는 읽기/실행을 부여하고, 그 이외에는 실행 권한을 test.txt 파일에 부여하는 위한 명령어는 다음과 같다. 빈칸에 들어갈 답을 작성하시오. (8진법 사용)",
+    question:
+      "리눅스(Linux)에서 사용자에게 읽기/쓰기/실행 권한을 부여하고, 그룹에게는 읽기/실행을 부여하고, 그 이외에는 실행 권한을 test.txt 파일에 부여하는 위한 명령어는 다음과 같다. 빈칸에 들어갈 답을 작성하시오. (8진법 사용)",
     passageOrCode: "( (1) ) ( (2) ) test.txt",
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 144,
@@ -92,12 +92,13 @@ int main() {
     return 0;
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 145,
     answer: "->",
-    question: "C언어에서 구조체의 멤버에 접근하기 위해 괄호안의 기호를 작성하시오.",
+    question:
+      "C언어에서 구조체의 멤버에 접근하기 위해 괄호안의 기호를 작성하시오.",
     passageOrCode: `#include <stdio.h>
 #include <stdlib.h>
 typedef struct Data {
@@ -110,17 +111,17 @@ int main() {
     Data* d2 = malloc(sizeof(struct Data));
     d1.numPtr = &num; // # 기호 대신 &num으로 수정 (문맥상)
     d2( ) numPtr = &num; // # 기호 대신 &num으로 수정 (문맥상)
-    printf("%d\
-", *d1.numPtr);
-    printf("%d\
-", *d2( ) numPtr);
+    printf("%d\\n", *d1.numPtr);
+    printf("%d\\n", *d2( ) numPtr);
     free(d2);
     return 0;
 }`,
-    options: [`출력결과:
+    options: [
+      `출력결과:
 10
-10`],
-    imageUrl: null
+10`,
+    ],
+    imageUrl: null,
   },
   {
     id: 146,
@@ -131,19 +132,27 @@ T1: 3, 1, 4
 T2: 2, 4, 3
 
 [쿼리]
-SELECT * FROM T1 UNION SELECT * FROM T2`,
+SELECT * FROM T1 UNION SELECT * FROM T2 ORDER BY A DESC;
+
+[결과]
+(    )
+(    )
+(    )
+(    )
+`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 147,
     answer: "MAC RBAC DAC",
-    question: "다음 설명은 서버 접근 통제의 유형이다. 괄호 안에 들어갈 용어를 작성하시오. (영어 약자로 작성하시오.)",
-    passageOrCode: `- ( (1) )은/는 규칙 기반(Rule-Based) 접근통제 정책으로, 객체에 포함된 정보의 허용 등급과 접근 정보에 대하여 주체가 갖는 접근 허가 권한에 근거하여 객체에 대한 접근을 제한하는 방법이다.
-- ( (2) )은/는 중앙 관리자가 사용자와 시스템의 상호관계를 통제하며 조직 내 맡은 역할(Role)에 기초하여 자원에 대한 접근을 제한하는 방법이다.
-- ( (3) )은/는 신분 기반(Identity-Based) 접근통제 정책으로, 주체나 그룹의 신분에 근거하여 객체에 대한 접근을 제한하는 방법이다.`,
+    question:
+      "다음 설명은 서버 접근 통제의 유형이다. 괄호 안에 들어갈 용어를 작성하시오. (영어 약자로 작성하시오.)",
+    passageOrCode: `- (  1  )은/는 규칙 기반(Rule-Based) 접근통제 정책으로, 객체에 포함된 정보의 허용 등급과 접근 정보에 대하여 주체가 갖는 접근 허가 권한에 근거하여 객체에 대한 접근을 제한하는 방법이다.
+- (  2  )은/는 중앙 관리자가 사용자와 시스템의 상호관계를 통제하며 조직 내 맡은 역할(Role)에 기초하여 자원에 대한 접근을 제한하는 방법이다.
+- (  3  )은/는 신분 기반(Identity-Based) 접근통제 정책으로, 주체나 그룹의 신분에 근거하여 객체에 대한 접근을 제한하는 방법이다.`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 148,
@@ -156,21 +165,23 @@ int f(int n) {
     else
         return n * f(n - 1);
 }
+
 int main() {
     printf("%d", f(7));
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 149,
     answer: "ATM",
-    question: "다음 설명에 대해 괄호 안에 알맞는 용어를 작성하시오. (영어 약자로 작성하시오.)",
-    passageOrCode: `- ( )은/는 자료를 일정한 크기로 정하여 순서대로 전송하는 자료의 전송 방식이다.
+    question:
+      "다음 설명에 대해 괄호 안에 알맞는 용어를 작성하시오.",
+    passageOrCode: `- (    )은/는 자료를 일정한 크기로 정하여 순서대로 전송하는 자료의 전송 방식이다.
 - 셀이라 부르는 고정 길이 패킷을 이용하여 처리가 단순하고 고속망에 적합하며, 연속적으로 셀을 보낼 때 다중화를 하지 않고 셀단위로 동기가 이루어지지만 경우에 따라 동기식 시간 분할 다중화를 사용하기도 한다.
 - 가상 채널 (Virtual Channel) 기반의 연결 지향 서비스로 셀이라 부르는 고정 길이(53바이트) 패킷을 사용하며 통계적 다중화 방식을 이용한다.`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 150,
@@ -183,19 +194,14 @@ O`,
     passageOrCode: `#include <stdio.h>
 int main() {
     char* p = "KOREA";
-    printf("%s\
-", p);
-    printf("%s\
-", p + 1);
-    printf("%c\
-", *p);
-    printf("%c\
-", *(p + 3));
-    printf("%c\
-", *p + 4);
+    printf("%s\\n", p);
+    printf("%s\\n", p + 1);
+    printf("%c\\n", *p);
+    printf("%c\\n", *(p + 3));
+    printf("%c\\n", *p + 4);
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 151,
@@ -222,21 +228,23 @@ public class main {
     }
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 152,
     answer: "NAT",
     alt: "Network Address Transformation",
-    question: "IP 패킷에서 외부의 공인 IP주소와 포트 주소에 해당하는 내부 IP주소를 재기록하여 라우터를 통해 네트워크 트래픽을 주고받는 기술은 무엇인가?",
+    question:
+      "IP 패킷에서 외부의 공인 IP주소와 포트 주소에 해당하는 내부 IP주소를 재기록하여 라우터를 통해 네트워크 트래픽을 주고받는 기술은 무엇인가?",
     passageOrCode: null,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 153,
     answer: "7",
-    question: "다음 자바 코드를 실행할 경우 에러가 발생이 된다. 에러가 발생하는 라인명을 작성하시오.",
+    question:
+      "다음 자바 코드를 실행할 경우 에러가 발생이 된다. 에러가 발생하는 라인 번호를 작성하시오.",
     passageOrCode: `class Person {
     private String name;
     public Person(String val) {
@@ -256,12 +264,13 @@ public class main {
     }
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 154,
     answer: "split",
-    question: "다음은 파이썬에 대한 문제이다. 밑줄친 부분에 알맞는 답을 작성하시오.",
+    question:
+      "다음은 파이썬에 대한 문제이다. 밑줄친 부분에 알맞는 답을 작성하시오.",
     passageOrCode: `print("파이썬 입출력에 대한 문제입니다.")
 num1, num2 = input().___()
 num1 = int(num1)
@@ -269,20 +278,25 @@ num2 = int(num2)
 print(num1, num2)
 num3 = num1 + num2
 print(num1 + " + " + num2 + " = " + num3)`,
-    options: ["입력값은 2와 3이다.", `출력화면:
+    options: [
+      "입력값은 2와 3이다.",
+      `출력화면:
 파이썬 입력출에 대한 문제입니다.
 2 3
-2 + 3 = 5`],
-    imageUrl: null
+2 + 3 = 5`,
+    ],
+    imageUrl: null,
   },
   {
     id: 155,
     answer: "Package",
     alt: "패키지",
-    question: "다음은 판매와 관련된 다이어그램이다. 해당 다이어그램의 명칭을 쓰시오.",
+    question:
+      "다음은 판매와 관련된 다이어그램이다. 해당 다이어그램의 명칭을 쓰시오.",
     passageOrCode: null,
     options: null,
-    imageUrl: "https://blog.kakaocdn.net/dna/G17fg/btsDs2rLh1k/AAAAAAAAAAAAAAAAAAAAAEzsNevCGXIAmmZEVFohw79sXzdlfZnUxEWidCJMTCRJ/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=Pmkg8jVqzf0tF109DMhSuLzDqGQ%3D"
+    imageUrl:
+      "https://blog.kakaocdn.net/dna/G17fg/btsDs2rLh1k/AAAAAAAAAAAAAAAAAAAAAEzsNevCGXIAmmZEVFohw79sXzdlfZnUxEWidCJMTCRJ/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=Pmkg8jVqzf0tF109DMhSuLzDqGQ%3D",
   },
   {
     id: 156,
@@ -297,27 +311,25 @@ print(num1 + " + " + num2 + " = " + num3)`,
     options: [
       "ㄱ.Equivalence Partitioning",
       "ㄴ.Statement Coverage",
-      "ㄷ.Boundary Value Analy",
+      "ㄷ.Boundary Value Analysis",
       "ㄹ.Branch Coverage",
       "ㅁ.Error Guessing",
       "ㅂ.Condition Coverage",
-      "ㅅ.Cause Effect Graph"
+      "ㅅ.Cause Effect Graph",
     ],
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 157,
     answer: "IaaS PaaS SaaS",
-    question: "다음은 클라우드에 대한 유형 문제이다. 괄호안에 알맞는 답을 보기에 골라 작성하시오.",
+    question:
+      "다음은 클라우드에 대한 유형 문제이다. 괄호안에 알맞는 답을 보기에 골라 작성하시오.",
     passageOrCode: `(1) 인프라형 서비스 - 서버, 스토리지 등의 IT 인프라를 제공
 (2) 플랫폼형 서비스 - 개발 환경을 서비스로 제공
 (3) 소프트웨어형 서비스 - 소프트웨어를 서비스로 제공`,
-    options: [
-      "PaaS",
-      "SaaS",
-      "IaaS"
-    ],
-    imageUrl: "https://blog.kakaocdn.net/dna/bgV3Dv/btsDxjzXlXL/AAAAAAAAAAAAAAAAAAAAAO1vPFE8OwX5WjtRdf3rKwQojSeV57tJwEDkKca4r2_i/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=mAZ1bwlGwHCIUzbAVNGqbZTxlug%3D"
+    options: ["PaaS", "SaaS", "IaaS"],
+    imageUrl:
+      "https://blog.kakaocdn.net/dna/bgV3Dv/btsDxjzXlXL/AAAAAAAAAAAAAAAAAAAAAO1vPFE8OwX5WjtRdf3rKwQojSeV57tJwEDkKca4r2_i/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=mAZ1bwlGwHCIUzbAVNGqbZTxlug%3D",
   },
   {
     id: 158,
@@ -328,32 +340,30 @@ print(num1 + " + " + num2 + " = " + num3)`,
 - 최단거리 즉, Hop count가 적은 경로를 택하여 라우팅하는 프로토콜로 Routing Table에 인접 라우터 정보를 저장하여 경로를 결정한다.
 - 최대 Hop count는 15로 거리가 짧기 때문에 IGP로 많이 이용하는 프로토콜이다.`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 159,
     answer: "ㄷ ㄴ ㄱ ㄹ",
-    question: "다음은 관계 대수에 대한 내용이다. 보기에 알맞는 기호를 작성하시오.",
+    alts: ["ㄷ. ⋈ ㄴ. π ㄱ. σ ㄹ. ÷", "⋈ π σ ÷"],
+    question:
+      "다음은 관계 대수에 대한 내용이다. 보기에 알맞는 기호를 작성하시오.",
     passageOrCode: `1. join : ( 1 )
 2. project : ( 2 )
 3. select : ( 3 )
 4. division : ( 4 )`,
-    options: [
-      "ㄱ. σ",
-      "ㄴ. π",
-      "ㄷ. ⋈",
-      "ㄹ. ÷"
-    ],
-    imageUrl: null
+    options: ["ㄱ. σ", "ㄴ. π", "ㄷ. ⋈", "ㄹ. ÷"],
+    imageUrl: null,
   },
   {
     id: 160,
     answer: "참조",
-    question: "다음은 데이터베이스에 관련된 문제이다. 괄호 안에 알맞는 답을 작성하시오.",
+    question:
+      "다음은 데이터베이스에 관련된 문제이다. 괄호 안에 알맞는 답을 작성하시오.",
     passageOrCode: `- ( ) 무결성은 관계 데이터베이스 관계 모델에서 2개의 관련 있던 관계 변수(테이블) 간의 일관성(데이터 무결성)을 말한다.
 - 종종 기본 키 또는 키가 아닌 후보 키와 외래 키의 조합으로 강제 적용된다.
 - 외래 키가 선언된 관계 변수의 외래 키를 구성하는 속성(열)의 값은 그 관계 변수의 부모가 되는 관계 변수의 기본 키 값 또는 기본 키가 아닌 후보 키 값으로 존재해야 한다.`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
 ];

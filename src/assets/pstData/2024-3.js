@@ -1,15 +1,15 @@
-// 2024년 3회
 export const pstData_2024_3 = [
-{
+  {
     id: 81,
-    answer: "OOAAA",
-    question: "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    answer: "YYAAA",
+    question:
+      "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `public class Main {
     static String[] s = new String[3];
     static void func(String[] s, int size) {
         for (int i = 1; i < size; i++) {
             if (s[i - 1].equals(s[i])) {
-                System.out.print("O");
+                System.out.print("Y");
             } else {
                 System.out.print("N");
             }
@@ -26,12 +26,13 @@ export const pstData_2024_3 = [
     }
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 82,
     answer: "3",
-    question: "다음은 파이썬에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    question:
+      "다음은 파이썬에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `def func(lst):
     for i in range(len(lst) // 2):
         lst[i], lst[-i - 1] = lst[-i - 1], lst[i]
@@ -40,12 +41,13 @@ lst = [1, 2, 3, 4, 5, 6]
 func(lst)
 print(sum(lst[::2]) - sum(lst[1::2]))`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 83,
     answer: "1",
-    question: "아래의 employee테이블과 project테이블을 참고하여 보기의 SQL명령어에 알맞는 출력 값을 작성하시오.",
+    question:
+      "아래의 employee테이블과 project테이블을 참고하여 보기의 SQL명령어에 알맞는 출력 값을 작성하시오.",
     passageOrCode: `SELECT count(*)
 FROM employee AS e
 JOIN project AS p ON e.project_id = p.project_id
@@ -60,42 +62,46 @@ WHERE p.name IN (
     )
 );`,
     options: null,
-    imageUrl: "https://blog.kakaocdn.net/dna/9Duij/btsKhmXLACx/AAAAAAAAAAAAAAAAAAAAAJ7Z6wb65tBG8qfWhrB_xN_Eay6h24r_fPFYzm7NtBE5/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=py3M8gPVgARfSsFupUcEtpPeFbA%3D"
+    imageUrl:
+      "https://blog.kakaocdn.net/dna/9Duij/btsKhmXLACx/AAAAAAAAAAAAAAAAAAAAAJ7Z6wb65tBG8qfWhrB_xN_Eay6h24r_fPFYzm7NtBE5/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=py3M8gPVgARfSsFupUcEtpPeFbA%3D",
   },
   {
     id: 84,
     answer: "12",
-    question: "다음은 운영체제 페이지 순서를 참고하여 할당된 프레임의 수가 3개일 때 LRU 알고리즘의 페이지 부재 횟수를 작성하시오.",
+    question:
+      "다음은 운영체제 페이지 순서를 참고하여 할당된 프레임의 수가 3개일 때 LRU 알고리즘의 페이지 부재 횟수를 작성하시오.",
     passageOrCode: "페이지 참조 순서 : 7 0 1 2 0 3 0 4 2 3 0 3 2 1 2 0 1 7 0 1",
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 85,
     answer: "스머프",
-    alt: "스머핑 Smurf Smurfing",
+    alts: ["스머핑", "Smurf", "Smurfing"],
     question: "다음은 네트워크 취약점에 대한 문제이다. 아래 내용을 보고 알맞는 용어를 작성하시오.",
-    passageOrCode: `- IP나 ICMP의 특성을 악용하여 엄청난 양의 데이터를 한 사이트에 집중적으로 보냄으로써 네트워크의 일부를 불능 상태로 만드는 공격이다.
-- 여러 호스트가 특정 대상에게 다량의 ICMP Echo Reply 를 보내게 하여 서비스거부(DoS)를 유발시키는 보안공격이다.
-- 공격 대상 호스트는 다량으로 유입되는 패킷으로 인해 서비스 불능 상태에 빠진다.`,
+    passageOrCode: `IP나 ICMP의 특성을 악용하여 엄청난 양의 데이터를 한 사이트에 집중적으로 보냄으로써 네트워크의 일부를 불능 상태로 만드는 공격이다.
+여러 호스트가 특정 대상에게 다량의 ICMP Echo Reply 를 보내게 하여 서비스거부(DoS)를 유발시키는 보안공격이다.
+공격 대상 호스트는 다량으로 유입되는 패킷으로 인해 서비스 불능 상태에 빠진다.`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 86,
     answer: "행위",
-    alt: "행동 Behavioral",
-    question: "다음은 GoF 디자인 패턴과 관련된 문제이다. 괄호안에 알맞는 용어를 작성하시오.",
-    passageOrCode: `( ) 패턴은 클래스나 객체들이 서로 상호작용하는 방법이나 책임 분배 방법을 정의하는 패턴이다.
-( ) 패턴은 객체들 간의 통신 방법을 정의하고 알고리즘을 캡슐화하여 객체 간의 결합도를 낮춘다.
-( ) 패턴은 Chain of Responsibility나 Command 또는 Observer 패턴이 있다.`,
+    alts: ["행동", "Behavioral"],
+    question: "다음은 GoF 디자인 패턴과 관련된 문제이다. 괄호 안에 알맞는 용어를 작성하시오.",
+    passageOrCode: `(   ) 패턴
+- 클래스나 객체들이 서로 상호작용하는 방법이나 책임 분배 방법을 정의하는 패턴이다.
+- 객체들 간의 통신 방법을 정의하고 알고리즘을 캡슐화하여 객체 간의 결합도를 낮춘다.
+- Chain of Responsibility나 Command 또는 Observer 패턴이 있다.`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 87,
     answer: "20",
-    question: "다음은 C언어에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    question:
+      "다음은 C언어에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `#include <stdio.h>
 int func() {
     static int x = 0;
@@ -113,35 +119,40 @@ int main() {
     return 0;
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 88,
     answer: "개체",
-    alt: "Entity",
-    question: "다음은 무결성제약조건에 대한 문제이다. 아래 표에서 어떠한 ( ) 무결성을 위반하였는지 작성하시오.",
-    passageOrCode: null,
+    alts: ["Entity", "엔티티"],
+    question:
+      "다음은 무결성 제약조건에 대한 문제이다. 아래 표에서 어떠한 무결성을 위반하였는지 작성하시오.",
+    passageOrCode: "(   ) 제약조건",
     options: null,
-    imageUrl: "https://blog.kakaocdn.net/dna/nh0RX/btsKgJl3Fa7/AAAAAAAAAAAAAAAAAAAAAG3F7y15SpGBFn7EpGA8Tqt3MwIPtZOIhTFksxToLV5O/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=V%2BW%2BojQHr%2FfmY3aHWY0uWDRO%2BKw%3D"
+    imageUrl:
+      "https://blog.kakaocdn.net/dna/nh0RX/btsKgJl3Fa7/AAAAAAAAAAAAAAAAAAAAAG3F7y15SpGBFn7EpGA8Tqt3MwIPtZOIhTFksxToLV5O/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=V%2BW%2BojQHr%2FfmY3aHWY0uWDRO%2BKw%3D",
   },
   {
     id: 89,
     answer: "43125",
-    question: "다음은 URL 구조에 관한 문제이다. 아래 보기의 순서대로 URL에 해당하는 번호를 작성하시오.",
+    question:
+      "다음은 URL 구조에 관한 문제이다. 아래 보기의 순서대로 URL에 해당하는 번호를 작성하시오.",
     passageOrCode: null,
     options: [
       "query : 서버에 전달할 추가 데이터",
       "path : 서버 내의 특정 자원을 가리키는 경로",
       "scheme : 리소스에 접근하는 방법이나 프로토콜",
       "authority : 사용자 정보, 호스트명, 포트 번호",
-      "fragment : 특정 문서 내의 위치"
+      "fragment : 특정 문서 내의 위치",
     ],
-    imageUrl: "https://blog.kakaocdn.net/dna/bge1Ni/btsKfy62Ji6/AAAAAAAAAAAAAAAAAAAAADDVvxyjlpIU2PB6-m4-7z3CDSaXrwMa09a2ffodtExB/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=RyPEmctNOCJOEayHLKNGz115EJg%3D"
+    imageUrl:
+      "https://blog.kakaocdn.net/dna/bge1Ni/btsKfy62Ji6/AAAAAAAAAAAAAAAAAAAAADDVvxyjlpIU2PB6-m4-7z3CDSaXrwMa09a2ffodtExB/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=RyPEmctNOCJOEayHLKNGz115EJg%3D",
   },
   {
     id: 90,
     answer: "45",
-    question: "다음은 파이썬에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    question:
+      "다음은 파이썬에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `def func(value):
     if type(value) == type(100):
         return 100
@@ -155,12 +166,13 @@ b = 100.0
 c = (100, 200)
 print(func(a) + func(b) + func(c))`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 91,
     answer: "52",
-    question: "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    question:
+      "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `public class Main {
     public static void main(String[] args) {
         Base a = new Derivate();
@@ -183,12 +195,13 @@ class Derivate extends Base {
     }
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 92,
     answer: "312",
-    question: "다음은 C언어에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    question:
+      "다음은 C언어에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `#include <stdio.h>
 struct Node {
     int value;
@@ -219,13 +232,14 @@ int main() {
     return 0;
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 93,
     answer: "ㅂ ㄹ ㄱ",
     alt: "문장 분기 조건",
-    question: "다음은 테스트 커버리지에 대한 문제이다. 아래 내용에 알맞는 답을 보기에서 골라 작성하시오.",
+    question:
+      "다음은 테스트 커버리지에 대한 문제이다. 아래 내용에 알맞는 답을 보기에서 골라 각각 작성하시오.",
     passageOrCode: `1. 테스트를 통해 프로그램의 모든 문장을 최소한 한 번씩 실행했는지를 측정
 2. 프로그램 내의 모든 분기(조건문)의 각 분기를 최소한 한 번씩 실행했는지를 측정
 3. 복합 조건 내의 각 개별 조건이 참과 거짓으로 평가되는 경우를 모두 테스트했는지를 측정`,
@@ -236,44 +250,39 @@ int main() {
       "ㄹ. 분기",
       "ㅁ.함수",
       "ㅂ. 문장",
-      "ㅅ. 루프"
+      "ㅅ. 루프",
     ],
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 94,
     answer: "ㄴ ㄷ ㄱ",
     alt: "연관 일반화 의존",
-    question: "아래는 UML클래스의 관계에 관한 문제이다. 보기를 보고 알맞는 관계를 선택하여 작성하시오.",
+    question:
+      "아래는 UML클래스의 관계에 관한 문제이다. 보기를 보고 알맞는 관계를 선택하여 작성하시오.",
     passageOrCode: null,
-    options: [
-      "ㄱ. 의존",
-      "ㄴ. 연관",
-      "ㄷ. 일반화"
-    ],
-    imageUrl: "https://blog.kakaocdn.net/dna/uev6c/btsKheTOKch/AAAAAAAAAAAAAAAAAAAAAEwYju5DTzHQzGaTpqTmpYyFCvpFpBfnZJ4Y4VLYPDnh/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=2QHkQSNRAh6vHLwjuuSKBw8Uye4%3D"
+    options: ["ㄱ. 의존", "ㄴ. 연관", "ㄷ. 일반화"],
+    imageUrl:
+      "https://blog.kakaocdn.net/dna/uev6c/btsKheTOKch/AAAAAAAAAAAAAAAAAAAAAEwYju5DTzHQzGaTpqTmpYyFCvpFpBfnZJ4Y4VLYPDnh/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=2QHkQSNRAh6vHLwjuuSKBw8Uye4%3D",
   },
   {
     id: 95,
     answer: "ㄴ ㄹ ㄷ ㄱ",
     alt: "외래키 후보키 대체키 슈퍼키",
-    question: "다음은 데이터베이스에 관한 문제이다. 아래 내용을 읽고 알맞는 답을 보기에서 찾아 골라 작성하시오.",
+    question:
+      "다음은 데이터베이스에 관한 문제이다. 아래 내용을 읽고 알맞는 답을 보기에서 찾아 골라 작성하시오.",
     passageOrCode: `(1) 다른 테이블, 릴레이션의 기본 키를 참조하는 속성 또는 속성들의 집합
 (2) 테이블에서 각 행을 유일하게 식별할 수 있는 최소한의 속성들의 집합
 (3) 후보 키 중에서 선정된 기본 키를 제외한 나머지 후보 키
 (4) 테이블에서 각 행을 유일하게 식별할 수 있는 속성들의 집합`,
-    options: [
-      "ㄱ. 슈퍼키",
-      "ㄴ. 외래키",
-      "ㄷ. 대체키",
-      "ㄹ. 후보키"
-    ],
-    imageUrl: null
+    options: ["ㄱ. 슈퍼키", "ㄴ. 외래키", "ㄷ. 대체키", "ㄹ. 후보키"],
+    imageUrl: null,
   },
   {
     id: 96,
     answer: "1",
-    question: "다음은 C언어에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    question:
+      "다음은 C언어에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `#include <stdio.h>
 void func(int** arr, int size) {
     for (int i = 0; i < size; i++) {
@@ -292,7 +301,7 @@ int main() {
     return 0;
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 97,
@@ -302,12 +311,13 @@ int main() {
 - 사용자의 IP 주소를 숨기고, 사용자가 어디에서 접속하는지를 추적하기 어렵게 만든다.
 - 종류로는 IPsec 또는 SSL, L2TP 등이 있다.`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 98,
     answer: "101",
-    question: "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    question:
+      "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `public class ExceptionHandling {
     public static void main(String[] args) {
         int sum = 0;
@@ -328,12 +338,13 @@ int main() {
     }
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 99,
     answer: "B0",
-    question: "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
+    question:
+      "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `class Main {
     public static class Collection<T> {
         T value;
@@ -360,13 +371,14 @@ int main() {
     }
 }`,
     options: null,
-    imageUrl: null
+    imageUrl: null,
   },
   {
     id: 100,
     answer: "ㄹ",
     alt: "Ad-hoc Network",
-    question: "다음은 네트워크에 대한 문제이다. 아래 내용을 보고 알맞는 용어를 작성하시오.",
+    question:
+      "다음은 네트워크에 대한 문제이다. 아래 내용을 보고 알맞는 용어를 작성하시오.",
     passageOrCode: `- 중앙 관리나 고정된 인프라 없이 임시로 구성되는 네트워크이다.
 - 일반적으로 무선 통신을 통해 노드들이 직접 연결되어 데이터를 주고받는다.
 - 긴급 구조, 긴급 회의, 군사적인 상황 등에서 유용하게 활용될 수 있다.`,
@@ -377,8 +389,8 @@ int main() {
       "ㄹ. Ad-hoc Network",
       "ㅁ. Mesh Network",
       "ㅂ. Sensor Network",
-      "ㅅ. Virtual Private Network"
+      "ㅅ. Virtual Private Network",
     ],
-    imageUrl: null
+    imageUrl: null,
   },
 ];
