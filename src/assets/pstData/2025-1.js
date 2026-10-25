@@ -97,7 +97,7 @@ TCP (    )은/는 TCP의 3-way 핸드셰이크가 완료된 후에 공격자가 
     answer: `name incentives
 이순신 1000`,
     question: "다음은 SQL 문제이다. 아래 두 테이블을 참고하여 보기에 쿼리 실행 결과를 작성하시오.",
-    passageOrCode: `SELECT name, incentive FROM emp, sal WHERE emp.id = sal.id and incentives >= 500`,
+    passageOrCode: `SELECT name, incentives FROM emp, sal WHERE emp.id = sal.id and incentives >= 500`,
     options: null,
     imageUrl: "https://blog.kakaocdn.net/dna/F7Tnq/btsNzZtANQz/AAAAAAAAAAAAAAAAAAAAAK1cx-4kJpaMoUmRFCPQDT5G_pIphsY5oeoaQzKY76x6/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=v237yKIpHywK6Y4FL%2Bfu%2FAAcMb4%3D",
   },

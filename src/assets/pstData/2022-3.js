@@ -1,4 +1,3 @@
-// 2022년 3회
 export const pstData_2022_3 = [
   {
     id: 201,
@@ -53,13 +52,14 @@ int calculate(w, h, j, i) {
   {
     id: 203,
     answer: "Bridge Observer",
+    alt: "브리지 옵저버",
     question: "다음은 디자인 패턴에 대한 설명이다. 괄호안에 알맞는 답을 작성하시오.",
-    passageOrCode: `( 1 )은/는 기능을 처리하는 클래스와 구현을 담당하는 추상 클래스로 구별한다.
+    passageOrCode: `(  1  )은/는 기능을 처리하는 클래스와 구현을 담당하는 추상 클래스로 구별한다.
 구현뿐 아니라 추상화도 독립적 변경이 필요할 때 브리지 패턴을 사용한다.
 기존 시스템에 부수적인 새로운 기능들을 지속적으로 추가할 때 사용하면 유용하며,
 새로운 인터페이스를 정의하여 기존 프로그램의 변경 없이 기능을 확장할 수 있다.
 
-( 2 )은/는 한 객체의 상태가 변화하면 객체에 상속되어 있는 다른 객체들에게 변화된 상태를 전달해주는 패턴이다.
+(  2  )은/는 한 객체의 상태가 변화하면 객체에 상속되어 있는 다른 객체들에게 변화된 상태를 전달해주는 패턴이다.
 일대다 관계를 가지며, 주로 분산된 시스템 간에 이벤트를 생성·발행(Publish)하고, 이를 수신(Subscribe)해야 할 때 이용한다.`,
     options: ["Builder", "Factory Method", "Adapter", "Bridge", "Facade", "Proxy", "Observer", "Mediator"],
     imageUrl: null
@@ -88,8 +88,8 @@ int calculate(w, h, j, i) {
   {
     id: 205,
     answer: "192.168.1.127",
-    question: "아래 코드에 대한 출력 값을 작성하시오.",
-    passageOrCode: "첫번째 네트워크 주소가 192.168.1.0/24일때 FLSM 3개로 분할했을때 두번째 네트워크 브로드캐스트 IP를 10진수로 변환한 값을 작성하시오.",
+    question: "첫번째 네트워크 주소가 192.168.1.0/24일때 FLSM 3개로 분할했을때 두번째 네트워크 브로드캐스트 IP를 10진수로 변환한 값을 작성하시오.",
+    passageOrCode: null,
     options: null,
     imageUrl: null
   },
@@ -99,8 +99,16 @@ int calculate(w, h, j, i) {
     alt: "Boundary Value Analysis",
     question: "아래 표를 확인하여 가장 적절한 것의 기호를 고르시오.",
     passageOrCode: null,
-    options: ["ㄱ. Equivalence Partition", "ㄴ. Boundary Value Analysis", "ㄷ. Condition Test", "ㄹ. Cause-Effect Graph",
-      "ㅁ. Error Guess Comparison Test", "ㅂ. Base Path Test", "ㅅ. Loop Test", "ㅇ. Data Flow Test"],
+    options: [
+      "ㄱ. Equivalence Partition",
+      "ㄴ. Boundary Value Analysis",
+      "ㄷ. Condition Test",
+      "ㄹ. Cause-Effect Graph",
+      "ㅁ. Error Guess Comparison Test",
+      "ㅂ. Base Path Test",
+      "ㅅ. Loop Test",
+      "ㅇ. Data Flow Test"
+    ],
     imageUrl: "https://blog.kakaocdn.net/dna/cqQGyy/btsCZgMmZH6/AAAAAAAAAAAAAAAAAAAAAJpxkYDyTwSJZWp3PJ1nhcodZkfZPJ2wgmtApb1o0Ohu/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=a6GgtKB6VqTf0Z%2BmYMTWFUhBTro%3D"
   },
   {
@@ -116,8 +124,8 @@ int calculate(w, h, j, i) {
     answer: "사회공학 다크데이터",
     alt: "Social Engineering Dark Data",
     question: "아래 설명에 대한 알맞는 답을 작성하시오.",
-    passageOrCode: `( 1 ) 은/는 보안학적 측면에서 기술적인 방법이 아닌 사람들간의 기본적인 신뢰를 기반으로 사람을 속여 비밀 정보를 획득하는 기법이다.
-( 2 ) 은/는 빅데이터(Big Data)와 비슷하면서도 구조화돼 있지 않고, 더는 사용하지 않는 '죽은' 데이터를 의미한다. 일반적으로 정보를 수집해 저장한 이후 분석이나 특별한 목적을 위해 활용하는 데이터가 아니며, 저장공간만 차지하고 이러한 이유로 심각한 보안 위험을 초래할 수 있다.`,
+    passageOrCode: `- (  1  ): 보안학적 측면에서 기술적인 방법이 아닌 사람들간의 기본적인 신뢰를 기반으로 사람을 속여 비밀 정보를 획득하는 기법이다.
+- (  2  ) 빅데이터(Big Data)와 비슷하면서도 구조화돼 있지 않고, 더는 사용하지 않는 '죽은' 데이터를 의미한다. 일반적으로 정보를 수집해 저장한 이후 분석이나 특별한 목적을 위해 활용하는 데이터가 아니며, 저장공간만 차지하고 이러한 이유로 심각한 보안 위험을 초래할 수 있다.`,
     options: null,
     imageUrl: null
   },
@@ -223,8 +231,9 @@ printf("%d", el);`,
     answer: "관계 클래스 인터페이스",
     question: "다음은 UML에 관한 설명이다. 괄호안에 알맞는 답을 작성하시오.",
     passageOrCode: `UML은 통합 모델링 언어로써, 시스템을 모델로 표현해주는 대표적인 모델링 언어이다.
-구성 요소로는 사물, ( 1 ), 다이어그램으로 이루어져 있으며, 구조 다이어그램 중, ( 2 ) 다이어그램은 시스템에서 사용되는 객체 타입을 정의하고, 그들 간의 존재하는 정적인 관계를 다양한 방식으로 표현한 다이어그램이다.
-또한 UML 모델링에서 ( 3 )은/는 클래스와 같은 기타 모델 요소 또는 컴포넌트가 구현해야 하는 오퍼레이션 세트를 정의하는 모델 요소이다.`,
+- 구성 요소로는 사물, (  1  ), 다이어그램으로 이루어져 있다.
+- 구조 다이어그램 중 (  2  ) 다이어그램은 시스템에서 사용되는 객체 타입을 정의하고, 그들 간의 존재하는 정적인 관계를 다양한 방식으로 표현한 다이어그램이다.
+- (  3  )은/는 클래스와 같은 기타 모델 요소 또는 컴포넌트가 구현해야 하는 오퍼레이션 세트를 정의하는 모델 요소이다.`,
     options: null,
     imageUrl: null
   },

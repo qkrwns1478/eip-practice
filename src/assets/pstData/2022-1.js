@@ -13,10 +13,10 @@ export const pstData_2022_1 = [
   {
     id: 162,
     answer: "ㅁ ㄴ",
-    alt: "redo undo",
-    question: "다음 설명을 확인하여 해당하는 항목을 보기에서 찾아 적으시오.",
-    passageOrCode: `1. (    ): 오류가 발생하기 전까지의 사항을 로그(log)로 기록해 놓고, 이전 상태로 되돌아간 후, 실패가 발생하기 전까지의 과정을 그대로 따라가는 현상
-2. (    ): 작업을 취소하여 트랜잭션을 이전 상태로 되돌리는 것`,
+    alt: "REDO UNDO",
+    question: "다음 설명을 확인하여 해당하는 항목을 보기에서 찾아 기호를 적으시오.",
+    passageOrCode: `- (  1  ): 오류가 발생하기 전까지의 사항을 로그(log)로 기록해 놓고, 이전 상태로 되돌아간 후, 실패가 발생하기 전까지의 과정을 그대로 따라가는 현상
+- (  2  ): 작업을 취소하여 트랜잭션을 이전 상태로 되돌리는 것`,
     options: ["ㄱ. ROLLBACK", "ㄴ. UNDO", "ㄷ. LOG", "ㄹ. COMMIT", "ㅁ. REDO", "ㅂ. RECOVERY", "ㅅ. BACKUP", "ㅇ. CHECK"],
     imageUrl: null
   },
@@ -50,9 +50,8 @@ public class Main {
   {
     id: 164,
     answer: "ORDER score DESC",
-    question: "다음 SQL 결과에 알맞는 쿼리를 작성하시오.",
-    passageOrCode: `SELECT name, score FROM 성적 ( 1 ) BY ( 2 ) ( 3 )
-성적을 내림차순으로 정렬하는 쿼리를 완성하시오.`,
+    question: "성적을 내림차순으로 정렬하는 쿼리를 완성하시오.",
+    passageOrCode: `SELECT name, score FROM 성적 (  1  ) BY (  2  ) (  3  )`,
     options: null,
     imageUrl: "https://blog.kakaocdn.net/dna/uEqo5/btrCITDzsQ5/AAAAAAAAAAAAAAAAAAAAAGpz6sul64daWvkKDeHLmkGeeTlmJGv8rtI27qb1-rRW/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=fAiEsaVNFambxTPKOEtImnNg9ig%3D"
   },

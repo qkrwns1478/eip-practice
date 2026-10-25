@@ -6,7 +6,7 @@ export const pstData_2024_1 = [
     passageOrCode: `class Connection {
     private static Connection _inst = null;
     private int count = 0;
-    
+
     static public Connection get() {
         if(_inst == null) {
             _inst = new Connection();
@@ -14,24 +14,24 @@ export const pstData_2024_1 = [
         }
         return _inst;
     }
-    
+
     public void count() {
         count++; 
     }
-    
+
     public int getCount() {
         return count; 
     }
 }
- 
+
 public class main {  
     public static void main(String[] args) {
         Connection conn1 = Connection.get();
         conn1.count();
- 
+
         Connection conn2 = Connection.get();
         conn2.count();
- 
+
         Connection conn3 = Connection.get();
         conn3.count();
         
@@ -47,7 +47,7 @@ public class main {
     answer: "151",
     question: "다음 C언어 코드에서 알맞는 출력 값을 작성하시오.",
     passageOrCode: `#include <stdio.h>
- 
+
 int main() {
     int v1 = 0, v2 = 35, v3 = 29;
     
@@ -78,7 +78,7 @@ int main() {
     question: "다음 C언어 코드에서 알맞는 출력 값을 작성하시오.",
     passageOrCode: `#include <stdio.h>
 #include <string.h>
- 
+
 void reverse(char* str){
     int len = strlen(str);
     char temp;
@@ -92,20 +92,20 @@ void reverse(char* str){
         p2--;
     }
 }
- 
+
 int main(int argc, char* argv[]){
     char str[100] = "ABCDEFGH";
- 
+
     reverse(str);
- 
+
     int len = strlen(str);
- 
+
     for(int i=1; i<len; i+=2){
         printf("%c",str[i]);
     }
- 
+
     printf("\\n");
- 
+
     return 0;
 }`,
     options: null,
@@ -132,18 +132,12 @@ int main(int argc, char* argv[]){
   },
   {
     id: 46,
-    answer: "제 3정규형",
-    alts: ["제3정규형", "3NF", "3"],
+    answer: "제3정규형",
+    alts: ["3NF", "3"],
     question: "아래 표에서 나타나고 있는 정규형을 작성하시오.",
-    passageOrCode: `고객아이디	강좌명	강사번호
-apple 영어회화	P001
-banana	기초토익	P002
-carrot	영어회화	P001
-carrot	기초토익	P004
-orange	영어회화	P003
-orange	기초토익	P004`,
+    passageOrCode: null,
     options: null,
-    imageUrl: null,
+    imageUrl: "https://blog.kakaocdn.net/dna/qHioy/dJMcaixnbjc/AAAAAAAAAAAAAAAAAAAAAGoeHCXF7A6pig90kFsjsgfYTTzutbRh61KrzGVQAXL-/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=rKOa%2B1jvt5ocP8lH2wA03eGTrwM%3D",
   },
   {
     id: 47,
@@ -158,12 +152,12 @@ orange	기초토익	P004`,
   },
   {
     id: 48,
-    answer: "세타 조인 동등 조인 자연 조인",
-    alt: "1. 세타 조인 2. 동등 조인 3. 자연 조인",
+    answer: "세타 동등 자연",
+    alt: "세타 조인 동등 조인 자연 조인",
     question: "아래 내용의 각각의 설명에 대한 답을 작성하시오.",
-    passageOrCode: `(1) 조인에 참여하는 두 릴레이션의 속성 값을 비교하여 조건을 만족하는 튜플만 반환한다.
-(2) 조건이 정확하게 '=' 등호로 일치하는 결과를 반환한다. 
-(3) ( (2) ) 조인에서 조인에 참여한 속성이 두 번 나오지 않도록 중복된 속성을 제거한 결과를 반환한다.`,
+    passageOrCode: `- (  1  ) 조인: 조인에 참여하는 두 릴레이션의 속성 값을 비교하여 조건을 만족하는 튜플만 반환한다.
+- (  2  ) 조인: 조건이 정확하게 '=' 등호로 일치하는 결과를 반환한다. 
+- (  3  ) 조인: (  2  ) 조인에서 조인에 참여한 속성이 두 번 나오지 않도록 중복된 속성을 제거한 결과를 반환한다.`,
     options: null,
     imageUrl: null,
   },
@@ -183,30 +177,30 @@ orange	기초토익	P004`,
     question: "다음 Java언어 코드의 실행 순서를 중복 번호없이 작성하시오.",
     passageOrCode: `class Parent {
     int x, y;
- 
+
     Parent(int x, int y) { ①
         this.x=x;
         this.y=y;
     }
- 
+
     int getT() { ②
         return x*y;
     }
 }
- 
+
 class Child extend Parent {
     int x;
- 
+
     Child (int x) { ③
         super(x+1, x);
         this.x=x;
     }
- 
+
     int getT(int n){ ④
         return super.getT()+n;
     }
 }
- 
+
 class Main {
     public static void main(String[] args) { ⑤
         Parent parent = new Child(3); ⑥
@@ -218,30 +212,30 @@ class Main {
   },
   {
     id: 51,
-    answer: "9981 and 2795.10",
+    answer: "9981 2795.10",
     question: "다음 C언어의 알맞는 출력값을 작성하시오.",
     passageOrCode: `#include <stdio.h>
- 
+
 typedef struct{
     int accNum;
     double bal;
 }BankAcc;
- 
+
 double sim_pow(double base, int year){
     int i;
     double r = 1.0;
- 
+
     for(i=0; i<year; i++){
         r = r*base;
     }
     return r;
 } 
- 
+
 void initAcc(BankAcc *acc, int x, double y){
     acc -> accNum = x;
     acc -> bal = y;
 }
- 
+
 void xxx(BankAcc *acc, double *en){
     if (*en > 0 && *en < acc -> bal) {
         acc -> bal = acc -> bal-*en;
@@ -249,18 +243,18 @@ void xxx(BankAcc *acc, double *en){
         acc -> bal = acc -> bal+*en;
     }
 }
- 
+
 void yyy(BankAcc *acc){
     acc -> bal = acc -> bal * sim_pow((1+0.1),3);
 }
- 
+
 int main(){
     BankAcc myAcc;
     initAcc(&myAcc, 9981, 2200.0);
     double amount = 100.0;
     xxx(&myAcc, &amount);
     yyy(&myAcc);
-    printf("%d and %.2f", myAcc.accNum, myAcc.bal);
+    printf("%d %.2f", myAcc.accNum, myAcc.bal);
     return 0;
 }`,
     options: null,
@@ -340,16 +334,16 @@ WHERE
     question: "다음 Java 코드를 보고 알맞는 출력 값을 작성하시오.",
     passageOrCode: `class classOne {
     int a, b;
- 
+
     public classOne(int a, int b) {
         this.a = a;
         this.b = b;
     }
- 
+
     public void print() {
         System.out.println(a + b);
     }
- 
+
 }
 class classTwo extends classOne {
     int po = 3;
@@ -357,12 +351,12 @@ class classTwo extends classOne {
     public classTwo(int i) {
         super(i, i+1);
     }
- 
+
     public void print() {
         System.out.println(po*po);
     }
 }
- 
+
 public class main {  
     public static void main(String[] args) {
         classOne one = new classTwo(10);
@@ -382,13 +376,13 @@ public class main {
 한가지 기술만이 아닌 Zero-day 취약점, 악성코드 등 다양한 보안 위협 공격 기술을 사용한다.
 일반적으로 공격은 침투, 검색, 수집 및 유출의 4단계로 실행되며, 각 단계별로 다양한 공격 기술을 사용한다.`,
     options: [
-      "ㄱ.사회공학 기법",
-      "ㄴ.Adware",
-      "ㄷ.MITM",
-      "ㄹ.XDR",
-      "ㅁ.Replace attack",
-      "ㅂ.key logger attack",
-      "ㅅ.APT",
+      "ㄱ. 사회공학 기법",
+      "ㄴ. Adware",
+      "ㄷ. MITM",
+      "ㄹ. XDR",
+      "ㅁ. Replace Attack",
+      "ㅂ. Key Logger Attack",
+      "ㅅ. APT",
     ],
     imageUrl: null,
   },
@@ -414,12 +408,12 @@ AND
     question: "다음 C언어 코드의 알맞는 출력 값을 작성하시오.",
     passageOrCode: `#include<stdio.h>
 #include<ctype.h>
- 
+
 int main(){
     char*p = "It is 8";
     char result[100];
     int i;
- 
+
     for(i=0; p[i]!='\\0'; i++){
         if(isupper(p[i]))
             result[i] = (p[i]-'A'+5)% 25 + 'A';
@@ -430,10 +424,10 @@ int main(){
         else if(!(isupper(p[i]) || islower(p[i]) || isdigit(p[i])))    
             result[i] = p[i];
     }
- 
+
     result[i] = '\\0';
     printf("%s\\n",result);
- 
+
     return 0;
 }`,
     options: null,
@@ -442,7 +436,7 @@ int main(){
   {
     id: 60,
     answer: "Abstract Factory",
-    alt: ["추상 팩토리"],
+    alt: "추상 팩토리",
     question: "다음 아래의 내용을 보고 알맞는 용어를 작성하시오.",
     passageOrCode: `구체적인 클래스에 의존하지 않고 서로 연관되거나 의존적인 객체들의 조합을 만드는 인터페이스를 제공하는 패턴이다.
 연관성이 있는 객체 군이 여러개 있을 경우 이들을 묶어 추상화하고, 어떤 구체적인 상황이 주어지면 팩토리 객체에서 집합으로 묶은 객체 군을 구현화 하는 생성 패턴이다.

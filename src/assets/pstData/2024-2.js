@@ -5,19 +5,19 @@ export const pstData_2024_2 = [
     question: "다음은 Java 코드에 대한 문제이다. 아래 코드를 확인하여 알맞는 출력값을 작성하시오.",
     passageOrCode: `class Main {
     public static void main(String[] args) {
-        int[] a = new int[]{1, 2, 3, 4};
-        int[] b = new int[]{1, 2, 3, 4};
-        int[] c = new int[]{1, 2, 3};
-        
+        int[] a = new int[] {1, 2, 3, 4};
+        int[] b = new int[] {1, 2, 3, 4};
+        int[] c = new int[] {1, 2, 3};
+
         check(a, b);
         check(a, c); 
         check(b, c); 
     }
- 
+
     public static void check(int[] a, int[] b) {
         if (a==b) {
             System.out.print("Y");
-        }else{
+        } else{
             System.out.print("N");
         }
         
@@ -44,17 +44,17 @@ export const pstData_2024_2 = [
 부서 [사원번호(PK), 이름, 주소, 나이]
 
 # 신입 사원이 들어와서 사원 테이블에 추가
-INSERT INTO 사원 (사원번호, 이름, 주소, 부서)   [      ①     ] (32431, '정실기', '서울', '영업');
+INSERT INTO 사원 (사원번호, 이름, 주소, 부서) (  1  ) (32431, '정실기', '서울', '영업');
 
 # 위에 신입사원을 검색하면서 부서 테이블에 추가
 INSERT INTO 부서 (사원번호, 이름, 나이, 부서)
-[    ②     ] 사원번호, 이름, 나이, 23 FROM 사원 WHERE 이름 = '정실기';
+(  2  ) 사원번호, 이름, 나이, 23 FROM 사원 WHERE 이름 = '정실기';
 
 # 전체 사원 테이블 조회
-SELECT  *   [    ③   ]   사원;
+SELECT * (  3  ) 사원;
 
 # 퇴사로 인해 부서에 해당하는 값을 '퇴사'로 변경
-UPDATE 사원   [      ④     ]   부서  =  '퇴사'  WHERE 사원번호  = 32431;`,
+UPDATE 사원 (  4  ) 부서 = '퇴사' WHERE 사원번호 = 32431;`,
     options: null,
     imageUrl: null
   },
@@ -63,7 +63,7 @@ UPDATE 사원   [      ④     ]   부서  =  '퇴사'  WHERE 사원번호  = 32
     answer: "5 4",
     question: "다음 릴레이션의 Cardinality와 Degree를 작성하시오.",
     passageOrCode: null,
-    options: ["Cardinality : (  ①  )", "Degree : (  ②  )"],
+    options: ["Cardinality : (  1  )", "Degree : (  2  )"],
     imageUrl: "https://blog.kakaocdn.net/dna/9GCnk/btsIQHjwfX4/AAAAAAAAAAAAAAAAAAAAAFcwOwpSbNpVcvUGl9r3CTTjPEncjPAQEPGf6rQv7RxE/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1793458799&allow_ip=&allow_referer=&signature=q%2BGLlXPZakyM5YJmkhhhUtyvIyQ%3D"
   },
   {
@@ -87,11 +87,11 @@ UPDATE 사원   [      ④     ]   부서  =  '퇴사'  WHERE 사원번호  = 32
       if temp == y:
         result += 1;
     return result
- 
+
 a = "abdcabcabca"
 p1 = "ab";
 p2 = "ca";
- 
+
 out = f"ab{fnCalculation(a,p1)}ca{fnCalculation(a,p2)}"
 print(out)`,
     options: null,
@@ -110,9 +110,10 @@ print(out)`,
   {
     id: 68,
     answer: "가상회선 데이터그램",
+    alt: "가상회선 방식 데이터그램 방식",
     question: "다음 패킷 교환방식에 대한 설명으로 알맞은 용어를 쓰시오.",
-    passageOrCode: `( 1 ): 연결형 교환 방식으로, 정보 전송 전에 제어 패킷에 의해 가상 경로를 설정하여 목적지 호스트에 미리 연결 후 통신한다. 가상 경로를 미리 설정하여 송신 측에서 전송한 순서와 수신 측에 도착한 순서가 동일하며, 정해진 시간 내 또는 다량의 데이터를 연속으로 전송할 때 적합한 방식이다.
-( 2 ): 비연결형 교환 방식으로, 가상 경로를 설정하지 않고 헤더에 붙여서 개별적으로 전달한다. 패킷을 수신한 라우터는 순간마다 최적의 경로를 선택하여 전송하므로, 패킷은 서로 다른 경로로 전송될 수 있다. 이 방식은 송신 측에서 전송한 순서와 수신 측에 도착한 순서가 다를 수 있으며, 짧은 메시지의 일시적인 전송에 적합한 방식이다.`,
+    passageOrCode: `- (  1  ): 연결형 교환 방식으로, 정보 전송 전에 제어 패킷에 의해 가상 경로를 설정하여 목적지 호스트에 미리 연결 후 통신한다. 가상 경로를 미리 설정하여 송신 측에서 전송한 순서와 수신 측에 도착한 순서가 동일하며, 정해진 시간 내 또는 다량의 데이터를 연속으로 전송할 때 적합한 방식이다.
+- (  2  ): 비연결형 교환 방식으로, 가상 경로를 설정하지 않고 헤더에 붙여서 개별적으로 전달한다. 패킷을 수신한 라우터는 순간마다 최적의 경로를 선택하여 전송하므로, 패킷은 서로 다른 경로로 전송될 수 있다. 이 방식은 송신 측에서 전송한 순서와 수신 측에 도착한 순서가 다를 수 있으며, 짧은 메시지의 일시적인 전송에 적합한 방식이다.`,
     options: null,
     imageUrl: null
   },

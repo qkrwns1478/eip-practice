@@ -336,8 +336,8 @@ int main() {
   },
   {
     id: 280,
-    answer: "제 3정규형",
-    alt: "제3정규형",
+    answer: "제3정규형",
+    alts: ["3NF", "3"],
     question: "아래 표에서 나타나고 있는 정규형을 작성하시오.",
     passageOrCode: null,
     options: null,

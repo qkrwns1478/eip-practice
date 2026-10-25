@@ -111,10 +111,8 @@ int main() {
     Data* d2 = malloc(sizeof(struct Data));
     d1.numPtr = &num; // # 기호 대신 &num으로 수정 (문맥상)
     d2( ) numPtr = &num; // # 기호 대신 &num으로 수정 (문맥상)
-    printf("%d\
-", *d1.numPtr);
-    printf("%d\
-", *d2( ) numPtr);
+    printf("%d\\n", *d1.numPtr);
+    printf("%d\\n", *d2( ) numPtr);
     free(d2);
     return 0;
 }`,
@@ -134,7 +132,14 @@ T1: 3, 1, 4
 T2: 2, 4, 3
 
 [쿼리]
-SELECT * FROM T1 UNION SELECT * FROM T2 ORDER BY A DESC;`,
+SELECT * FROM T1 UNION SELECT * FROM T2 ORDER BY A DESC;
+
+[결과]
+(    )
+(    )
+(    )
+(    )
+`,
     options: null,
     imageUrl: null,
   },
@@ -143,9 +148,9 @@ SELECT * FROM T1 UNION SELECT * FROM T2 ORDER BY A DESC;`,
     answer: "MAC RBAC DAC",
     question:
       "다음 설명은 서버 접근 통제의 유형이다. 괄호 안에 들어갈 용어를 작성하시오. (영어 약자로 작성하시오.)",
-    passageOrCode: `- ( (1) )은/는 규칙 기반(Rule-Based) 접근통제 정책으로, 객체에 포함된 정보의 허용 등급과 접근 정보에 대하여 주체가 갖는 접근 허가 권한에 근거하여 객체에 대한 접근을 제한하는 방법이다.
-- ( (2) )은/는 중앙 관리자가 사용자와 시스템의 상호관계를 통제하며 조직 내 맡은 역할(Role)에 기초하여 자원에 대한 접근을 제한하는 방법이다.
-- ( (3) )은/는 신분 기반(Identity-Based) 접근통제 정책으로, 주체나 그룹의 신분에 근거하여 객체에 대한 접근을 제한하는 방법이다.`,
+    passageOrCode: `- (  1  )은/는 규칙 기반(Rule-Based) 접근통제 정책으로, 객체에 포함된 정보의 허용 등급과 접근 정보에 대하여 주체가 갖는 접근 허가 권한에 근거하여 객체에 대한 접근을 제한하는 방법이다.
+- (  2  )은/는 중앙 관리자가 사용자와 시스템의 상호관계를 통제하며 조직 내 맡은 역할(Role)에 기초하여 자원에 대한 접근을 제한하는 방법이다.
+- (  3  )은/는 신분 기반(Identity-Based) 접근통제 정책으로, 주체나 그룹의 신분에 근거하여 객체에 대한 접근을 제한하는 방법이다.`,
     options: null,
     imageUrl: null,
   },
@@ -160,6 +165,7 @@ int f(int n) {
     else
         return n * f(n - 1);
 }
+
 int main() {
     printf("%d", f(7));
 }`,
@@ -170,8 +176,8 @@ int main() {
     id: 149,
     answer: "ATM",
     question:
-      "다음 설명에 대해 괄호 안에 알맞는 용어를 작성하시오. (영어 약자로 작성하시오.)",
-    passageOrCode: `- ( )은/는 자료를 일정한 크기로 정하여 순서대로 전송하는 자료의 전송 방식이다.
+      "다음 설명에 대해 괄호 안에 알맞는 용어를 작성하시오.",
+    passageOrCode: `- (    )은/는 자료를 일정한 크기로 정하여 순서대로 전송하는 자료의 전송 방식이다.
 - 셀이라 부르는 고정 길이 패킷을 이용하여 처리가 단순하고 고속망에 적합하며, 연속적으로 셀을 보낼 때 다중화를 하지 않고 셀단위로 동기가 이루어지지만 경우에 따라 동기식 시간 분할 다중화를 사용하기도 한다.
 - 가상 채널 (Virtual Channel) 기반의 연결 지향 서비스로 셀이라 부르는 고정 길이(53바이트) 패킷을 사용하며 통계적 다중화 방식을 이용한다.`,
     options: null,
